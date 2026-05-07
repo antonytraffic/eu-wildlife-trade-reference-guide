@@ -10,11 +10,7 @@ parent: annexes
 
 # Annex XVIII
 
-
-
 ## Guidance on handover of EU certificates in case of transfer of ownership of the certified specimen(s)
-
-
 
 **Introduction**
 
@@ -66,17 +62,14 @@ or any other specific information.
 
 There may be cases where the holder is entitled to further use the original certificate (example: it covers more than one specimen) regarding the purpose for other certified specimens and therefore it cannot be handed over to the new owner. In these cases the original document shall be split. In order to enable the new owner to provide evidence for legal acquisition by an original document, a new certificate covering only the sold specimen(s) shall be issued. In addition, the existing certificate shall be corrected or replaced by a new one reflecting the required changes in accordance with Article 51 IR 865/2006.
 
-
 **Transaction-Specific Certificate -TSC-**[^3]
 
 Two different types of TSC are in use:
 
-1. ‘holder specific certificates’/’certificates for privileged purposes’ issued in accordance with Article 8 (3) lit. c), e), f) or g) BR 338/97 (Article 11 (4) IR 865/2006) if the specimen is allowed to be used for privileged purposes (see the specific information on the certificate between boxes 19 and 20: yes/no boxes) or
-2. TSC, usually valid for one transaction only[^4]. 
+a. ‘holder specific certificates’/’certificates for privileged purposes’ issued in accordance with Article 8 (3) lit. c), e), f) or g) BR 338/97 (Article 11 (4) IR 865/2006) if the specimen is allowed to be used for privileged purposes (see the specific information on the certificate between boxes 19 and 20: yes/no boxes) or
+2. TSC, usually valid for one transaction only[^4].
 
-
-In both types - save the TSC exemption mentioned in footnote 5: valid for several transactions restricted to the territory of the issuing Member State - the yes-box is used to restrict the use of the document to the holder mentioned in box 1.
-
+b. In both types - save the TSC exemption mentioned in footnote 5: valid for several transactions restricted to the territory of the issuing Member State - the yes-box is used to restrict the use of the document to the holder mentioned in box 1.
 
 Article 11 (5) IR 865/2006 shall be interpreted as follows: The original certificate shall accompany the certified specimen(s) also in cases when it ceases to be valid after the transfer of ownership.
 

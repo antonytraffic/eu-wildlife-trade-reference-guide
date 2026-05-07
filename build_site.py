@@ -68,7 +68,57 @@ def parse_md_file(path: Path) -> dict:
     }
 
 
+_LETTER_BLOCK_RE = re.compile(r"^([a-z])\.\s+(.+)$", re.DOTALL)
+
+
+def _preprocess_lettered_lists(text: str) -> str:
+    """Convert a., b., c. … paragraph blocks into <ol class="lettered-list"> HTML."""
+    blocks = re.split(r"(\n\n+)", text)
+    # Rebuild interleaved [content, separator, content, separator, …]
+    # Detect runs of blocks that start with consecutive letters a, b, c, …
+    contents = blocks[0::2]
+    seps     = blocks[1::2]
+
+    result_contents: list[str] = []
+    i = 0
+    while i < len(contents):
+        m = _LETTER_BLOCK_RE.match(contents[i].strip())
+        if m and m.group(1) == "a":
+            items: list[str] = []
+            expected = ord("a")
+            while i < len(contents):
+                m2 = _LETTER_BLOCK_RE.match(contents[i].strip())
+                if m2 and ord(m2.group(1)) == expected:
+                    # Render inline markdown for this item via a minimal pass
+                    item_md = m2.group(2)
+                    item_html = markdown2.markdown(item_md, extras=["smarty-pants"])
+                    # Strip wrapping <p>…</p>
+                    item_html = re.sub(r"^\s*<p>(.*?)</p>\s*$", r"\1",
+                                       item_html.strip(), flags=re.DOTALL)
+                    items.append(item_html)
+                    expected += 1
+                    i += 1
+                else:
+                    break
+            ol = ('<ol class="lettered-list">'
+                  + "".join(f"<li>{it}</li>" for it in items)
+                  + "</ol>")
+            result_contents.append(ol)
+        else:
+            result_contents.append(contents[i])
+            i += 1
+
+    # Re-interleave with separators
+    out: list[str] = []
+    for j, c in enumerate(result_contents):
+        out.append(c)
+        if j < len(seps):
+            out.append(seps[j])
+    return "".join(out)
+
+
 def render_markdown(content: str) -> str:
+    content = _preprocess_lettered_lists(content)
     return markdown2.markdown(
         content,
         extras=["tables", "fenced-code-blocks", "header-ids", "smarty-pants", "footnotes"],
@@ -516,6 +566,28 @@ pre code { background: none; padding: 0; }
 .search-result__snippet mark { background: var(--focus); color: var(--black); padding: 0 2px; }
 .no-results { padding: 40px 0; text-align: center; color: var(--secondary); }
 
+/* -- Footnotes ---------------------------------------- */
+sup.footnote-ref {
+  font-size: 0.75rem; vertical-align: super; line-height: 0;
+}
+sup.footnote-ref a { color: var(--green); text-decoration: none; }
+sup.footnote-ref a:hover { text-decoration: underline; }
+.footnotes {
+  border-top: 1px solid var(--border);
+  margin-top: 40px; padding-top: 16px;
+  font-size: 0.8rem; color: var(--secondary);
+}
+.footnotes ol { margin-left: 1.25em; }
+.footnotes li { margin-bottom: 4px; line-height: 1.5; }
+.footnotes a { color: var(--secondary); }
+
+/* -- Lettered lists ----------------------------------- */
+ol.lettered-list {
+  list-style-type: lower-alpha;
+  margin: 0 0 18px 1.5em;
+}
+ol.lettered-list li { margin-bottom: 6px; }
+
 /* -- Footer ------------------------------------------- */
 .site-footer {
   background: var(--light-grey); border-top: 1px solid var(--border);
@@ -613,7 +685,7 @@ MAIN_JS = """\
       });
       links.forEach(function (l) { l.classList.remove('is-active'); });
       if (links[current]) links[current].classList.add('is-active');
-    }, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
+    }, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
 
     targets.forEach(function (t) { io.observe(t); });
   }

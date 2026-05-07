@@ -22,7 +22,7 @@
       });
       links.forEach(function (l) { l.classList.remove('is-active'); });
       if (links[current]) links[current].classList.add('is-active');
-    }, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
+    }, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
 
     targets.forEach(function (t) { io.observe(t); });
   }
