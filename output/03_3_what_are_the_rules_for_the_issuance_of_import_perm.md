@@ -355,17 +355,11 @@ Import restrictions under Article 4(6) are published by the Commission in the Su
 
 ## 3.3.10 Summary of conditions that must be fulfilled for the issue of import permits for  specimens of species listed in Annexes A or B
 
-<div class=”table-wrap”>
-<table class=”govuk-table”>
+<table>
 <thead>
 <tr>
-  <th colspan=”2” style=”width:16%”>Annex</th>
+  <th colspan="2" style="width:16%">Annex</th>
   <th>Conditions<sup>1</sup></th>
-</tr>
-<tr>
-  <th style=”width:8%”>A</th>
-  <th style=”width:8%”>B</th>
-  <th></th>
 </tr>
 </thead>
 <tbody>
@@ -411,9 +405,8 @@ Import restrictions under Article 4(6) are published by the Commission in the Su
 </tr>
 </tbody>
 </table>
-</div>
 
-A* and B*: Does not apply to re-imports and worked specimens acquired more than 50 years before the EU Wildlife Trade Regulations came into effect, i.e. before 3 March 1947 (see **Section 3.6.3**) (Article 4(5) *Regulation (EC) No 338/97*)
+Note: A* and B*: Does not apply to re-imports and worked specimens acquired more than 50 years before the EU Wildlife Trade Regulations came into effect, i.e. before 3 March 1947 (see **Section 3.6.3**) (Article 4(5) *Regulation (EC) No 338/97*)
 
 [^1]: Articles 4(1) and (2) *Regulation (EC) No 338/97*
 [^2]: Article 13(1) *Regulation (EC) No 865/2006*

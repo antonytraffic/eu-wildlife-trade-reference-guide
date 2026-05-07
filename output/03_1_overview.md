@@ -31,90 +31,22 @@ In addition to documents issued by EU Management Authorities, **relevant documen
 
 *Table 6: Documents needed for trade into and from the EU, in species listed in Annex A, B, C or D of the EU Wildlife Trade Regulations*
 
-<div class="table-wrap">
-<table class="govuk-table">
-<caption>Source: adapted from Council Regulation (EC) No 338/97.</caption>
-<colgroup>
-  <col style="width:15%">
-  <col style="width:8%">
-  <col style="width:57%">
-  <col style="width:20%">
-</colgroup>
-<thead>
-<tr>
-  <th>Type of trade</th>
-  <th>Annex</th>
-  <th>Documents Required <em>(Note: documents have to be obtained before trade takes place and must be presented to Customs upon introduction into/export from the EU)</em></th>
-  <th>Article of <em>Regulation (EC) No 338/97</em></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td rowspan="4">Import</td>
-  <td>A</td>
-  <td><strong>Export permit or re-export certificate</strong> issued by country of export and <strong>import permit</strong> issued by the EU Member State of destination.<sup>*</sup></td>
-  <td>4(1)</td>
-</tr>
-<tr>
-  <td>B</td>
-  <td><strong>Export permit or re-export certificate</strong> issued by country of export and <strong>import permit</strong> issued by the EU Member State of destination.<sup>*</sup></td>
-  <td>4(2)</td>
-</tr>
-<tr>
-  <td>C</td>
-  <td><strong>Export permit or re-export certificate</strong> <strong>or certificate of origin</strong> issued by the country of export (depending on whether or not the country of export has listed the species in Appendix III of CITES) and <strong>import notification</strong> completed by the importer and presented to the Customs office upon introduction into the EU. No documents are required if the specimen originates from a population that is not included in Annex C (for those species where only a national population is included in Appendix III and Annex C).</td>
-  <td>4(3)</td>
-</tr>
-<tr>
-  <td>D</td>
-  <td><strong>Import notification</strong> completed by the importer and presented to the Customs office upon introduction into the EU.</td>
-  <td>4(4)</td>
-</tr>
-<tr>
-  <td rowspan="4">Export</td>
-  <td>A</td>
-  <td><strong>Export permit</strong> issued by the EU Member State of export and <strong>import permit</strong> issued by country of destination.<sup>**</sup></td>
-  <td>5(1)&#8211;(2)</td>
-</tr>
-<tr>
-  <td>B</td>
-  <td><strong>Export permit</strong> issued by the EU Member State of export.</td>
-  <td>5(4)</td>
-</tr>
-<tr>
-  <td>C</td>
-  <td><strong>Export permit</strong> issued by the EU Member State of export unless the specimen originates from a population that is not included in Annex C (for those species where only a national population is included in Appendix III and Annex C).</td>
-  <td></td>
-</tr>
-<tr>
-  <td>D</td>
-  <td>No documents required.</td>
-  <td></td>
-</tr>
-<tr>
-  <td rowspan="4">Re-export</td>
-  <td>A</td>
-  <td><strong>Re-export certificate</strong> issued by the EU Member State of re-export and <strong>import permit</strong> issued by the country of destination.<sup>**</sup></td>
-  <td>5(1), 5(3), 5(5)</td>
-</tr>
-<tr>
-  <td>B</td>
-  <td><strong>Re-export certificate</strong> issued by the EU Member State of re-export.</td>
-  <td>5(4)&#8211;(5)</td>
-</tr>
-<tr>
-  <td>C</td>
-  <td><strong>Re-export certificate</strong> from the EU Member State of re-export unless the specimen originates from a population that is not included in Annex C (for those species where only a national population is included in Appendix III and Annex C).</td>
-  <td>5(4)&#8211;(5)</td>
-</tr>
-<tr>
-  <td>D</td>
-  <td>No documents required.</td>
-  <td></td>
-</tr>
-</tbody>
-</table>
-</div>
+| **Type of trade** | **Annex** | **Documents Required** (*Note: documents have to be obtained before trade takes place and must be presented to Customs upon introduction into/export from the EU)* | **Article of** ***Regulation (EC) No 338/97*** |
+| --- | --- | --- | --- |
+| Import | A | **Export permit or re-export certificate** issued by country of export and **import permit** issued by the EU Member State of destination.* | 4(1) |
+|  | B | **Export permit or re-export certificate** issued by country of export and **import permit** issued by the EU Member State of destination. * | 4(2) |
+|  | C | **Export permit or re-export certificate** **or certificate of origin** issued by the country of export (depending on whether or not the country of export has listed the species in Appendix III of CITES) and **import notification** completed by the importer and presented to the Customs office upon introduction into the EU. No documents are required if the specimen originates from a population that is not included in Annex C (for those species where only a national population is included in Appendix III and Annex C). | 4(3) |
+|  | D | **Import notification** completed by the importer and presented to the Customs office upon introduction into the EU. | 4(4) |
+| Export | A | **Export permit** issued by the EU Member State of export and **import permit** issued by country of destination. ** | 5(1)-(2) |
+|  | B | **Export permit** issued by the EU Member State of export. | 5(4) |
+|  | C | **Export permit** issued by the EU Member State of export unless the specimen originates from a population that is not included in Annex C (for those species where only a national population is included in Appendix III and Annex C). |  |
+|  | D | No documents required. |  |
+| Re-export | A | **Re-export certificate** issued by the EU Member State of re-export and **import permit** issued by the country of destination. ** | 5(1), 5(3), 5(5) |
+|  | B | **Re-export certificate** issued by the EU Member State of re-export. | 5(4)-(5) |
+|  | C | **Re-export certificate** from the EU Member State of re-export unless the specimen originates from a population that is not included in Annex C (for those species where only a national population is included in Appendix III and Annex C). | 5(4)-(5) |
+|  | D | No documents required. |  |
+
+***Source:*** *adapted from* Council Regulation (EC) No 338/97.
 
 The export permit is only required when the species is listed in the CITES Appendices.
 

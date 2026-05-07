@@ -355,23 +355,23 @@ It should be noted that the provisions of CITES governing personal and household
 <div class="table-wrap">
 <table class="govuk-table">
 <colgroup>
-  <col style="width:8%">
-  <col style="width:8%">
-  <col>
+  <col style="width:6%">
+  <col style="width:10%">
   <col style="width:20%">
-  <col style="width:20%">
+  <col style="width:32%">
+  <col style="width:32%">
 </colgroup>
 <thead>
 <tr>
-  <th rowspan="2">Annex</th>
-  <th rowspan="2">Article</th>
-  <th rowspan="2">Import into and/or export from EU</th>
-  <th>EU residents</th>
-  <th>Non-EU residents</th>
+  <th rowspan="2" style="text-align:center;font-weight:bold;"><span style="writing-mode:vertical-lr;transform:rotate(180deg);display:inline-block;white-space:nowrap;">Annex</span></th>
+  <th rowspan="2" style="text-align:center;font-weight:bold;"><span style="writing-mode:vertical-lr;transform:rotate(180deg);display:inline-block;white-space:nowrap;">Article</span></th>
+  <th rowspan="2" style="font-weight:bold;">Import into and/or export from EU</th>
+  <th style="font-weight:bold;">EU residents</th>
+  <th style="font-weight:bold;">Non-EU residents</th>
 </tr>
 <tr>
-  <th>Documents Required: <em>Issued before travelling and presented to Customs officer</em></th>
-  <th>Documents Required: <em>Issued before travelling and presented to Customs officer</em></th>
+  <th style="font-weight:bold;">Documents Required: <em>Issued before travelling and presented to Customs officer</em></th>
+  <th style="font-weight:bold;">Documents Required: <em>Issued before travelling and presented to Customs officer</em></th>
 </tr>
 </thead>
 <tbody>
@@ -608,8 +608,11 @@ The form is accompanied by a **continuation sheet** similar to that used with a 
 In **box 23** of the musical instrument certificate, or in an **appropriate annex** to the certificate, the following text must be inserted[^90]:
 
 > *Valid for multiple cross-border movements. Original to be retained by holder.*
+>
 > *The musical instrument covered by this certificate, which permits multiple cross-border movements, is for non-commercial use for purposes including, but not limited to, personal use, performance, production (recordings), broadcast, teaching, display or competition. The musical instrument covered by this certificate may not be sold or possession of it transferred whilst it is outside the State in which the certificate was issued.* 
+>
 > *This certificate must be returned to the management authority of the State which issued the certificate before the expiration of the certificate.* 
+>
 > *This certificate is not valid unless accompanied by a continuation sheet, which must be stamped and signed by a customs official at each border crossing.*
 
 A specimen which is covered by a musical instrument certificate **must be**[^91]**:**
@@ -655,8 +658,11 @@ If the specimen originates from a country **outside of the EU**, the Management 
 In **box 23** of the personal ownership certificate, or in an **appropriate annex** to the certificate, the following text must be inserted[^101]:
 
 > *Valid for multiple cross-border movements where the specimen is accompanied by its owner.  Legal owner to retain original form.*  
-> *The specimen covered by this certificate may not be sold or otherwise transferred except in accordance with Article 43 of* Commission Regulation (EC) No. 865/2006*.  This certificate is non-transferable.  If the specimen dies, is stolen, destroyed, or lost, or if it is sold or ownership of the specimen is otherwise transferred, this certificate must be immediately returned to the issuing Management Authority.*  
+>
+> *The specimen covered by this certificate may not be sold or otherwise transferred except in accordance with Article 43 of *Commission Regulation (EC) No. 865/2006*.  This certificate is non-transferable.  If the specimen dies, is stolen, destroyed, or lost, or if it is sold or ownership of the specimen is otherwise transferred, this certificate must be immediately returned to the issuing Management Authority.*  
+>
 > *This certificate is not valid unless accompanied by a continuation sheet, which must be stamped and signed by a Customs official at each border crossing.* 
+>
 > *This certificate shall in no way affect the right of States to adopt stricter domestic measures regarding restrictions or conditions for the holding/keeping of live animals*.
 
 If an animal covered by a personal ownership certificate **gives birth** whilst in a Member State, the **Management Authority** of that State must be **notified** and a certificate issued (or a permit if the offspring is to be used for purposes other than as a personal pet), as appropriate[^102].
@@ -700,7 +706,7 @@ A sample collection certificate may be used in place of[^111]:
 The **form** to be used for a sample collection certificate is the **same as for an import or export permit or a re-export certificate**[^112] (see **Figure 2 and Table 7**). However, the certificate must indicate that the document is for “**Other: Sample Collection**” and the number of the accompanying **ATA carnet** should be included in **box 23**[^113]. The following text should also be included in **box 23** or in an appropriate annex to the certificate:
 
 > *For sample collection accompanied by ATA carnet No. xxx.*  
-
+>
 > *This certificate covers a sample collection and is not valid unless accompanied by a valid ATA carnet. This certificate is non-transferable.  The specimens covered by this certificate may not be sold or otherwise transferred whilst outside the territory of the State that issued this document. This certificate may be used for (re-)export from [indicate country of (re-) export] via [indicate countries to be visited] for presentation purposes and import back to [indicate country of (re-)export].*
 
 Detailed steps on application and issuance are provided in **Figure 14**. 

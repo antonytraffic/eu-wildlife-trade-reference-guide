@@ -115,7 +115,7 @@ For the re-export of specimens, documentary evidence of legal introduction into 
 
 23. **Special conditions**: (for official use only) Space for the issuing authority to impose stipulations, conditions and requirements in order to ensure compliance with EU and national legislation. 
 
-24  **Surrender of (re-)export documentation:** (for official use only) Not applicable for export and re-export.
+24. **Surrender of (re-)export documentation:** (for official use only) Not applicable for export and re-export.
 
 25. This is the actual validation of the import permit (for official use only).
 
@@ -194,12 +194,6 @@ In order for an export permit or re-export certificate to be issued by an EU Man
   <th colspan="3" style="width:18%">Annex</th>
   <th>Conditions<sup>1</sup></th>
 </tr>
-<tr>
-  <th style="width:6%">A</th>
-  <th style="width:6%">B</th>
-  <th style="width:6%">C</th>
-  <th></th>
-</tr>
 </thead>
 <tbody>
 <tr>
@@ -233,9 +227,9 @@ In order for an export permit or re-export certificate to be issued by an EU Man
   <td>The Management Authority is satisfied, following consultation with the Scientific Authority that there are <strong>no other factors which militate against export</strong> (Article 5(2)(d) and 5(4) <em>Regulation (EC) No 338/97</em>).</td>
 </tr>
 </tbody>
+<caption>A*, B*, C*: Does not apply to worked specimens acquired before 3 March 1947 (see <strong>Section 3.6.3</strong>), and dead specimens legally acquired before <em>Regulation (EC) No 338/97</em>, <em>Regulation (EEC) No 3626/82</em>, or the Convention became applicable to them (Article 5(6) <em>Regulation (EC) No 338/97</em>).</caption>
 </table>
 </div>
-A*, B*, C*: Does not apply to worked specimens acquired before 3 March 1947 (see **Section 3.6.3**), and dead specimens legally acquired before *Regulation (EC) No 338/97*, *Regulation (EEC)No 3626/82*, or the Convention became applicable to them (Article 5(6) *Regulation (EC) No 338/97*).
 
 *Table 11: Conditions to be fulfilled for the issue of re-export certificates for species listed in Annexes A, B or C*
 
@@ -245,12 +239,6 @@ A*, B*, C*: Does not apply to worked specimens acquired before 3 March 1947 (see
 <tr>
   <th colspan="3" style="width:18%">Annex</th>
   <th>Conditions<sup>1</sup></th>
-</tr>
-<tr>
-  <th style="width:6%">A</th>
-  <th style="width:6%">B</th>
-  <th style="width:6%">C</th>
-  <th></th>
 </tr>
 </thead>
 <tbody>
@@ -279,9 +267,9 @@ A*, B*, C*: Does not apply to worked specimens acquired before 3 March 1947 (see
   <td>The Management Authority is satisfied that the <strong>specimens were introduced into the EU in accordance with</strong> <strong><em>Regulation (EC) No 338/97</em></strong><strong>,</strong> <strong><em>Regulation (EEC) No 3626/82</em></strong> <strong>or CITES</strong>, or were <strong>legally introduced</strong> into a Member State before applicability of these Regulations/the Convention to the species or in the Member State concerned (Articles 5(3)(a)-(d) and 5(4) <em>Regulation (EC) No 338/97</em>) (see <strong>Section 3.6.4</strong>). In addition: Where import into the EU took place under an import permit issued by another Member State, the Management Authority of that Member State must be consulted (Article 5(5) <em>Regulation (EC) No 338/97</em>). Where specimens have been individually marked under the supervision of a Management Authority to facilitate reference to the documents concerned (Article 26(8) <em>Regulation (EC) No 865/2006</em>), the physical presentation of such documents shall not be required in support of an application for a re-export certificate, provided that their number is included in the application. In the absence of supporting documentary evidence, the Management Authority shall determine legal introduction into the EU, where necessary in consultation with a Management Authority of another Member State (Article 26(9) <em>Regulation (EC) No 865/2006</em>).</td>
 </tr>
 </tbody>
+<caption>A*: Does not apply to worked specimens acquired before 3 March 1947 (see <strong>Section 3.6.3</strong>), and dead specimens legally acquired before <em>Regulation (EC) No 338/97</em>, <em>Regulation (EEC) No 3626/82</em>, or the Convention became applicable to them (Article 5(6) <em>Regulation (EC) No 338/97</em>).</caption>
 </table>
 </div>
-A*: Does not apply to worked specimens acquired before 3 March 1947 (see **Section 3.6.3**), and dead specimens legally acquired before *Regulation (EC) No 338/97*, *Regulation (EEC) No 3626/82*, or the Convention became applicable to them (Article 5(6) *Regulation (EC) No 338/97*).
 
 [^1]: Article 5 *Regulation (EC) No 338/97.*
 [^2]: *As above.*

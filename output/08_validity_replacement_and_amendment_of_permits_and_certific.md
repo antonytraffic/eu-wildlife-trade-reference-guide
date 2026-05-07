@@ -19,13 +19,13 @@ Permits or certificates may, however, **not be valid for import into another Mem
 
 Article 10 of *Regulation (EC) No 865/2006* lays down rules with regard to the **time validity** of permits and certificates, such as: 
 
-**Import permits** issued by an EU Management Authority (and the copy for the holder) are valid up to **twelve months**. However, they are not valid in the absence of a **valid export permit** or **re-export certificate**[^2] 
+- **Import permits** issued by an EU Management Authority (and the copy for the holder) are valid up to **twelve months**. However, they are not valid in the absence of a **valid export permit** or **re-export certificate**[^2] 
 
-**Export permits/re-export certificates** (and the copy for the holder) issued by an EU Management Authority are valid up to **six months**[^3]. **Travelling exhibition certificates, personal ownership certificates** and **musical instrument certificates** issued by an EU Management Authority are valid up to **three years**[^4].
+- **Export permits/re-export certificates** (and the copy for the holder) issued by an EU Management Authority are valid up to **six months**[^3]. **Travelling exhibition certificates, personal ownership certificates** and **musical instrument certificates** issued by an EU Management Authority are valid up to **three years**[^4].
 
-**Sample collection certificates** issued by an EU Management Authority are valid up to **six months**[^5].
+- **Sample collection certificates** issued by an EU Management Authority are valid up to **six months**[^5].
 
-**Internal trade certificates** generally do not have a time validity. They remain valid as long as the information contained in the document still corresponds to reality, unless a specific time restriction is mentioned on the certificate (for example a certificate issued for a live specimen that could not be marked at that time, but which can be marked in future: in box 20 a condition will stipulate when the marking should take place and/or at which point in time the certificate will cease to be valid (see also further down this chapter). 
+- **Internal trade certificates** generally do not have a time validity. They remain valid as long as the information contained in the document still corresponds to reality, unless a specific time restriction is mentioned on the certificate (for example a certificate issued for a live specimen that could not be marked at that time, but which can be marked in future: in box 20 a condition will stipulate when the marking should take place and/or at which point in time the certificate will cease to be valid (see also further down this chapter). 
 
 After their **expiration**, these documents will be considered as **void**[^6] and can no longer be used to authorize trade in the specimens covered by these documents.
 
@@ -34,14 +34,15 @@ However, in the case of **caviar** of **sturgeon** **and paddlefish** species (A
 Permits and certificates **will also cease to be valid** in the following cases (i.e. other than due to expiration), which are set out in Article 11 of *Regulation (EC) No 865/2006*:
 
 - **Copies for the holder of used import permits, internal trade certificates** and **pre-issued certificates for breeders** where[^9]:
-- the live specimens referred to have died or, in the case of live animals, have escaped or have been released to the wild;
-- the specimens referred to have been lost, destroyed or stolen;
-- the details of the importer, the authorised location for the keeping of live Annex A specimens, or the description of the specimen contained in the permit (e.g. the unique mark) no longer reflect the actual situation; or
-- any of the special conditions specified by the issuing Management Authority are no longer fulfilled (NOTE: applies in the case of internal trade certificates and pre-issued certificates for breeders, only).
+  - the live specimens referred to have died or, in the case of live animals, have escaped or have been released to the wild;
+  - the specimens referred to have been lost, destroyed or stolen;
+  - the details of the importer, the authorised location for the keeping of live Annex A specimens, or the description of the specimen contained in the permit (e.g. the unique mark) no longer reflect the actual situation; or
+  - any of the special conditions specified by the issuing Management Authority are no longer fulfilled (NOTE: applies in the case of internal trade certificates and pre-issued certificates for breeders, only).
+
 
 - **Travelling exhibition certificates, personal ownership certificates and musical instrument** certificates if the specimen is **sold, lost, destroyed or stolen** (and in the case of a live specimen, if it has died, escaped or been released into the wild), or if the **ownership** of the specimen is otherwise **transferred**[^10].
 
-- **Specimen-specific certificates** will generally **not cease** to be valid when the **holder** changes (as specified in **box 1**) as long as the **other information contained in the permit has not changed**. However, there are exceptions to this[^11], including for
+**Specimen-specific certificates** will generally **not cease** to be valid when the **holder** changes (as specified in **box 1**) as long as the **other information contained in the permit has not changed**. However, there are exceptions to this[^11], including for
 
 - specimens required under exceptional circumstances for the advancement of science or for essential biomedical purposes[^12];
 

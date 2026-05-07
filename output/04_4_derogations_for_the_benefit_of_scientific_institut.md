@@ -37,7 +37,7 @@ Management Authorities can provide pre-issued certificates to breeders of Annex 
 
 These breeders must be approved by the relevant Management Authority and must maintain breeding records, which must, on request, be produced to the competent Management Authority. Such certificates should, in **box 20**, include the following statement:
 
-*certificate only valid for the following taxon / taxa*: ...
+> *CERTIFICATE ONLY VALID FOR THE FOLLOWING TAXON / TAXA: ...*
 
 
 ## 4.4.3  Dead captive-bred or wild specimens of Annex A-listed species

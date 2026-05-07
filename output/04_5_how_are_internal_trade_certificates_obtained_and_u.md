@@ -22,7 +22,7 @@ Internal trade certificates (see **Figure 15**, above) are issued in accordance 
   - Letter d): for the purpose of using the specimens for the advancement of science/breeding or propagation/research or education or other non-detrimental purposes,
 - Letter e):  EU certificate for the movement of live specimens.
 
-- ### 4.5.1.1. As documentary evidence that the specimen was legally obtained for the purpose of application of (re-)export documents
+### 4.5.1.1. As documentary evidence that the specimen was legally obtained for the purpose of application of (re-)export documents
 
 - **Documentary evidence** may be required to prove that a specimen of an **Annex A, B or C-listed species** which is acquired in one Member State, and is to be exported from another, was **taken from the wild** in accordance with the **legislation** of the Member State of origin (see **Section 3.5.8**)[^1].
 
@@ -31,15 +31,15 @@ Likewise, **documentary evidence** may also be required for the purpose of re-ex
 Certificates issued for that purpose will state that specimens[^3]:
 
 a. were **taken from the wild** in accordance with the legislation in force on its territory; 
-2. are **abandoned or escaped specimens** that were recovered in accordance with the legislation in force on its territory; 
-3. were **acquired in, or were introduced** into, the EU in accordance with the provisions of ***Regulation (EC) No 338/97***;
-4. were **acquired in, or were introduced** into, the EU before **3 March 1997** in accordance with *Regulation (EEC) No 3626/82*;
-5. were **acquired in, or were introduced** into, the EU before **1 January 1984** in accordance with the provisions of the **Convention**; or
-6. were **acquired in, or were introduced** into the territory of a Member State **before** the provisions of the current Regulations (referred to in (c) above), the old regulations (referred to in (d)) or the Convention (referred to in (e)) became applicable to the species, or became applicable in that Member State.
+b. are **abandoned or escaped specimens** that were recovered in accordance with the legislation in force on its territory; 
+c. were **acquired in, or were introduced** into, the EU in accordance with the provisions of ***Regulation (EC) No 338/97***;
+d. were **acquired in, or were introduced** into, the EU before **3 March 1997** in accordance with *Regulation (EEC) No 3626/82*;
+e. were **acquired in, or were introduced** into, the EU before **1 January 1984** in accordance with the provisions of the **Convention**; or
+f. were **acquired in, or were introduced** into the territory of a Member State **before** the provisions of the current Regulations (referred to in (c) above), the old regulations (referred to in (d)) or the Convention (referred to in (e)) became applicable to the species, or became applicable in that Member State.
 
-b. ### 4.5.1.2. To grant a specific exemption from the prohibition of trade in Annex A-listed species in accordance with Article 8(3) of Regulation (EC) No 338/97
+### 4.5.1.2. To grant a specific exemption from the prohibition of trade in Annex A-listed species in accordance with Article 8(3) of Regulation (EC) No 338/97
 
-c. Certificates issued in accordance with Article 10 for this purpose will state that specimens of species listed in Annex A are exempted from one or more of the prohibitions of Article 8(1) because they[^4]:
+Certificates issued in accordance with Article 10 for this purpose will state that specimens of species listed in Annex A are exempted from one or more of the prohibitions of Article 8(1) because they[^4]:
 
 a. were acquired in, or were introduced into, the EU when the provisions relating to species listed in Annex A or in Appendix I to the Convention or in Annex C1 to *Regulation (EEC) 3626/82* were **not applicable to them**;
 
@@ -49,13 +49,13 @@ c. are, or are parts of, or are derived from, **animals born and bred in captivi
 
 d. are authorised to be used for one of the purposes referred to in Article 8(3)(c) and (e) to (g) of *Regulation (EC) No 338/97*, namely:
 
-- unspecified non-detrimental purposes;
+  - unspecified non-detrimental purposes;
 
-- advancement of science or biomedical research where the species is the only one suitable for those purposes and where there are no specimens of the species which have been born and bred in captivity available;
+  - advancement of science or biomedical research where the species is the only one suitable for those purposes and where there are no specimens of the species which have been born and bred in captivity available;
 
-- breeding/propagation programmes of conservation benefit for the species; or
+  - breeding/propagation programmes of conservation benefit for the species; or
 
-- research or education of conservation benefit for the species.
+  - research or education of conservation benefit for the species.
 
 ### 4.5.1.3. To authorise the movement of live specimens of Annex A-listed species from a prescribed location
 
