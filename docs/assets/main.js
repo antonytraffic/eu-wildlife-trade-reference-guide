@@ -13,15 +13,24 @@
     if (!targets.length) return;
 
     var current = 0;
+
+    function setActive(idx) {
+      current = idx;
+      links.forEach(function (l) { l.classList.remove('is-active'); });
+      if (links[current]) links[current].classList.add('is-active');
+    }
+
+    links.forEach(function (l, idx) {
+      l.addEventListener('click', function () { setActive(idx); });
+    });
+
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) {
           var idx = targets.indexOf(e.target);
-          if (idx !== -1) current = idx;
+          if (idx !== -1) setActive(idx);
         }
       });
-      links.forEach(function (l) { l.classList.remove('is-active'); });
-      if (links[current]) links[current].classList.add('is-active');
     }, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
 
     targets.forEach(function (t) { io.observe(t); });

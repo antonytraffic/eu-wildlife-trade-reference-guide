@@ -65,11 +65,11 @@ In some cases, entire genera or families are listed, so if you cannot see the na
 
 **Annex A**[^8] contains: 
 
-all CITES **Appendix I-listed** species except those for which EU Member States have entered a reservation (currently not applicable since there are no Appendix I-listed species subject to such a reservation); 
+a. all CITES **Appendix I-listed** species except those for which EU Member States have entered a reservation (currently not applicable since there are no Appendix I-listed species subject to such a reservation);
 
-any species (listed in CITES Appendix II, III, or non-CITES-listed) that is, or may be, in EU or international demand and which is either threatened with extinction or is so rare that any **trade would imperil its survival in the wild**[^9], and 
+b. any species (listed in CITES Appendix II, III, or non-CITES-listed) that is, or may be, in EU or international demand and which is either threatened with extinction or is so rare that any **trade would imperil its survival in the wild**[^9], and
 
-some species listed in CITES Appendix II, III or non-CITES-listed: If most of the species in a genus (or most of the subspecies in a species) are listed in Annex A, the remaining species can also be listed if this is considered to be essential for the effective protection of the species listed in Annex A, in order to exclude commercial trade in the entire genus or species (e.g. for reasons related to control/enforcement). 
+c. some species listed in CITES Appendix II, III or non-CITES-listed: If most of the species in a genus (or most of the subspecies in a species) are listed in Annex A, the remaining species can also be listed if this is considered to be essential for the effective protection of the species listed in Annex A, in order to exclude commercial trade in the entire genus or species (e.g. for reasons related to control/enforcement).
 
 Finally, although there is no separate provision in *Regulation (EC) No 338/97*, **CITES-listed species** that in **1997** were subject to a **trade prohibition under EU legislation** on the protection of indigenous species (Directive on the conservation of wild birds[^10] and the so-called “Habitats Directive”[^11]), are automatically listed in Annex A. The names of these species in Annex A are printed in **bold**. However, species that came within the remit of those Directives with the later accession of new Member States, or that were added to the Appendices since 1997, are not included in Annex A. 
 
@@ -108,9 +108,9 @@ Appendix I-listed species for which **EU Member States have entered a reservatio
 
 **any species** (CITES Appendix III-listed, non-CITES-listed) subject to **levels of international trade** that may **not be compatible with the survival of populations in certain countries, or with the maintenance of its total population at a level consistent with its role in the ecosystem**[^14]; 
 
-some “look-alike” species, whose listing is considered essential for the effective control of trade in other species listed in Annex A or B (see also **Section 2.1**), and
+a. some “look-alike” species, whose listing is considered essential for the effective control of trade in other species listed in Annex A or B (see also **Section 2.1**), and
 
-species (CITES Appendix III-listed, non-CITES-listed) known to pose an **ecological threat** to species that are indigenous to the EU (currently one species listed[^15]).
+b. species (CITES Appendix III-listed, non-CITES-listed) known to pose an **ecological threat** to species that are indigenous to the EU (currently one species listed[^15]).
 
 *Table 3: Number of species and subspecies listed in Annex B of the EU Wildlife Trade Regulations, updated 10 July 2025*
 

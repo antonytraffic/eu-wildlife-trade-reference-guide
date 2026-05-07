@@ -21,13 +21,13 @@ It should be noted that this Guide deals **only** with the requirements of the E
 
 There are different types of **documents required** under the Wildlife Trade Regulations for trade into and from the EU: 
 
-an **import permit** for the import of specimens of Annex A or B-listed species[^2] (the stamped and signed holder’s copy of the import permit may also be used later as confirmation that the specimen was lawfully imported should the need arise);
+a. an **import permit** for the import of specimens of Annex A or B-listed species[^2] (the stamped and signed holder’s copy of the import permit may also be used later as confirmation that the specimen was lawfully imported should the need arise);
 
-an **export permit** for the export of specimens of Annex A-, B- or C-listed species[^3] [^4]; 
+b. an **export permit** for the export of specimens of Annex A-, B- or C-listed species[^3] [^4];
 
-a **re-export certificate** for the re-export of specimens of Annex A, B- or C-listed species[^5], 37, and 
+c. a **re-export certificate** for the re-export of specimens of Annex A, B- or C-listed species[^5], 37, and
 
-an **import notification** form for the import of Annex C37 or D-listed species, which is to be completed by the importer[^6].
+d. an **import notification** form for the import of Annex C37 or D-listed species, which is to be completed by the importer[^6].
 
 
 In certain cases, special certificates may be used instead of import or export permits and re-export certificates – for example, **travelling exhibition certificates, personal ownership certificates** and **musical instrument certificates** (see **Section 3.6**). 

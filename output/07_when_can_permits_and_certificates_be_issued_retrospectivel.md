@@ -25,9 +25,9 @@ It should be noted that an importer’s or (re-)exporter’s **claim** that he o
 
 However, *Regulation (EC) No 865/2006* recognises that **private individuals** can make mistakes and so provides that retrospective permits/certificates may be issued to such persons in respect of **personally owned live animals**, which are legally acquired and held for personal non-commercial purposes, and, in exceptional cases, as regards **imported dead specimens listed in Annex B** to Regulation (EC) No 338/97 which are legally exported, where the competent Management Authority is satisfied that:
 
-a **genuine error** has been made and there was **no intention to deceive**, and 
+a. a **genuine error** has been made and there was **no intention to deceive**, and
 
-the import/(re-)export is **otherwise in compliance** with the provisions of EU Regulations, the Convention and the relevant legislation of the third country involved[^2].
+b. the import/(re-)export is **otherwise in compliance** with the provisions of EU Regulations, the Convention and the relevant legislation of the third country involved[^2].
 
 
 This derogation shall not apply if the importer or (re-)exporter has made a similar error before.

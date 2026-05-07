@@ -1,79 +1,79 @@
 {
   "02_what_species_are_covered_by_the_regulations_and_in_what_wa": {
-    "hash": "7247658db1b8",
-    "summary": "Identify which of three CITES Appendices a species belongs to and its trade restrictions."
+    "hash": "034588417acf",
+    "summary": "2.1 The CITES Appendices Under CITES, animal and plant species[^1] are subject to different degrees of regulation by listing in three Appendices (which are referred to in this Guide as “the Appendices”). Table 1 indicates the number of species that are listed in the CITES..."
   },
   "03_what_are_the_rules_governing_trade_into_and_from_the_eu_fo": {
     "hash": "1cf969a8ae61",
-    "summary": "Obtaining import permits and notifications for listed species and meeting export documentation requirements."
+    "summary": "Obtaining the correct import permits, export permits, re-export certificates, and import notifications for listed species."
   },
   "04_what_rules_govern_internal_eu_trade": {
     "hash": "40deed34e6bb",
-    "summary": "Learning general principles, exemptions, Internet trade rules, scientific derogations, and obtaining internal trade certificates."
+    "summary": "Understanding which species require certificates for trade within the EU and how to obtain and use them."
   },
   "05_what_are_the_rules_governing_transport_keeping_and_movemen": {
     "hash": "01574e51e1b9",
-    "summary": "Following IATA and CITES guidelines when transporting live specimens to minimize injury and ensure proper care."
+    "summary": "Following IATA and CITES guidelines when transporting, keeping, and moving live specimens to ensure their welfare."
   },
   "06_what_are_the_rules_regarding_marking_of_specimens": {
     "hash": "53fab7915b8a",
-    "summary": "There are certain specimens of species listed in the Annexes of Regulation (EC) No 338/97 that have to be uniquely marked, for internal EU trade control purposes (e.g. live Annex A-listed vertebrates[^1]) or for the purposes of controlling trade to and from the EU (e.g."
+    "summary": "Understanding which specimens must be uniquely marked and how marking prevents fraud and controls illegal trade."
   },
   "07_when_can_permits_and_certificates_be_issued_retrospectivel": {
-    "hash": "db1b9a8389ee",
-    "summary": "Reporting unexpected shipments to authorities and obtaining retrospective permits in exceptional circumstances."
+    "hash": "32bc1b8314d9",
+    "summary": "It is possible that an importer receives an unexpected shipment (e.g. before the scheduled date of arrival and before he/she has been able to apply for a permit) at an EU border for which the bill of lading indicates that s/he is the consignee."
   },
   "08_validity_replacement_and_amendment_of_permits_and_certific": {
-    "hash": "09292e842bc9",
-    "summary": "Check permit and certificate validity periods across EU Member States and understand when documents expire."
+    "hash": "070520bc6afd",
+    "summary": "8.1 Validity of permits elsewhere in the EU In principle, permits and certificates issued by one Member State in accordance with the EU Wildlife Trade Regulations are valid throughout the EU[^1]. Import permits are issued by the Member State of destination and export permits by..."
   },
   "09_can_specimens_be_traded_through_any_customs_office": {
     "hash": "57c6ca38cd4a",
-    "summary": "Finding designated Customs offices for trading specimens and understanding specific requirements for live animals."
+    "summary": "Finding designated customs offices for trading specimens and understanding specific requirements for live animals."
   },
   "10_how_are_the_regulations_enforced": {
     "hash": "1245485ab19a",
-    "summary": "There are several Articles of Regulation (EC) No 338/97 that deal with aspects of enforcement and the co-ordination thereof. These are, for example, Articles 14 (Monitoring of compliance and investigation of infringements), 15 (Communication of information) and 16 (Sanctions)."
+    "summary": "How Member States monitor compliance, investigate infringements, and apply sanctions under Articles 14, 15, and 16."
   },
   "11_how_are_cites_duties_organised_at_national_and_eu_levels_bet": {
     "hash": "a01338d73f0d",
-    "summary": "Identify national management and scientific authorities responsible for implementing CITES regulations and issuing permits."
+    "summary": "Identifying national management and scientific authorities responsible for implementing CITES and issuing permits."
   },
   "12_what_information_must_be_provided_by_member_states_and_th": {
-    "hash": "8b37a74fa4bd",
-    "summary": "Finding public information on EU wildlife trade regulations and submitting annual trade reports."
+    "hash": "f25baf19a7d8",
+    "summary": "12.1. What information must be provided to the public?"
   },
   "03_1_overview": {
-    "hash": "36ee8a7fba73",
-    "summary": "Obtain import permits, export permits, re-export certificates, or import notifications for listed species trade."
+    "hash": "ad5fc8d203e0",
+    "summary": "For any animal or plant species that is listed in Annex A, B or C of Regulation (EC) No 338/97 (or any parts or derivatives of the same), documentation is required before trade to or from the EU can take place (on trade within the EU, see Section 4). In the case of species..."
   },
   "03_2_what_document_for_what_purpose": {
     "hash": "4d13ea91dd83",
-    "summary": "Obtaining import permits and required documents for importing listed species into the EU."
+    "summary": "Identifying which permit or certificate is required depending on the species, Annex listing, and type of trade."
   },
   "03_3_what_are_the_rules_for_the_issuance_of_import_perm": {
-    "hash": "09701d957846",
-    "summary": "Apply for import permits using official forms, submit documentation timely, and complete required boxes legibly."
+    "hash": "424f995e039a",
+    "summary": "3.3.1 How do I apply to import a specimen? The rules for the issuance of import permits for specimens of Annex A- or B-listed species, from permit application to import, are as follows (see also Figure 1)[^1]: a."
   },
   "03_4_how_are_import_notifications_for_specimens_of_anne": {
     "hash": "087e0babc8d1",
-    "summary": "Obtaining import notifications, gathering required export documents, and submitting completed forms to customs."
+    "summary": "Obtaining import notifications for Annex C and D species, gathering export documents, and submitting forms to customs."
   },
   "03_5_what_documents_are_required_for_re_export_of_speci": {
     "hash": "30691368a032",
-    "summary": "Obtain an export permit or re-export certificate from the Management Authority before exporting specimens."
+    "summary": "Obtaining export permits and re-export certificates from the Management Authority before exporting specimens."
   },
   "03_6_are_there_derogations_from_the_normal_import_and_e": {
-    "hash": "fc508634ba30",
+    "hash": "e88ee0e4aff2",
     "summary": "There are a number of circumstances where the rules governing import and export of specimens of Annex-listed species are less strict. These are as follows: Import and (re-)export of captive-bred animals or artificially propagated plants, Transit of specimens through the EU,..."
   },
   "03_7_trade_involving_eu_dependent_and_other_territories": {
     "hash": "5cd979ddcbd7",
-    "summary": "Contact the relevant EU Member State Management Authority before trading Annex-listed species with dependent territories."
+    "summary": "Understanding how EU wildlife trade rules apply to dependent and overseas territories, and who to contact."
   },
   "04_1_what_are_the_general_principles": {
     "hash": "a6ed27c0e183",
-    "summary": "Learn which wildlife species can be traded freely within the EU and which require authorization."
+    "summary": "Understanding which Annex A and B species require an EU certificate before being sold or used commercially."
   },
   "04_2_are_there_any_exemptions_from_the_internal_trade_p": {
     "hash": "8bb494dd421d",
@@ -81,19 +81,19 @@
   },
   "04_3_what_about_trade_on_the_internet": {
     "hash": "e14d0633c5f5",
-    "summary": "Finding and providing valid certificates or documentation when trading listed species online."
+    "summary": "Ensuring valid certificates and documentation are in place when advertising or selling listed species online."
   },
   "04_4_derogations_for_the_benefit_of_scientific_institut": {
     "hash": "61257bff43d6",
-    "summary": "Approved scientific institutions obtain exemptions and single certificates for regulated activities; breeders receive pre-issued certificates for commercial use."
+    "summary": "How approved zoos, gardens, and museums obtain exemptions, and how breeders use pre-issued certificates for commercial activities."
   },
   "04_5_how_are_internal_trade_certificates_obtained_and_u": {
-    "hash": "a509bf3f932a",
+    "hash": "40cbdd9101ff",
     "summary": "4.5.1 What are internal trade certificates used for? Internal trade certificates (see Figure 15, above) are issued in accordance with Article 10 of Regulation (EC) No 338/97."
   },
   "01_how_do_i_use_this_guide": {
     "hash": "f04896feb12f",
-    "summary": "Finding and understanding EU wildlife trade regulations governing CITES implementation and species protection."
+    "summary": "An introduction to the guide's structure and how to navigate EU wildlife trade regulations effectively."
   },
   "annexes": {
     "hash": "b79bb05ce19e",

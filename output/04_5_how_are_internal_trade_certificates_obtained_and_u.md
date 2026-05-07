@@ -49,13 +49,13 @@ c. are, or are parts of, or are derived from, **animals born and bred in captivi
 
 d. are authorised to be used for one of the purposes referred to in Article 8(3)(c) and (e) to (g) of *Regulation (EC) No 338/97*, namely:
 
-unspecified non-detrimental purposes;
+a. unspecified non-detrimental purposes;
 
-advancement of science or biomedical research where the species is the only one suitable for those purposes and where there are no specimens of the species which have been born and bred in captivity available;
+b. advancement of science or biomedical research where the species is the only one suitable for those purposes and where there are no specimens of the species which have been born and bred in captivity available;
 
-breeding/propagation programmes of conservation benefit for the species; or
+c. breeding/propagation programmes of conservation benefit for the species; or
 
-research or education of conservation benefit for the species.
+d. research or education of conservation benefit for the species.
 
 ### 4.5.1.3. To authorise the movement of live specimens of Annex A-listed species from a prescribed location
 

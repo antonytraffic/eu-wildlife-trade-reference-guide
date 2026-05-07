@@ -49,9 +49,9 @@ The information will be submitted in a **computerised form** and in accordance w
 
 The information is to be presented in **two separate parts**[^1]:
 
-on imports, exports and re-exports of specimens of species listed in the **Appendices** to the **Convention**, and
+a. on imports, exports and re-exports of specimens of species listed in the **Appendices** to the **Convention**, and
 
-on imports, exports and re-exports of specimens of **other species listed in Annex A, B or C** to *Regulation (EC) No 338/97,* and on the introduction into the EU of specimens of species listed in **Annex D**.
+b. on imports, exports and re-exports of specimens of **other species listed in Annex A, B or C** to *Regulation (EC) No 338/97,* and on the introduction into the EU of specimens of species listed in **Annex D**.
 
 
 With regard to imports of shipments containing **live animals**, Member States must – where possible – maintain records of the **percentage of specimens** of species listed in Annex A or B to *Regulation (EC) No 338/97* which were **dead at the time of introduction** into the EU[^2]. 

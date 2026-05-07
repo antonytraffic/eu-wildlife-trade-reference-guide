@@ -68,61 +68,58 @@ def parse_md_file(path: Path) -> dict:
     }
 
 
-_LETTER_BLOCK_RE = re.compile(r"^([a-z])\.\s+(.+)$", re.DOTALL)
+_LP_RE = re.compile(r"<p>([a-z])\.\s+(.*?)</p>", re.DOTALL)
 
 
-def _preprocess_lettered_lists(text: str) -> str:
-    """Convert a., b., c. … paragraph blocks into <ol class="lettered-list"> HTML."""
-    blocks = re.split(r"(\n\n+)", text)
-    # Rebuild interleaved [content, separator, content, separator, …]
-    # Detect runs of blocks that start with consecutive letters a, b, c, …
-    contents = blocks[0::2]
-    seps     = blocks[1::2]
-
-    result_contents: list[str] = []
-    i = 0
-    while i < len(contents):
-        m = _LETTER_BLOCK_RE.match(contents[i].strip())
-        if m and m.group(1) == "a":
-            items: list[str] = []
-            expected = ord("a")
-            while i < len(contents):
-                m2 = _LETTER_BLOCK_RE.match(contents[i].strip())
-                if m2 and ord(m2.group(1)) == expected:
-                    # Render inline markdown for this item via a minimal pass
-                    item_md = m2.group(2)
-                    item_html = markdown2.markdown(item_md, extras=["smarty-pants"])
-                    # Strip wrapping <p>…</p>
-                    item_html = re.sub(r"^\s*<p>(.*?)</p>\s*$", r"\1",
-                                       item_html.strip(), flags=re.DOTALL)
-                    items.append(item_html)
-                    expected += 1
-                    i += 1
-                else:
-                    break
-            ol = ('<ol class="lettered-list">'
-                  + "".join(f"<li>{it}</li>" for it in items)
-                  + "</ol>")
-            result_contents.append(ol)
-        else:
-            result_contents.append(contents[i])
-            i += 1
-
-    # Re-interleave with separators
+def _postprocess_lettered_lists(html: str) -> str:
+    """Convert consecutive <p>a. …</p><p>b. …</p> runs into <ol class='lettered-list'>."""
     out: list[str] = []
-    for j, c in enumerate(result_contents):
-        out.append(c)
-        if j < len(seps):
-            out.append(seps[j])
+    pos = 0
+
+    while pos < len(html):
+        m = _LP_RE.search(html, pos)
+        if m is None:
+            out.append(html[pos:])
+            break
+
+        if m.group(1) != "a":
+            out.append(html[pos:m.end()])
+            pos = m.end()
+            continue
+
+        # Found a paragraph starting with "a." — try to build a run
+        out.append(html[pos:m.start()])
+        items = [m.group(2).strip()]
+        run_end = m.end()
+        expected = ord("b")
+
+        while expected <= ord("z"):
+            gap = re.match(r"\s*", html[run_end:]).end()
+            next_m = _LP_RE.match(html[run_end + gap:])
+            if next_m and ord(next_m.group(1)) == expected:
+                items.append(next_m.group(2).strip())
+                run_end += gap + next_m.end()
+                expected += 1
+            else:
+                break
+
+        if len(items) >= 2:
+            lis = "".join(f"<li>{it}</li>" for it in items)
+            out.append(f'<ol class="lettered-list">{lis}</ol>\n')
+        else:
+            out.append(f"<p>a. {items[0]}</p>")
+
+        pos = run_end
+
     return "".join(out)
 
 
 def render_markdown(content: str) -> str:
-    content = _preprocess_lettered_lists(content)
-    return markdown2.markdown(
+    html = markdown2.markdown(
         content,
         extras=["tables", "fenced-code-blocks", "header-ids", "smarty-pants", "footnotes"],
     )
+    return _postprocess_lettered_lists(html)
 
 
 def extract_headings(html: str) -> list[dict]:
@@ -568,7 +565,7 @@ pre code { background: none; padding: 0; }
 
 /* -- Footnotes ---------------------------------------- */
 sup.footnote-ref {
-  font-size: 0.75rem; vertical-align: super; line-height: 0;
+  font-size: 0.65rem; vertical-align: super; line-height: 0;
 }
 sup.footnote-ref a { color: var(--green); text-decoration: none; }
 sup.footnote-ref a:hover { text-decoration: underline; }
@@ -577,6 +574,7 @@ sup.footnote-ref a:hover { text-decoration: underline; }
   margin-top: 40px; padding-top: 16px;
   font-size: 0.8rem; color: var(--secondary);
 }
+.footnotes hr { display: none; }
 .footnotes ol { margin-left: 1.25em; }
 .footnotes li { margin-bottom: 4px; line-height: 1.5; }
 .footnotes a { color: var(--secondary); }
@@ -676,15 +674,24 @@ MAIN_JS = """\
     if (!targets.length) return;
 
     var current = 0;
+
+    function setActive(idx) {
+      current = idx;
+      links.forEach(function (l) { l.classList.remove('is-active'); });
+      if (links[current]) links[current].classList.add('is-active');
+    }
+
+    links.forEach(function (l, idx) {
+      l.addEventListener('click', function () { setActive(idx); });
+    });
+
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) {
           var idx = targets.indexOf(e.target);
-          if (idx !== -1) current = idx;
+          if (idx !== -1) setActive(idx);
         }
       });
-      links.forEach(function (l) { l.classList.remove('is-active'); });
-      if (links[current]) links[current].classList.add('is-active');
     }, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
 
     targets.forEach(function (t) { io.observe(t); });

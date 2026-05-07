@@ -118,69 +118,69 @@ The non-detriment finding should be based on proportionate resource assessment m
 
 ***Species characteristics*** 
 
-life history characteristics 
+a. life history characteristics
 
-habitat adaptability 
+b. habitat adaptability
 
-migratory/shared populations 
+c. migratory/shared populations
 
-risk of mortality after capture and before export (for species where the trade is primarily in live specimens) 
+d. risk of mortality after capture and before export (for species where the trade is primarily in live specimens)
 
 ***Biological and conservation status*** 
 
-abundance 
+a. abundance
 
-present/past distribution 
+b. present/past distribution
 
-population structure, status and trend (in harvest area, nationally and internationally) 
+c. population structure, status and trend (in harvest area, nationally and internationally)
 
-conservation status (in harvest area, nationally and internationally) 
+d. conservation status (in harvest area, nationally and internationally)
 
-quality of data 
+e. quality of data
 
-genetic status/diversity 
+f. genetic status/diversity
 
 ***Harvest characteristics*** 
 
-types 
+a. types
 
-volumes 
+b. volumes
 
-segment of population (e.g. age, sex) 
+c. segment of population (e.g. age, sex)
 
-trends (historical and current levels and patterns) 
+d. trends (historical and current levels and patterns)
 
-data quality 
+e. data quality
 
-conversion characteristics 
+f. conversion characteristics
 
 (irreversible) effects of the harvest on the habitat 
 
 ***Management regime*** 
 
-aims of management regime 
+a. aims of management regime
 
-measures currently in place / proposed 
+b. measures currently in place / proposed
 
-adaptive management strategies 
+c. adaptive management strategies
 
-levels of compliance 
+d. levels of compliance
 
-tenure 
+e. tenure
 
-effectiveness 
+f. effectiveness
 
 % harvested vs. effectively protected 
 
 ***Conservation benefits*** 
 
-species/habitat 
+a. species/habitat
 
-other conservation benefits 
+b. other conservation benefits
 
-local benefits 
+c. local benefits
 
-other benefits 
+d. other benefits
 
 ***Threats*** 
 
@@ -188,23 +188,23 @@ intrinsic and extrinsic factors
 
 ***Monitoring programmes*** 
 
-population, including monitoring of proxy indicators 
+a. population, including monitoring of proxy indicators
 
-off take (including market make-up and demand) 
+b. off take (including market make-up and demand)
 
-feedback (results are being used to inform and adapt management) 
+c. feedback (results are being used to inform and adapt management)
 
 ***Current or expected anticipated trade levels (imports of Annex B species only)*** 
 
-past trade history 
+a. past trade history
 
-volume of legal and illegal trade (known, inferred, projected, estimated) 
+b. volume of legal and illegal trade (known, inferred, projected, estimated)
 
-existence of any voluntary export quotas set by exporting countries and compliance with these. 
+c. existence of any voluntary export quotas set by exporting countries and compliance with these.
 
-predicted or perceived demand in the EU 
+d. predicted or perceived demand in the EU
 
-level of demand for replacement specimens of those species with a poor survival rate in captivity 
+e. level of demand for replacement specimens of those species with a poor survival rate in captivity
 
 The sources of information that may be considered when making a non-detriment finding include, but are not limited to: 
 
@@ -490,9 +490,9 @@ Article 4.1(c) - Annex A imports
 
 To be considered: 
 
-environmental, nutritional, and behavioural needs of the species 
+a. environmental, nutritional, and behavioural needs of the species
 
-size, design, arrangement, and equipment of the intended accommodation for a live specimen
+b. size, design, arrangement, and equipment of the intended accommodation for a live specimen
 
   
 **Attachment D (other factors relating to the conservation)**
@@ -506,13 +506,13 @@ Article 4.6 (b) - proposed Commission restrictions on Annex B imports |
 
 A full list of all conceivable factors would be impossible to compile, but examples are: 
 
-recommendations from the CITES Animals-, Plants Committee or CITES Standing Committee 
+a. recommendations from the CITES Animals-, Plants Committee or CITES Standing Committee
 
-serious concerns about the veracity of statements on the export permit 
+b. serious concerns about the veracity of statements on the export permit
 
-unbelievable claims relating to the length of time that the specimens are said to have been in a third country prior to re-export. 
+c. unbelievable claims relating to the length of time that the specimens are said to have been in a third country prior to re-export.
 
-unrealistic captive-breeding claims and/or discrepancies in details of captive breeding. 
+d. unrealistic captive-breeding claims and/or discrepancies in details of captive breeding.
 
 **Attachment E (restrictions for imports of live specimen)**
 
@@ -534,11 +534,11 @@ Evaluate information collected under Article 69.3 of Regulation 865/2006 *(With 
 
 Comment on Commission import restriction proposals to be made based on: 
 
-determination of the potential life span of the species concerned – where this information is available. 
+a. determination of the potential life span of the species concerned – where this information is available.
 
-comparison of rates of mortality between captive and wild specimens at different stages of their life history – where this information is available. 
+b. comparison of rates of mortality between captive and wild specimens at different stages of their life history – where this information is available.
 
-examination of any available evidence that the species is unlikely to survive in captivity for a considerable proportion of its potential lifespan – if known. 
+c. examination of any available evidence that the species is unlikely to survive in captivity for a considerable proportion of its potential lifespan – if known.
 
   
 **Attachment F (ecological threats)**
@@ -551,19 +551,19 @@ Article 4.6 (d) - species from any Annex
 
 Comment on Commission proposals to be based on examination of the evidence of ecological threat to other native wild species of fauna and flora such as: 
 
-evidence about invasive species from other sources e.g., Global Invasive Species Programme (GISP), Bern Convention studies 
+a. evidence about invasive species from other sources e.g., Global Invasive Species Programme (GISP), Bern Convention studies
 
-interactions with native species through predation, competition, parasitisation, hybridisation or as a vector of disease etc. 
+b. interactions with native species through predation, competition, parasitisation, hybridisation or as a vector of disease etc.
 
-likelihood of escape or deliberate release 
+c. likelihood of escape or deliberate release
 
-risk of establishment of specimens in the wild and geographical extent of the threat within the EU 
+d. risk of establishment of specimens in the wild and geographical extent of the threat within the EU
 
-impact on animal and plant species of EU interest/species to be subject to special conservation measures (Directive 92/43/EEC, Annexes II and IV and Directive 79/409/EEC Annex I). 
+e. impact on animal and plant species of EU interest/species to be subject to special conservation measures (Directive 92/43/EEC, Annexes II and IV and Directive 79/409/EEC Annex I).
 
-likely efficacy of any restrictions adopted. 
+f. likely efficacy of any restrictions adopted.
 
-possible knock-on effects of restrictions established (e.g., replacement species in trade). 
+g. possible knock-on effects of restrictions established (e.g., replacement species in trade).
 
   
 **Attachment G (specimen born and bred in captivity)**
@@ -580,19 +580,19 @@ The breeding stock[^6] was established in accordance with the legal provisions a
 
 The breeding stock is maintained without the introduction of specimens from the wild, except for the occasional addition of animals, eggs, or gametes in accordance with the legal provisions applicable and in a manner not detrimental to the survival of the species concerned in the wild, for the following purpose[^7] only: 
 
-to prevent or alleviate deleterious inbreeding, the magnitude of such addition being determined by the need for new genetic material. 
+a. to prevent or alleviate deleterious inbreeding, the magnitude of such addition being determined by the need for new genetic material.
 
-to dispose of confiscated animals in accordance with Article 16(3) of Regulation (EC) No. 338/97; or 
+b. to dispose of confiscated animals in accordance with Article 16(3) of Regulation (EC) No. 338/97; or
 
-exceptionally, for use as breeding stock. 
+c. exceptionally, for use as breeding stock.
 
 The breeding stock has itself produced second (F2) or subsequent generation offspring in a controlled environment or is managed in a manner[^4] that has been demonstrated to be capable of reliably producing second generation offspring in a controlled environment.
 
 Captive breeding can have considerable negative impact on the conservation of natural populations in cases where founder breeding stocks have been acquired in an unsustainable, uncontrolled way, or where wild specimens are laundered as captive-bred (and breeding claims are not genuine). Where there are concerns relating to captive breeding, the SRG scrutinizes such claims, and takes appropriate action. Consultations with the Management/Scientific Authority of the country of export relating to captive breeding claims are conducted on two levels: 
 
-the Scientific Authority of the Member State of import usually consults on specific cases of import of captive-bred specimens, which may include consideration of specific captive-breeding facilities.[^8] 
+a. the Scientific Authority of the Member State of import usually consults on specific cases of import of captive-bred specimens, which may include consideration of specific captive-breeding facilities.[^8]
 
-the European Commission, on behalf of the SRG usually consults on general concerns about the management and monitoring of breeding facilities in the country of export.  
+b. the European Commission, on behalf of the SRG usually consults on general concerns about the management and monitoring of breeding facilities in the country of export.
 
 Below is a **checklist of questions** that may be directed to the CITES Authorities of the country of export during consultations relating to captive breeding claims. The checklist should be adapted on a case-by-case basis, and not every question may be applicable in all cases:  
 
@@ -627,23 +627,23 @@ Article 60 certificate – Regulation (EC) No 865/2006
 
 The minimum standards expected of scientific institutions holding an article 60 certificate are as follows (based on Res. Conf. 11.15 Rev.CoP18): 
 
-collections of animal or plant specimens, and records ancillary to them, permanently housed and professionally curated. 
+a. collections of animal or plant specimens, and records ancillary to them, permanently housed and professionally curated.
 
-all accessions properly and permanently recorded. 
+b. all accessions properly and permanently recorded.
 
-permanent records maintained for loans and transfers to other institutions holding an article 60 certificate. 
+c. permanent records maintained for loans and transfers to other institutions holding an article 60 certificate.
 
-specimens acquired primarily for purposes of captive-breeding or artificial propagation from which conservation benefits will accrue to the species, or for research aimed at the preservation or conservation of the species that is to be reported in scientific publication, or for purposes of education aimed at the conservation of the species. 
+d. specimens acquired primarily for purposes of captive-breeding or artificial propagation from which conservation benefits will accrue to the species, or for research aimed at the preservation or conservation of the species that is to be reported in scientific publication, or for purposes of education aimed at the conservation of the species.
 
-live specimens must be housed in accommodation that is adequately equipped to conserve and care for them properly. 
+e. live specimens must be housed in accommodation that is adequately equipped to conserve and care for them properly.
 
-museum and herbarium specimens must be prepared, and collections arranged in a manner that ensure their utility. 
+f. museum and herbarium specimens must be prepared, and collections arranged in a manner that ensure their utility.
 
 All live Annex A animal specimens covered by the Article 60 certificate should be permanently marked by means of a uniquely numbered microchip, closed ring, tag tattoo, or be made identifiable by any other reliable measures of identification such as genetics or photo identification, which have been proven reliable in many cases unless this is against veterinary advice, in accordance with Chapter XVI of Regulation (EC) No.865/2006. 
 
-acquisition and possession of specimens accord with the laws of the State in which the scientific institution is located; and 
+a. acquisition and possession of specimens accord with the laws of the State in which the scientific institution is located; and
 
-the certificate only covers those specimens of species included in Annex A centrally housed under the direct control of the scientific institution and managed in a manner to preclude the use of such specimens for decoration, trophies, or other purposes incompatible with the principles of Article 60. 
+b. the certificate only covers those specimens of species included in Annex A centrally housed under the direct control of the scientific institution and managed in a manner to preclude the use of such specimens for decoration, trophies, or other purposes incompatible with the principles of Article 60.
 
   
 **Attachment I (transaction-specific certificate)**
@@ -681,17 +681,17 @@ Section 7 of the Commission Guidance document on live animals bred in captivity 
 
 The MA is to consult with the competent SA and the decision must achieve the following (based on Resolution Res. Conf. 17.8 (Rev. CoP19)) [Disposal of illegally traded and confiscated](https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-17-08-R19.pdf)[specimens of CITES](https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-17-08-R19.pdf)[-](https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-17-08-R19.pdf)[listed species](https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-17-08-R19.pdf)[^9] to: 
 
-maximize conservation value of the specimens without in any way endangering the health, behavioural repertoire, or conservation status of wild or captive populations of the species. 
+a. maximize conservation value of the specimens without in any way endangering the health, behavioural repertoire, or conservation status of wild or captive populations of the species.
 
-discourage further illegal or irregular trade in the species; and 
+b. discourage further illegal or irregular trade in the species; and
 
-provide a humane solution, whether this involves maintaining the animals in captivity, returning them to the wild, or employing euthanasia to destroy them. 
+c. provide a humane solution, whether this involves maintaining the animals in captivity, returning them to the wild, or employing euthanasia to destroy them.
 
 Factors to be considered: 
 
-conservation status (endangered or threatened species: evaluate whether and how these animals might contribute to a conservation programme for the species); and 
+a. conservation status (endangered or threatened species: evaluate whether and how these animals might contribute to a conservation programme for the species); and
 
-legal, social, economic, and biological factors. 
+b. legal, social, economic, and biological factors.
 
 For the placement or disposal of dead specimens of part and derivatives thereof, the SA may recommend *bona fide* scientific, educational, enforcement or identification purposes, or the saving in storage, sale, or destruction of specimens whose disposal for these purposes is not practicable. 
 

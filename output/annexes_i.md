@@ -34,11 +34,11 @@ CITES currently regulates trade in more than 37 000 species of fauna and flora, 
 
 CITES provides for a **Secretariat** and a **Conference of the Parties (CoP)**, which play a major role in the functioning of the Convention. The CoP, which meets every three years, has established a number of permanent committees which play a significant role in between its triennial meetings. The CITES permanent committees are: 
 
-the Standing Committee, which deals with policy, budgetary, administrative and enforcement issues;
+a. the Standing Committee, which deals with policy, budgetary, administrative and enforcement issues;
 
-the Animals Committee, which deals with scientific issues relating to animals, and
+b. the Animals Committee, which deals with scientific issues relating to animals, and
 
-the Plants Committee, which deals with scientific issues of relevance to plants.
+c. the Plants Committee, which deals with scientific issues of relevance to plants.
 
 
 The provisions of CITES establish procedures for amending the Convention and its Appendices address enforcement measures to be taken by the Parties, the Convention's effects on domestic legislation and on other international conventions, the resolution of disputes, ratification, accession and denunciation, and allow for the entry of reservations. The listing of species in Appendices I and II requires a two-thirds majority decision by the CoP. Parties can, however, list native species in Appendix III of their own initiative.
@@ -55,13 +55,13 @@ Each Party must designate one or more **Management Authorities** responsible for
 
 Conditions for the issue of permits and certificates for international trade in a species listed in the CITES Appendices include: 
 
-questions with regard to whether or not trade will be detrimental to its survival; 
+a. questions with regard to whether or not trade will be detrimental to its survival;
 
-whether the specimens were legally acquired; 
+b. whether the specimens were legally acquired;
 
-the preparation for shipment of live specimens, and 
+c. the preparation for shipment of live specimens, and
 
-for Appendix I-listed species, whether the importer has suitable facilities to house and care for live specimens. 
+d. for Appendix I-listed species, whether the importer has suitable facilities to house and care for live specimens.
 
 
 ### What permits are needed under CITES?

@@ -21,15 +21,15 @@ page_end: 41
 The rules for the issuance of import permits for specimens of Annex A- or B-listed species, from permit application to import, are as follows (see also **Figure 1**)[^1]:
 
 
-the importer must apply with an **import permit application form** (model laid down in **Annex I** to *Regulation (EU) No 792/2012*) to the Management Authority of the Member State of destination;
+a. the importer must apply with an **import permit application form** (model laid down in **Annex I** to *Regulation (EU) No 792/2012*) to the Management Authority of the Member State of destination;
 
-import permit applications must be made in a **timely manner** to avoid shipments arriving at the EU’s external border without a permit. It is the responsibility of the importer to make sure all necessary documentation is present before a shipment arrives at the EU’s external border[^2]; 
+b. import permit applications must be made in a **timely manner** to avoid shipments arriving at the EU’s external border without a permit. It is the responsibility of the importer to make sure all necessary documentation is present before a shipment arrives at the EU’s external border[^2];
 
 Management Authorities are required to issue permits **within one month** from the date of submission of a **full application**[^3]; 
 
-permit issuance may take longer where **third parties**, such as the country of origin, need to be consulted[^3], and
+a. permit issuance may take longer where **third parties**, such as the country of origin, need to be consulted[^3], and
 
-the applicant must be informed of **significant delays**[^3].
+b. the applicant must be informed of **significant delays**[^3].
 
 
 The procedures described in this Section are similar to those that apply when dealing with **exports**, **re-exports** (see **Section 3.5.1** and **Figure 6**) and internal trade within the EU (see **Section 4.5**).
@@ -254,9 +254,9 @@ The maximum time validity of an import permit is **12 months** (see **Section 8.
 
 The corresponding document from the **(re-)exporting country** will only be considered valid when: 
 
-it has been issued and **used** for (re-)export **before its last day of validity**, and 
+a. it has been issued and **used** for (re-)export **before its last day of validity**, and
 
-when the introduction into the EU takes place **within six months from its date of issue**[^46]. 
+b. when the introduction into the EU takes place **within six months from its date of issue**[^46].
 
 
 If expired, an import permit is considered void and of no legal value; it must be returned without delay to the issuing Management Authority. These expired documents may be replaced by a new document, which must indicate the number of the replaced document and the reason for its replacement. This also applies to lost, stolen, destroyed or cancelled documents[^47]. Unused permits must also be returned to the Management Authority[^48].
@@ -286,9 +286,9 @@ Export permits and re-export certificates will be endorsed, with quantity, signa
 The Customs office will carry out the **necessary checks** (as also described in **Sections 3.3.2**, and **3.5.7**), including: 
 
 
-a review of the documents accompanying the shipment, and
+a. a review of the documents accompanying the shipment, and
 
-where required by law or otherwise, the representative sampling of the shipment (i.e. examination of the specimens and, where appropriate, taking of samples for analysis or more detailed checks).
+b. where required by law or otherwise, the representative sampling of the shipment (i.e. examination of the specimens and, where appropriate, taking of samples for analysis or more detailed checks).
 
 
 When the shipment and required documentation are in order, the Customs office completes **box 27** of the **original** and the “**copy for the holder**”, returns the **latter to the importer** (for later proof of legal importation) and sends the **original** - together with the document from the (re-)exporting country - to the **Management Authority of their country**[^51].  This Management Authority must then, in turn, forward the documentation to the **Management Authority of the Member State which has issued the permit** (if different)[^52]. It is crucial that the original is returned to the issuing Management Authority so that it knows whether the import has actually taken place. This in turn ensures that accurate and actual trade data is provided in the Annual Reports (see **Section 12**). 
@@ -308,11 +308,11 @@ After the necessary Customs checks at the point of entry have been completed and
 
 The copy for the holder will cease to be valid as proof of legal importation when[^54]: 
 
-live specimens referred to in the import document have **died, escaped or been released into the wild**; 
+a. live specimens referred to in the import document have **died, escaped or been released into the wild**;
 
-specimens have been **destroyed**, or 
+b. specimens have been **destroyed**, or
 
-any of the entries in the following boxes no longer reflect the accurate situation (see **Figure 2**): 
+c. any of the entries in the following boxes no longer reflect the accurate situation (see **Figure 2**):
 
 **Box 3** (“**Name and address of importer**” – this is relevant only for specimens of Annex A species); 
 
@@ -344,11 +344,11 @@ A Negative Opinion may be triggered by concerns raised by one or more Member Sta
 
 Longer-term prohibitions of import do not always require the prior establishment of a Negative Opinion by the SRG, and the Commission may **also establish an import prohibition in the following cases** (see also **Section 3.3.9**):
 
-for species listed in **Annex A or B**, on the basis of other factors relating to the conservation of the species which militate against import into the EU[^56]; 
+a. for species listed in **Annex A or B**, on the basis of other factors relating to the conservation of the species which militate against import into the EU[^56];
 
-if it concerns **live** specimens of **species** listed in **Annex B** which have a **high mortality rate** during **transportation** or are unlikely to survive in **captivity** for a considerable proportion of their potential life span[^57]; or
+b. if it concerns **live** specimens of **species** listed in **Annex B** which have a **high mortality rate** during **transportation** or are unlikely to survive in **captivity** for a considerable proportion of their potential life span[^57]; or
 
-if it concerns **live** specimens of species that present an **ecological threat** to wild species of fauna and flora indigenous to the EU[^58] - the species currently subject to an import restriction on these grounds is the Painted Turtle (*Chrysemys picta*),[^59].
+c. if it concerns **live** specimens of species that present an **ecological threat** to wild species of fauna and flora indigenous to the EU[^58] - the species currently subject to an import restriction on these grounds is the Painted Turtle (*Chrysemys picta*),[^59].
 
 
 ### 3.3.9.2  What criteria are considered by Scientific Authorities and the SRG when making non-detriment findings, deciding on import prohibitions and forming Negative Opinions?
@@ -456,11 +456,11 @@ Note that in the case of import prohibitions established in respect of Annex B s
 Unless specifically decided otherwise, restrictions in accordance with Article 4(6) of *Regulation (EC) No 338/97* **do not apply to**[^68]: 
 
 
-specimens that are **born and bred in captivity** or **artificially-propagated** in accordance with the criteria laid down in Section XIII of *Regulation (EC) No 865/2006* (see **Section 3.6.1**);
+a. specimens that are **born and bred in captivity** or **artificially-propagated** in accordance with the criteria laid down in Section XIII of *Regulation (EC) No 865/2006* (see **Section 3.6.1**);
 
-specimens that are being imported for **essential biomedical purposes**, for conservation-oriented **breeding/propagation programmes** or for **research or education** aimed at the preservation or conservation of the species (see **Section 4.2**); and
+b. specimens that are being imported for **essential biomedical purposes**, for conservation-oriented **breeding/propagation programmes** or for **research or education** aimed at the preservation or conservation of the species (see **Section 4.2**); and
 
-specimens, alive or dead, that are part of the household possessions of persons moving into the EU to take up residence there (see **Section 3.6.5**).
+c. specimens, alive or dead, that are part of the household possessions of persons moving into the EU to take up residence there (see **Section 3.6.5**).
 
 
 Member States should inform **every importer** that each **application will be considered on its own merits**, and that **the absence of a Negative Opinion** or an **import restriction** at the time of the application **does not mean that a permit will be issued**.  It should be advised that it would be extremely unwise to conclude definitive contracts, to pay for ordered specimens and to arrange for their shipment in the absence of an import permit or, at least, of a sufficient guarantee that a permit will be issued.
@@ -469,9 +469,9 @@ Member States should inform **every importer** that each **application will be c
 Article 71(2) of *Regulation (EC) No 865/2006* contains a “**hardship clause**” to deal with the treatment of applications that were made before an import restriction was established. It provides that an import permit may be issued:
 
 
-where an application was submitted **prior to the establishment of the restriction**, and
+a. where an application was submitted **prior to the establishment of the restriction**, and
 
-where the competent Management Authority is satisfied that a **contract or order exists** for which payment has been made, or as a result of which the specimens have already been shipped.
+b. where the competent Management Authority is satisfied that a **contract or order exists** for which payment has been made, or as a result of which the specimens have already been shipped.
 
 
 **A provision of this kind should not lead to a situation in which imports continue to take place, in spite of the fact that the conditions for import are not met.**  Therefore it should in general **not be used**, besides in exceptional cases, **where import permits would be rejected on the basis of concerns of conservation detriment under any normal circumstance** (see **Section 3.3.3**), and certainly not when these cases are established as a general import restriction under Article 4(6) (paragraphs (a) and (b)). To further reduce the possibility for abuse, import permits issued under this derogation will only be valid for **one month**.

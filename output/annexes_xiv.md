@@ -66,9 +66,9 @@ RU:   ISO code of the country of origin, here “Russian Federation”
 
 2000:  Year of harvest, here 2000
 
-xxxx:  Number for the processing plant
+a. xxxx:  Number for the processing plant
 
-yyyy:  Lot identification number
+b. yyyy:  Lot identification number
 
 
 ***Re-packaged caviar*** 

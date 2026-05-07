@@ -56,11 +56,11 @@ Permits and certificates **will also cease to be valid** in the following cases 
 
 **Specimen-specific certificates** will generally **not cease** to be valid when the **holder** changes (as specified in **box 1**) as long as the **other information contained in the permit has not changed**. However, there are exceptions to this[^11], including for
 
-specimens required under exceptional circumstances for the advancement of science or for essential biomedical purposes[^12];
+a. specimens required under exceptional circumstances for the advancement of science or for essential biomedical purposes[^12];
 
-specimens required for **research, education, breeding or propagation purposes** of benefit to the conservation of the species[^13], or 
+b. specimens required for **research, education, breeding or propagation purposes** of benefit to the conservation of the species[^13], or
 
-the **exchange** of specimens between designated **scientific institutions** under certificates issued in accordance with Article 60 of *Regulation (EC) No 865/2006*. 
+c. the **exchange** of specimens between designated **scientific institutions** under certificates issued in accordance with Article 60 of *Regulation (EC) No 865/2006*.
 
 
 The holder will **return** the original and all copies of expired or unused documents, or those which are no longer valid, to the issuing Management Authority without undue delay[^14]. The issuing Management Authority may then, if appropriate and after an application was made to that respect, issue a new certificate reflecting any changes that may be required[^15].
@@ -90,9 +90,9 @@ Documents that **cease to be valid in accordance with Article 11 of** ***Regulat
 
 **Amendments** to permits, notifications and certificates may be made by a Management Authority in the following cases[^24]:
 
-where a shipment covered by a “copy for the holder” (Form 2) of an import permit, a “copy for the importer” (Form 2) of an import notification, or a certificate, is split; or
+a. where a shipment covered by a “copy for the holder” (Form 2) of an import permit, a “copy for the importer” (Form 2) of an import notification, or a certificate, is split; or
 
-where, for other reasons, the entries in the document no longer reflect the actual situation. 
+b. where, for other reasons, the entries in the document no longer reflect the actual situation.
 
 
 Any amendments made by the Management Authority must be authenticated with its stamp and signature[^25]. However, this can only be done for document issued by that same Management Authority. If changes would be required on a document issued by a Management Authority from another Member State, it is advised to replace the document and return the no longer valid original to the issuing authority. Alternatively, in such cases, the Management Authority may decide to issue one or more corresponding internal trade certificates[^26], where the purpose of the document is to **prove either legal acquisition** **or** **to authorise commercial activities** in relation to a specimen/specimens. However, the Management Authority must first establish the validity of the document to be replaced, where necessary in consultation with a Management Authority of another Member State. This authority must respond within a period of one week to such a request[^27]. 

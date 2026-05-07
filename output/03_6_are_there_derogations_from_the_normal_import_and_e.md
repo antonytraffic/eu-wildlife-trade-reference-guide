@@ -57,39 +57,39 @@ Article 1 of *Regulation (EC) No 865/2006* provides definitions that relate to s
 
 In order for **an animal specimen to qualify as** “**born and bred in captivity**” (rather than merely captive-born, which carries no special advantage), a competent Management Authority, in consultation with a competent Scientific Authority of the Member State, must be satisfied that all of the following conditions have been met[^4]:
 
-the specimen is, or is derived from:
+a. the specimen is, or is derived from:
 
-the offspring born – or otherwise produced – in a **controlled environment** – of either:
+b. the offspring born – or otherwise produced – in a **controlled environment** – of either:
 
-parents that **mated** (or had gametes otherwise transferred – e.g. by artificial fertilisation) in a **controlled environment** – if reproduction is sexual; or
+c. parents that **mated** (or had gametes otherwise transferred – e.g. by artificial fertilisation) in a **controlled environment** – if reproduction is sexual; or
 
-parents that were in a **controlled environment when development of the offspring began** – if reproduction is asexual;
+d. parents that were in a **controlled environment when development of the offspring began** – if reproduction is asexual;
 
-the breeding stock was established in accordance with the **legal provisions that applied in the place and time when it was first obtained** (even if this pre-dates the Regulations or the Convention), and in a manner not detrimental to the survival of the species in the wild; and
+e. the breeding stock was established in accordance with the **legal provisions that applied in the place and time when it was first obtained** (even if this pre-dates the Regulations or the Convention), and in a manner not detrimental to the survival of the species in the wild; and
 
-the breeding stock is maintained without **the introduction of new specimens from the wild**, except (and given that any new specimens are obtained in a legal and non-detrimental way) for the following purposes:
+f. the breeding stock is maintained without **the introduction of new specimens from the wild**, except (and given that any new specimens are obtained in a legal and non-detrimental way) for the following purposes:
 
-to prevent **deleterious inbreeding** (in which case the amount of the new addition must be determined by the need for new material);
+g. to prevent **deleterious inbreeding** (in which case the amount of the new addition must be determined by the need for new material);
 
-to **dispose of confiscated specimens**; or
+h. to **dispose of confiscated specimens**; or
 
 **exceptionally**, for use as breeding stock. 
 
-the breeding stock has either: 
+a. the breeding stock has either:
 
-itself produced **second or subsequent generation offspring** (so-called F2, F3 and so on) in a controlled environment, or otherwise; or
+b. itself produced **second or subsequent generation offspring** (so-called F2, F3 and so on) in a controlled environment, or otherwise; or
 
-is managed in a manner that has been **demonstrated to be capable of reliably producing second generation offspring** in a controlled environment (e.g. for species where husbandry and breeding techniques are long established and widely documented).
+c. is managed in a manner that has been **demonstrated to be capable of reliably producing second generation offspring** in a controlled environment (e.g. for species where husbandry and breeding techniques are long established and widely documented).
 
 Similarly, in order for **a plant specimen to qualify as artificially propagated,** a competent Management Authority, in consultation with a competent Scientific Authority of the Member State, must be satisfied that all of the following conditions have been met[^5]:
 
-the specimen is, or is derived from, plants grown from seeds, cuttings, divisions, callus tissues or other plant tissues, spores or other propagules under **controlled conditions** (i.e. a non-natural environment that is heavily manipulated by such practices as tillage, fertilisation, weed control, irrigation, potting, bedding, protecting from weather etc.)[^6];
+a. the specimen is, or is derived from, plants grown from seeds, cuttings, divisions, callus tissues or other plant tissues, spores or other propagules under **controlled conditions** (i.e. a non-natural environment that is heavily manipulated by such practices as tillage, fertilisation, weed control, irrigation, potting, bedding, protecting from weather etc.)[^6];
 
-the cultivated parental stock was established in accordance with the **legal provisions that applied in the place and time when it was first obtained** (even if this pre-dates the Regulation or the Convention), and in a manner not detrimental to the survival of the species in the wild;
+b. the cultivated parental stock was established in accordance with the **legal provisions that applied in the place and time when it was first obtained** (even if this pre-dates the Regulation or the Convention), and in a manner not detrimental to the survival of the species in the wild;
 
-the cultivated parental stock is managed in such a way that its **long-term maintenance is guaranteed**, and
+c. the cultivated parental stock is managed in such a way that its **long-term maintenance is guaranteed**, and
 
-in the case of grafted plants, both the **root stock and the graft have been artificially propagated** in accordance with the preceding conditions.
+d. in the case of grafted plants, both the **root stock and the graft have been artificially propagated** in accordance with the preceding conditions.
 
 The following are also considered "artificially propagated":
 
@@ -141,9 +141,9 @@ Under the EU Wildlife Trade Regulations, “**worked” specimens** of species l
 
 Worked specimens of species listed in the Annexes of *Regulation (EC) No 338/97* (or containing parts or derivatives of the same) are defined as: 
 
-specimens that were removed from the wild and **significantly altered from their natural state** for jewellery, adornment, art, utility or musical instruments, **before 3 March 1947**, and
+a. specimens that were removed from the wild and **significantly altered from their natural state** for jewellery, adornment, art, utility or musical instruments, **before 3 March 1947**, and
 
-have been **acquired in this condition** and require no further carving, crafting or manufacture to effect their purpose (see **Annex III of this Guide**)[^21]. 
+b. have been **acquired in this condition** and require no further carving, crafting or manufacture to effect their purpose (see **Annex III of this Guide**)[^21].
 
 Antiques acquired before that date but that remain substantially unaltered from their natural state do not qualify for these exemptions. For example, a raw unworked rhino horn would not qualify even if it could be shown to have been acquired before 1947. Similarly, a tiger skin ‘rug’ acquired before 1947 may qualify if it could be shown that it was a genuine rug in its own right and not merely a skin which could also be fashioned into some other item at a later date. Stuffed animals - for example mounted and stuffed birds - are also considered to be worked specimens and may qualify for the exemption if they have been acquired before 3 March 1947. 
 
@@ -166,9 +166,9 @@ For worked specimens of species listed in **Annex A or B,** an **import permit**
 
 Before the Management Authority can issue an import permit for specimens of species listed in **Annex A,** it needs to be satisfied that: 
 
-the specimen was **legally obtained** in the country of origin, through the presentation of an export permit; and
+a. the specimen was **legally obtained** in the country of origin, through the presentation of an export permit; and
 
-there are **no other conservation factors** that prevent the issue of an import permit[^23].
+b. there are **no other conservation factors** that prevent the issue of an import permit[^23].
 
 Therefore, for specimens of species listed in **Annex A,** a **copy of the permit** issued by the **(re-) exporting country** is required prior to issuance of an import permit.
 
@@ -182,9 +182,9 @@ For **(re)export** of specimens of species listed in **Annex A, B or C**, an **e
 
 Before the Management Authority can issue an export permit/re-export certificate, it must be satisfied that there are no other factors relating to the conservation of the species which prevent issuance of the export permit[^25].  In addition, evidence must be presented that:
 
-for **exports**, confirms that the specimens were **acquired before 3 March 1947**; or
+a. for **exports**, confirms that the specimens were **acquired before 3 March 1947**; or
 
-for **re-exports,** shows that the specimens were **imported** into the EU in accordance with the **relevant regulations**, or if the import occurred **before 1984**, in accordance with **CITES**, or **before the Convention became applicable** **to them**[^26] (see **Section 3.6.4**).
+b. for **re-exports,** shows that the specimens were **imported** into the EU in accordance with the **relevant regulations**, or if the import occurred **before 1984**, in accordance with **CITES**, or **before the Convention became applicable** **to them**[^26] (see **Section 3.6.4**).
 
 It is noted that for the **(re-)export** of CITES **Appendix-I-**listed species, **prior checking** of the **import permit** issued by the country of destination is **not required** for such specimens[^27].
 
@@ -238,11 +238,11 @@ It is noted that the same derogation **does not apply** for **imports** into the
 
 The EU Wildlife Trade Regulations contain **less strict** provisions and permit requirements for trade to and from the EU, in specimens of species listed in the Annexes that are considered **personal and household effects**[^34]. However, this only applies to specimens comprising/made of dead animals or plants which are:
 
-contained in the **personal luggage** of travellers coming from or going to a third country; or 
+a. contained in the **personal luggage** of travellers coming from or going to a third country; or
 
-contained in the personal property of a person **transferring her or his normal place of residence** to or from the EU; or 
+b. contained in the personal property of a person **transferring her or his normal place of residence** to or from the EU; or
 
-in the case of hunting trophies[^35], taken by a traveller and imported into the EU at a later date[^36] (see also **Section 3.6.5.3** on the rules for hunting trophies).
+c. in the case of hunting trophies[^35], taken by a traveller and imported into the EU at a later date[^36] (see also **Section 3.6.5.3** on the rules for hunting trophies).
 
 To qualify as personal effects, the goods must be **carried on the person,** or **contained in personal luggage** of the traveller. Only **hunting trophies** (imported for non-commercial purposes) and **house removal containers** for persons **taking up residence** in the EU may be transported **separately from the importer,** and introduced in the EU at a later date, i.e. after the importer’s own arrival. 
 
@@ -276,19 +276,19 @@ There are **differences** in the treatment of **persons normally residing in the
 
 **EU residents** introducing into the EU for the **first time** personal or household effects:
 
-which are specimens of species listed in **Annex A**, are required to have both an **export permit and an import permit**[^46] (in other words, the “personal and household effects” derogation does not apply in such cases); 
+a. which are specimens of species listed in **Annex A**, are required to have both an **export permit and an import permit**[^46] (in other words, the “personal and household effects” derogation does not apply in such cases);
 
-which are hunting trophies of specimens of **Annex B-listed species/populations** which are **also listed in** **Annex XIII** to *Regulation (EC) No 865/2006*, are required to have both an **export permit and an import permit**[^39] (again, in other words, the “personal and household effects” derogation does not apply in such cases); or
+b. which are hunting trophies of specimens of **Annex B-listed species/populations** which are **also listed in** **Annex XIII** to *Regulation (EC) No 865/2006*, are required to have both an **export permit and an import permit**[^39] (again, in other words, the “personal and household effects” derogation does not apply in such cases); or
 
-which involve specimens of **Annex B**-listed species (including hunting trophies – with the **exception** of those specimens to which **point (ii)** above applies), are required to present to Customs **either**: (i) an **export permit** issued by a third country; **or** (ii) in case such an export permit is not issued by the third country[^47], an **import permit**[^48]. 
+c. which involve specimens of **Annex B**-listed species (including hunting trophies – with the **exception** of those specimens to which **point (ii)** above applies), are required to present to Customs **either**: (i) an **export permit** issued by a third country; **or** (ii) in case such an export permit is not issued by the third country[^47], an **import permit**[^48].
 
 The **reintroduction** into the EU by an **EU resident** of personal or household effects (including hunting trophies) that are specimens of species listed in **Annex A or B** does not require presentation of an import permit to Customs.  However, one of the following must be presented[^49]:
 
-a Customs-endorsed “copy for the holder” (**Form 2**) of a previously used EU import or export permit;
+a. a Customs-endorsed “copy for the holder” (**Form 2**) of a previously used EU import or export permit;
 
-the copy of the (re-)export document presented upon first introduction into the EU;
+b. the copy of the (re-)export document presented upon first introduction into the EU;
 
-proof that the specimens were acquired within the EU. 
+c. proof that the specimens were acquired within the EU.
 
 ***Non-EU residents:***
 
@@ -304,11 +304,11 @@ The derogation for personal and household effects **does not apply** to the **ex
 
 The derogation for personal and household effects **does apply** to the **re-export** from the EU of specimens of species listed in **Annexes A or B**.  The re-export by an **EU resident** of personal or household effects (including personal hunting trophies) that are specimens of species listed in Annexes A or B **will not require the presentation of a re-export certificate** provided that one of the following is presented:
 
-a Customs-endorsed “copy for the holder” (**Form 2**) of a previously used EU import or export permit;
+a. a Customs-endorsed “copy for the holder” (**Form 2**) of a previously used EU import or export permit;
 
-the copy of the (re-)export document presented upon first introduction into the EU;
+b. the copy of the (re-)export document presented upon first introduction into the EU;
 
-proof that the specimens were acquired within the EU[^52]. 
+c. proof that the specimens were acquired within the EU[^52].
 
 This **does not**, however, apply to the **re-export by an EU resident of rhino horn and elephant ivory** contained in personal or household effects. For these specimens, the **presentation of a re-export certificate is required**[^53].
 
@@ -605,19 +605,19 @@ The forms on which personal ownership certificates should be drawn up must confo
 
 Sample collection certificates can be used for collections of legally acquired dead specimens of species listed in Annexes A, B or C of *Regulation (EC) No 338/97* (as well as parts and derivatives thereof) which are transported across borders for presentation purposes[^110]. Specimens, parts or derivatives of species listed in Annex A must also:
 
-in the case of animal specimens, be **of captive born and bred origin** in accordance with Articles 54 and 55 of *Regulation (EC) No 865/2006*, or
+a. in the case of animal specimens, be **of captive born and bred origin** in accordance with Articles 54 and 55 of *Regulation (EC) No 865/2006*, or
 
-in the case of plant specimens, be **artificially propagated** in accordance with Article 56 of *Regulation (EC) No 865/2006*.
+b. in the case of plant specimens, be **artificially propagated** in accordance with Article 56 of *Regulation (EC) No 865/2006*.
 
 ### 3.6.12.2 What can sample collection certificates be used for?
 
 A sample collection certificate may be used in place of[^111]: 
 
-an **import permit;** 
+a. an **import permit;**
 
-an **export permit** or **re-export certificate** (if the country of destination recognises and allows the use of ATA carnets), and
+b. an **export permit** or **re-export certificate** (if the country of destination recognises and allows the use of ATA carnets), and
 
-an **internal trade certificate**, exempting the holder from the prohibition to **display** the specimens to the public for commercial purposes (see **Section 4**).
+c. an **internal trade certificate**, exempting the holder from the prohibition to **display** the specimens to the public for commercial purposes (see **Section 4**).
 
 ### 3.6.12.3 How are sample collection certificates obtained and what requirements apply when  using them?
 
