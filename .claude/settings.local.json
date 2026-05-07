@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python extract_content.py)",
+      "Bash(python -)",
+      "Bash(pip install *)",
+      "Bash(python -m pip install python-docx --quiet)",
+      "Bash(python -m pip install markdown2 python-slugify --quiet)",
+      "Bash(python build_site.py)",
+      "Bash(python -c \"import json; idx = json.load\\(open\\('site/search_index.json'\\)\\); print\\(f'{len\\(idx\\)} entries, first keys: {list\\(idx[0].keys\\(\\)\\)}'\\)\")",
+      "Bash(python -c \"import json; idx = json.load\\(open\\('site/search_index.json', encoding='utf-8'\\)\\); print\\(f'{len\\(idx\\)} entries, keys: {list\\(idx[0].keys\\(\\)\\)}'\\)\")",
+      "Bash(python -c ' *)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(start \"\" \"C:\\\\Users\\\\antonyb\\\\OneDrive - Traffic International\\\\EC European Commission\\\\Digitalisation\\\\Claude Code\\\\EU Reference Guide Website\\\\site\\\\index.html\")",
+      "Bash(git config *)",
+      "PowerShell(git config --global user.name)",
+      "PowerShell(git config --global user.email)"
+    ]
+  }
+}

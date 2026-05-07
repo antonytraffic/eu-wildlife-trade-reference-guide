@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+.env
+venv/
+
+# OS
+.DS_Store
+
+# Source documents (too large for version control)
+*.pdf
+*.docx
