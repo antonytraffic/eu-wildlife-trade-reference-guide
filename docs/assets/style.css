@@ -321,13 +321,16 @@ table caption {
   background: var(--light-grey); border-bottom: 1px solid var(--border);
   padding: 40px 0;
 }
+.hero .container { text-align: center; }
 .hero h1 { margin-bottom: 12px; font-size: 1.75rem; }
 .hero__lead {
   font-size: 1.1875rem; max-width: 680px; line-height: 1.6; margin-bottom: 24px;
+  margin-left: auto; margin-right: auto;
 }
 
 /* -- Homepage search ---------------------------------- */
 .search-form { display: flex; max-width: 580px; gap: 0; }
+.hero .search-form { margin-left: auto; margin-right: auto; }
 .search-form input[type="search"] {
   flex: 1; padding: 10px 14px; font: inherit; font-size: 1rem;
   border: 2px solid var(--black); border-right: none; color: var(--black); background: var(--white);
@@ -429,6 +432,16 @@ sup.footnote-ref a:hover { text-decoration: underline; }
 .footnotes li { margin-bottom: 4px; line-height: 1.5; }
 .footnotes a { color: var(--secondary); }
 
+/* -- Footnote expand button --------------------------- */
+.footnotes-overflow { list-style: decimal; margin: 0; padding: 0; }
+.footnotes-show-more {
+  display: inline-block; margin-top: 6px;
+  background: none; border: none; padding: 0;
+  color: var(--green); font-size: 0.8rem; cursor: pointer;
+  text-decoration: underline; font-family: var(--font);
+}
+.footnotes-show-more:hover { color: var(--dark-green); }
+
 /* -- Lettered lists ----------------------------------- */
 ol.lettered-list {
   list-style-type: lower-alpha;
@@ -445,7 +458,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 .site-footer a { color: var(--secondary); font-size: .875rem; }
 .site-footer a:hover { color: var(--green); }
 .footer-smallprint {
-  font-size: 0.65rem; color: var(--secondary);
+  font-size: 0.5rem; color: var(--secondary);
   margin-bottom: 6px; line-height: 1.5;
 }
 

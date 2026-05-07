@@ -216,6 +216,40 @@ def _postprocess_table_labels(html: str) -> str:
     return _LABEL_RE.sub(r'<p class="table-label">\1</p>', html)
 
 
+_FOOTNOTES_RE = re.compile(
+    r'(<div class="footnotes">.*?<ol[^>]*>)(.*?)(</ol>.*?</div>)',
+    re.DOTALL,
+)
+
+
+def _postprocess_footnotes(html: str, threshold: int = 10) -> str:
+    """When a footnotes block has more than `threshold` items, collapse the extras."""
+    def _replace(m: re.Match) -> str:
+        pre_ol  = m.group(1)
+        ol_body = m.group(2)
+        post_ol = m.group(3)
+
+        parts = re.split(r'(?=<li\b)', ol_body)
+        items = [p for p in parts if "<li" in p]
+
+        if len(items) <= threshold:
+            return m.group(0)
+
+        n_more = len(items) - threshold
+        visible = "".join(items[:threshold])
+        hidden  = "".join(items[threshold:])
+        label   = f"Show {n_more} more footnote{'s' if n_more != 1 else ''}"
+        return (
+            f"{pre_ol}{visible}</ol>"
+            f'<ol class="footnotes-overflow" start="{threshold + 1}" hidden>'
+            f"{hidden}</ol>"
+            f'<button class="footnotes-show-more" type="button">{label}</button>'
+            f"</div>"
+        )
+
+    return _FOOTNOTES_RE.sub(_replace, html)
+
+
 def render_markdown(content: str) -> str:
     html = markdown2.markdown(
         content,
@@ -224,6 +258,7 @@ def render_markdown(content: str) -> str:
     html = _postprocess_lettered_lists(html)
     html = _postprocess_tables(html)
     html = _postprocess_table_labels(html)
+    html = _postprocess_footnotes(html)
     return html
 
 
@@ -718,13 +753,16 @@ table caption {
   background: var(--light-grey); border-bottom: 1px solid var(--border);
   padding: 40px 0;
 }
+.hero .container { text-align: center; }
 .hero h1 { margin-bottom: 12px; font-size: 1.75rem; }
 .hero__lead {
   font-size: 1.1875rem; max-width: 680px; line-height: 1.6; margin-bottom: 24px;
+  margin-left: auto; margin-right: auto;
 }
 
 /* -- Homepage search ---------------------------------- */
 .search-form { display: flex; max-width: 580px; gap: 0; }
+.hero .search-form { margin-left: auto; margin-right: auto; }
 .search-form input[type="search"] {
   flex: 1; padding: 10px 14px; font: inherit; font-size: 1rem;
   border: 2px solid var(--black); border-right: none; color: var(--black); background: var(--white);
@@ -826,6 +864,16 @@ sup.footnote-ref a:hover { text-decoration: underline; }
 .footnotes li { margin-bottom: 4px; line-height: 1.5; }
 .footnotes a { color: var(--secondary); }
 
+/* -- Footnote expand button --------------------------- */
+.footnotes-overflow { list-style: decimal; margin: 0; padding: 0; }
+.footnotes-show-more {
+  display: inline-block; margin-top: 6px;
+  background: none; border: none; padding: 0;
+  color: var(--green); font-size: 0.8rem; cursor: pointer;
+  text-decoration: underline; font-family: var(--font);
+}
+.footnotes-show-more:hover { color: var(--dark-green); }
+
 /* -- Lettered lists ----------------------------------- */
 ol.lettered-list {
   list-style-type: lower-alpha;
@@ -842,7 +890,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 .site-footer a { color: var(--secondary); font-size: .875rem; }
 .site-footer a:hover { color: var(--green); }
 .footer-smallprint {
-  font-size: 0.65rem; color: var(--secondary);
+  font-size: 0.5rem; color: var(--secondary);
   margin-bottom: 6px; line-height: 1.5;
 }
 
@@ -964,9 +1012,20 @@ MAIN_JS = """\
     });
   }
 
+  function initFootnotesExpand() {
+    document.querySelectorAll('.footnotes-show-more').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var overflow = btn.parentElement.querySelector('.footnotes-overflow');
+        if (overflow) { overflow.hidden = false; }
+        btn.hidden = true;
+      });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initSidebarHighlight();
     initBackToTop();
+    initFootnotesExpand();
   });
 }());
 """
@@ -1179,9 +1238,7 @@ def base_html(
   </div>
 </div>
 
-<nav class="breadcrumbs" aria-label="Breadcrumb">
-  <ol>{bc_items}</ol>
-</nav>
+{f'<nav class="breadcrumbs" aria-label="Breadcrumb"><ol>{bc_items}</ol></nav>' if bc_items else ''}
 
 <div class="main-content">
   <div class="container" id="main-content">
@@ -1332,7 +1389,6 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     rendered = autolink_xrefs(render_markdown(ch["body"]), depth=1)
     headings = extract_headings(rendered)
 
-    contents_box    = make_contents_box(headings)
     mobile_contents = make_mobile_contents(headings)
     sidebar_html    = make_sidebar(headings)
 
@@ -1344,7 +1400,6 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     label_html = _section_label_html(ch)
     content = f"""
 {mobile_contents}
-{contents_box}
 <article class="article-body">
   {label_html}
   <h1>{h(ch['title'])}</h1>
@@ -1433,7 +1488,6 @@ def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
     rendered = autolink_xrefs(render_markdown(ch["body"]), depth=1)
     headings = extract_headings(rendered)
 
-    contents_box    = make_contents_box(headings)
     mobile_contents = make_mobile_contents(headings)
     sidebar_html    = make_sidebar(headings)
 
@@ -1445,7 +1499,6 @@ def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
     label_html = _section_label_html(ch)
     content = f"""
 {mobile_contents}
-{contents_box}
 <article class="article-body">
   {label_html}
   <h1>{h(ch['title'])}</h1>
@@ -1476,7 +1529,6 @@ def build_about_page(ch: dict) -> str:
 
     content = f"""
 {make_mobile_contents(headings)}
-{make_contents_box(headings)}
 <article class="article-body">
   <h1>{h(ch['title'])}</h1>
   {rendered}
@@ -1553,7 +1605,7 @@ def build_index_page(nav_sections: list[dict], summaries: dict,
     return base_html(
         title="Home",
         content=content,
-        breadcrumbs=[("Home", None)],
+        breadcrumbs=[],
         depth=0,
         active_nav="home",
     )
