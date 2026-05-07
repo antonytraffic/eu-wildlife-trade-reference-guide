@@ -94,5 +94,9 @@
   "01_how_do_i_use_this_guide": {
     "hash": "f04896feb12f",
     "summary": "Finding and understanding EU wildlife trade regulations governing CITES implementation and species protection."
+  },
+  "annexes": {
+    "hash": "b79bb05ce19e",
+    "summary": "Reference tables, definitions, codes, and contact lists supporting the EU Wildlife Trade Regulations."
   }
 }

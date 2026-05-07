@@ -1360,10 +1360,11 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
     simple_pages = [c for c in nav_sections if not c["sub_pages"]]
 
     # All pages that appear as cards (summaries needed).
-    # Annex sub-pages are excluded — their cards use title + first heading, not a generated summary.
+    # Individual annex sub-pages are excluded — their cards use title + first heading.
+    # The annexes parent page IS included so its homepage card gets a generated summary.
     pages_for_summaries = [
         c for c in nav_sections + all_sub + ([about_ch] if about_ch else [])
-        if c["parent"] != "annexes" and c["slug"] != "annexes"
+        if c["parent"] != "annexes"
     ]
 
     # -- Generate summaries -------------------------------------------------------
