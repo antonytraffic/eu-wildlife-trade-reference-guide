@@ -928,13 +928,16 @@ def generate_summaries(pages: list[dict]) -> dict[str, str]:
         if client:
             try:
                 prompt = (
-                    f"Write a 1-2 sentence plain English summary for a web navigation card. "
-                    f"Be concise and factual. No markdown.\n\n"
+                    f"Write a single plain English sentence (maximum 12 words) summarising "
+                    f"the practical content of this section, based on its subheadings and body text. "
+                    f"Focus on what a user would DO or FIND in this section, not on its title. "
+                    f"Example: 'Applying to import a specimen, providing documentation, and meeting conditions.' "
+                    f"No markdown. Output only the sentence.\n\n"
                     f"Section title: {ch['title']}\n\nContent:\n{ch['body'][:2500]}"
                 )
                 msg = client.messages.create(
                     model="claude-haiku-4-5-20251001",
-                    max_tokens=120,
+                    max_tokens=60,
                     messages=[{"role": "user", "content": prompt}],
                 )
                 summary = msg.content[0].text.strip()
@@ -1074,22 +1077,43 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     )
 
 
+def annex_first_heading(sub: dict) -> str:
+    """Return the first H2 heading text from an annex sub-page body."""
+    m = re.search(r'^## (.+)$', sub["body"], re.MULTILINE)
+    return m.group(1).strip() if m else ""
+
+
 def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[dict], summaries: dict) -> str:
     """Landing page for parent sections (3, 4, Annexes): intro + sub-page card grid."""
-    # Render intro text only (strip the "## Sub-sections" list we added in restructure)
+    # Strip sub-section block from body. Handles three cases:
+    #   - "## Sub-sections" at start of body (Section 3: no intro text)
+    #   - "\n## Sub-sections" mid-body (Section 4)
+    #   - Markdown link list with no ## heading (Annexes parent)
     body = ch["body"]
-    cut  = body.find("\n## Sub-sections")
-    intro_md   = body[:cut].strip() if cut != -1 else body.strip()
-    intro_html = render_markdown(intro_md) if intro_md else ""
+    m = re.search(r'(?:^|\n)## ', body)
+    if m:
+        body = body[:m.start()].strip()
+    else:
+        m2 = re.search(r'\n- \[', body)
+        if m2:
+            body = body[:m2.start()].strip()
+    intro_html = render_markdown(body) if body else ""
+
+    is_annexes = ch["slug"] == "annexes"
 
     # Sub-page cards
     cards = ""
     for sub in sub_chapters:
-        excerpt = summaries.get(sub["slug"]) or first_sentences(strip_markdown(sub["body"]), 2)
+        if is_annexes:
+            heading     = sub["title"]          # "Annex I", "Annex II", …
+            description = annex_first_heading(sub)
+        else:
+            heading     = sub["title"]
+            description = summaries.get(sub["slug"]) or first_sentences(strip_markdown(sub["body"]), 2)
         cards += (
             f'<a class="subpage-card" href="{h(sub["slug"])}.html">'
-            f'<div class="subpage-card__title">{h(sub["title"])}</div>'
-            f'<div class="subpage-card__excerpt">{h(excerpt)}</div>'
+            f'<div class="subpage-card__title">{h(heading)}</div>'
+            f'<div class="subpage-card__excerpt">{h(description)}</div>'
             f'</a>'
         )
 
@@ -1335,8 +1359,12 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
     parent_pages = [c for c in nav_sections if c["sub_pages"]]
     simple_pages = [c for c in nav_sections if not c["sub_pages"]]
 
-    # All pages that appear as cards (summaries needed)
-    pages_for_summaries = nav_sections + all_sub + ([about_ch] if about_ch else [])
+    # All pages that appear as cards (summaries needed).
+    # Annex sub-pages are excluded — their cards use title + first heading, not a generated summary.
+    pages_for_summaries = [
+        c for c in nav_sections + all_sub + ([about_ch] if about_ch else [])
+        if c["parent"] != "annexes" and c["slug"] != "annexes"
+    ]
 
     # -- Generate summaries -------------------------------------------------------
     console.print("  Generating summaries (cached where possible)...")
