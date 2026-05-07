@@ -1,0 +1,20 @@
+---
+section_number: 4
+title: What are the general principles?
+parent: 04_what_rules_govern_internal_eu_trade
+sub_section: 4.1 What are the general principles?
+has_tables: false
+summary: Summary unavailable (no API key).
+---
+
+# What are the general principles?
+
+Internal trade in the EU includes trade within one EU Member State and trade between individual EU Member States. Given the nature of the EU single market, there are no regular border controls inside the EU and generally, wildlife goods can be moved and traded freely inside the EU, subject to the restrictions imposed by the Regulations.
+
+Wild specimens of species listed in Annex A (and any others that do not meet the formal definitions of captive-bred or artificially propagated) are generally not allowed to be used for commercial purposes and their movement inside the EU is also regulated. Commercial purposes include the purchase, offer to purchase, acquisition for commercial purposes, display to the public for commercial purposes, use for commercial gain, sale, keeping for sale, offering for sale, or transport for sale. The prohibitions applicable to specimens of Annex A-listed species also apply to specimens of species listed in Annex B for which it cannot be proven to the satisfaction of the competent authorities of Member States that they were acquired (and where applicable, introduced into the EU) in accordance with CITES, the Regulations and relevant national conservation legislation.
+
+Additionally, for species listed in Annex A, any movement of live specimens (which were not bred in captivity and for which the location of the specimen is specified in an import permit/certificate issued in compliance with the Regulations) requires prior authorisation from and issuance of a certificate by a Management Authority of the Member State where the specimen is located (see Section 5.3). This certificate will only be granted when the competent Scientific Authority of the relevant Member State is satisfied that the intended accommodation for a live specimen at the place of destination is adequately equipped to conserve and care for it properly.
+
+As a general rule, no permits or certificates are needed for keeping or moving a specimen of a species listed in Annex B, C or D inside the EU, although individual EU Member States have the power to restrict the holding of certain types of specimens (in particular, live specimens of species listed in Annex A). Likewise, permits are generally not required for commercial activities inside the EU involving specimens of species listed in Annex B, but it is necessary to provide documentary evidence showing that the specimens kept and/or used commercially were legally obtained or introduced. Specific guidance is developed detailing which proof of legal acquisition is needed for live animals of Annex B species. Also, for specimens of species listed in Annex C or D, it can be necessary, in certain instances, to provide documentary evidence showing that the specimens kept and/or used commercially were legally obtained or introduced. Therefore, it is advisable to keep copies of the import documents (i.e. import permits for Annex B, import notifications for Annex C and D) or other proof that the specimens were legally obtained (i.e. a certificate from a national CITES Management Authority).
+
+It should be noted that the rules governing internal EU trade in Annex-listed species may, in some cases, also apply to dependent and other territories of the European Union (see Section 3.7 and Annex V). It is therefore advised that the Management Authority of the relevant EU Member State be contacted in the first instance when contemplating trade in an Annex-listed species within an EU dependent and other territory. Contact details of the relevant Management Authority for the territory in question can be found on the National Contacts and Information page of the CITES website. The Management Authority should be able to advise on any trade restrictions that may apply, as well as relevant documentation requirements.

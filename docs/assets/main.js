@@ -1,4 +1,4 @@
-/* main.js — sidebar highlight + scroll utilities */
+/* main.js -- sidebar highlight + scroll utilities */
 (function () {
   'use strict';
 

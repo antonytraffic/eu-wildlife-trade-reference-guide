@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" class="govuk-template">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Search — EU Wildlife Trade Reference Guide</title>
-  <meta name="description" content="EU Wildlife Trade Regulations Reference Guide — Search">
+  <title>Search -- EU Wildlife Trade Reference Guide</title>
+  <meta name="description" content="EU Wildlife Trade Regulations Reference Guide -- Search">
   <link rel="stylesheet" href="assets/style.css">
   <meta name="theme-color" content="#0b0c0c">
 </head>
 <body id="top">
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- BLACK HEADER -->
 <header class="site-header" role="banner">
   <div class="site-header__inner">
     <div class="site-header__title">
-      <a href="index.html">EU Wildlife Trade Regulations&nbsp;&mdash; Reference Guide</a>
+      <a href="index.html">EU Wildlife Trade Regulations &mdash; Reference Guide</a>
     </div>
     <form class="header-search" action="search.html" method="get" role="search">
       <label for="header-search-input" class="skip-link">Search</label>
@@ -26,7 +25,15 @@
   </div>
 </header>
 
-<!-- PHASE BANNER -->
+<nav class="top-nav" aria-label="Main navigation">
+  <div class="container">
+    <ul class="top-nav__list">
+      <li><a href="index.html" class="top-nav__link top-nav__link--active">Home</a></li>
+      <li><a href="about.html" class="top-nav__link">About</a></li>
+    </ul>
+  </div>
+</nav>
+
 <div class="phase-banner">
   <div class="container">
     <strong class="phase-tag">Beta</strong>
@@ -34,14 +41,12 @@
   </div>
 </div>
 
-<!-- BREADCRUMBS -->
 <nav class="breadcrumbs" aria-label="Breadcrumb">
   <ol><li><a href="index.html">Home</a></li>
 <li><span aria-current="page">Search</span></li>
 </ol>
 </nav>
 
-<!-- MAIN -->
 <div class="main-content">
   <div class="container" id="main-content">
     
@@ -54,28 +59,27 @@
         role="search" style="margin-bottom:16px">
     <label for="search-input" class="skip-link">Search</label>
     <input type="search" id="search-input" name="q"
-           placeholder="Search the guide&hellip;" aria-label="Search the guide"
-           autofocus>
+           placeholder="Search the guide&hellip;" aria-label="Search the guide" autofocus>
     <button type="submit">Search</button>
   </form>
   <p class="search-count" id="search-count" aria-live="polite"></p>
 </div>
 <div id="search-results" aria-live="polite"></div>
-<noscript>
-  <p>JavaScript is required for search. Please enable it in your browser.</p>
-</noscript>
+<noscript><p>JavaScript is required for search.</p></noscript>
 
       
     
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer class="site-footer" role="contentinfo">
   <div class="container">
-    <p>Published by the European Commission &mdash; DG Environment.</p>
-    <p>Content extracted from the <em>Reference Guide to the European Union Wildlife Trade Regulations</em> (November 2025).</p>
-    <p><a href="index.html">Home</a> &middot; <a href="search.html">Search</a></p>
+    <p class="footer-smallprint">November 2025</p>
+<p class="footer-smallprint">This is a revised and updated version, based on the previous edition of the Reference Guide to the European Union Wildlife Trade Regulations originally produced in 1998 by the European Commission, TRAFFIC Europe and WWF.</p>
+<p class="footer-smallprint">This document does not necessarily represent the opinion of the European Commission and is not a legal interpretation of European Union legislation.</p>
+<p class="footer-smallprint">The contents of this document may be freely reproduced provided that the source is adequately recorded: European Commission and TRAFFIC (2025). Reference Guide to the European Union Wildlife Trade Regulations. Brussels, Belgium.</p>
+<p class="footer-smallprint">More details and information relating to the implementation and enforcement of CITES and the EU Wildlife Trade Regulations can be found on the website of the European Commission or by contacting the relevant authorities in EU Member States.</p>
+    <p style="margin-top:12px"><a href="index.html">Home</a> &middot; <a href="about.html">About</a> &middot; <a href="search.html">Search</a></p>
   </div>
 </footer>
 

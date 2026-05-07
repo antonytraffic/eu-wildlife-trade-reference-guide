@@ -1,4 +1,4 @@
-/* search.js — client-side full-text search for search.html */
+/* search.js -- client-side full-text search */
 (function () {
   'use strict';
 
@@ -44,6 +44,11 @@
     return out.replace(new RegExp('(' + safe + ')', 'gi'), '<mark>$1</mark>');
   }
 
+  function urlForItem(item) {
+    if (item.parent) return 'chapters/' + esc(item.slug) + '.html';
+    return 'chapters/' + esc(item.slug) + '.html';
+  }
+
   function render(results, q) {
     var container = document.getElementById('search-results');
     var countEl   = document.getElementById('search-count');
@@ -52,16 +57,16 @@
     if (!results.length) {
       if (countEl) countEl.textContent = '0 results';
       container.innerHTML = '<div class="no-results"><p>No results found for <strong>' +
-        esc(q) + '</strong>.</p><p>Try different terms or <a href="index.html">browse chapters</a>.</p></div>';
+        esc(q) + '</strong>.</p><p>Try different terms or <a href="index.html">browse sections</a>.</p></div>';
       return;
     }
     if (countEl) countEl.textContent = results.length + ' result' + (results.length !== 1 ? 's' : '');
     container.innerHTML = results.map(function (item) {
-      var pages = (item.page_start && item.page_end)
-        ? ' &middot; Pages ' + item.page_start + '&ndash;' + item.page_end : '';
+      var meta = item.section_number ? 'Section ' + esc(item.section_number) : '';
+      if (item.parent) meta = 'Sub-section';
       return '<div class="search-result">' +
-        '<div class="search-result__title"><a href="chapters/' + esc(item.slug) + '.html">' + esc(item.title) + '</a></div>' +
-        '<div class="search-result__meta">Chapter ' + esc(item.chapter_number) + pages + '</div>' +
+        '<div class="search-result__title"><a href="' + urlForItem(item) + '">' + esc(item.title) + '</a></div>' +
+        (meta ? '<div class="search-result__meta">' + meta + '</div>' : '') +
         (item.summary ? '<p class="search-result__snippet">' + esc(item.summary) + '</p>' : '') +
         '<p class="search-result__snippet">' + excerpt(item.body, q) + '</p>' +
         '</div>';
