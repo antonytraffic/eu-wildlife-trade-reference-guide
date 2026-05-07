@@ -2,7 +2,7 @@
 build_site.py — GOV.UK-styled static site generator.
 
 Reads:  output/*.md  (YAML frontmatter + markdown body)
-Writes: site/        (flat HTML/CSS/JS for GitHub Pages)
+Writes: docs/        (flat HTML/CSS/JS for GitHub Pages)
 
 Run:
     python build_site.py
@@ -27,7 +27,7 @@ from slugify import slugify as py_slugify
 # ── Paths ─────────────────────────────────────────────────────────────────────
 
 INPUT_DIR = Path("output")
-SITE_DIR  = Path("site")
+SITE_DIR  = Path("docs")
 
 console = Console()
 
@@ -1138,13 +1138,13 @@ def print_report(chapters: list[dict]) -> None:
     console.print("\n[bold]All output files:[/bold]")
     for f in sorted(all_files):
         rel = f.relative_to(SITE_DIR)
-        console.print(f"  site/{rel}")
-    console.print(f"\n  + site/assets/style.css")
-    console.print(f"  + site/assets/main.js")
-    console.print(f"  + site/assets/search.js")
-    console.print(f"  + site/search_index.json")
-    console.print(f"  + site/.nojekyll")
-    console.print(f"  + site/_config.yml")
+        console.print(f"  docs/{rel}")
+    console.print(f"\n  + docs/assets/style.css")
+    console.print(f"  + docs/assets/main.js")
+    console.print(f"  + docs/assets/search.js")
+    console.print(f"  + docs/search_index.json")
+    console.print(f"  + docs/.nojekyll")
+    console.print(f"  + docs/_config.yml")
 
     console.print(
         f"\n[bold green]Done.[/bold green] "
