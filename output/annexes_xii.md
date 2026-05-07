@@ -1,7 +1,7 @@
 ---
 has_tables: true
-page_end: 84
-page_start: 70
+page_end: 195
+page_start: 167
 summary: Summary unavailable (no API key).
 title: Annex XII
 section_number: 13

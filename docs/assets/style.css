@@ -298,7 +298,7 @@ pre code { background: none; padding: 0; }
   background: var(--light-grey); border-bottom: 1px solid var(--border);
   padding: 40px 0;
 }
-.hero h1 { margin-bottom: 12px; }
+.hero h1 { margin-bottom: 12px; font-size: 1.75rem; }
 .hero__lead {
   font-size: 1.1875rem; max-width: 680px; line-height: 1.6; margin-bottom: 24px;
 }
@@ -399,7 +399,7 @@ pre code { background: none; padding: 0; }
 .site-footer a { color: var(--secondary); font-size: .875rem; }
 .site-footer a:hover { color: var(--green); }
 .footer-smallprint {
-  font-size: .75rem; color: var(--secondary);
+  font-size: 0.7rem; color: var(--secondary);
   margin-bottom: 6px; line-height: 1.5;
 }
 

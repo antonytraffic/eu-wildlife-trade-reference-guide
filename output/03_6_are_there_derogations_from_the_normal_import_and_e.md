@@ -5,6 +5,8 @@ parent: 03_what_are_the_rules_governing_trade_into_and_from_the_eu_fo
 sub_section: 3.6 Are there derogations from the normal import and export rules?
 has_tables: true
 summary: Summary unavailable (no API key).
+page_start: 57
+page_end: 90
 ---
 
 # Are there derogations from the normal import and export rules?

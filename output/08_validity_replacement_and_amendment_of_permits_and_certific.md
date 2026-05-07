@@ -1,7 +1,7 @@
 ---
 has_tables: false
-page_end: 51
-page_start: 51
+page_end: 112
+page_start: 110
 summary: Summary unavailable (no API key).
 title: Validity, replacement and amendment of permits and certificates
 section_number: 8

@@ -1,7 +1,7 @@
 ---
 has_tables: true
-page_end: 10
-page_start: 8
+page_end: 18
+page_start: 13
 summary: Summary unavailable (no API key).
 title: What species are covered by the Regulations, and in what way?
 section_number: 2

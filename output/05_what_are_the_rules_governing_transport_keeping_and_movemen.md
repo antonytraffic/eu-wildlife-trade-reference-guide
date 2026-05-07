@@ -1,7 +1,7 @@
 ---
 has_tables: false
-page_end: 50
-page_start: 48
+page_end: 105
+page_start: 103
 summary: Summary unavailable (no API key).
 title: What are the rules governing transport, keeping and movement of live specimens?
 section_number: 5

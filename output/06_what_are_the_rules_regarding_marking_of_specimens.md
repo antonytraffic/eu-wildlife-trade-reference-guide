@@ -1,7 +1,7 @@
 ---
 has_tables: false
-page_end: 51
-page_start: 50
+page_end: 108
+page_start: 106
 summary: Summary unavailable (no API key).
 title: What are the rules regarding marking of specimens?
 section_number: 6

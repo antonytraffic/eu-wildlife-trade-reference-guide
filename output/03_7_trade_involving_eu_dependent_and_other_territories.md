@@ -5,6 +5,8 @@ parent: 03_what_are_the_rules_governing_trade_into_and_from_the_eu_fo
 sub_section: 3.7 Trade involving EU dependent and other territories
 has_tables: false
 summary: Summary unavailable (no API key).
+page_start: 91
+page_end: 91
 ---
 
 # Trade involving EU dependent and other territories

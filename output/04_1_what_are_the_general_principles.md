@@ -5,6 +5,8 @@ parent: 04_what_rules_govern_internal_eu_trade
 sub_section: 4.1 What are the general principles?
 has_tables: false
 summary: Summary unavailable (no API key).
+page_start: 91
+page_end: 91
 ---
 
 # What are the general principles?

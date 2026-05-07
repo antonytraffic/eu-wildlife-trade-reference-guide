@@ -1,7 +1,7 @@
 ---
 has_tables: false
-page_end: 51
-page_start: 51
+page_end: 109
+page_start: 109
 summary: Summary unavailable (no API key).
 title: When can permits and certificates be issued retrospectively?
 section_number: 7

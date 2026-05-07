@@ -1,7 +1,7 @@
 ---
 has_tables: false
-page_end: 51
-page_start: 51
+page_end: 113
+page_start: 113
 summary: Summary unavailable (no API key).
 title: Can specimens be traded through any Customs office?
 section_number: 9

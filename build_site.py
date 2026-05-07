@@ -424,7 +424,7 @@ pre code { background: none; padding: 0; }
   background: var(--light-grey); border-bottom: 1px solid var(--border);
   padding: 40px 0;
 }
-.hero h1 { margin-bottom: 12px; }
+.hero h1 { margin-bottom: 12px; font-size: 1.75rem; }
 .hero__lead {
   font-size: 1.1875rem; max-width: 680px; line-height: 1.6; margin-bottom: 24px;
 }
@@ -525,7 +525,7 @@ pre code { background: none; padding: 0; }
 .site-footer a { color: var(--secondary); font-size: .875rem; }
 .site-footer a:hover { color: var(--green); }
 .footer-smallprint {
-  font-size: .75rem; color: var(--secondary);
+  font-size: 0.7rem; color: var(--secondary);
   margin-bottom: 6px; line-height: 1.5;
 }
 
@@ -1049,13 +1049,6 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     mobile_contents = make_mobile_contents(headings)
     sidebar_html    = make_sidebar(headings)
 
-    meta_parts = [f"Section {h(ch['section_number'])}"]
-    if ch["page_start"] and ch["page_end"]:
-        meta_parts.append(f"Pages {h(ch['page_start'])}-{h(ch['page_end'])}")
-    if ch["has_tables"]:
-        meta_parts.append('<span class="badge">Contains tables</span>')
-    meta_html = f'<div class="chapter-meta">{"&ensp;&middot;&ensp;".join(meta_parts)}</div>'
-
     idx  = next((i for i, s in enumerate(nav_sections) if s["slug"] == ch["slug"]), -1)
     prev = nav_sections[idx - 1] if idx > 0 else None
     nxt  = nav_sections[idx + 1] if idx < len(nav_sections) - 1 else None
@@ -1066,7 +1059,6 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
 {contents_box}
 <article class="article-body">
   <h1>{h(ch['title'])}</h1>
-  {meta_html}
   {rendered}
 </article>
 {nav_html}
@@ -1193,20 +1185,18 @@ def build_index_page(nav_sections: list[dict], summaries: dict) -> str:
     for ch in nav_sections:
         label = f"Section {h(ch['section_number'])}" if ch["section_number"] else "Annexes"
         summary = summaries.get(ch["slug"]) or ""
-        badge   = '<span class="badge">Tables</span>' if ch["has_tables"] else ""
         cards += (
             f'<a class="chapter-card" href="chapters/{h(ch["slug"])}.html">'
             f'<div class="chapter-card__num">{label}</div>'
             f'<div class="chapter-card__title">{h(ch["title"])}</div>'
             f'<div class="chapter-card__summary">{h(summary)}</div>'
-            f'<div class="chapter-card__foot">{badge}</div>'
             f'</a>'
         )
 
     content = f"""
 <div class="hero">
   <div class="container">
-    <h1>EU Wildlife Trade Regulations<br>Reference Guide</h1>
+    <h1>EU Wildlife Trade Regulations Reference Guide</h1>
     <p class="hero__lead">
       A comprehensive reference guide on the rules governing the trade of wildlife
       into, out of, and within the European Union.

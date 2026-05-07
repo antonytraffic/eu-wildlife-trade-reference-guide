@@ -1,7 +1,7 @@
 ---
 has_tables: true
-page_end: 64
-page_start: 62
+page_end: 139
+page_start: 135
 summary: Summary unavailable (no API key).
 title: Annex VI
 section_number: 13

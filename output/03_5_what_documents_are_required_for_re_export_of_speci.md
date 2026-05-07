@@ -7,6 +7,8 @@ sub_section: 3.5 What documents are required for (re-)export of specimens of spe
   listed in Annex A, B or C?
 has_tables: true
 summary: Summary unavailable (no API key).
+page_start: 47
+page_end: 56
 ---
 
 # What documents are required for (re-)export of specimens of species listed in Annex A, B or C?

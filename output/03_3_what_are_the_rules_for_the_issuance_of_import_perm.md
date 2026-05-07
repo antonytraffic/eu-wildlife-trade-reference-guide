@@ -7,6 +7,8 @@ sub_section: 3.3 What are the rules for the issuance of import permits for speci
   of Annex A or B-listed species?
 has_tables: true
 summary: Summary unavailable (no API key).
+page_start: 24
+page_end: 41
 ---
 
 # What are the rules for the issuance of import permits for specimens of Annex A or B-listed species?

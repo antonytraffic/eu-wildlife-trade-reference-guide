@@ -1,7 +1,7 @@
 ---
 has_tables: false
-page_end: 54
-page_start: 52
+page_end: 121
+page_start: 120
 summary: Summary unavailable (no API key).
 title: What information must be provided by Member States and the Commission?
 section_number: 12

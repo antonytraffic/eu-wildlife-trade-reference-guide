@@ -7,6 +7,8 @@ sub_section: 4.4 Derogations for the benefit of scientific institutions and the 
   of pre-issued certificates
 has_tables: false
 summary: Summary unavailable (no API key).
+page_start: 99
+page_end: 99
 ---
 
 # Derogations for the benefit of scientific institutions and the use of pre-issued certificates

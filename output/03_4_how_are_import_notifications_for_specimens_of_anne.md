@@ -6,6 +6,8 @@ sub_section: 3.4 How are import notifications for specimens of Annex C or D-list
   species obtained?
 has_tables: false
 summary: Summary unavailable (no API key).
+page_start: 42
+page_end: 46
 ---
 
 # How are import notifications for specimens of Annex C or D-listed species obtained?

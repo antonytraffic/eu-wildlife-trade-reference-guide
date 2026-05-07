@@ -7,6 +7,8 @@ sub_section: 4.2 Are there any exemptions from the internal trade prohibition fo
   Annex A-listed species?
 has_tables: false
 summary: Summary unavailable (no API key).
+page_start: 92
+page_end: 98
 ---
 
 # Are there any exemptions from the internal trade prohibition for Annex A-listed species?

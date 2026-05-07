@@ -1,7 +1,7 @@
 ---
 has_tables: false
-page_end: 51
-page_start: 51
+page_end: 115
+page_start: 114
 summary: Summary unavailable (no API key).
 title: How are the Regulations enforced?
 section_number: 10
