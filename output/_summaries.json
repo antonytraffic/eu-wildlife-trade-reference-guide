@@ -1,7 +1,7 @@
 {
   "02_what_species_are_covered_by_the_regulations_and_in_what_wa": {
-    "hash": "f29b43afe129",
-    "summary": "2.1 The CITES Appendices Under CITES, animal and plant species are subject to different degrees of regulation by listing in three Appendices (which are referred to in this Guide as “the Appendices”). Table 1 indicates the number of species that are listed in the CITES Appendices."
+    "hash": "7247658db1b8",
+    "summary": "2.1 The CITES Appendices Under CITES, animal and plant species[^1] are subject to different degrees of regulation by listing in three Appendices (which are referred to in this Guide as “the Appendices”). Table 1 indicates the number of species that are listed in the CITES..."
   },
   "03_what_are_the_rules_governing_trade_into_and_from_the_eu_fo": {
     "hash": "1cf969a8ae61",
@@ -12,35 +12,35 @@
     "summary": "Sub-sections What are the general principles? Are there any exemptions from the internal trade prohibition for Annex A-listed species?"
   },
   "05_what_are_the_rules_governing_transport_keeping_and_movemen": {
-    "hash": "4d766d4e5c16",
+    "hash": "01574e51e1b9",
     "summary": "5.1 What are the rules for transport of live specimens Article 9(5) of Regulation (EC) No 338/97 states that live specimens that are transported into, from or within the EU, or that are held during any period of transit or transhipment, must be prepared, moved and cared for in a..."
   },
   "06_what_are_the_rules_regarding_marking_of_specimens": {
-    "hash": "be68654b4edc",
-    "summary": "There are certain specimens of species listed in the Annexes of Regulation (EC) No 338/97 that have to be uniquely marked, for internal EU trade control purposes (e.g. live Annex A-listed vertebrates) or for the purposes of controlling trade to and from the EU (e.g."
+    "hash": "ca47fafbeab9",
+    "summary": "There are certain specimens of species listed in the Annexes of Regulation (EC) No 338/97 that have to be uniquely marked, for internal EU trade control purposes (e.g. live Annex A-listed vertebrates[^1]) or for the purposes of controlling trade to and from the EU (e.g."
   },
   "07_when_can_permits_and_certificates_be_issued_retrospectivel": {
-    "hash": "8815ce94b227",
+    "hash": "db1b9a8389ee",
     "summary": "It is possible that an importer receives an unexpected shipment (e.g. before the scheduled date of arrival and before he/she has been able to apply for a permit) at an EU border for which the bill of lading indicates that s/he is the consignee."
   },
   "08_validity_replacement_and_amendment_of_permits_and_certific": {
-    "hash": "727017d97a46",
-    "summary": "8.1 Validity of permits elsewhere in the EU In principle, permits and certificates issued by one Member State in accordance with the EU Wildlife Trade Regulations are valid throughout the EU. Import permits are issued by the Member State of destination and export permits by the..."
+    "hash": "09292e842bc9",
+    "summary": "8.1 Validity of permits elsewhere in the EU In principle, permits and certificates issued by one Member State in accordance with the EU Wildlife Trade Regulations are valid throughout the EU[^1]. Import permits are issued by the Member State of destination and export permits by..."
   },
   "09_can_specimens_be_traded_through_any_customs_office": {
-    "hash": "2853bccbad76",
-    "summary": "Member States are obliged to designate Customs offices for carrying out the checks and formalities required under the Regulation and to state which offices are specifically intended to deal with live specimens. The latter will necessarily have to be the same as those designated..."
+    "hash": "57c6ca38cd4a",
+    "summary": "Member States are obliged to designate Customs offices for carrying out the checks and formalities required under the Regulation and to state which offices are specifically intended to deal with live specimens[^1]. The latter will necessarily have to be the same as those..."
   },
   "10_how_are_the_regulations_enforced": {
-    "hash": "2afabc1dc631",
+    "hash": "5f450e90644d",
     "summary": "There are several Articles of Regulation (EC) No 338/97 that deal with aspects of enforcement and the co-ordination thereof. These are, for example, Articles 14 (Monitoring of compliance and investigation of infringements), 15 (Communication of information) and 16 (Sanctions)."
   },
   "11_how_are_cites_duties_organised_at_national_and_eu_levels_bet": {
-    "hash": "219df72e0efa",
+    "hash": "a01338d73f0d",
     "summary": "11.1 How are duties organised at the national level? 11.1.1 Management Authority structure and function The complexity of the Regulations and the workload involved in ensuring their proper implementation and enforcement requires an adequately staffed and equipped Management..."
   },
   "12_what_information_must_be_provided_by_member_states_and_th": {
-    "hash": "919d029f1103",
+    "hash": "8b37a74fa4bd",
     "summary": "12.1. What information must be provided to the public?"
   },
   "annexes": {
@@ -48,127 +48,127 @@
     "summary": "This section contains the reference annexes to the EU Wildlife Trade Regulations Guide. Annex I Annex II Annex III Annex IV Annex V Annex VI Annex VII Annex VIII Annex IX Annex X Annex XI Annex XII Annex XIV Annex XV Annex XVI Annex XVII Annex XVIII Annex XIX"
   },
   "03_1_overview": {
-    "hash": "a0e84cd88d2e",
+    "hash": "36ee8a7fba73",
     "summary": "For any animal or plant species that is listed in Annex A, B or C of Regulation (EC) No 338/97 (or any parts or derivatives of the same), documentation is required before trade to or from the EU can take place (on trade within the EU, see Section 4). In the case of species..."
   },
   "03_2_what_document_for_what_purpose": {
-    "hash": "2ee7fd600bb1",
+    "hash": "4d13ea91dd83",
     "summary": "3.2.1 Standard operating procedures The number of Member States that is planning to move towards e-permitting increased from 18 Member States between 2018-2020 to 21 EU MS in the 2021-2023 reporting period of the Implementation Report. This progress toward e-permitting is..."
   },
   "03_3_what_are_the_rules_for_the_issuance_of_import_perm": {
-    "hash": "1d55a9ce619d",
-    "summary": "3.3.1 How do I apply to import a specimen? The rules for the issuance of import permits for specimens of Annex A- or B-listed species, from permit application to import, are as follows (see also Figure 1): the importer must apply with an import permit application form (model..."
+    "hash": "09701d957846",
+    "summary": "3.3.1 How do I apply to import a specimen? The rules for the issuance of import permits for specimens of Annex A- or B-listed species, from permit application to import, are as follows (see also Figure 1)[^1]: the importer must apply with an import permit application form (model..."
   },
   "03_4_how_are_import_notifications_for_specimens_of_anne": {
-    "hash": "fae6cd97973d",
-    "summary": "For species listed in Annex C or D, import notifications are required for import into the EU (see Figure 4 for procedure). For species listed in Annex C and Appendix III of CITES, (re-)export documents must be obtained and presented together with the import notification."
+    "hash": "087e0babc8d1",
+    "summary": "For species listed in Annex C or D, import notifications are required for import into the EU[^1] (see Figure 4 for procedure). For species listed in Annex C and Appendix III of CITES, (re-)export documents must be obtained and presented together with the import notification[^2]."
   },
   "03_5_what_documents_are_required_for_re_export_of_speci": {
-    "hash": "d50df5515325",
-    "summary": "An export permit is required for specimens taken from the wild, bred in captivity or artificially propagated in the EU. A re-export certificate is required for specimens of species that were previously imported into the EU."
+    "hash": "30691368a032",
+    "summary": "An export permit is required for specimens taken from the wild, bred in captivity or artificially propagated in the EU[^1]. A re-export certificate is required for specimens of species that were previously imported into the EU[^2]."
   },
   "03_6_are_there_derogations_from_the_normal_import_and_e": {
-    "hash": "7983c341573f",
+    "hash": "098dd2a06ac7",
     "summary": "There are a number of circumstances where the rules governing import and export of specimens of Annex-listed species are less strict. These are as follows: Import and (re-)export of captive-bred animals or artificially propagated plants, Transit of specimens through the EU,..."
   },
   "03_7_trade_involving_eu_dependent_and_other_territories": {
-    "hash": "69aa0be79391",
+    "hash": "5cd979ddcbd7",
     "summary": "When considering trade involving a dependent or other territory of an EU Member State, it is important to note that the territory may or may not be treated as within the EU for the purposes of EU law, including the Wildlife Trade Regulations. At the time of this Guide’s..."
   },
   "04_1_what_are_the_general_principles": {
-    "hash": "7a53ea38746c",
+    "hash": "a6ed27c0e183",
     "summary": "Internal trade in the EU includes trade within one EU Member State and trade between individual EU Member States. Given the nature of the EU single market, there are no regular border controls inside the EU and generally, wildlife goods can be moved and traded freely inside the..."
   },
   "04_2_are_there_any_exemptions_from_the_internal_trade_p": {
-    "hash": "db396ee0e345",
+    "hash": "8bb494dd421d",
     "summary": "4.2.1. Exemptions where no certificate is needed There are a number of general exemptions contained in Article 62 of Regulation (EC) No 865/2006 which provide that, for certain specimens, no certificate is required whatsoever for commercial transactions within the EU."
   },
   "04_3_what_about_trade_on_the_internet": {
-    "hash": "a8763ea8294d",
+    "hash": "e14d0633c5f5",
     "summary": "The provisions of the EU Wildlife Trade Regulations also apply to “cyber trade” (trade via the Internet) in specimens of species listed in the Annexes. That means that specimens of Annex A-listed species offered via the Internet must be still accompanied by valid certificates..."
   },
   "04_4_derogations_for_the_benefit_of_scientific_institut": {
-    "hash": "e0f1f90acea5",
-    "summary": "4.4.1 Approved scientific institutions Bona fide zoos, botanical gardens, museums or similar establishments, which are considered to be “scientific institutions” can be exempted from the prohibition on the use of specimens of Annex A-listed species for commercial purposes (which..."
+    "hash": "61257bff43d6",
+    "summary": "4.4.1 Approved scientific institutions Bona fide[^1] zoos, botanical gardens, museums or similar establishments, which are considered to be “scientific institutions”[^2] can be exempted from the prohibition on the use of specimens of Annex A-listed species for commercial..."
   },
   "04_5_how_are_internal_trade_certificates_obtained_and_u": {
-    "hash": "07b00cdb874b",
+    "hash": "61e046703ec2",
     "summary": "4.5.1 What are internal trade certificates used for? Internal trade certificates (see Figure 15, above) are issued in accordance with Article 10 of Regulation (EC) No 338/97."
   },
   "annexes_i": {
-    "hash": "ed097179aa22",
+    "hash": "4fc931dafcbc",
     "summary": "What is CITES? CITES, the Convention on International Trade in Endangered Species of Wild Fauna and Flora, entered into force in 1975 and has since become one of the most prominent international agreements in the field of species conservation."
   },
   "annexes_ii": {
-    "hash": "dcbd33c93cdb",
+    "hash": "929d0604becd",
     "summary": "What are the main differences between CITES and the EU Wildlife Trade Regulations? If you are already familiar with the workings of the Convention but not with those of the EU Wildlife Trade Regulations governing CITES, you should be aware that there are important differences..."
   },
   "annexes_iii": {
-    "hash": "57ae629367f6",
+    "hash": "41fbf7159306",
     "summary": "Definitions Article 2 of Regulation (EC) No 338/97 contains the following definitions: (a) ‘Committee’ shall mean the Committee on Trade in Wild Fauna and Flora, established under Article 18; (b) ‘Convention’ shall mean the Convention on International Trade in Endangered Species..."
   },
   "annexes_iv": {
-    "hash": "c4f5becad57f",
+    "hash": "a4ebfb7ff289",
     "summary": "Definitions of the Opinions issued by the Scientific Review Group Positive Opinion – given current or anticipated levels of trade, introduction into the EU would not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the..."
   },
   "annexes_ix": {
-    "hash": "ec5507068722",
+    "hash": "8b0ff0168d4b",
     "summary": "Codes for the indication in permits and certificates of the source of specimens, referred to in Article 5(6) of Regulation (EC) No 865/2006 as amended by Regulation (EU) No 791/2012 and Regulation (EU) No 2015/870 1. Codes for the indication in permits and certificates of the..."
   },
   "annexes_v": {
-    "hash": "2a79c2742627",
+    "hash": "8496685cc908",
     "summary": "Application of CITES in the European Union: Status of dependent and other territories Party to CITES EU territory (EU Treaty applies) EU CITES legislation applies1 Import and (re-)export documents required for trade with EU Member States EU customs territory Customs checks..."
   },
   "annexes_vi": {
-    "hash": "1d9bf5212d7b",
+    "hash": "e066b279557b",
     "summary": "Codes to be included in the description of specimens and units of measurement to be used in permits and certificates pursuant to Articles 5(1) and (2) of Regulation (EC) No 865/2006 Description Trade term code Preferred unit Alternative unit Explanation baleen BAL kg no. elastic..."
   },
   "annexes_vii": {
-    "hash": "8436cc723be6",
+    "hash": "1cbe47f12513",
     "summary": "Standard references for nomenclature to be used pursuant to Article 5(4) of Regulation (EC) No 865/2006 to indicate scientific names of species in permits and certificates (as contained in Annex VIII Regulation (EC) No 865/2006, as amended by Regulation (EU) No 2023/966) FAUNA..."
   },
   "annexes_viii": {
-    "hash": "d3f07156b4dc",
+    "hash": "6b55dad1a17d",
     "summary": "Codes for the indication in permits and certificates of the purpose of a transaction, referred to in Article 5(5) of Regulation (EC) No 865/2006 as amended by Regulation (EU) No 2015/870 B Breeding in captivity or artificial propagation E Educational. Where the transaction is..."
   },
   "annexes_x": {
-    "hash": "621807a40bb0",
+    "hash": "e0cf07e408b7",
     "summary": "Animal species referred to in Article 62(1) of Regulation (EC) No 865/2006 Aves ANSERIFORMES Anatidae Anas laysanensis Anas querquedula Aythya nyroca Branta ruficollis Branta sandvicensis Oxyura leucocephala COLUMBIFORMES Columbidae Columba livia GALLIFORMES Phasianidae Catreus..."
   },
   "annexes_xi": {
-    "hash": "80f4079626b0",
+    "hash": "3a19d6edafed",
     "summary": "Species and populations referred to in Article 57(3a) of Regulation (EC) No 865/2006 as inserted by Regulation (EU) No 2015/870 Ceratotherium simum simum Hippopotamus amphibius Loxodonta africana Ovis ammon Panthera leo Ursus maritimus"
   },
   "annexes_xii": {
-    "hash": "fd190ffcff7e",
-    "summary": "Scientific Authorities and Scientific Review Group - Guidelines on their designation, duties and tasks under Regulation (EC) No 338/97 and Regulation (EC) No 865/2006 REGULATION (EC) No 338/97 ESTABLISHMENT Article Duty Article 13.2 Each Member State shall designate of one or..."
+    "hash": "5419cccfa623",
+    "summary": "Scientific Authorities and Scientific Review Group - Guidelines on their designation, duties and tasks under Regulation (EC) No 338/97 and Regulation (EC) No 865/2006[^1] REGULATION (EC) No 338/97 ESTABLISHMENT Article Duty Article 13.2 Each Member State shall designate of one..."
   },
   "annexes_xiv": {
-    "hash": "d9686861fa78",
+    "hash": "e5f6bbca40c8",
     "summary": "Summary of provisions relating to caviar of sturgeons and paddlefish (Acipenseriformes spp.), according to Regulation (EC) No 865/2006 (as amended) In April 1998, the decisions to list all species of sturgeon and paddlefish (Acipenseriformes spp.) in the CITES Appendices entered..."
   },
   "annexes_xix": {
-    "hash": "0d9decb2989c",
-    "summary": "Rules on trade in protected species of wild fauna and flora following the withdrawal of the United Kingdom from the EU Practical information Since 1 February 2020, the United Kingdom has withdrawn from the EU and has become a “third country”. The Withdrawal Agreement provided..."
+    "hash": "cf743352157e",
+    "summary": "Rules on trade in protected species of wild fauna and flora following the withdrawal of the United Kingdom from the EU Practical information Since 1 February 2020, the United Kingdom has withdrawn from the EU and has become a “third country”[^1]. The Withdrawal Agreement[^2]..."
   },
   "annexes_xv": {
-    "hash": "bfe31696fdc1",
+    "hash": "d0bfef7a7808",
     "summary": "Date of EC/EU Membership and CITES Accession for the EU Member States EU Member State Year of EC/EU Membership Year of CITES Accession Austria 1995 1982 Belgium 1958 1984 Bulgaria 2007 1991 Croatia 2013 2000 Cyprus 2004 1975 Czechia 2004 1993 Denmark 1973 1977 Estonia 2004 1992..."
   },
   "annexes_xvi": {
-    "hash": "bb7f9678f379",
+    "hash": "8f09d0f510e9",
     "summary": "Articles in Regulation (EC) No 338/97 and in Regulation (EC) No 865/2006 Regulation (EC) No 338/97 as amended ARTICLE CONTENT Article 1 Object Article 2 Definitions Article 3 Scope Article 4 Introduction into the EU Article 5 Export or re-export from the EU Article 6 Rejection..."
   },
   "annexes_xvii": {
-    "hash": "e3b4f85eb3f8",
+    "hash": "90117c27ae42",
     "summary": "Measuring reptiles In some cases, it may be necessary to set size limits for the import of certain reptile species from specific countries and for specific source codes as tool to ensure the sustainability of harvesting and trade. To ease the enforcement, it is recommended to..."
   },
   "annexes_xviii": {
-    "hash": "09781d1bdd58",
+    "hash": "9ba6a27e49ff",
     "summary": "Guidance on handover of EU certificates in case of transfer of ownership of the certified specimen(s) Introduction Traceability of specimens and proof of legal acquisition are important to facilitate enforcement of EU Wildlife Trade Regulations. For that purpose, original..."
   },
   "01_how_do_i_use_this_guide": {
-    "hash": "c2b127155769",
-    "summary": "The European Union (EU) represents one of the largest markets for wild animals and plants, their products and derivatives. For many years, legislation to govern this trade has been a conservation priority in the region."
+    "hash": "f04896feb12f",
+    "summary": "The European Union (EU)[^1] represents one of the largest markets for wild animals and plants, their products and derivatives. For many years, legislation to govern this trade has been a conservation priority in the region."
   }
 }

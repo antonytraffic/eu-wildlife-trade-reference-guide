@@ -71,7 +71,7 @@ def parse_md_file(path: Path) -> dict:
 def render_markdown(content: str) -> str:
     return markdown2.markdown(
         content,
-        extras=["tables", "fenced-code-blocks", "header-ids", "smarty-pants"],
+        extras=["tables", "fenced-code-blocks", "header-ids", "smarty-pants", "footnotes"],
     )
 
 
