@@ -8,7 +8,6 @@ Run:
     python build_site.py
 """
 
-import hashlib
 import html as html_mod
 import json
 import os
@@ -114,18 +113,66 @@ def _postprocess_lettered_lists(html: str) -> str:
     return "".join(out)
 
 
-_TABLE_RE = re.compile(r"<table>(.*?)</table>", re.DOTALL)
-_CELL_RE  = re.compile(r"<td[^>]*>(.*?)</td>", re.DOTALL)
-_ROW_RE   = re.compile(r"<tr>.*?</tr>", re.DOTALL)
+_TABLE_RE   = re.compile(r"<table>(.*?)</table>", re.DOTALL)
+_CELL_RE    = re.compile(r"<td[^>]*>(.*?)</td>", re.DOTALL)
+_ROW_RE     = re.compile(r"<tr>.*?</tr>", re.DOTALL)
+# Matches a <p> paragraph starting with Source:/Note: (after any HTML tags)
+_SOURCE_FULL_RE = re.compile(
+    r"^\s*(<p[^>]*>(?:<[^>]+>)*(?:Source|Note)s?:.*?</p>)",
+    re.DOTALL | re.IGNORECASE,
+)
+# Matches table label paragraphs: <p><em>Table N: ...</em></p>
+_LABEL_RE = re.compile(
+    r"<p><em>((?:Table|Figure)\s+\d+[^<]*)</em></p>",
+    re.IGNORECASE,
+)
+
+
+def _check_row(row_m: re.Match, n_cols: int) -> str:
+    row = row_m.group(0)
+    cells = _CELL_RE.findall(row)
+    if not cells:
+        return row
+    non_empty = [(i, c.strip()) for i, c in enumerate(cells) if c.strip()]
+    if len(non_empty) == 1:
+        _, content = non_empty[0]
+        return (f'<tr><td colspan="{n_cols}" class="table-subheader">'
+                f"{content}</td></tr>")
+    return row
+
+
+def _make_colgroup(inner: str, n_cols: int) -> str:
+    """Return <colgroup> HTML for tables whose 3rd header is 'Documents Required'."""
+    if n_cols != 4:
+        return ""
+    headers = re.findall(r"<th[^>]*>(.*?)</th>", inner, re.DOTALL)
+    texts = [re.sub(r"<[^>]+>", "", h).lower() for h in headers]
+    if any("documents required" in t for t in texts):
+        return (
+            '<colgroup>'
+            '<col style="width:12%">'
+            '<col style="width:8%">'
+            '<col style="width:60%">'
+            '<col style="width:20%">'
+            '</colgroup>'
+        )
+    return ""
 
 
 def _postprocess_tables(html: str) -> str:
-    """Wrap tables in .table-wrap; convert single-content-cell tbody rows to colspan sub-headers."""
+    """
+    Linear scan of html: wrap each <table> in .table-wrap, handle subheader rows,
+    add colgroup for wide-column tables, and move Source:/Note: paragraphs
+    immediately following a table into a <caption> element.
+    """
+    result: list[str] = []
+    pos = 0
 
-    def process_table(m: re.Match) -> str:
+    for m in _TABLE_RE.finditer(html):
+        result.append(html[pos:m.start()])
         inner = m.group(1)
 
-        # Count columns from <th> elements; fall back to first <td> row
+        # Count columns
         n_cols = len(re.findall(r"<th[\s>]", inner))
         if n_cols == 0:
             first_tr = re.search(r"<tr>(.*?)</tr>", inner, re.DOTALL)
@@ -133,27 +180,40 @@ def _postprocess_tables(html: str) -> str:
                 n_cols = len(re.findall(r"<td[\s>]", first_tr.group(1)))
         n_cols = max(n_cols, 1)
 
-        # Process <tbody> rows only
+        # Process tbody: single-content-cell rows → colspan sub-headers
         tbody_m = re.search(r"<tbody>(.*?)</tbody>", inner, re.DOTALL)
         if tbody_m:
-            def check_row(row_m: re.Match) -> str:
-                row = row_m.group(0)
-                cells = _CELL_RE.findall(row)
-                if not cells:
-                    return row
-                non_empty = [(i, c.strip()) for i, c in enumerate(cells) if c.strip()]
-                if len(non_empty) == 1:
-                    _, content = non_empty[0]
-                    return (f'<tr><td colspan="{n_cols}" class="table-subheader">'
-                            f"{content}</td></tr>")
-                return row
+            new_tbody = _ROW_RE.sub(lambda r: _check_row(r, n_cols), tbody_m.group(0))
+            inner = inner[: tbody_m.start()] + new_tbody + inner[tbody_m.end():]
 
-            new_tbody = _ROW_RE.sub(check_row, tbody_m.group(0))
-            inner = inner[: tbody_m.start()] + new_tbody + inner[tbody_m.end() :]
+        colgroup = _make_colgroup(inner, n_cols)
 
-        return f'<div class="table-wrap"><table>{inner}</table></div>'
+        # Look for a Source:/Note: paragraph immediately after this table
+        rest = html[m.end():]
+        cap_m = _SOURCE_FULL_RE.match(rest)
+        caption_html = ""
+        skip = 0
+        if cap_m:
+            cap_para = cap_m.group(1).strip()
+            # Extract inner HTML from the <p> wrapper
+            cap_content = re.sub(r"^<p[^>]*>(.*)</p>$", r"\1", cap_para, flags=re.DOTALL)
+            caption_html = f"<caption>{cap_content}</caption>"
+            skip = cap_m.end()
 
-    return _TABLE_RE.sub(process_table, html)
+        result.append(
+            f'<div class="table-wrap">'
+            f"<table>{caption_html}{colgroup}{inner}</table>"
+            f"</div>"
+        )
+        pos = m.end() + skip
+
+    result.append(html[pos:])
+    return "".join(result)
+
+
+def _postprocess_table_labels(html: str) -> str:
+    """Convert <p><em>Table N: text</em></p> to <p class="table-label">Table N: text</p>."""
+    return _LABEL_RE.sub(r'<p class="table-label">\1</p>', html)
 
 
 def render_markdown(content: str) -> str:
@@ -162,7 +222,128 @@ def render_markdown(content: str) -> str:
         extras=["tables", "fenced-code-blocks", "header-ids", "smarty-pants", "footnotes"],
     )
     html = _postprocess_lettered_lists(html)
-    return _postprocess_tables(html)
+    html = _postprocess_tables(html)
+    html = _postprocess_table_labels(html)
+    return html
+
+
+# ==============================================================================
+# Cross-reference auto-linker
+# ==============================================================================
+
+# Module-level lookup: section/annex string → URL relative to docs/
+_XREF_LOOKUP: dict[str, str] = {}
+
+# Match parenthetical cross-refs: (see... Section N.N.N...) or (see... Annex X...)
+_XREF_SEC_RE = re.compile(
+    r'\(([^()]*?(?:see|see\s+also)[^()]*?Sections?\s+(\d[\d.]*)(?:[^()]*?))\)',
+    re.IGNORECASE,
+)
+_XREF_ANN_RE = re.compile(
+    r'\(([^()]*?(?:see|see\s+also)[^()]*?Annex\s+([IVXLivxl]+)(?:[^()]*?))\)',
+    re.IGNORECASE,
+)
+
+
+def _predict_anchor(num: str, heading_text: str) -> str:
+    """Predict the markdown2 header-id for a heading with section number."""
+    full = (num + " " + heading_text).lower()
+    anchor = re.sub(r"[^\w\s-]", "", full)   # strip non-word/space/hyphen
+    anchor = re.sub(r"\s+", "-", anchor.strip())
+    anchor = re.sub(r"-+", "-", anchor).strip("-")
+    return anchor
+
+
+def build_section_lookup(nav_sections: list[dict], all_sub: list[dict]) -> None:
+    """Populate _XREF_LOOKUP with section/annex number → docs/-relative URL."""
+    global _XREF_LOOKUP
+    _XREF_LOOKUP = {}
+
+    # Top-level sections: integer → parent page
+    for ch in nav_sections:
+        snum = ch["section_number"]
+        if snum and 0 < snum <= 12:
+            _XREF_LOOKUP[str(snum)] = f"chapters/{ch['slug']}.html"
+
+    # Sub-pages: extract leading N.N from sub_section field
+    for ch in all_sub:
+        ss = ch.get("sub_section", "")
+        if ss:
+            m = re.match(r"^(\d+(?:\.\d+)+)", ss)
+            if m:
+                _XREF_LOOKUP[m.group(1)] = f"chapters/{ch['slug']}.html"
+
+        # Also scan headings within each sub-page for deeper section numbers
+        for hm in re.finditer(
+            r"^#{2,}\s+((\d+(?:\.\d+){2,})\s+(.+))$", ch["body"], re.MULTILINE
+        ):
+            full_heading, num, text = hm.group(1), hm.group(2), hm.group(3)
+            if num not in _XREF_LOOKUP:
+                anchor = _predict_anchor(num, text.strip())
+                _XREF_LOOKUP[num] = f"chapters/{ch['slug']}.html#{anchor}"
+
+    # Annex sub-pages: map Roman numeral → annex slug
+    for ch in all_sub:
+        if ch.get("parent") == "annexes":
+            title = ch.get("title", "")
+            am = re.match(r"Annex\s+([IVXLivxl]+)", title, re.IGNORECASE)
+            if am:
+                _XREF_LOOKUP[f"annex_{am.group(1).upper()}"] = (
+                    f"chapters/{ch['slug']}.html"
+                )
+
+
+def _xref_url(doc_url: str, depth: int) -> str:
+    """Convert a docs/-relative URL to a URL relative to the current page depth."""
+    if depth == 1:
+        return doc_url.replace("chapters/", "", 1)  # same directory
+    return doc_url  # depth 0: docs/ root
+
+
+def autolink_xrefs(html: str, depth: int = 1) -> str:
+    """Replace (see Section X.X) / (see Annex X) with hyperlinks."""
+    if not _XREF_LOOKUP:
+        return html
+
+    def _sub_section(m: re.Match) -> str:
+        inner, num = m.group(1), m.group(2).strip()
+        url = _XREF_LOOKUP.get(num)
+        if url is None:
+            return m.group(0)
+        href = _xref_url(url, depth)
+        return f'(<a href="{href}">{inner}</a>)'
+
+    def _sub_annex(m: re.Match) -> str:
+        inner, num = m.group(1), m.group(2).strip().upper()
+        url = _XREF_LOOKUP.get(f"annex_{num}")
+        if url is None:
+            return m.group(0)
+        href = _xref_url(url, depth)
+        return f'(<a href="{href}">{inner}</a>)'
+
+    html = _XREF_SEC_RE.sub(_sub_section, html)
+    html = _XREF_ANN_RE.sub(_sub_annex, html)
+    return html
+
+
+# ==============================================================================
+# Section label helper
+# ==============================================================================
+
+def _section_label_html(ch: dict) -> str:
+    """Return a <span class="section-label"> for a chapter or sub-page, or ''."""
+    snum = ch.get("section_number", 0)
+    ss   = ch.get("sub_section", "")
+
+    if ss:
+        # Sub-page: extract leading N.N from sub_section "3.1 Overview"
+        m = re.match(r"^(\d+(?:\.\d+)+)", ss)
+        if m:
+            return f'<span class="section-label">Section {m.group(1)}</span>'
+    if snum and 2 <= snum <= 12:
+        return f'<span class="section-label">Section {snum}</span>'
+
+    return ""
 
 
 def extract_headings(html: str) -> list[dict]:
@@ -435,6 +616,16 @@ a:focus {
 .mobile-contents__body .contents-list { padding: 0; }
 .mobile-contents__body li { margin: 7px 0; font-size: .9375rem; }
 
+/* -- Section label (above h1 on chapter pages) -------- */
+.section-label {
+  font-size: 0.8rem; color: #505a5f; text-transform: uppercase;
+  font-weight: normal; letter-spacing: 0.05em;
+  display: block; margin-bottom: 0.25rem;
+}
+
+/* -- Small list (Table 12 footnotes) ------------------ */
+.small-list, .small-list li { font-size: 0.8rem; }
+
 /* -- Typography --------------------------------------- */
 h1 { font-size: 2rem;     font-weight: 700; line-height: 1.2; margin: 0 0 24px; }
 h2 {
@@ -465,13 +656,16 @@ pre code { background: none; padding: 0; }
 
 /* -- Tables ------------------------------------------- */
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 20px 0 30px; }
+.table-label {
+  font-weight: bold; font-style: normal; font-size: 0.9rem; margin-bottom: 0.25rem;
+}
 .article table {
   border-collapse: collapse; width: 100%;
   table-layout: fixed; font-size: 0.85rem;
 }
 .article table th {
   background: var(--black); color: var(--white); padding: 10px 14px;
-  text-align: left; font-weight: 700; border: 1px solid #333;
+  text-align: left; font-weight: normal; font-style: normal; border: 1px solid #333;
   overflow-wrap: break-word; word-wrap: break-word;
 }
 .article table td {
@@ -482,6 +676,10 @@ pre code { background: none; padding: 0; }
 .article table tr:hover td { background: var(--mid-grey); }
 .table-subheader {
   background: #f3f2f1; font-weight: 700; text-align: left; padding: 6px 8px;
+}
+table caption {
+  caption-side: bottom; font-size: 0.8rem; color: #505a5f;
+  text-align: left; padding-top: 0.4rem; font-style: normal;
 }
 
 /* -- Section meta line -------------------------------- */
@@ -644,9 +842,12 @@ ol.lettered-list li { margin-bottom: 6px; }
 .site-footer a { color: var(--secondary); font-size: .875rem; }
 .site-footer a:hover { color: var(--green); }
 .footer-smallprint {
-  font-size: 0.7rem; color: var(--secondary);
+  font-size: 0.65rem; color: var(--secondary);
   margin-bottom: 6px; line-height: 1.5;
 }
+
+/* -- Homepage section dividers ------------------------ */
+.container > hr { margin: 2rem 0; border: none; border-top: 1px solid var(--border); }
 
 /* -- Responsive --------------------------------------- */
 @media screen and (max-width: 768px) {
@@ -1010,10 +1211,6 @@ def base_html(
 # SECTION 5 -- Summary generation (Claude Haiku + cache + fallback)
 # ==============================================================================
 
-def _body_hash(body: str) -> str:
-    return hashlib.md5(body[:5000].encode()).hexdigest()[:12]
-
-
 def load_summaries_cache() -> dict:
     if SUMMARIES_FILE.exists():
         try:
@@ -1023,69 +1220,22 @@ def load_summaries_cache() -> dict:
     return {}
 
 
-def save_summaries_cache(cache: dict) -> None:
-    SUMMARIES_FILE.write_text(
-        json.dumps(cache, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
-
-
 def generate_summaries(pages: list[dict]) -> dict[str, str]:
     """
     Return {slug: summary_text} for all pages.
-    Uses _summaries.json as a content-hash cache.
-    Falls back to first two sentences when ANTHROPIC_API_KEY is absent.
+    Reads _summaries.json as a static file — never writes to it.
+    Falls back to first two sentences of body text when a key is missing.
     """
     cache = load_summaries_cache()
-    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
-    client = None
-    if api_key:
-        try:
-            import anthropic
-            client = anthropic.Anthropic(api_key=api_key)
-        except ImportError:
-            pass
-
     summaries: dict[str, str] = {}
-    changed = False
 
     for ch in pages:
         slug  = ch["slug"]
-        bhash = _body_hash(ch["body"])
         entry = cache.get(slug, {})
-
-        if entry.get("hash") == bhash and entry.get("summary"):
-            summaries[slug] = entry["summary"]
-            continue
-
-        # Generate new summary
-        if client:
-            try:
-                prompt = (
-                    f"Write a single plain English sentence (maximum 12 words) summarising "
-                    f"the practical content of this section, based on its subheadings and body text. "
-                    f"Focus on what a user would DO or FIND in this section, not on its title. "
-                    f"Example: 'Applying to import a specimen, providing documentation, and meeting conditions.' "
-                    f"No markdown. Output only the sentence.\n\n"
-                    f"Section title: {ch['title']}\n\nContent:\n{ch['body'][:2500]}"
-                )
-                msg = client.messages.create(
-                    model="claude-haiku-4-5-20251001",
-                    max_tokens=60,
-                    messages=[{"role": "user", "content": prompt}],
-                )
-                summary = msg.content[0].text.strip()
-            except Exception:
-                summary = first_sentences(strip_markdown(ch["body"]), 2)
-        else:
+        summary = entry.get("summary") if isinstance(entry, dict) else entry
+        if not summary:
             summary = first_sentences(strip_markdown(ch["body"]), 2)
-
         summaries[slug] = summary
-        cache[slug] = {"hash": bhash, "summary": summary}
-        changed = True
-
-    if changed:
-        save_summaries_cache(cache)
 
     return summaries
 
@@ -1179,7 +1329,7 @@ def make_prev_next(prev: dict | None, next: dict | None) -> str:
 
 def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     """Sections 2, 5-12: full article with sidebar, contents box, prev/next."""
-    rendered = render_markdown(ch["body"])
+    rendered = autolink_xrefs(render_markdown(ch["body"]), depth=1)
     headings = extract_headings(rendered)
 
     contents_box    = make_contents_box(headings)
@@ -1191,10 +1341,12 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     nxt  = nav_sections[idx + 1] if idx < len(nav_sections) - 1 else None
     nav_html = make_prev_next(prev, nxt)
 
+    label_html = _section_label_html(ch)
     content = f"""
 {mobile_contents}
 {contents_box}
 <article class="article-body">
+  {label_html}
   <h1>{h(ch['title'])}</h1>
   {rendered}
 </article>
@@ -1256,8 +1408,10 @@ def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[
     nxt  = nav_sections[idx + 1] if idx < len(nav_sections) - 1 else None
     nav_html = make_prev_next(prev, nxt)
 
+    label_html = _section_label_html(ch)
     content = f"""
 <article class="article-body">
+  {label_html}
   <h1>{h(ch['title'])}</h1>
   {intro_html}
 </article>
@@ -1276,7 +1430,7 @@ def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[
 
 def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
     """Individual sub-page within Section 3, 4, or Annexes."""
-    rendered = render_markdown(ch["body"])
+    rendered = autolink_xrefs(render_markdown(ch["body"]), depth=1)
     headings = extract_headings(rendered)
 
     contents_box    = make_contents_box(headings)
@@ -1288,10 +1442,12 @@ def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
     nxt  = siblings[idx + 1] if idx < len(siblings) - 1 else None
     nav_html = make_prev_next(prev, nxt)
 
+    label_html = _section_label_html(ch)
     content = f"""
 {mobile_contents}
 {contents_box}
 <article class="article-body">
+  {label_html}
   <h1>{h(ch['title'])}</h1>
   {rendered}
 </article>
@@ -1337,18 +1493,36 @@ def build_about_page(ch: dict) -> str:
     )
 
 
-def build_index_page(nav_sections: list[dict], summaries: dict) -> str:
-    """Homepage: hero + section card grid (Sections 2-12 + Annexes, not Section 1)."""
-    cards = ""
-    for ch in nav_sections:
-        label = f"Section {h(ch['section_number'])}" if ch["section_number"] else "Annexes"
-        summary = summaries.get(ch["slug"]) or ""
-        cards += (
-            f'<a class="chapter-card" href="chapters/{h(ch["slug"])}.html">'
-            f'<div class="chapter-card__num">{label}</div>'
-            f'<div class="chapter-card__title">{h(ch["title"])}</div>'
-            f'<div class="chapter-card__summary">{h(summary)}</div>'
-            f'</a>'
+def _make_card(ch: dict, summaries: dict, href: str | None = None) -> str:
+    snum = ch["section_number"]
+    label = f"Section {h(snum)}" if snum and snum <= 12 else "Annexes"
+    summary = summaries.get(ch["slug"]) or ""
+    actual_href = href if href is not None else f"chapters/{h(ch['slug'])}.html"
+    return (
+        f'<a class="chapter-card" href="{actual_href}">'
+        f'<div class="chapter-card__num">{label}</div>'
+        f'<div class="chapter-card__title">{h(ch["title"])}</div>'
+        f'<div class="chapter-card__summary">{h(summary)}</div>'
+        f'</a>'
+    )
+
+
+def build_index_page(nav_sections: list[dict], summaries: dict,
+                     about_ch: dict | None = None) -> str:
+    """Homepage: hero + three grouped card sections (About / Reference Guide / Annexes)."""
+
+    # Sections 2–12 go to Reference Guide; section 13+ go to Annexes
+    guide_sections = [c for c in nav_sections if 0 < c["section_number"] <= 12]
+    annex_sections = [c for c in nav_sections if c["section_number"] == 0 or c["section_number"] > 12]
+
+    about_cards  = _make_card(about_ch, summaries, href="about.html") if about_ch else ""
+    guide_cards  = "".join(_make_card(c, summaries) for c in guide_sections)
+    annex_cards  = "".join(_make_card(c, summaries) for c in annex_sections)
+
+    def section_block(heading: str, cards: str) -> str:
+        return (
+            f'<h2 style="margin-top:0;border-top:none;padding-top:0">{heading}</h2>'
+            f'<div class="chapter-grid">{cards}</div>'
         )
 
     content = f"""
@@ -1369,8 +1543,11 @@ def build_index_page(nav_sections: list[dict], summaries: dict) -> str:
 </div>
 
 <div class="container" style="padding-top:30px">
-  <h2 style="margin-top:0;border-top:none;padding-top:0">All sections</h2>
-  <div class="chapter-grid">{cards}</div>
+  {section_block("About", about_cards) if about_cards else ""}
+  {"<hr>" if about_cards else ""}
+  {section_block("Reference Guide", guide_cards)}
+  <hr>
+  {section_block("Annexes", annex_cards) if annex_cards else ""}
 </div>
 """
     return base_html(
@@ -1506,6 +1683,10 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
     summaries = generate_summaries(pages_for_summaries)
     console.print(f"  [green]+[/green] Summaries ready for {len(summaries)} pages")
 
+    # -- Build cross-reference lookup (section/annex number → URL) ----------------
+    build_section_lookup(nav_sections, all_sub)
+    console.print(f"  [green]+[/green] Cross-reference lookup built ({len(_XREF_LOOKUP)} entries)")
+
     # -- Create output directories ------------------------------------------------
     (SITE_DIR / "assets").mkdir(parents=True, exist_ok=True)
     (SITE_DIR / "chapters").mkdir(parents=True, exist_ok=True)
@@ -1534,7 +1715,7 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
 
     # -- Root pages ---------------------------------------------------------------
     (SITE_DIR / "index.html").write_text(
-        build_index_page(nav_sections, summaries), encoding="utf-8"
+        build_index_page(nav_sections, summaries, about_ch=about_ch), encoding="utf-8"
     )
     (SITE_DIR / "search.html").write_text(build_search_page(),  encoding="utf-8")
     (SITE_DIR / "404.html"  ).write_text(build_404_page(),     encoding="utf-8")

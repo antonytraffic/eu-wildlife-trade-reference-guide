@@ -1,7 +1,7 @@
 {
   "02_what_species_are_covered_by_the_regulations_and_in_what_wa": {
-    "hash": "2bcf0a3658eb",
-    "summary": "2.1 The CITES Appendices Under CITES, animal and plant species[^1] are subject to different degrees of regulation by listing in three Appendices (which are referred to in this Guide as “the Appendices”). Table 1 indicates the number of species that are listed in the CITES..."
+    "hash": "7247658db1b8",
+    "summary": "Understanding which species are covered by the three CITES Appendices and the level of trade protection each provides."
   },
   "03_what_are_the_rules_governing_trade_into_and_from_the_eu_fo": {
     "hash": "1cf969a8ae61",
@@ -20,12 +20,12 @@
     "summary": "Understanding which specimens must be uniquely marked and how marking prevents fraud and controls illegal trade."
   },
   "07_when_can_permits_and_certificates_be_issued_retrospectivel": {
-    "hash": "32bc1b8314d9",
-    "summary": "It is possible that an importer receives an unexpected shipment (e.g. before the scheduled date of arrival and before he/she has been able to apply for a permit) at an EU border for which the bill of lading indicates that s/he is the consignee."
+    "hash": "db1b9a8389ee",
+    "summary": "Circumstances where permits and certificates can be issued after the fact, and how to apply in exceptional cases."
   },
   "08_validity_replacement_and_amendment_of_permits_and_certific": {
-    "hash": "070520bc6afd",
-    "summary": "8.1 Validity of permits elsewhere in the EU In principle, permits and certificates issued by one Member State in accordance with the EU Wildlife Trade Regulations are valid throughout the EU[^1]. Import permits are issued by the Member State of destination and export permits by..."
+    "hash": "09292e842bc9",
+    "summary": "Understanding validity periods, how to replace lost or damaged documents, and when amendments can be made."
   },
   "09_can_specimens_be_traded_through_any_customs_office": {
     "hash": "57c6ca38cd4a",
@@ -40,20 +40,20 @@
     "summary": "Identifying national management and scientific authorities responsible for implementing CITES and issuing permits."
   },
   "12_what_information_must_be_provided_by_member_states_and_th": {
-    "hash": "f25baf19a7d8",
-    "summary": "12.1. What information must be provided to the public?"
+    "hash": "8b37a74fa4bd",
+    "summary": "Reporting obligations for Member States, including annual trade reports and public information requirements."
   },
   "03_1_overview": {
-    "hash": "ad5fc8d203e0",
-    "summary": "For any animal or plant species that is listed in Annex A, B or C of Regulation (EC) No 338/97 (or any parts or derivatives of the same), documentation is required before trade to or from the EU can take place (on trade within the EU, see Section 4). In the case of species..."
+    "hash": "36ee8a7fba73",
+    "summary": "An overview of the documents required for importing, exporting, and re-exporting listed species into and from the EU."
   },
   "03_2_what_document_for_what_purpose": {
     "hash": "4d13ea91dd83",
     "summary": "Identifying which permit or certificate is required depending on the species, Annex listing, and type of trade."
   },
   "03_3_what_are_the_rules_for_the_issuance_of_import_perm": {
-    "hash": "424f995e039a",
-    "summary": "3.3.1 How do I apply to import a specimen? The rules for the issuance of import permits for specimens of Annex A- or B-listed species, from permit application to import, are as follows (see also Figure 1)[^1]: a."
+    "hash": "09701d957846",
+    "summary": "Applying for import permits, completing the required forms correctly, and meeting documentation requirements."
   },
   "03_4_how_are_import_notifications_for_specimens_of_anne": {
     "hash": "087e0babc8d1",
@@ -64,8 +64,8 @@
     "summary": "Obtaining export permits and re-export certificates from the Management Authority before exporting specimens."
   },
   "03_6_are_there_derogations_from_the_normal_import_and_e": {
-    "hash": "e88ee0e4aff2",
-    "summary": "There are a number of circumstances where the rules governing import and export of specimens of Annex-listed species are less strict. These are as follows: Import and (re-)export of captive-bred animals or artificially propagated plants, Transit of specimens through the EU,..."
+    "hash": "fc508634ba30",
+    "summary": "Circumstances where import and export rules are less strict, including captive-bred specimens, antiques, and personal effects."
   },
   "03_7_trade_involving_eu_dependent_and_other_territories": {
     "hash": "5cd979ddcbd7",
@@ -88,8 +88,8 @@
     "summary": "How approved zoos, gardens, and museums obtain exemptions, and how breeders use pre-issued certificates for commercial activities."
   },
   "04_5_how_are_internal_trade_certificates_obtained_and_u": {
-    "hash": "40cbdd9101ff",
-    "summary": "4.5.1 What are internal trade certificates used for? Internal trade certificates (see Figure 15, above) are issued in accordance with Article 10 of Regulation (EC) No 338/97."
+    "hash": "a509bf3f932a",
+    "summary": "Understanding the purposes of internal trade certificates and how they are completed, used, and submitted in practice."
   },
   "01_how_do_i_use_this_guide": {
     "hash": "f04896feb12f",

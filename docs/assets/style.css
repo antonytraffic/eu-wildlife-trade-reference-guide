@@ -219,6 +219,16 @@ a:focus {
 .mobile-contents__body .contents-list { padding: 0; }
 .mobile-contents__body li { margin: 7px 0; font-size: .9375rem; }
 
+/* -- Section label (above h1 on chapter pages) -------- */
+.section-label {
+  font-size: 0.8rem; color: #505a5f; text-transform: uppercase;
+  font-weight: normal; letter-spacing: 0.05em;
+  display: block; margin-bottom: 0.25rem;
+}
+
+/* -- Small list (Table 12 footnotes) ------------------ */
+.small-list, .small-list li { font-size: 0.8rem; }
+
 /* -- Typography --------------------------------------- */
 h1 { font-size: 2rem;     font-weight: 700; line-height: 1.2; margin: 0 0 24px; }
 h2 {
@@ -249,13 +259,16 @@ pre code { background: none; padding: 0; }
 
 /* -- Tables ------------------------------------------- */
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 20px 0 30px; }
+.table-label {
+  font-weight: bold; font-style: normal; font-size: 0.9rem; margin-bottom: 0.25rem;
+}
 .article table {
   border-collapse: collapse; width: 100%;
   table-layout: fixed; font-size: 0.85rem;
 }
 .article table th {
   background: var(--black); color: var(--white); padding: 10px 14px;
-  text-align: left; font-weight: 700; border: 1px solid #333;
+  text-align: left; font-weight: normal; font-style: normal; border: 1px solid #333;
   overflow-wrap: break-word; word-wrap: break-word;
 }
 .article table td {
@@ -266,6 +279,10 @@ pre code { background: none; padding: 0; }
 .article table tr:hover td { background: var(--mid-grey); }
 .table-subheader {
   background: #f3f2f1; font-weight: 700; text-align: left; padding: 6px 8px;
+}
+table caption {
+  caption-side: bottom; font-size: 0.8rem; color: #505a5f;
+  text-align: left; padding-top: 0.4rem; font-style: normal;
 }
 
 /* -- Section meta line -------------------------------- */
@@ -428,9 +445,12 @@ ol.lettered-list li { margin-bottom: 6px; }
 .site-footer a { color: var(--secondary); font-size: .875rem; }
 .site-footer a:hover { color: var(--green); }
 .footer-smallprint {
-  font-size: 0.7rem; color: var(--secondary);
+  font-size: 0.65rem; color: var(--secondary);
   margin-bottom: 6px; line-height: 1.5;
 }
+
+/* -- Homepage section dividers ------------------------ */
+.container > hr { margin: 2rem 0; border: none; border-top: 1px solid var(--border); }
 
 /* -- Responsive --------------------------------------- */
 @media screen and (max-width: 768px) {

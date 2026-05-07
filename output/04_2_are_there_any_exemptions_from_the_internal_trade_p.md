@@ -20,38 +20,38 @@ page_end: 98
 
 There are a number of **general exemptions** contained in Article 62 of *Regulation (EC) No 865/2006* which provide that, for certain specimens, **no certificate is required** whatsoever for commercial transactions within the EU. These are:
 
-1. **Animal species commonly bred in captivity in the EU**
+  a. **Animal species commonly bred in captivity in the EU**
 
 
 
-**No certificates** are needed for specimens of **captive born and bred animal species** listed in Annex X of *Regulation (EC) No 865/2006,* and hybrids thereof.[^1] That Annex is reproduced as **Annex X** of this Guide.  To date, the Annex has principally been used to list bird species that are bred in such numbers that it is felt unnecessary for them to be uniquely marked. The general exemption therefore represents no risk for the conservation of the species concerned, which would make the need for specific exemptions and certificates an unnecessary administrative burden. 
+  **No certificates** are needed for specimens of **captive born and bred animal species** listed in Annex X of *Regulation (EC) No 865/2006,* and hybrids thereof.[^1] That Annex is reproduced as **Annex X** of this Guide.  To date, the Annex has principally been used to list bird species that are bred in such numbers that it is felt unnecessary for them to be uniquely marked. The general exemption therefore represents no risk for the conservation of the species concerned, which would make the need for specific exemptions and certificates an unnecessary administrative burden. 
 
-1. **Artificially propagated plants listed in Annex A**
-
-
-
-**No certificates** are required for internal trade in, and commercial use of, **artificially propagated plants** listed in Annex A[^2]. However, where there is doubt about the origin of the specimen, the owner may have to provide evidence of artificial propagation when he/she intends to use the plant for any of the commercial purposes referred to in Article 8(1) of *Regulation (EC) No 338/97*.
-
-1.  **Worked specimens acquired prior to 3 March 1947 (“antiques”)**
+  b. **Artificially propagated plants listed in Annex A**
 
 
 
-**Worked specimens** of species listed in the Annexes that were acquired more than 50 years before the Regulations entered into force (i.e. **before 3 March 1947**) are considered antiques (see also **Section 3.6.3**). Commercial trade in these specimens, where they are from species listed in **Annex A**, is permitted and **no certificate is required** to sell such specimens[^3]. However, the vendor of the specimens may be asked to provide documentary evidence to the Management Authority that the specimen meets the conditions of a worked specimen acquired before 3 March 1947.
+  **No certificates** are required for internal trade in, and commercial use of, **artificially propagated plants** listed in Annex A[^2]. However, where there is doubt about the origin of the specimen, the owner may have to provide evidence of artificial propagation when he/she intends to use the plant for any of the commercial purposes referred to in Article 8(1) of *Regulation (EC) No 338/97*.
 
-
-This derogation does not apply to antiques made of elephant ivory. For these items a permit is required [^4].
-
-1. **Dead specimens of Annex A-listed Crocodilians bred in captivity for commercial purposes by operations registered in accordance with** ***CITES Resolution Conf. 12.10 (Rev. CoP15*****)**[^5]
+  c.  **Worked specimens acquired prior to 3 March 1947 (“antiques”)**
 
 
 
-No certificate is required for commercial trade in these specimens within the EU, provided they are marked or identified via other means in accordance with Regulation (EC) 865/2006.
-
-1. **Caviar of** ***Acipenser brevirostrum*** **and its hybrids bred in captivity for commercial purposes (as above), provided that the container is labelled in accordance with** ***Regulatio*****n** ***(EC) No 865/2006***[^6]
+  **Worked specimens** of species listed in the Annexes that were acquired more than 50 years before the Regulations entered into force (i.e. **before 3 March 1947**) are considered antiques (see also **Section 3.6.3**). Commercial trade in these specimens, where they are from species listed in **Annex A**, is permitted and **no certificate is required** to sell such specimens[^3]. However, the vendor of the specimens may be asked to provide documentary evidence to the Management Authority that the specimen meets the conditions of a worked specimen acquired before 3 March 1947.
 
 
+  This derogation does not apply to antiques made of elephant ivory. For these items a permit is required [^4].
 
-No certificate is required for commercial trade in these specimens within the EU.
+  d. **Dead specimens of Annex A-listed Crocodilians bred in captivity for commercial purposes by operations registered in accordance with** ***CITES Resolution Conf. 12.10 (Rev. CoP15*****)**[^5]
+
+
+
+  No certificate is required for commercial trade in these specimens within the EU, provided they are marked or identified via other means in accordance with Regulation (EC) 865/2006.
+
+  e. **Caviar of** ***Acipenser brevirostrum*** **and its hybrids bred in captivity for commercial purposes (as above), provided that the container is labelled in accordance with** ***Regulatio*****n** ***(EC) No 865/2006***[^6]
+
+
+
+  No certificate is required for commercial trade in these specimens within the EU.
 
 
 ## 4.2.2 Exemptions which can be granted through issuance of a certificate
@@ -65,24 +65,24 @@ Some of the specific exemptions for which internal trade certificates (issued in
 
 The **conditions** set out in Article 8(3) *Regulation (EC) No 338/97* for granting **specific exemptions** include:
 
-1. the specimens were **acquired** in or introduced into the EU **before** the provisions relating to **Annex A** of *Regulation (EC) No 338/97*, **Annex C1** of *Regulation (EEC) No 3626/82*, or **Appendix I** of CITES became applicable to them (in this case there is **no restriction** **on their purpose**);
-2. the specimens are **worked specimens** that were acquired **before 3 March 1947** (again, there are **no restrictions on their purpose** - see **Section 3.6.3**)[^9]; however, note that such specimens are now subject to a general derogation (see above, Section 4.2.1.c)) meaning that no internal trade certificates are required for commercial use within the EU[^10]; this general exception is not valid for worked specimens containing ivory[^11].
+- the specimens were **acquired** in or introduced into the EU **before** the provisions relating to **Annex A** of *Regulation (EC) No 338/97*, **Annex C1** of *Regulation (EEC) No 3626/82*, or **Appendix I** of CITES became applicable to them (in this case there is **no restriction** **on their purpose**);
+- the specimens are **worked specimens** that were acquired **before 3 March 1947** (again, there are **no restrictions on their purpose** - see **Section 3.6.3**)[^9]; however, note that such specimens are now subject to a general derogation (see above, Section 4.2.1.c)) meaning that no internal trade certificates are required for commercial use within the EU[^10]; this general exception is not valid for worked specimens containing ivory[^11].
 
 
-(NB: The above two provisions, together with the provisions relating to the import of specimens of Annex A-listed species imply that any wild-taken[^12] specimen of a species already listed in Annex A when it arrives in the EU, is subject to the prohibition on import for primarily commercial purposes (see **Section 3.3**), and subsequent internal commercial use **no matter when it was first acquired in its country of origin**. The EU does therefore not recognise pre-Convention certificates issued by third countries. An exception is only made for specimens acquired before 3 March 1947, which, as discussed, are in addition subject to a general derogation[^13].)
+  (NB: The above two provisions, together with the provisions relating to the import of specimens of Annex A-listed species imply that any wild-taken[^12] specimen of a species already listed in Annex A when it arrives in the EU, is subject to the prohibition on import for primarily commercial purposes (see **Section 3.3**), and subsequent internal commercial use **no matter when it was first acquired in its country of origin**. The EU does therefore not recognise pre-Convention certificates issued by third countries. An exception is only made for specimens acquired before 3 March 1947, which, as discussed, are in addition subject to a general derogation[^13].)
 
 
-a. the specimens were introduced in compliance with *Regulation (EC) No 338/97* and are to be used for **purposes** that are deemed **non-detrimental** to the species, e.g. an animal imported for a captive-breeding programme which has become redundant can be sold for the same or another non-detrimental purpose (**no restrictions on source** but there are **restrictions on purpose**)[^14];
+- the specimens were introduced in compliance with *Regulation (EC) No 338/97* and are to be used for **purposes** that are deemed **non-detrimental** to the species, e.g. an animal imported for a captive-breeding programme which has become redundant can be sold for the same or another non-detrimental purpose (**no restrictions on source** but there are **restrictions on purpose**)[^14];
 
-b. the specimens were **born and bred in captivity** in compliance with the criteria laid down in Articles 54 of *Commission Regulation (EC) No 865/2006* (**no restrictions on purpose** - see **Section 3.6.1**)[^15].  A certificate (for commercial use of animals born and bred in captivity) can only be issued if the applicant has satisfied the Management Authority, the latter having consulted the Scientific Authority, that the conditions are met[^16];
+- the specimens were **born and bred in captivity** in compliance with the criteria laid down in Articles 54 of *Commission Regulation (EC) No 865/2006* (**no restrictions on purpose** - see **Section 3.6.1**)[^15].  A certificate (for commercial use of animals born and bred in captivity) can only be issued if the applicant has satisfied the Management Authority, the latter having consulted the Scientific Authority, that the conditions are met[^16];
 
-c. the specimens are required under **exceptional circumstances** for the **advancement of science** or **essential biomedical purposes** (*Directive 86/609/EEC* (animal experimentation)). The specimens must be of the **only species suitable for those purposes** and there must be **no suitable captive-born and bred specimens available**[^17]. A certificate can only be issued if the applicant has satisfied the Management Authority, the latter having consulted the Scientific Authority, that the conditions are met (**source is not restricted** but the purpose is)[^18];
+- the specimens are required under **exceptional circumstances** for the **advancement of science** or **essential biomedical purposes** (*Directive 86/609/EEC* (animal experimentation)). The specimens must be of the **only species suitable for those purposes** and there must be **no suitable captive-born and bred specimens available**[^17]. A certificate can only be issued if the applicant has satisfied the Management Authority, the latter having consulted the Scientific Authority, that the conditions are met (**source is not restricted** but the purpose is)[^18];
 
-d. the specimens are intended for **breeding/propagation** from which **conservation benefits** will accrue to the species concerned. A certificate can only be issued if the applicant has satisfied the Management Authority, the latter having consulted the Scientific Authority, that the conditions are met (**source is not restricted** but the purpose is)[^19]. It should also be noted that breeding programmes of a primarily commercial nature cannot make use of this exemption – nor can hobbyists who are offloading surplus progeny. Many such cases have a too restrictive gene pool to be of real conservation value.
+- the specimens are intended for **breeding/propagation** from which **conservation benefits** will accrue to the species concerned. A certificate can only be issued if the applicant has satisfied the Management Authority, the latter having consulted the Scientific Authority, that the conditions are met (**source is not restricted** but the purpose is)[^19]. It should also be noted that breeding programmes of a primarily commercial nature cannot make use of this exemption – nor can hobbyists who are offloading surplus progeny. Many such cases have a too restrictive gene pool to be of real conservation value.
 
-e. the specimens are intended for **research or education** aimed at the **preservation or conservation** of the species[^20]. Normally display to the public for commercial purposes is prohibited (with the exception of cases where travelling exhibition certificates apply) but zoos, dolphinaria and other fauna and flora exhibitions may use specimens of **any source** for display purposes if: (i) they are also engaged in conservation-oriented captive-breeding, artificial propagation or research with conservation benefits for the species involved, or (ii) if they contribute to an educational programme aimed at the conservation of the species (in these cases, the **source is not restricted** but the purpose is). The judgment of whether these requirements are met is a matter for the Scientific and Management Authorities of the Member State concerned[^21]; and
+- the specimens are intended for **research or education** aimed at the **preservation or conservation** of the species[^20]. Normally display to the public for commercial purposes is prohibited (with the exception of cases where travelling exhibition certificates apply) but zoos, dolphinaria and other fauna and flora exhibitions may use specimens of **any source** for display purposes if: (i) they are also engaged in conservation-oriented captive-breeding, artificial propagation or research with conservation benefits for the species involved, or (ii) if they contribute to an educational programme aimed at the conservation of the species (in these cases, the **source is not restricted** but the purpose is). The judgment of whether these requirements are met is a matter for the Scientific and Management Authorities of the Member State concerned[^21]; and
 
-f. the specimens were taken **legally from the wild in a Member State**, i.e. in accordance with the **Birds and Habitats Directives and national legislation** on the conservation of the species concerned[^22].
+- the specimens were taken **legally from the wild in a Member State**, i.e. in accordance with the **Birds and Habitats Directives and national legislation** on the conservation of the species concerned[^22].
 
 
 In addition to the above, display for commercial purposes of specimens of species listed in the Annexes, which are part of a travelling exhibition, is allowed with the prior issuance of **a travelling exhibition certificate** (see **Section 3.6.9**). A travelling exhibition certificate may be used as an **internal trade certificate**, exempting the holder from the prohibition to **display** the specimens to the public for commercial purposes. However, this exemption applies only to specimens that were captive-bred artificially propagated or were introduced into or acquired in the EU before they were listed in Annex A/Annex C1 or Appendix I.
@@ -125,7 +125,10 @@ The Management Authority of a Member State may accept an import permit as an int
 4.  **Description of specimens**: Description must be as precise as possible and include one of the 3-letter codes provided for in **Annex VII** to *Regulation (EC) No 865/2006*. 
 
 
-5/6. **Net mass** and **quantity**: Use units mentioned in **Annex VII** to *Regulation (EC) No 865/2006*.
+5. **Net mass**: Use units mentioned in **Annex VII** to *Regulation (EC) No 865/2006*.
+
+
+6. **Quantity**: Use units mentioned in **Annex VII** to *Regulation (EC) No 865/2006*.
 
 
 7.  **CITES Appendix:** I, II or III.
@@ -140,14 +143,22 @@ The Management Authority of a Member State may accept an import permit as an int
 10. **Country of origin**: Country where specimens were taken from the wild, born and bred in captivity or propagated.
 
 
-11/12. **Permit no.** and **Date of issue**: Only applicable where country of origin is not a Member State.
+11. **Permit no.**: Only applicable where country of origin is not a Member State.
 
 
-  13/14/15. **Member State of import, Document no.** and **Date of issue**: Details of the import permit issued by importing Member States. Only applicable for specimens originating outside of the EU.
+12. **Date of issue**: Only applicable where country of origin is not a Member State.
 
 
+13. **Member State of import**: Details of the import permit issued by importing Member States. Only applicable for specimens originating outside of the EU.
 
-**Scientific name**: Use name in accordance with standard references referred to in **Annex VIII** to *Regulation (EC) No 865/2006* (as amended) or refer to the [Species+ website](http://www.speciesplus.net/).
+
+14. **Document no.** : Details of the import permit issued by importing Member States. Only applicable for specimens originating outside of the EU.
+
+
+15. **Date of issue**: Only applicable where country of origin is not a Member State.
+
+
+16. **Scientific name**: Use name in accordance with standard references referred to in **Annex VIII** to *Regulation (EC) No 865/2006* (as amended) or refer to the [Species+ website](http://www.speciesplus.net/).
 
 
 17. **Common name**: Not available for all species, see Annexes to *Regulation (EC) No338/97* or [Species+ website](http://www.speciesplus.net/).

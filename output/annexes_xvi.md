@@ -131,11 +131,7 @@ parent: annexes
 |  | Article 52 | Use of labels |
 | CHAPTER XII | Derogations from Customs procedures referred to in Article 4(7) of *Regulation (EC) No 338/97* |  |
 |  | Article 53 | Customs offices other than the border Customs office at the point of introduction |
-
-
-
 | CHAPTER XIII | Specimens born and bred in captivity and artificially propagated specimens |  |
-| --- | --- | --- |
 |  | Article 54 | Specimens born and bred in captivity   
 of animal species |
 |  | Article 55 | Establishment of ancestry |

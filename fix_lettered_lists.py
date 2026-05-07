@@ -1,10 +1,21 @@
 #!/usr/bin/env python3
 """
-fix_lettered_lists.py — Restore lowerLetter list labels in output/ markdown files.
+fix_lettered_lists.py — Restore list prefixes in output/ markdown files using
+the source .docx as the authoritative list definition.
 
-Reads the source .docx, groups all paragraphs whose numFmt is lowerLetter,
-fuzzy-matches each group's first item against paragraphs in the output/ markdown
-files, then prepends a., b., c. … labels.
+Handles three numFmt types extracted from word/numbering.xml:
+  lowerLetter → a. b. c. …
+  decimal     → 1. 2. 3. …
+  bullet      → - (dash prefix, standardised)
+
+Algorithm (two-pass):
+  1. Extract all list groups from the docx and fuzzy-match each group's first
+     item to a block in an output/ markdown file.
+  2. Record exactly which block indices in each file should have list prefixes
+     (only the N blocks belonging to the matched docx group).
+  3. Apply the correct prefix to each matched block.
+  4. Strip list prefixes from any block that is NOT part of a docx list —
+     these are paragraphs incorrectly absorbed by a previous run.
 
 Usage:
     python fix_lettered_lists.py
@@ -20,22 +31,24 @@ from rapidfuzz import fuzz, process as rfprocess
 from rich.console import Console
 from rich.table import Table
 
-DOCX_PATH  = Path("data/CITES Reference Guide_Nov 2025 FIN_clean.docx")
-OUTPUT_DIR = Path("output")
-CONFIDENCE_MIN = 72   # token_set_ratio threshold
+DOCX_PATH      = Path("data/CITES Reference Guide_Nov 2025 FIN_clean.docx")
+OUTPUT_DIR     = Path("output")
+CONFIDENCE_MIN = 72
+
+SUPPORTED_FMTS = {"lowerLetter", "bullet", "decimal"}
 
 W = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
-
 console = Console()
 
+LETTERS = "abcdefghijklmnopqrstuvwxyz"
+_LIST_PREFIX_RE = re.compile(r"^(?:[-*]\s+|\d+\.\s+|[a-z]\.\s+)")
 
-# ── Namespace helper ──────────────────────────────────────────────────────────
+
+# ── Namespace / YAML helpers ──────────────────────────────────────────────────
 
 def wn(tag: str) -> str:
     return f"{{{W}}}{tag}"
 
-
-# ── YAML helpers ──────────────────────────────────────────────────────────────
 
 def parse_fm(text: str) -> tuple[dict, str]:
     if text.startswith("---\n"):
@@ -57,17 +70,16 @@ def make_file(meta: dict, body: str) -> str:
 # ── Docx parsing ──────────────────────────────────────────────────────────────
 
 def build_num_map(zip_obj: zipfile.ZipFile) -> dict[str, dict[str, str]]:
-    """Return {numId: {ilvl: numFmt}} from numbering.xml."""
-    xml = zip_obj.read("word/numbering.xml")
+    xml  = zip_obj.read("word/numbering.xml")
     root = etree.fromstring(xml)
 
     abstract: dict[str, dict[str, str]] = {}
     for an in root.findall(wn("abstractNum")):
-        aid = an.get(wn("abstractNumId"))
+        aid  = an.get(wn("abstractNumId"))
         lvls: dict[str, str] = {}
         for lvl in an.findall(wn("lvl")):
             ilvl = lvl.get(wn("ilvl"))
-            nf = lvl.find(wn("numFmt"))
+            nf   = lvl.find(wn("numFmt"))
             if nf is not None:
                 lvls[ilvl] = nf.get(wn("val"), "")
         abstract[aid] = lvls
@@ -79,7 +91,6 @@ def build_num_map(zip_obj: zipfile.ZipFile) -> dict[str, dict[str, str]]:
         if ref is not None:
             aid = ref.get(wn("val"))
             num_map[nid] = abstract.get(aid, {})
-
     return num_map
 
 
@@ -87,29 +98,29 @@ def para_plain_text(p_el) -> str:
     return "".join(t.text or "" for t in p_el.findall(f".//{wn('t')}")).strip()
 
 
-def extract_lettered_groups(docx_path: Path) -> list[list[str]]:
-    """Return [[item_text, …], …] — one sub-list per consecutive lowerLetter group."""
+def extract_list_groups(docx_path: Path) -> list[tuple[str, list[str]]]:
+    """Return [(numFmt, [item_text, …]), …] for groups with >= 2 items."""
     with zipfile.ZipFile(str(docx_path)) as z:
         num_map = build_num_map(z)
         doc_xml = z.read("word/document.xml")
 
     doc_root = etree.fromstring(doc_xml)
-    body = doc_root.find(f".//{wn('body')}")
+    body_el  = doc_root.find(f".//{wn('body')}")
 
-    groups: list[list[str]] = []
+    groups: list[tuple[str, list[str]]] = []
     cur_group: list[str] = []
-    cur_nid: str | None = None
-    cur_il: str | None = None
+    cur_nid: str | None  = None
+    cur_il:  str | None  = None
+    cur_fmt: str | None  = None
 
     def flush():
-        nonlocal cur_group, cur_nid, cur_il
-        if cur_group:
-            groups.append(cur_group)
+        nonlocal cur_group, cur_nid, cur_il, cur_fmt
+        if cur_group and cur_fmt in SUPPORTED_FMTS:
+            groups.append((cur_fmt, cur_group))
         cur_group = []
-        cur_nid = None
-        cur_il = None
+        cur_nid = cur_il = cur_fmt = None
 
-    for el in body:
+    for el in body_el:
         tag = etree.QName(el).localname
         if tag != "p":
             flush()
@@ -117,10 +128,8 @@ def extract_lettered_groups(docx_path: Path) -> list[list[str]]:
 
         np = el.find(f".//{wn('numPr')}")
         if np is None:
-            # Empty paragraphs are common spacers between Word list items.
-            # Allow them to pass without flushing an active group.
             if cur_group and not para_plain_text(el):
-                continue
+                continue   # empty spacer between list items
             flush()
             continue
 
@@ -134,19 +143,19 @@ def extract_lettered_groups(docx_path: Path) -> list[list[str]]:
         il  = ilvl_el.get(wn("val"))
         fmt = num_map.get(nid, {}).get(il, "")
 
-        if fmt == "lowerLetter":
-            if cur_nid == nid and cur_il == il:
-                cur_group.append(para_plain_text(el))
-            else:
-                flush()
-                cur_group = [para_plain_text(el)]
-                cur_nid = nid
-                cur_il = il
+        if fmt not in SUPPORTED_FMTS:
+            flush()
+            continue
+
+        if cur_nid == nid and cur_il == il:
+            cur_group.append(para_plain_text(el))
         else:
             flush()
+            cur_group = [para_plain_text(el)]
+            cur_nid, cur_il, cur_fmt = nid, il, fmt
 
     flush()
-    return [g for g in groups if len(g) >= 2]  # single-item "lists" are not real lists
+    return [(fmt, g) for fmt, g in groups if len(g) >= 2]
 
 
 # ── Markdown file helpers ─────────────────────────────────────────────────────
@@ -168,7 +177,6 @@ def load_md_files() -> list[dict]:
 
 
 def strip_md(s: str) -> str:
-    """Strip markdown markup for fuzzy comparison."""
     s = re.sub(r"\*{1,3}([^*]+)\*{1,3}", r"\1", s)
     s = re.sub(r"_{1,3}([^_]+)_{1,3}", r"\1", s)
     s = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", s)
@@ -177,33 +185,26 @@ def strip_md(s: str) -> str:
 
 
 def md_paragraphs(body: str) -> list[tuple[int, str]]:
-    """Return [(block_index, stripped_text), …] — one entry per non-empty block."""
+    """Return [(block_index, stripped_text), …] for non-empty blocks."""
     blocks = re.split(r"\n\n+", body)
     result = []
     for i, block in enumerate(blocks):
         clean = strip_md(block.strip())
-        # Strip leading list markers for comparison
-        clean = re.sub(r"^[-*]\s+", "", clean)
-        clean = re.sub(r"^\d+\.\s+", "", clean)
-        clean = re.sub(r"^[a-z]\.\s+", "", clean)
+        clean = _LIST_PREFIX_RE.sub("", clean)
         if clean:
             result.append((i, clean))
     return result
 
 
-# ── Core matching and patching ────────────────────────────────────────────────
+# ── Matching ──────────────────────────────────────────────────────────────────
 
 def find_best_file(group: list[str], md_files: list[dict]) -> tuple[dict | None, int, float]:
-    """
-    Find the markdown file and block index where group[0] best matches.
-    Returns (md_file, block_idx, confidence).
-    """
     first_clean = strip_md(group[0])
     if len(first_clean) < 15:
         return None, -1, 0.0
 
-    best_file = None
-    best_idx  = -1
+    best_file  = None
+    best_idx   = -1
     best_score = 0.0
 
     for mf in md_files:
@@ -211,45 +212,51 @@ def find_best_file(group: list[str], md_files: list[dict]) -> tuple[dict | None,
         texts = [t for _, t in paras]
         if not texts:
             continue
-        result = rfprocess.extractOne(
-            first_clean, texts, scorer=fuzz.token_set_ratio
-        )
+        result = rfprocess.extractOne(first_clean, texts, scorer=fuzz.token_set_ratio)
         if result is None:
             continue
         _, score, local_idx = result
         if score > best_score:
             best_score = score
             best_file  = mf
-            best_idx   = paras[local_idx][0]   # block index in the body
+            best_idx   = paras[local_idx][0]
 
     return best_file, best_idx, best_score
 
 
-def patch_file(mf: dict, group: list[str], block_idx: int) -> int:
-    """
-    In mf["body"], replace N blocks starting at block_idx with a., b., c. …
-    Returns number of items patched.
-    """
-    blocks = re.split(r"(\n\n+)", mf["body"])
-    # Rebuild as a list of alternating content/separator blocks
-    # A simpler approach: split only on blank lines
+# ── Patching ──────────────────────────────────────────────────────────────────
+
+def make_prefix(fmt: str, i: int) -> str:
+    if fmt == "lowerLetter":
+        return f"{LETTERS[i % 26]}. "
+    if fmt == "decimal":
+        return f"{i + 1}. "
+    return "- "
+
+
+def patch_file(mf: dict, block_idx: int, fmt: str, n: int) -> None:
+    """Apply correct list prefix to exactly n blocks starting at block_idx."""
     raw_blocks = re.split(r"\n\n+", mf["body"])
-
-    n = len(group)
-    if block_idx + n > len(raw_blocks):
-        n = len(raw_blocks) - block_idx
-
-    letters = "abcdefghijklmnopqrstuvwxyz"
+    n = min(n, len(raw_blocks) - block_idx)
     for i in range(n):
         block = raw_blocks[block_idx + i].strip()
-        # Strip any existing list prefix
-        block = re.sub(r"^[-*]\s+", "", block)
-        block = re.sub(r"^\d+\.\s+", "", block)
-        block = re.sub(r"^[a-z]\.\s+", "", block)
-        raw_blocks[block_idx + i] = f"{letters[i]}. {block}"
-
+        block = _LIST_PREFIX_RE.sub("", block)
+        raw_blocks[block_idx + i] = make_prefix(fmt, i) + block
     mf["body"] = "\n\n".join(raw_blocks)
-    return n
+
+
+def strip_excess_prefixes(mf: dict, valid: set[int]) -> int:
+    """Strip list prefixes from blocks NOT in valid set. Returns count stripped."""
+    raw_blocks = re.split(r"\n\n+", mf["body"])
+    stripped = 0
+    for i, block in enumerate(raw_blocks):
+        s = block.strip()
+        if i not in valid and _LIST_PREFIX_RE.match(s):
+            raw_blocks[i] = _LIST_PREFIX_RE.sub("", s)
+            stripped += 1
+    if stripped:
+        mf["body"] = "\n\n".join(raw_blocks)
+    return stripped
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -261,88 +268,100 @@ def main() -> None:
         console.print(f"[red]DOCX not found: {DOCX_PATH}[/red]")
         return
 
-    # Step 1: extract lowerLetter groups from docx
-    console.print("\n[bold cyan]Step 1:[/bold cyan] Extracting lowerLetter groups from docx …")
-    groups = extract_lettered_groups(DOCX_PATH)
-    console.print(f"  Found [bold]{len(groups)}[/bold] lettered list groups "
-                  f"({sum(len(g) for g in groups)} total items)")
+    console.print("\n[bold cyan]Step 1:[/bold cyan] Extracting list groups from docx …")
+    groups = extract_list_groups(DOCX_PATH)
+    by_fmt: dict[str, int] = {}
+    for fmt, g in groups:
+        by_fmt[fmt] = by_fmt.get(fmt, 0) + 1
+    console.print(f"  Found [bold]{len(groups)}[/bold] groups: "
+                  + ", ".join(f"{v} {k}" for k, v in sorted(by_fmt.items())))
 
-    # Step 2: load markdown files
     console.print("\n[bold cyan]Step 2:[/bold cyan] Loading output/ markdown files …")
     md_files = load_md_files()
     console.print(f"  {len(md_files)} files to search")
 
-    # Step 3: match and patch
-    console.print("\n[bold cyan]Step 3:[/bold cyan] Matching and patching …\n")
+    # ── Phase 1: match all groups to file positions ───────────────────────────
+    console.print("\n[bold cyan]Step 3:[/bold cyan] Matching groups to markdown files …\n")
 
-    table = Table(show_header=True, header_style="bold white on black",
-                  show_lines=True, width=110)
-    table.add_column("File",          width=42)
-    table.add_column("First item",    width=38)
-    table.add_column("Conf", width=5, justify="right")
-    table.add_column("Items", width=5, justify="right")
-    table.add_column("Status", width=8)
+    match_table = Table(show_header=True, header_style="bold white on black",
+                        show_lines=True, width=120)
+    match_table.add_column("File",       width=42)
+    match_table.add_column("Type",       width=12)
+    match_table.add_column("First item", width=40)
+    match_table.add_column("Conf",       width=5, justify="right")
+    match_table.add_column("Items",      width=5, justify="right")
+    match_table.add_column("Status",     width=8)
 
-    stats: dict[str, int] = {}   # path -> items_patched
+    # valid_positions[file_path] = set of block indices that should have prefixes
+    valid_positions: dict[str, set[int]] = {}
+    confirmed: list[tuple[str, list[str], dict, int]] = []  # (fmt, group, mf, block_idx)
     skipped = applied = 0
 
-    for group in groups:
+    for fmt, group in groups:
         mf, block_idx, conf = find_best_file(group, md_files)
-
-        first_preview = group[0][:36] + ("…" if len(group[0]) > 36 else "")
+        first_preview = group[0][:38] + ("…" if len(group[0]) > 38 else "")
         fname = mf["path"].name[:41] if mf else "—"
 
         if mf is None or conf < CONFIDENCE_MIN:
-            table.add_row(
-                fname, first_preview, str(int(conf)),
-                str(len(group)), "[yellow]SKIP[/yellow]"
-            )
+            match_table.add_row(fname, fmt, first_preview, str(int(conf)),
+                                str(len(group)), "[yellow]SKIP[/yellow]")
             skipped += 1
             continue
 
-        patched = patch_file(mf, group, block_idx)
-        stats[str(mf["path"])] = stats.get(str(mf["path"]), 0) + patched
+        n = min(len(group), len(re.split(r"\n\n+", mf["body"])) - block_idx)
+        path = str(mf["path"])
+        valid_positions.setdefault(path, set())
+        for i in range(n):
+            valid_positions[path].add(block_idx + i)
+
+        confirmed.append((fmt, group, mf, block_idx))
         applied += 1
+        match_table.add_row(fname, fmt, first_preview, str(int(conf)),
+                             str(n), "[green]OK[/green]")
 
-        table.add_row(
-            fname, first_preview, str(int(conf)),
-            str(patched), "[green]OK[/green]"
-        )
+    console.print(match_table)
 
-    console.print(table)
+    # ── Phase 2: apply patches ────────────────────────────────────────────────
+    stats: dict[str, int] = {}
+    for fmt, group, mf, block_idx in confirmed:
+        patch_file(mf, block_idx, fmt, len(group))
+        stats[str(mf["path"])] = stats.get(str(mf["path"]), 0) + len(group)
 
-    # Step 4: write updated files
-    written = 0
+    # ── Phase 3: strip excess prefixes ────────────────────────────────────────
+    excess_table = Table(show_header=True, header_style="bold white on black",
+                         show_lines=True, width=80)
+    excess_table.add_column("File",      width=55)
+    excess_table.add_column("Restored",  width=8,  justify="right")
+    excess_table.add_column("Status",    width=8)
+
+    total_restored = 0
     for mf in md_files:
         path = str(mf["path"])
-        if path in stats:
-            mf["path"].write_text(
-                make_file(mf["meta"], mf["body"]), encoding="utf-8"
-            )
+        if path not in valid_positions:
+            continue
+        restored = strip_excess_prefixes(mf, valid_positions[path])
+        if restored:
+            total_restored += restored
+            excess_table.add_row(mf["path"].name[:54], str(restored), "[cyan]FIXED[/cyan]")
+
+    if total_restored:
+        console.print("\n[bold cyan]Excess prefix cleanup:[/bold cyan]\n")
+        console.print(excess_table)
+
+    # ── Write updated files ───────────────────────────────────────────────────
+    written = 0
+    touched = set(stats.keys()) | {str(mf["path"]) for mf in md_files
+                                    if str(mf["path"]) in valid_positions}
+    for mf in md_files:
+        if str(mf["path"]) in touched:
+            mf["path"].write_text(make_file(mf["meta"], mf["body"]), encoding="utf-8")
             written += 1
 
-    console.print(f"\n[bold green]Done.[/bold green] "
-                  f"{applied} groups applied · {skipped} skipped · "
-                  f"{written} files updated")
-
-    # Step 5: verify Section 10
-    console.print("\n[bold cyan]Verification:[/bold cyan] Section 10 — Article 16 list")
-    sec10 = OUTPUT_DIR / "10_how_are_the_regulations_enforced.md"
-    if sec10.exists():
-        _, body = parse_fm(sec10.read_text(encoding="utf-8"))
-        idx = body.find("Article 16 is one of the most significant")
-        if idx != -1:
-            snippet = body[idx: idx + 600]
-            # Find first a. item
-            m = re.search(r'^a\. .+', snippet, re.MULTILINE)
-            if m:
-                console.print(f"  [green]+[/green] Found: {m.group()[:80]}")
-            else:
-                console.print("  [yellow]![/yellow] No 'a.' item found after Article 16 paragraph")
-        else:
-            console.print("  [yellow]![/yellow] Article 16 paragraph not found in Section 10")
-    else:
-        console.print(f"  [yellow]![/yellow] {sec10.name} not found")
+    console.print(
+        f"\n[bold green]Done.[/bold green] "
+        f"{applied} groups applied · {skipped} skipped · "
+        f"{total_restored} excess prefixes stripped · {written} files updated"
+    )
 
 
 if __name__ == "__main__":

@@ -58,7 +58,7 @@ The **introduction into the EU** of specimens of species listed in **Annex C** o
 *At the time of introduction into the EU, the importer - or their authorised representative - must surrender to the border Customs office at a designated point of introduction: (i) the original import notification (Form 1); and (ii) and the “copy for the importer” (Form 2)[^4]. The Customs office completes box 14 of the original and the “copy for the importer”, returns the latter to the importer (for later proof of legal importation), and the original - together with any document from the (re-)exporting country – is submitted to the Management Authority of the country into which it has been introduced.  Original notifications will also be forwarded to the Management Authority of the country of import, when it is different from the country where the specimen was introduced into the EU[^5] (see **Section 3.4**).  
 
 
-## 3.2.2 Documents for the export or re-export of specimens listed in Annex A, B, C or D from the EU
+## 3.2.3 Documents for the export or re-export of specimens listed in Annex A, B, C or D from the EU
 
 
 The **export** from the EU of specimens of species listed in **Annex A, B or C** to *Regulation (EC) No 338/97* requires the prior issue and presentation of an **export permit** at the Customs office where export formalities are completed.  In the case of specimens of species also listed in **Appendix I of CITES**, an import permit must be issued by the country of import[^6] before an export permit can be issued by the relevant EU Member State[^7].

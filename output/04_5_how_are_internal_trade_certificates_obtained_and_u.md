@@ -22,9 +22,9 @@ Internal trade certificates (see **Figure 15**, above) are issued in accordance 
   - Letter d): for the purpose of using the specimens for the advancement of science/breeding or propagation/research or education or other non-detrimental purposes,
 - Letter e):  EU certificate for the movement of live specimens.
 
-### 4.5.1.1. As documentary evidence that the specimen was legally obtained for the purpose of application of (re-)export documents
+- ### 4.5.1.1. As documentary evidence that the specimen was legally obtained for the purpose of application of (re-)export documents
 
-**Documentary evidence** may be required to prove that a specimen of an **Annex A, B or C-listed species** which is acquired in one Member State, and is to be exported from another, was **taken from the wild** in accordance with the **legislation** of the Member State of origin (see **Section 3.5.8**)[^1].  
+- **Documentary evidence** may be required to prove that a specimen of an **Annex A, B or C-listed species** which is acquired in one Member State, and is to be exported from another, was **taken from the wild** in accordance with the **legislation** of the Member State of origin (see **Section 3.5.8**)[^1].
 
 Likewise, **documentary evidence** may also be required for the purpose of re-export, to prove that specimens of Annex A, B or C-listed species were **imported in accordance with** *Regulation (EC) No 338/97* (after 3 March 1997), *Regulation (EEC) 3626/82* (between 1 January 1984 and the last day of validity of an import permit issued under that Regulation), before 1984 in accordance with CITES, or before any of these became applicable to the species or in the Member State of acquisition (see **Section 3.5.8**)[^2].
 
@@ -49,13 +49,13 @@ c. are, or are parts of, or are derived from, **animals born and bred in captivi
 
 d. are authorised to be used for one of the purposes referred to in Article 8(3)(c) and (e) to (g) of *Regulation (EC) No 338/97*, namely:
 
-a. unspecified non-detrimental purposes;
+- unspecified non-detrimental purposes;
 
-b. advancement of science or biomedical research where the species is the only one suitable for those purposes and where there are no specimens of the species which have been born and bred in captivity available;
+- advancement of science or biomedical research where the species is the only one suitable for those purposes and where there are no specimens of the species which have been born and bred in captivity available;
 
-c. breeding/propagation programmes of conservation benefit for the species; or
+- breeding/propagation programmes of conservation benefit for the species; or
 
-d. research or education of conservation benefit for the species.
+- research or education of conservation benefit for the species.
 
 ### 4.5.1.3. To authorise the movement of live specimens of Annex A-listed species from a prescribed location
 

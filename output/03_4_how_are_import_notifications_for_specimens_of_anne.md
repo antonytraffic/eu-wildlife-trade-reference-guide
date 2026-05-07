@@ -56,27 +56,29 @@ Customs then completes **box 14** of the **original** and the **copy for the imp
 
 1. **Importer:** Enter the full name and address of importer or authorized representative.
 
+2. **Member State of import:** Enter the name of the Member State into which the specimens are being imported.
+
+3. **Date of import:** Enter the date on which the import took place.
 
 4. **Country of origin:** The country of origin is the country where the specimens were taken from the wild, born and bred in captivity, or artificially propagated. In the case of plant specimens that were formerly exempt from CITES controls (e.g. seeds or artificially-propagated flasked seedlings), but that ceased to be exempt (e.g. because they were grown further), the country of origin is that country where the exemption ceased to apply.
 
-
 5. **Country of re-export:** Only applies where the country from which the specimens are imported is not the country of origin.
 
+6. **Description of specimens:** Description must be as precise as possible.
 
-6. **Description of specimens**: Description must be as precise as possible.
+7. **Net mass (kg):** The net weight of the specimens in kilograms.
 
+8. **Quantity:** The quantity (count) of specimens.
 
 9. **Scientific name of species:** The scientific name must be the name used in Annex C or D to *Council Regulation (EC) No 338/97*.
 
-
 10. **CITES Appendix:** Enter III for species listed in Appendix III to CITES.
 
+11. **Common name of species:** The common name of the species.
 
 12. **EU Annex:** Enter the letter (C or D) of the Annex to *Council Regulation (EC) No 338/97* in which the species is listed.
 
-
 13. **For specimens of Annex C-listed species:** The importer has to submit the signed original and “copy for the importer”, where appropriate together with CITES Appendix III documents from the (re-) exporting country to the Customs office of introduction into the Union.
-
 
 14. **Official stamp of border Customs office:** The Customs office shall send the stamped ‘original’ to the Management Authority of their country and return the stamped ‘copy for the importer’ to the importer or their authorized representative.
 
