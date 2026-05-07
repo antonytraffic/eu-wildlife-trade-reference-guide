@@ -14,6 +14,8 @@
 
     var current = 0;
 
+    var ignoreUntil = 0;
+
     function setActive(idx) {
       current = idx;
       links.forEach(function (l) { l.classList.remove('is-active'); });
@@ -21,10 +23,14 @@
     }
 
     links.forEach(function (l, idx) {
-      l.addEventListener('click', function () { setActive(idx); });
+      l.addEventListener('click', function () {
+        ignoreUntil = Date.now() + 1000;
+        setActive(idx);
+      });
     });
 
     var io = new IntersectionObserver(function (entries) {
+      if (Date.now() < ignoreUntil) return;
       entries.forEach(function (e) {
         if (e.isIntersecting) {
           var idx = targets.indexOf(e.target);
