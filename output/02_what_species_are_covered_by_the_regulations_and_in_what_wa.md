@@ -39,7 +39,7 @@ Table 1: Numbers of species and subspecies listed in the CITES Appendices, updat
 | Invertebrates | 76 | 2194 | 31 | **2301** |
 | **Sub-total Animals** | **713** | **5460** | **394** | **6567** |
 | **Sub-total Plants** | **411** | **33 846** | **134** | **34 391** |
-| **Total *** | **1124** | **39 306** | **528** | **40 958** |
+| **Total** | **1124** | **39 306** | **528** | **40 958** |
 
 
 ***Source:*** *adapted from* [http://www.speciesplus.net/](http://www.speciesplus.net/) *- data downloaded on 10 July 2025****.*** *****The total number of plant species listed in the CITES Appendices, in particular Appendix II, are approximate due to taxonomic uncertainties surrounding certain families/genera, in particular Orchidaceae (orchid family). *In some cases species listings are for certain populations only, or some populations are in one Appendix and others in another. In the latter cases, the species are included in the totals for the higher listing only to avoid double counting. 

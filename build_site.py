@@ -114,12 +114,55 @@ def _postprocess_lettered_lists(html: str) -> str:
     return "".join(out)
 
 
+_TABLE_RE = re.compile(r"<table>(.*?)</table>", re.DOTALL)
+_CELL_RE  = re.compile(r"<td[^>]*>(.*?)</td>", re.DOTALL)
+_ROW_RE   = re.compile(r"<tr>.*?</tr>", re.DOTALL)
+
+
+def _postprocess_tables(html: str) -> str:
+    """Wrap tables in .table-wrap; convert single-content-cell tbody rows to colspan sub-headers."""
+
+    def process_table(m: re.Match) -> str:
+        inner = m.group(1)
+
+        # Count columns from <th> elements; fall back to first <td> row
+        n_cols = len(re.findall(r"<th[\s>]", inner))
+        if n_cols == 0:
+            first_tr = re.search(r"<tr>(.*?)</tr>", inner, re.DOTALL)
+            if first_tr:
+                n_cols = len(re.findall(r"<td[\s>]", first_tr.group(1)))
+        n_cols = max(n_cols, 1)
+
+        # Process <tbody> rows only
+        tbody_m = re.search(r"<tbody>(.*?)</tbody>", inner, re.DOTALL)
+        if tbody_m:
+            def check_row(row_m: re.Match) -> str:
+                row = row_m.group(0)
+                cells = _CELL_RE.findall(row)
+                if not cells:
+                    return row
+                non_empty = [(i, c.strip()) for i, c in enumerate(cells) if c.strip()]
+                if len(non_empty) == 1:
+                    _, content = non_empty[0]
+                    return (f'<tr><td colspan="{n_cols}" class="table-subheader">'
+                            f"{content}</td></tr>")
+                return row
+
+            new_tbody = _ROW_RE.sub(check_row, tbody_m.group(0))
+            inner = inner[: tbody_m.start()] + new_tbody + inner[tbody_m.end() :]
+
+        return f'<div class="table-wrap"><table>{inner}</table></div>'
+
+    return _TABLE_RE.sub(process_table, html)
+
+
 def render_markdown(content: str) -> str:
     html = markdown2.markdown(
         content,
         extras=["tables", "fenced-code-blocks", "header-ids", "smarty-pants", "footnotes"],
     )
-    return _postprocess_lettered_lists(html)
+    html = _postprocess_lettered_lists(html)
+    return _postprocess_tables(html)
 
 
 def extract_headings(html: str) -> list[dict]:
@@ -421,19 +464,25 @@ pre {
 pre code { background: none; padding: 0; }
 
 /* -- Tables ------------------------------------------- */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 20px 0 30px; }
 .article table {
-  border-collapse: collapse; width: 100%; margin: 20px 0 30px;
-  font-size: .9375rem; display: block; overflow-x: auto;
+  border-collapse: collapse; width: 100%;
+  table-layout: fixed; font-size: 0.85rem;
 }
 .article table th {
   background: var(--black); color: var(--white); padding: 10px 14px;
-  text-align: left; font-weight: 700; border: 1px solid #333; white-space: nowrap;
+  text-align: left; font-weight: 700; border: 1px solid #333;
+  overflow-wrap: break-word; word-wrap: break-word;
 }
 .article table td {
   padding: 9px 14px; border: 1px solid var(--border); vertical-align: top;
+  overflow-wrap: break-word; word-wrap: break-word;
 }
 .article table tr:nth-child(even) td { background: var(--light-grey); }
 .article table tr:hover td { background: var(--mid-grey); }
+.table-subheader {
+  background: #f3f2f1; font-weight: 700; text-align: left; padding: 6px 8px;
+}
 
 /* -- Section meta line -------------------------------- */
 .chapter-meta {
@@ -641,7 +690,7 @@ ol.lettered-list li { margin-bottom: 6px; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; color: #555; }
   table { page-break-inside: avoid; }
   thead { display: table-header-group; }
-  .article table { display: table; }
+  .table-wrap { overflow-x: visible; }
   .article table th {
     background: #222 !important; color: #fff !important;
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
