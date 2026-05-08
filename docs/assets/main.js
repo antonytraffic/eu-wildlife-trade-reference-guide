@@ -55,10 +55,17 @@
 
   function initFootnotesExpand() {
     document.querySelectorAll('.footnotes-show-more').forEach(function (btn) {
+      var overflow = btn.parentElement.querySelector('.footnotes-overflow');
+      if (!overflow) return;
+      var moreText = btn.textContent;
       btn.addEventListener('click', function () {
-        var overflow = btn.parentElement.querySelector('.footnotes-overflow');
-        if (overflow) { overflow.hidden = false; }
-        btn.hidden = true;
+        if (overflow.hidden) {
+          overflow.hidden = false;
+          btn.textContent = 'Show fewer footnotes';
+        } else {
+          overflow.hidden = true;
+          btn.textContent = moreText;
+        }
       });
     });
   }

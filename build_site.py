@@ -270,12 +270,22 @@ def render_markdown(content: str) -> str:
 _XREF_LOOKUP: dict[str, str] = {}
 
 # Match parenthetical cross-refs: (see... Section N.N.N...) or (see... Annex X...)
+# Trailing [^()]*(?:\([^()]*\)[^()]*)* allows one level of nested parens e.g. "(re-)"
 _XREF_SEC_RE = re.compile(
-    r'\(([^()]*?(?:see|see\s+also)[^()]*?Sections?\s+(\d[\d.]*)(?:[^()]*?))\)',
+    r'\(([^()]*?(?:see|see\s+also)[^()]*?Sections?\s+(\d[\d.]*)[^()]*(?:\([^()]*\)[^()]*)*)\)',
     re.IGNORECASE,
 )
 _XREF_ANN_RE = re.compile(
-    r'\(([^()]*?(?:see|see\s+also)[^()]*?Annex\s+([IVXLivxl]+)(?:[^()]*?))\)',
+    r'\(([^()]*?(?:see|see\s+also)[^()]*?Annex\s+([IVXLivxl]+)[^()]*(?:\([^()]*\)[^()]*)*)\)',
+    re.IGNORECASE,
+)
+# Match bold cross-refs outside parentheses: see <strong>Section N.N</strong>
+_XREF_SEC_BOLD_RE = re.compile(
+    r'((?:see|see\s+also)\s+)(<strong>Sections?\s+(\d[\d.]*)[^<]*</strong>)',
+    re.IGNORECASE,
+)
+_XREF_ANN_BOLD_RE = re.compile(
+    r'((?:see|see\s+also)\s+)(<strong>Annex\s+([IVXLivxl]+)[^<]*</strong>)',
     re.IGNORECASE,
 )
 
@@ -308,13 +318,23 @@ def build_section_lookup(nav_sections: list[dict], all_sub: list[dict]) -> None:
             if m:
                 _XREF_LOOKUP[m.group(1)] = f"chapters/{ch['slug']}.html"
 
-        # Also scan headings within each sub-page for deeper section numbers
+        # Also scan headings within each sub-page for deeper section numbers (3+ components)
         for hm in re.finditer(
             r"^#{2,}\s+((\d+(?:\.\d+){2,})\s+(.+))$", ch["body"], re.MULTILINE
         ):
             full_heading, num, text = hm.group(1), hm.group(2), hm.group(3)
             if num not in _XREF_LOOKUP:
                 anchor = _predict_anchor(num, text.strip())
+                _XREF_LOOKUP[num] = f"chapters/{ch['slug']}.html#{anchor}"
+
+    # Scan simple top-level section bodies (5, 8, 11, etc.) for sub-headings like 5.1, 8.2, 11.2.1
+    for ch in nav_sections:
+        for hm in re.finditer(
+            r"^#{2,}\s+((\d+(?:\.\d+)+)\s+(.+))$", ch["body"], re.MULTILINE
+        ):
+            num, text = hm.group(2), hm.group(3).strip()
+            if num not in _XREF_LOOKUP:
+                anchor = _predict_anchor(num, text)
                 _XREF_LOOKUP[num] = f"chapters/{ch['slug']}.html#{anchor}"
 
     # Annex sub-pages: map Roman numeral → annex slug
@@ -341,7 +361,7 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
         return html
 
     def _sub_section(m: re.Match) -> str:
-        inner, num = m.group(1), m.group(2).strip()
+        inner, num = m.group(1), m.group(2).strip().rstrip(".")
         url = _XREF_LOOKUP.get(num)
         if url is None:
             return m.group(0)
@@ -356,8 +376,33 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
         href = _xref_url(url, depth)
         return f'(<a href="{href}">{inner}</a>)'
 
+    def _apply_bold(pat: re.Pattern, kind: str) -> None:
+        nonlocal html
+        result: list[str] = []
+        pos = 0
+        for m in pat.finditer(html):
+            before = html[max(0, m.start() - 400) : m.start()]
+            if before.count("<a ") > before.count("</a>"):
+                continue  # already inside a link
+            result.append(html[pos : m.start()])
+            prefix, bold_tag, raw_num = m.group(1), m.group(2), m.group(3).strip().rstrip(".")
+            if kind == "section":
+                url = _XREF_LOOKUP.get(raw_num)
+            else:
+                url = _XREF_LOOKUP.get(f"annex_{raw_num.upper()}")
+            if url is None:
+                result.append(m.group(0))
+            else:
+                href = _xref_url(url, depth)
+                result.append(f'{prefix}<a href="{href}">{bold_tag}</a>')
+            pos = m.end()
+        result.append(html[pos:])
+        html = "".join(result)
+
     html = _XREF_SEC_RE.sub(_sub_section, html)
     html = _XREF_ANN_RE.sub(_sub_annex, html)
+    _apply_bold(_XREF_SEC_BOLD_RE, "section")
+    _apply_bold(_XREF_ANN_BOLD_RE, "annex")
     return html
 
 
@@ -831,6 +876,10 @@ table caption {
   margin-bottom: 8px; line-height: 1.3;
 }
 .subpage-card:hover .subpage-card__title { text-decoration: underline; }
+.subpage-card__num {
+  font-size: .75rem; color: var(--secondary);
+  text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px;
+}
 .subpage-card__excerpt {
   font-size: .85rem; color: var(--secondary); line-height: 1.45;
 }
@@ -865,7 +914,7 @@ sup.footnote-ref a:hover { text-decoration: underline; }
 .footnotes a { color: var(--secondary); }
 
 /* -- Footnote expand button --------------------------- */
-.footnotes-overflow { list-style: decimal; margin: 0; padding: 0; }
+.footnotes-overflow { list-style: decimal; }
 .footnotes-show-more {
   display: inline-block; margin-top: 6px;
   background: none; border: none; padding: 0;
@@ -1014,10 +1063,17 @@ MAIN_JS = """\
 
   function initFootnotesExpand() {
     document.querySelectorAll('.footnotes-show-more').forEach(function (btn) {
+      var overflow = btn.parentElement.querySelector('.footnotes-overflow');
+      if (!overflow) return;
+      var moreText = btn.textContent;
       btn.addEventListener('click', function () {
-        var overflow = btn.parentElement.querySelector('.footnotes-overflow');
-        if (overflow) { overflow.hidden = false; }
-        btn.hidden = true;
+        if (overflow.hidden) {
+          overflow.hidden = false;
+          btn.textContent = 'Show fewer footnotes';
+        } else {
+          overflow.hidden = true;
+          btn.textContent = moreText;
+        }
       });
     });
   }
@@ -1234,7 +1290,7 @@ def base_html(
 <div class="phase-banner">
   <div class="container">
     <strong class="phase-tag">Beta</strong>
-    <span>This is a new service &mdash; your <a href="mailto:wildlife.trade@ec.europa.eu">feedback</a> will help us improve it.</span>
+    <span>This is a new service &mdash; your <a href="mailto:antony.bagott@traffic.org">feedback</a> will help us improve it.</span>
   </div>
 </div>
 
@@ -1448,11 +1504,16 @@ def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[
         if is_annexes:
             heading     = sub["title"]          # "Annex I", "Annex II", …
             description = annex_first_heading(sub)
+            num_html    = ""
         else:
             heading     = sub["title"]
             description = summaries.get(sub["slug"]) or first_sentences(strip_markdown(sub["body"]), 2)
+            ss    = sub.get("sub_section", "")
+            nm    = re.match(r"^(\d+(?:\.\d+)+)", ss) if ss else None
+            num_html = f'<div class="subpage-card__num">Section {h(nm.group(1))}</div>' if nm else ""
         cards += (
             f'<a class="subpage-card" href="{h(sub["slug"])}.html">'
+            f'{num_html}'
             f'<div class="subpage-card__title">{h(heading)}</div>'
             f'<div class="subpage-card__excerpt">{h(description)}</div>'
             f'</a>'

@@ -399,6 +399,10 @@ table caption {
   margin-bottom: 8px; line-height: 1.3;
 }
 .subpage-card:hover .subpage-card__title { text-decoration: underline; }
+.subpage-card__num {
+  font-size: .75rem; color: var(--secondary);
+  text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px;
+}
 .subpage-card__excerpt {
   font-size: .85rem; color: var(--secondary); line-height: 1.45;
 }
@@ -433,7 +437,7 @@ sup.footnote-ref a:hover { text-decoration: underline; }
 .footnotes a { color: var(--secondary); }
 
 /* -- Footnote expand button --------------------------- */
-.footnotes-overflow { list-style: decimal; margin: 0; padding: 0; }
+.footnotes-overflow { list-style: decimal; }
 .footnotes-show-more {
   display: inline-block; margin-top: 6px;
   background: none; border: none; padding: 0;
