@@ -14,7 +14,13 @@
       "Bash(start \"\" \"C:\\\\Users\\\\antonyb\\\\OneDrive - Traffic International\\\\EC European Commission\\\\Digitalisation\\\\Claude Code\\\\EU Reference Guide Website\\\\site\\\\index.html\")",
       "Bash(git config *)",
       "PowerShell(git config --global user.name)",
-      "PowerShell(git config --global user.email)"
+      "PowerShell(git config --global user.email)",
+      "Bash(cmd /c \"rd /s /q docs\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(cat)",
+      "Read(//tmp/**)"
     ]
   }
 }

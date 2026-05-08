@@ -29,6 +29,10 @@ The rules for the issuance of import permits for specimens of Annex A- or B-list
 
 The procedures described in this Section are similar to those that apply when dealing with **exports**, **re-exports** (see **Section 3.5.1** and **Figure 6**) and internal trade within the EU (see **Section 4.5**).
 
+*Figure 1: The steps involved in the issuance and use of an import permit*
+
+[Insert Figure 1]
+
 Note that specimens will **not be authorised to be assigned to a Customs procedure until the necessary documents have been presented**[^4] (as required for export and re-exports – see **Section 3.5.1**). In the absence of documents, specimens may be seized and subsequently confiscated.
 
 Depending on the system applied in the Member State of destination, the applicant receives either the **application form only** or a **full set of forms**[^5] (as is the case when applying for an export or re-export – see **Section 3.5.1**).
@@ -58,6 +62,10 @@ Member States may require the payment of a **fee** for processing the applicatio
 Permits may be issued in paper format or in electronic format[^16].
 
 Upon import of the shipment, the importer (or their authorised representative) must present all documents to Customs for clearance[^17]. The Customs office will complete box 27 of the original import permit (form 1) and the “copy for the holder” (form 2). The “copy for the holder” will be returned to the importer and can serve as proof of the legal import at a later stage[^18]. The original import permit (form 1) as well as the export permit or re-export certificate from the country of export will be forwarded to the relevant Management Authority of the Member State[^19].
+
+*Figure 2: Annotated import permit form*
+
+[Insert Figure 2]
 
 **Summary of key instructions and explanations for import permit forms**
 
@@ -281,13 +289,13 @@ Regarding the import of **Annex A** specimens, the Management Authority must als
 
 The usual procedures for the establishment of a Negative Opinion and, where necessary, a subsequent import prohibition for species listed in Annex A or B is described in the following paragraphs (see also **Figure 3**).
 
-### Step 1: Making a non-detriment finding at the national level
+#### Step 1: Making a non-detriment finding at the national level
 
 If a Scientific Authority of a Member State advises its Management Authority under Article 4(1) or (2) of *Regulation (EC) No 338/97* not to authorise imports of certain specimens on the basis that to allow such imports would be **detrimental to the conservation of the species**[^62], it must be immediately ensured that no import permits are issued on the basis of Article 4(1) or (2) by any of the other Management Authorities in the EU. The Commission must therefore be informed immediately of any decision taken by a Management Authority not to authorise a particular import on this basis (**Letter** **A** in **Figure 3**) and, in turn, must instruct all other Member States to refrain from issuing import permits under Article 4(1) or (2) until the advice of the other Scientific Authorities can be sought, for example, by a written procedure or in a meeting of the SRG (**Letter** **B** in **Figure 3**). 
 
 **In other cases** where a Management Authority has decided to refuse the import of certain specimens under Article 4(1) or (2) (i.e. for reasons other than detriment to the conservation status of the species), the Management Authority must immediately inform the Commission of the rejection and the reasons for the rejection **in cases of significance in respect of the objectives of the EU Wildlife Trade Regulations**[^63] (see also **Section 3.3.4** above).  The Management Authority has the discretion to decide what is “significant” for these purposes.
 
-### Step 2: Uniform application at the EU level
+#### Step 2: Uniform application at the EU level
 
 Once EU Member States have been advised by the Commission to refrain from issuing import permits for a particular species/country combination - for example in response to the negative advice of a Scientific Authority of an EU Member State - the advice of the other Scientific Authorities in the EU (e.g. by a written procedure and/or in a meeting of the SRG) is sought (**Letter C** in **Figure 3**).   
 
@@ -313,23 +321,23 @@ Definitions of the three types of SRG Opinions, along with further details on wh
 
 **In some cases, it may be necessary to set size limits for the import of certain species from specific countries and for specific source codes as tool to ensure the sustainability of harvesting and trade. To ease the enforcement, it is recommended to follow these scientifically standardized measurements, as described in Annex XVII.**
 
-### Step 3: Range State consultation
+#### Step 3: Range State consultation
 
 When the SRG has formed a **Negative Opinion**, the **Commission then consults with the affected range State** to ask for additional biological, trade, or management information on the species of concern. If the range State then responds and provides this information, the SRG reconsiders its decision on the basis of the information received and, if this leads to a positive non-detriment finding, the Negative Opinion is transformed into a Positive Opinion and imports can be resumed (**Letter E** in **Figure 3**). 
 
-### Step 4: Establishment of an official import restriction
+#### Step 4: Establishment of an official import restriction
 
 If **no new information** is provided by the range State or other sources, or if **the information received is not sufficient** to make a non-detriment finding, the Negative Opinion will be **confirmed** and may, after consultation with the SRG, be transformed by the Commission into an **official import prohibition** through publication in the Official Journal of the European Union (**Letter F** in **Figure 3**). It is important to note that published import prohibitions are also reversible if new information is received. The official import prohibition will then enter into force once the updated “Suspensions Regulation” has been published. The Suspensions Regulation currently in force is [Commission Implementing Regulation (EU) 2025/6](https://eur-lex.europa.eu/legal-content/en/TXT/?uri=CELEX%3A32025R0006) prohibiting the introduction into the Union of specimens of certain species of wild fauna and flora. **Where an official import restriction is established by the Commission, all Member States must reject all permit applications for as long as that restriction is in place**[^67].
 
 Note that in the case of import prohibitions established in respect of Annex B specimens under Article 4(6)(c) (concerns relating to high mortality rates during shipment or low prospects of survival in captivity) or (d) (specimens presenting an ecological threat), import prohibitions may be applied directly without the formation of a prior Negative Opinion by the SRG (see **Section 3.3.9.1**).    
 
-**Figure 3:** **Overview of procedures to establish Positive and Negative Opinions and import**   **restrictions for species listed in Annex A or B of the EU Wildlife Trade Regulations***
+*Figure 3: Overview of procedures to establish Positive and Negative Opinions and import restrictions for species listed in Annex A or B of the EU Wildlife Trade Regulations*
 
 *Letters in bold to the right of the diagram highlight stages explained in more detail above.
 
-**At national level:**
+[Insert Figure 3]
 
-### SRG ReferralSRG ReferralEEDDSA negative advice not confirmed by SRG = SRG Positive OpinionSA negative advice not confirmed by SRG = SRG Positive OpinionSA negative advice confirmed by SRG =SRG Negative OpinionSA negative advice confirmed by SRG =SRG Negative OpinionIncluded in Species+ website at http://www.speciesplus.net/  Included in Species+ website at http://www.speciesplus.net/  AABBCCFFSRG Positive Opinion: imports can be allowedSRG Positive Opinion: imports can be allowedSA negative advice = imports cannot be allowedSA negative advice = imports cannot be allowedThird country reply: restriction supported Third country reply: restriction supported Legally binding import prohibition established and published in Official Journal of the European Union as “Suspension Regulation"Legally binding import prohibition established and published in Official Journal of the European Union as “Suspension Regulation"SRG Negative Opinion confirmedSRG Negative Opinion confirmedNegative opinion reversed into a SRG Positive Opinion: imports can be allowedNegative opinion reversed into a SRG Positive Opinion: imports can be allowedThird country reply: when restriction NOT supported = issue referred back to SRGThird country reply: when restriction NOT supported = issue referred back to SRGSRG Negative Opinion: The Commission may consult affected Range State about establishing an import restriction under Article 4(6) of Regulation (EC) No 338/97  SRG Negative Opinion: The Commission may consult affected Range State about establishing an import restriction under Article 4(6) of Regulation (EC) No 338/97  SRG examines scientific issues (e.g. by regular review of trade levels for species/country combinations or levels of voluntary export quota)SRG examines scientific issues (e.g. by regular review of trade levels for species/country combinations or levels of voluntary export quota)Consultation with SRG on this SA opinion (either by post or in meeting)Consultation with SRG on this SA opinion (either by post or in meeting)At EU levelAt EU levelThe Commission notifies other EU Member States and the issuance of import permits is put on hold (where there is not yet a Negative Opinion of the SRG in place)The Commission notifies other EU Member States and the issuance of import permits is put on hold (where there is not yet a Negative Opinion of the SRG in place)The Management Authority rejects import application and informs the CommissionThe Management Authority rejects import application and informs the CommissionSA positive advice= imports can take placeSA positive advice= imports can take place3.3.9.4 Can certain imports be exempt from import prohibitions established by the Commission  under Article 4(6) of Regulation (EC) No 338/97?
+### 3.3.9.4	Can certain imports be exempt from import prohibitions established by the Commission 	under Article 4(6) of Regulation (EC) No 338/97?
 
 Unless specifically decided otherwise, restrictions in accordance with Article 4(6) of *Regulation (EC) No 338/97* **do not apply to**[^68]: 
 
