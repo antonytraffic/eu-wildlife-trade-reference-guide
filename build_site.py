@@ -949,7 +949,7 @@ sup.footnote-ref a:hover { text-decoration: underline; }
 
 /* -- Figures ------------------------------------------ */
 .figure-block {
-  margin: 36px auto;
+  margin: 14px auto 36px;
   text-align: center;
 }
 .figure-block img {
