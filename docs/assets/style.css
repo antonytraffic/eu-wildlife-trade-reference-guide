@@ -452,6 +452,13 @@ sup.footnote-ref a:hover { text-decoration: underline; }
   color: var(--secondary); text-align: center;
 }
 
+/* -- Summary of key instructions (small print) -------- */
+.summary-smallprint { font-size: 0.8rem; color: #505a5f; }
+.summary-smallprint p { margin-top: 6px; }
+.summary-smallprint strong { color: #505a5f; font-weight: 600; }
+.summary-smallprint ol { margin-top: 6px; }
+.summary-smallprint li { margin-bottom: 2px; }
+
 /* -- Footnote expand button --------------------------- */
 .footnotes-overflow { list-style: decimal; }
 .footnotes-show-more {

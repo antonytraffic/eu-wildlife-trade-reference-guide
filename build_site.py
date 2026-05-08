@@ -121,9 +121,9 @@ _SOURCE_FULL_RE = re.compile(
     r"^\s*(<p[^>]*>(?:<[^>]+>)*(?:Source|Note)s?:.*?</p>)",
     re.DOTALL | re.IGNORECASE,
 )
-# Matches table label paragraphs: <p><em>Table N: ...</em></p>
+# Matches table/figure label paragraphs: <p><em>Table N: ...</em></p>
 _LABEL_RE = re.compile(
-    r"<p><em>((?:Table|Figure)\s+\d+[^<]*)</em></p>",
+    r"<p><em>((Table|Figure)\s+(\d+)[^<]*)</em></p>",
     re.IGNORECASE,
 )
 
@@ -212,8 +212,11 @@ def _postprocess_tables(html: str) -> str:
 
 
 def _postprocess_table_labels(html: str) -> str:
-    """Convert <p><em>Table N: text</em></p> to <p class="table-label">Table N: text</p>."""
-    return _LABEL_RE.sub(r'<p class="table-label">\1</p>', html)
+    """Convert <p><em>Table/Figure N: text</em></p> to <p class="table-label" id="...">...</p>."""
+    def _sub(m: re.Match) -> str:
+        text, kind, num = m.group(1), m.group(2).lower(), m.group(3)
+        return f'<p class="table-label" id="{kind}-{num}">{text}</p>'
+    return _LABEL_RE.sub(_sub, html)
 
 
 _FOOTNOTES_RE = re.compile(
@@ -265,7 +268,7 @@ def _replace_figures(html: str, depth: int) -> str:
     def _sub_with_cap(m: re.Match) -> str:
         caption_text, num = m.group(1), m.group(2)
         return (
-            f'<figure class="figure-block">'
+            f'<figure class="figure-block" id="figure-{num}">'
             f'<img src="{root}assets/images/Figure-{num}.png" alt="{h(caption_text)}">'
             f'<figcaption>{caption_text}</figcaption>'
             f'</figure>'
@@ -274,7 +277,7 @@ def _replace_figures(html: str, depth: int) -> str:
     def _sub_bare(m: re.Match) -> str:
         num = m.group(1)
         return (
-            f'<figure class="figure-block">'
+            f'<figure class="figure-block" id="figure-{num}">'
             f'<img src="{root}assets/images/Figure-{num}.png" alt="Figure {num}">'
             f'</figure>'
         )
@@ -282,6 +285,47 @@ def _replace_figures(html: str, depth: int) -> str:
     html = _FIG_WITH_CAP_RE.sub(_sub_with_cap, html)
     html = _FIG_BARE_RE.sub(_sub_bare, html)
     return html
+
+
+# Matches bold Figure/Table references for in-text linking
+_FIG_BOLD_REF_RE = re.compile(r'<strong>(Figure\s+(\d+))</strong>', re.IGNORECASE)
+_TAB_BOLD_REF_RE = re.compile(r'<strong>(Table\s+(\d+))</strong>', re.IGNORECASE)
+
+# Matches "Summary of key instructions" bold paragraph + optional paras + ol
+_SUMMARY_RE = re.compile(
+    r'(<p>\s*<strong>Summary of key instructions[^<]*</strong>\s*</p>'
+    r'(?:\s*<p>.*?</p>)*\s*'
+    r'<ol>.*?</ol>)',
+    re.DOTALL | re.IGNORECASE,
+)
+
+
+def _link_figure_table_refs(html: str, depth: int) -> str:  # noqa: ARG001
+    """Link bold Figure N / Table N references to their anchor IDs on the same page."""
+    def _scan(pat: re.Pattern, anchor_prefix: str) -> str:
+        nonlocal html
+        result: list[str] = []
+        pos = 0
+        for m in pat.finditer(html):
+            before = html[max(0, m.start() - 400) : m.start()]
+            result.append(html[pos : m.start()])
+            pos = m.end()
+            if before.count("<a ") > before.count("</a>"):
+                result.append(m.group(0))
+            else:
+                text, num = m.group(1), m.group(2)
+                result.append(f'<strong><a href="#{anchor_prefix}-{num}">{text}</a></strong>')
+        result.append(html[pos:])
+        html = "".join(result)
+
+    _scan(_FIG_BOLD_REF_RE, "figure")
+    _scan(_TAB_BOLD_REF_RE, "table")
+    return html
+
+
+def _postprocess_summary_sections(html: str) -> str:
+    """Wrap 'Summary of key instructions' + following list in a small-print div."""
+    return _SUMMARY_RE.sub(r'<div class="summary-smallprint">\1</div>', html)
 
 
 def render_markdown(content: str) -> str:
@@ -293,6 +337,7 @@ def render_markdown(content: str) -> str:
     html = _postprocess_tables(html)
     html = _postprocess_table_labels(html)
     html = _postprocess_footnotes(html)
+    html = _postprocess_summary_sections(html)
     return html
 
 
@@ -394,21 +439,47 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
     if not _XREF_LOOKUP:
         return html
 
+    def _linkify_sections(text: str) -> str:
+        """Link all 'Section(s) N.N' tokens and bare 'and N.N.N' numbers in text."""
+        def _link_sec(mm: re.Match) -> str:
+            n = mm.group(2).rstrip(".")
+            u = _XREF_LOOKUP.get(n)
+            if u is None:
+                return mm.group(0)
+            return f'{mm.group(1)}<a href="{_xref_url(u, depth)}">{mm.group(2)}</a>'
+        result = re.sub(r'(Sections?\s+)(\d[\d.]*)', _link_sec, text, flags=re.IGNORECASE)
+        def _link_bare(mm: re.Match) -> str:
+            sep, n_str = mm.group(1), mm.group(2)
+            n = n_str.rstrip(".")
+            if "." not in n:  # skip bare integers — too likely to be false positives
+                return mm.group(0)
+            u = _XREF_LOOKUP.get(n)
+            if u is None:
+                return mm.group(0)
+            return f'{sep}<a href="{_xref_url(u, depth)}">{n_str}</a>'
+        return re.sub(r'(\s+and\s+|,\s*)(\d[\d.]*)', _link_bare, result, flags=re.IGNORECASE)
+
+    def _linkify_annexes(text: str) -> str:
+        """Link all 'Annex X' tokens in text (skip if 'Regulation' appears nearby)."""
+        if re.search(r'\bRegulation\b', text, re.IGNORECASE):
+            return text  # refers to a legal regulation, not a guide annex
+        def _link_ann(mm: re.Match) -> str:
+            an = mm.group(2).strip().upper()
+            u = _XREF_LOOKUP.get(f"annex_{an}")
+            if u is None:
+                return mm.group(0)
+            return f'{mm.group(1)}<a href="{_xref_url(u, depth)}">{mm.group(2)}</a>'
+        return re.sub(r'(Annex\s+)([IVXLivxl]+)', _link_ann, text, flags=re.IGNORECASE)
+
     def _sub_section(m: re.Match) -> str:
-        inner, num = m.group(1), m.group(2).strip().rstrip(".")
-        url = _XREF_LOOKUP.get(num)
-        if url is None:
-            return m.group(0)
-        href = _xref_url(url, depth)
-        return f'(<a href="{href}">{inner}</a>)'
+        inner = m.group(1)
+        linked = _linkify_sections(inner)
+        return f'({linked})'
 
     def _sub_annex(m: re.Match) -> str:
-        inner, num = m.group(1), m.group(2).strip().upper()
-        url = _XREF_LOOKUP.get(f"annex_{num}")
-        if url is None:
-            return m.group(0)
-        href = _xref_url(url, depth)
-        return f'(<a href="{href}">{inner}</a>)'
+        inner = m.group(1)
+        linked = _linkify_annexes(inner)
+        return f'({linked})'
 
     def _apply_bold(pat: re.Pattern, kind: str) -> None:
         nonlocal html
@@ -416,20 +487,25 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
         pos = 0
         for m in pat.finditer(html):
             before = html[max(0, m.start() - 400) : m.start()]
-            if before.count("<a ") > before.count("</a>"):
-                continue  # already inside a link
             result.append(html[pos : m.start()])
-            prefix, bold_tag, raw_num = m.group(1), m.group(2), m.group(3).strip().rstrip(".")
-            if kind == "section":
-                url = _XREF_LOOKUP.get(raw_num)
-            else:
-                url = _XREF_LOOKUP.get(f"annex_{raw_num.upper()}")
-            if url is None:
-                result.append(m.group(0))
-            else:
-                href = _xref_url(url, depth)
-                result.append(f'{prefix}<a href="{href}">{bold_tag}</a>')
             pos = m.end()
+            if before.count("<a ") > before.count("</a>"):
+                result.append(m.group(0))
+                continue
+            prefix, bold_tag = m.group(1), m.group(2)
+            inner_m = re.match(r'<strong>(.*)</strong>', bold_tag, re.DOTALL | re.IGNORECASE)
+            inner_text = inner_m.group(1) if inner_m else bold_tag
+            if kind == "section":
+                linked = _linkify_sections(inner_text)
+                result.append(f'{prefix}<strong>{linked}</strong>')
+            else:
+                # Also check 150 chars after the match for "Regulation" (it may follow </strong>)
+                after_ctx = html[m.end() : m.end() + 150]
+                if re.search(r'\bRegulation\b', inner_text + after_ctx, re.IGNORECASE):
+                    result.append(m.group(0))
+                else:
+                    linked = _linkify_annexes(inner_text)
+                    result.append(f'{prefix}<strong>{linked}</strong>')
         result.append(html[pos:])
         html = "".join(result)
 
@@ -963,6 +1039,13 @@ sup.footnote-ref a:hover { text-decoration: underline; }
   color: var(--secondary); text-align: center;
 }
 
+/* -- Summary of key instructions (small print) -------- */
+.summary-smallprint { font-size: 0.8rem; color: #505a5f; }
+.summary-smallprint p { margin-top: 6px; }
+.summary-smallprint strong { color: #505a5f; font-weight: 600; }
+.summary-smallprint ol { margin-top: 6px; }
+.summary-smallprint li { margin-bottom: 2px; }
+
 /* -- Footnote expand button --------------------------- */
 .footnotes-overflow { list-style: decimal; }
 .footnotes-show-more {
@@ -1492,7 +1575,10 @@ def make_prev_next(prev: dict | None, next: dict | None) -> str:
 
 def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     """Sections 2, 5-12: full article with sidebar, contents box, prev/next."""
-    rendered = _replace_figures(autolink_xrefs(render_markdown(ch["body"]), depth=1), depth=1)
+    rendered = _link_figure_table_refs(
+        _replace_figures(autolink_xrefs(render_markdown(ch["body"]), depth=1), depth=1),
+        depth=1,
+    )
     headings = extract_headings(rendered)
 
     mobile_contents = make_mobile_contents(headings)
@@ -1596,7 +1682,10 @@ def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[
 
 def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
     """Individual sub-page within Section 3, 4, or Annexes."""
-    rendered = _replace_figures(autolink_xrefs(render_markdown(ch["body"]), depth=1), depth=1)
+    rendered = _link_figure_table_refs(
+        _replace_figures(autolink_xrefs(render_markdown(ch["body"]), depth=1), depth=1),
+        depth=1,
+    )
     headings = extract_headings(rendered)
 
     mobile_contents = make_mobile_contents(headings)
