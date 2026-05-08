@@ -436,6 +436,22 @@ sup.footnote-ref a:hover { text-decoration: underline; }
 .footnotes li { margin-bottom: 4px; line-height: 1.5; }
 .footnotes a { color: var(--secondary); }
 
+/* -- Figures ------------------------------------------ */
+.figure-block {
+  margin: 36px auto;
+  text-align: center;
+}
+.figure-block img {
+  max-width: 100%; height: auto;
+  display: block; margin: 0 auto;
+  border: 1px solid var(--border);
+}
+.figure-block figcaption {
+  margin-top: 10px;
+  font-size: 0.875rem; font-style: italic;
+  color: var(--secondary); text-align: center;
+}
+
 /* -- Footnote expand button --------------------------- */
 .footnotes-overflow { list-style: decimal; }
 .footnotes-show-more {

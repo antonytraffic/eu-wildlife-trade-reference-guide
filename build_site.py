@@ -250,6 +250,40 @@ def _postprocess_footnotes(html: str, threshold: int = 10) -> str:
     return _FOOTNOTES_RE.sub(_replace, html)
 
 
+# Caption paragraph immediately before placeholder: *Figure N: ...*\n[Insert Figure N]
+_FIG_WITH_CAP_RE = re.compile(
+    r'<p><em>(Figure\s+(\d+):[^<]*)</em></p>\s*\n\s*<p>\[Insert Figure \2\]</p>',
+    re.IGNORECASE,
+)
+_FIG_BARE_RE = re.compile(r'<p>\[Insert Figure (\d+)\]</p>', re.IGNORECASE)
+
+
+def _replace_figures(html: str, depth: int) -> str:
+    """Convert [Insert Figure N] placeholders to <figure> elements."""
+    root = "../" * depth
+
+    def _sub_with_cap(m: re.Match) -> str:
+        caption_text, num = m.group(1), m.group(2)
+        return (
+            f'<figure class="figure-block">'
+            f'<img src="{root}assets/images/Figure-{num}.png" alt="{h(caption_text)}">'
+            f'<figcaption>{caption_text}</figcaption>'
+            f'</figure>'
+        )
+
+    def _sub_bare(m: re.Match) -> str:
+        num = m.group(1)
+        return (
+            f'<figure class="figure-block">'
+            f'<img src="{root}assets/images/Figure-{num}.png" alt="Figure {num}">'
+            f'</figure>'
+        )
+
+    html = _FIG_WITH_CAP_RE.sub(_sub_with_cap, html)
+    html = _FIG_BARE_RE.sub(_sub_bare, html)
+    return html
+
+
 def render_markdown(content: str) -> str:
     html = markdown2.markdown(
         content,
@@ -913,6 +947,22 @@ sup.footnote-ref a:hover { text-decoration: underline; }
 .footnotes li { margin-bottom: 4px; line-height: 1.5; }
 .footnotes a { color: var(--secondary); }
 
+/* -- Figures ------------------------------------------ */
+.figure-block {
+  margin: 36px auto;
+  text-align: center;
+}
+.figure-block img {
+  max-width: 100%; height: auto;
+  display: block; margin: 0 auto;
+  border: 1px solid var(--border);
+}
+.figure-block figcaption {
+  margin-top: 10px;
+  font-size: 0.875rem; font-style: italic;
+  color: var(--secondary); text-align: center;
+}
+
 /* -- Footnote expand button --------------------------- */
 .footnotes-overflow { list-style: decimal; }
 .footnotes-show-more {
@@ -1442,7 +1492,7 @@ def make_prev_next(prev: dict | None, next: dict | None) -> str:
 
 def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     """Sections 2, 5-12: full article with sidebar, contents box, prev/next."""
-    rendered = autolink_xrefs(render_markdown(ch["body"]), depth=1)
+    rendered = _replace_figures(autolink_xrefs(render_markdown(ch["body"]), depth=1), depth=1)
     headings = extract_headings(rendered)
 
     mobile_contents = make_mobile_contents(headings)
@@ -1546,7 +1596,7 @@ def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[
 
 def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
     """Individual sub-page within Section 3, 4, or Annexes."""
-    rendered = autolink_xrefs(render_markdown(ch["body"]), depth=1)
+    rendered = _replace_figures(autolink_xrefs(render_markdown(ch["body"]), depth=1), depth=1)
     headings = extract_headings(rendered)
 
     mobile_contents = make_mobile_contents(headings)
@@ -1809,6 +1859,18 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
     (SITE_DIR / "assets" / "main.js" ).write_text(MAIN_JS,   encoding="utf-8")
     (SITE_DIR / "assets" / "search.js").write_text(SEARCH_JS, encoding="utf-8")
     console.print("  [green]+[/green] assets/style.css, main.js, search.js")
+
+    # -- Images -------------------------------------------------------------------
+    images_src = Path("images")
+    if images_src.exists():
+        images_dst = SITE_DIR / "assets" / "images"
+        images_dst.mkdir(parents=True, exist_ok=True)
+        copied = 0
+        for img_file in images_src.glob("*"):
+            if img_file.is_file():
+                shutil.copy2(img_file, images_dst / img_file.name)
+                copied += 1
+        console.print(f"  [green]+[/green] Copied {copied} image(s) to assets/images/")
 
     # -- GitHub Pages config ------------------------------------------------------
     (SITE_DIR / ".nojekyll").write_text("", encoding="utf-8")
