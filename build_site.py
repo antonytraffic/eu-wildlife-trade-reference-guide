@@ -291,6 +291,10 @@ def _replace_figures(html: str, depth: int) -> str:
 _FIG_BOLD_REF_RE = re.compile(r'<strong>(Figure\s+(\d+))</strong>', re.IGNORECASE)
 _TAB_BOLD_REF_RE = re.compile(r'<strong>(Table\s+(\d+))</strong>', re.IGNORECASE)
 
+# Page-level lookups: figure/table number → docs/-relative URL with anchor
+_FIGURE_PAGE_LOOKUP: dict[str, str] = {}
+_TABLE_PAGE_LOOKUP: dict[str, str] = {}
+
 # Matches "Summary of key instructions" bold paragraph + optional paras + ol
 _SUMMARY_RE = re.compile(
     r'(<p>\s*<strong>Summary of key instructions[^<]*</strong>\s*</p>'
@@ -300,9 +304,23 @@ _SUMMARY_RE = re.compile(
 )
 
 
-def _link_figure_table_refs(html: str, depth: int) -> str:  # noqa: ARG001
-    """Link bold Figure N / Table N references to their anchor IDs on the same page."""
-    def _scan(pat: re.Pattern, anchor_prefix: str) -> str:
+def build_figure_table_lookup(nav_sections: list[dict], all_sub: list[dict]) -> None:
+    """Build page-level lookups: figure/table number → docs/-relative URL with anchor."""
+    global _FIGURE_PAGE_LOOKUP, _TABLE_PAGE_LOOKUP
+    _FIGURE_PAGE_LOOKUP = {}
+    _TABLE_PAGE_LOOKUP = {}
+    for ch in nav_sections + all_sub:
+        slug = ch.get("slug", "")
+        body = ch.get("body", "")
+        for fm in re.finditer(r'\[Insert Figure (\d+)\]', body, re.IGNORECASE):
+            _FIGURE_PAGE_LOOKUP[fm.group(1)] = f"chapters/{slug}.html#figure-{fm.group(1)}"
+        for tm in re.finditer(r'\*Table\s+(\d+):', body, re.IGNORECASE):
+            _TABLE_PAGE_LOOKUP[tm.group(1)] = f"chapters/{slug}.html#table-{tm.group(1)}"
+
+
+def _link_figure_table_refs(html: str, depth: int) -> str:
+    """Link bold Figure N / Table N references; use cross-page URLs when needed."""
+    def _scan(pat: re.Pattern, anchor_prefix: str, page_lookup: dict) -> None:
         nonlocal html
         result: list[str] = []
         pos = 0
@@ -310,16 +328,28 @@ def _link_figure_table_refs(html: str, depth: int) -> str:  # noqa: ARG001
             before = html[max(0, m.start() - 400) : m.start()]
             result.append(html[pos : m.start()])
             pos = m.end()
+            # Already inside a link
             if before.count("<a ") > before.count("</a>"):
                 result.append(m.group(0))
+                continue
+            text, num = m.group(1), m.group(2)
+            # Skip if the target element appears immediately after (reference is directly above it)
+            after = html[m.end() : m.end() + 1200]
+            if f'id="{anchor_prefix}-{num}"' in after:
+                result.append(m.group(0))
+                continue
+            # Build URL — cross-page if on a different page, same-page anchor otherwise
+            page_url = page_lookup.get(num)
+            if page_url:
+                href = _xref_url(page_url, depth)
             else:
-                text, num = m.group(1), m.group(2)
-                result.append(f'<strong><a href="#{anchor_prefix}-{num}">{text}</a></strong>')
+                href = f"#{anchor_prefix}-{num}"
+            result.append(f'<strong><a href="{href}">{text}</a></strong>')
         result.append(html[pos:])
         html = "".join(result)
 
-    _scan(_FIG_BOLD_REF_RE, "figure")
-    _scan(_TAB_BOLD_REF_RE, "table")
+    _scan(_FIG_BOLD_REF_RE, "figure", _FIGURE_PAGE_LOOKUP)
+    _scan(_TAB_BOLD_REF_RE, "table", _TABLE_PAGE_LOOKUP)
     return html
 
 
@@ -358,15 +388,9 @@ _XREF_ANN_RE = re.compile(
     r'\(([^()]*?(?:see|see\s+also)[^()]*?Annex\s+([IVXLivxl]+)[^()]*(?:\([^()]*\)[^()]*)*)\)',
     re.IGNORECASE,
 )
-# Match bold cross-refs outside parentheses: see <strong>Section N.N</strong>
-_XREF_SEC_BOLD_RE = re.compile(
-    r'((?:see|see\s+also)\s+)(<strong>Sections?\s+(\d[\d.]*)[^<]*</strong>)',
-    re.IGNORECASE,
-)
-_XREF_ANN_BOLD_RE = re.compile(
-    r'((?:see|see\s+also)\s+)(<strong>Annex\s+([IVXLivxl]+)[^<]*</strong>)',
-    re.IGNORECASE,
-)
+# Match ALL bold Section/Annex references (not just those after "see")
+_SEC_BOLD_ALL_RE = re.compile(r'<strong>(Sections?\s+(\d[\d.]*)[^<]*)</strong>', re.IGNORECASE)
+_ANN_BOLD_ALL_RE = re.compile(r'<strong>(Annexes?\s+([IVXLivxl]+)[^<]*)</strong>', re.IGNORECASE)
 
 
 def _predict_anchor(num: str, heading_text: str) -> str:
@@ -440,48 +464,71 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
         return html
 
     def _linkify_sections(text: str) -> str:
-        """Link all 'Section(s) N.N' tokens and bare 'and N.N.N' numbers in text."""
+        """Link Section(s) N.N tokens. Single ref: include 'Section' in link. Multiple: just numbers."""
+        sec_ms = list(re.finditer(r'(Sections?\s+)(\d[\d.]*)', text, re.IGNORECASE))
+        bare_ms = list(re.finditer(r'(\s+and\s+|,\s*)(\d[\d.]*)', text, re.IGNORECASE))
+        multiple = len(sec_ms) + len(bare_ms) > 1
+
         def _link_sec(mm: re.Match) -> str:
             n = mm.group(2).rstrip(".")
             u = _XREF_LOOKUP.get(n)
             if u is None:
                 return mm.group(0)
-            return f'{mm.group(1)}<a href="{_xref_url(u, depth)}">{mm.group(2)}</a>'
+            href = _xref_url(u, depth)
+            if multiple:
+                return f'{mm.group(1)}<a href="{href}">{mm.group(2)}</a>'
+            return f'<a href="{href}">{mm.group(1)}{mm.group(2)}</a>'
+
         result = re.sub(r'(Sections?\s+)(\d[\d.]*)', _link_sec, text, flags=re.IGNORECASE)
+
         def _link_bare(mm: re.Match) -> str:
             sep, n_str = mm.group(1), mm.group(2)
-            n = n_str.rstrip(".")
-            if "." not in n:  # skip bare integers — too likely to be false positives
-                return mm.group(0)
-            u = _XREF_LOOKUP.get(n)
+            u = _XREF_LOOKUP.get(n_str.rstrip("."))
             if u is None:
                 return mm.group(0)
             return f'{sep}<a href="{_xref_url(u, depth)}">{n_str}</a>'
+
         return re.sub(r'(\s+and\s+|,\s*)(\d[\d.]*)', _link_bare, result, flags=re.IGNORECASE)
 
-    def _linkify_annexes(text: str) -> str:
-        """Link all 'Annex X' tokens in text (skip if 'Regulation' appears nearby)."""
-        if re.search(r'\bRegulation\b', text, re.IGNORECASE):
-            return text  # refers to a legal regulation, not a guide annex
+    def _linkify_annexes(text: str, after_ctx: str = "") -> str:
+        """Link Annex(es) X tokens. Single ref: include 'Annex' in link. Multiple: just roman nums."""
+        if re.search(r'\bRegulation\b', text + after_ctx, re.IGNORECASE):
+            return text
+        ann_ms = list(re.finditer(r'(Annexes?\s+)([IVXLivxl]+)', text, re.IGNORECASE))
+        bare_ms = list(re.finditer(r'(\s+and\s+|,\s*)([IVXLivxl]+)', text, re.IGNORECASE))
+        # Only count bare roman numeral groups that are valid annexes
+        valid_bare = [mm for mm in bare_ms if _XREF_LOOKUP.get(f"annex_{mm.group(2).upper()}")]
+        multiple = len(ann_ms) + len(valid_bare) > 1
+
         def _link_ann(mm: re.Match) -> str:
             an = mm.group(2).strip().upper()
             u = _XREF_LOOKUP.get(f"annex_{an}")
             if u is None:
                 return mm.group(0)
-            return f'{mm.group(1)}<a href="{_xref_url(u, depth)}">{mm.group(2)}</a>'
-        return re.sub(r'(Annex\s+)([IVXLivxl]+)', _link_ann, text, flags=re.IGNORECASE)
+            href = _xref_url(u, depth)
+            if multiple:
+                return f'{mm.group(1)}<a href="{href}">{mm.group(2)}</a>'
+            return f'<a href="{href}">{mm.group(1)}{mm.group(2)}</a>'
+
+        result = re.sub(r'(Annexes?\s+)([IVXLivxl]+)', _link_ann, text, flags=re.IGNORECASE)
+
+        def _link_bare_ann(mm: re.Match) -> str:
+            sep, rom = mm.group(1), mm.group(2)
+            u = _XREF_LOOKUP.get(f"annex_{rom.upper()}")
+            if u is None:
+                return mm.group(0)
+            return f'{sep}<a href="{_xref_url(u, depth)}">{rom}</a>'
+
+        return re.sub(r'(\s+and\s+|,\s*)([IVXLivxl]+)', _link_bare_ann, result, flags=re.IGNORECASE)
 
     def _sub_section(m: re.Match) -> str:
-        inner = m.group(1)
-        linked = _linkify_sections(inner)
-        return f'({linked})'
+        return f'({_linkify_sections(m.group(1))})'
 
     def _sub_annex(m: re.Match) -> str:
-        inner = m.group(1)
-        linked = _linkify_annexes(inner)
-        return f'({linked})'
+        return f'({_linkify_annexes(m.group(1))})'
 
-    def _apply_bold(pat: re.Pattern, kind: str) -> None:
+    def _apply_bold_all(pat: re.Pattern, kind: str) -> None:
+        """Link ALL bold Section/Annex refs (with or without 'see' context)."""
         nonlocal html
         result: list[str] = []
         pos = 0
@@ -489,30 +536,25 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
             before = html[max(0, m.start() - 400) : m.start()]
             result.append(html[pos : m.start()])
             pos = m.end()
-            if before.count("<a ") > before.count("</a>"):
+            inner_text = m.group(1)
+            # Skip if already inside a link or already contains a link
+            if before.count("<a ") > before.count("</a>") or "<a " in inner_text:
                 result.append(m.group(0))
                 continue
-            prefix, bold_tag = m.group(1), m.group(2)
-            inner_m = re.match(r'<strong>(.*)</strong>', bold_tag, re.DOTALL | re.IGNORECASE)
-            inner_text = inner_m.group(1) if inner_m else bold_tag
             if kind == "section":
                 linked = _linkify_sections(inner_text)
-                result.append(f'{prefix}<strong>{linked}</strong>')
+                result.append(f'<strong>{linked}</strong>')
             else:
-                # Also check 150 chars after the match for "Regulation" (it may follow </strong>)
                 after_ctx = html[m.end() : m.end() + 150]
-                if re.search(r'\bRegulation\b', inner_text + after_ctx, re.IGNORECASE):
-                    result.append(m.group(0))
-                else:
-                    linked = _linkify_annexes(inner_text)
-                    result.append(f'{prefix}<strong>{linked}</strong>')
+                linked = _linkify_annexes(inner_text, after_ctx)
+                result.append(f'<strong>{linked}</strong>')
         result.append(html[pos:])
         html = "".join(result)
 
     html = _XREF_SEC_RE.sub(_sub_section, html)
     html = _XREF_ANN_RE.sub(_sub_annex, html)
-    _apply_bold(_XREF_SEC_BOLD_RE, "section")
-    _apply_bold(_XREF_ANN_BOLD_RE, "annex")
+    _apply_bold_all(_SEC_BOLD_ALL_RE, "section")
+    _apply_bold_all(_ANN_BOLD_ALL_RE, "annex")
     return html
 
 
@@ -1938,6 +1980,8 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
     # -- Build cross-reference lookup (section/annex number → URL) ----------------
     build_section_lookup(nav_sections, all_sub)
     console.print(f"  [green]+[/green] Cross-reference lookup built ({len(_XREF_LOOKUP)} entries)")
+    build_figure_table_lookup(nav_sections, all_sub)
+    console.print(f"  [green]+[/green] Figure/table lookup built ({len(_FIGURE_PAGE_LOOKUP)} figures, {len(_TABLE_PAGE_LOOKUP)} tables)")
 
     # -- Create output directories ------------------------------------------------
     (SITE_DIR / "assets").mkdir(parents=True, exist_ok=True)
