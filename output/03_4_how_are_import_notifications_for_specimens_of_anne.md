@@ -37,11 +37,9 @@ At the point of introduction into the EU, the Customs office will carry out the 
 
 Customs then completes **box 14** of the **original** and the **copy for the importer**, returns the latter to the importer (for later proof of legal importation), and the original - together with any document from the (re-)exporting country – is submitted to the Management Authority of the country into which it has been introduced.  Original notifications will also be forwarded to the Management Authority of the country of import, when it is different from the country where the specimen was introduced into the EU[^9].  Returning the originals and any related documents to the Management Authority is essential for the compilation of Annual Reports on trade by the Management Authority. The Customs office must inform the Management Authority of their country of any problems with the shipment/permit and consult on next steps (see also **Section 9**).
 
-
-*Figure 5: Annotated import notification form *
+*Figure 5: Annotated import notification form*
 
 [Insert Figure 5]
-
 
 **Summary of key instructions and explanations for import notification forms**
 
