@@ -444,7 +444,7 @@ sup.footnote-ref a:hover { text-decoration: underline; }
 .figure-block img {
   max-width: 100%; height: auto;
   display: block; margin: 0 auto;
-  border: 1px solid var(--border);
+  border: none;
 }
 .figure-block figcaption {
   margin-top: 10px;
