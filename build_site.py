@@ -1491,6 +1491,14 @@ def base_html(
 
 <script src="{root}assets/main.js"></script>
 {extra_js}
+<script src="{root}assets/chatbot.js"></script>
+<script>
+  ChatbotWidget.init({{
+    apiUrl: 'https://chatbot-api-khaki.vercel.app/api/chat',
+    title: 'Wildlife Trade Regulations Assistant',
+    placeholder: 'Ask about permits, forms, species listings…'
+  }});
+</script>
 </body>
 </html>"""
 
@@ -1992,6 +2000,10 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
     (SITE_DIR / "assets" / "main.js" ).write_text(MAIN_JS,   encoding="utf-8")
     (SITE_DIR / "assets" / "search.js").write_text(SEARCH_JS, encoding="utf-8")
     console.print("  [green]+[/green] assets/style.css, main.js, search.js")
+    _chatbot_src = Path("static") / "chatbot.js"
+    if _chatbot_src.exists():
+        shutil.copy(_chatbot_src, SITE_DIR / "assets" / "chatbot.js")
+        console.print("  [green]+[/green] assets/chatbot.js")
 
     # -- Images -------------------------------------------------------------------
     images_src = Path("images")
