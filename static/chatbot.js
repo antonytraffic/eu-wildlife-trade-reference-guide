@@ -33,29 +33,29 @@
     #cw-btn {
       position:fixed;bottom:24px;right:24px;z-index:9999;
       height:48px;padding:0 18px;border-radius:24px;
-      background:#1a5276;color:#fff;border:none;
+      background:#00703c;color:#fff;border:none;
       cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.28);
       display:flex;align-items:center;gap:8px;
-      font-family:system-ui,-apple-system,sans-serif;font-size:14px;font-weight:600;
+      font-family:"GDS Transport",Arial,sans-serif;font-size:14px;font-weight:600;
       transition:background .2s,transform .15s;white-space:nowrap;
     }
-    #cw-btn:hover{background:#154360;}
+    #cw-btn:hover{background:#004e2a;}
     #cw-btn .cw-btn-icon{font-size:18px;line-height:1;}
     #cw-btn.open .cw-btn-icon{display:none;}
     #cw-btn.open::before{content:'✕';font-size:18px;}
     #cw-panel {
       position:fixed;bottom:92px;right:24px;z-index:9998;
-      width:360px;max-height:540px;
+      width:380px;max-height:560px;
       background:#fff;border-radius:14px;
       box-shadow:0 8px 32px rgba(0,0,0,.18);
       display:flex;flex-direction:column;overflow:hidden;
-      font-family:system-ui,-apple-system,sans-serif;font-size:14px;
+      font-family:"GDS Transport",Arial,sans-serif;font-size:14px;
       transform-origin:bottom right;
       transition:transform .2s cubic-bezier(.34,1.56,.64,1),opacity .15s;
     }
     #cw-panel.cw-hide{transform:scale(.75);opacity:0;pointer-events:none;}
     #cw-head {
-      background:#1a5276;color:#fff;padding:13px 16px;
+      background:#00703c;color:#fff;padding:13px 16px;
       font-weight:600;font-size:15px;
       display:flex;align-items:center;justify-content:space-between;
       flex-shrink:0;
@@ -72,7 +72,7 @@
       line-height:1.5;word-wrap:break-word;white-space:pre-wrap;
       font-size:13.5px;
     }
-    .cw-u{align-self:flex-end;background:#1a5276;color:#fff;
+    .cw-u{align-self:flex-end;background:#00703c;color:#fff;
           border-bottom-right-radius:3px;}
     .cw-b{align-self:flex-start;background:#f2f3f4;color:#1a1a1a;
           border-bottom-left-radius:3px;}
@@ -90,20 +90,23 @@
     #cw-in {
       flex:1;padding:9px 11px;border:1.5px solid #ddd;border-radius:8px;
       font-size:13.5px;outline:none;resize:none;font-family:inherit;
-      max-height:90px;overflow-y:auto;line-height:1.4;
+      min-height:44px;max-height:110px;overflow-y:auto;line-height:1.5;
     }
-    #cw-in:focus{border-color:#1a5276;}
+    #cw-in:focus{border-color:#00703c;}
     #cw-send {
-      padding:9px 15px;background:#1a5276;color:#fff;
+      padding:9px 15px;background:#00703c;color:#fff;
       border:none;border-radius:8px;cursor:pointer;font-size:13.5px;
       transition:background .2s;align-self:flex-end;
     }
-    #cw-send:hover:not(:disabled){background:#154360;}
+    #cw-send:hover:not(:disabled){background:#004e2a;}
     #cw-send:disabled{background:#b0b0b0;cursor:not-allowed;}
     #cw-clear{
       font-size:11px;color:#888;cursor:pointer;border:none;background:none;
       padding:0 0 6px 12px;text-decoration:underline;align-self:flex-start;
     }
+    .cw-m ul{margin:4px 0;padding-left:18px;white-space:normal;}
+    .cw-m ul ul{margin:2px 0;padding-left:16px;}
+    .cw-m li{margin:2px 0;}
     @media(max-width:480px){
       #cw-panel{width:calc(100vw - 16px);right:8px;bottom:82px;}
       #cw-btn{font-size:13px;padding:0 14px;}
@@ -127,29 +130,43 @@
   function mdToHtml(text) {
     const lines = text.split('\n');
     const out = [];
-    let inList = false;
-    for (let i = 0; i < lines.length; i++) {
-      let line = lines[i];
-      const isBullet = /^[-*] /.test(line);
+    let listDepth = 0; // 0=none, 1=top-level ul, 2=nested ul
 
-      if (!isBullet && inList) {
+    function closeToDepth(target) {
+      while (listDepth > target) {
         out.push('</ul>');
-        inList = false;
+        listDepth--;
+      }
+    }
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const topBullet = /^[-*] (.*)/.exec(line);
+      const subBullet = /^[ \t]+[-*] (.*)/.exec(line);
+
+      if (!topBullet && !subBullet) {
+        closeToDepth(0);
+        if (/^#{1,3} /.test(line)) {
+          out.push('<p style="margin:6px 0 2px"><strong>' + applyInline(escHtml(line.replace(/^#{1,3} /, ''))) + '</strong></p>');
+        } else if (line.trim() === '') {
+          out.push('<br>');
+        } else {
+          out.push('<p style="margin:3px 0">' + applyInline(escHtml(line)) + '</p>');
+        }
+        continue;
       }
 
-      if (/^#{1,3} /.test(line)) {
-        out.push('<p style="margin:6px 0 2px"><strong>' + applyInline(escHtml(line.replace(/^#{1,3} /, ''))) + '</strong></p>');
-        continue;
+      if (subBullet) {
+        if (listDepth < 1) { out.push('<ul>'); listDepth = 1; }
+        if (listDepth < 2) { out.push('<ul>'); listDepth = 2; }
+        out.push('<li>' + applyInline(escHtml(subBullet[1])) + '</li>');
+      } else {
+        closeToDepth(1);
+        if (listDepth < 1) { out.push('<ul>'); listDepth = 1; }
+        out.push('<li>' + applyInline(escHtml(topBullet[1])) + '</li>');
       }
-      if (isBullet) {
-        if (!inList) { out.push('<ul style="margin:4px 0;padding-left:18px">'); inList = true; }
-        out.push('<li>' + applyInline(escHtml(line.replace(/^[-*] /, ''))) + '</li>');
-        continue;
-      }
-      if (line.trim() === '') { out.push('<br>'); continue; }
-      out.push('<p style="margin:3px 0">' + applyInline(escHtml(line)) + '</p>');
     }
-    if (inList) out.push('</ul>');
+    closeToDepth(0);
     return out.join('');
   }
 
@@ -203,7 +220,7 @@
       </div>
       <button id="cw-clear">Clear conversation</button>
       <form id="cw-form">
-        <textarea id="cw-in" rows="1" placeholder="${CFG.placeholder}"></textarea>
+        <textarea id="cw-in" rows="2" placeholder="${CFG.placeholder}"></textarea>
         <button id="cw-send" type="submit">Send</button>
       </form>`;
 
