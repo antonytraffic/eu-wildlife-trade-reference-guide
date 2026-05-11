@@ -16,6 +16,7 @@ sub_pages:
 - annexes_x
 - annexes_xi
 - annexes_xii
+- annexes_xiii
 - annexes_xiv
 - annexes_xv
 - annexes_xvi

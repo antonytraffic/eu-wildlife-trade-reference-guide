@@ -33,7 +33,12 @@
       "Bash(cmd /c \"rd /s /q docs\")",
       "Bash(python _fix_33_table.py)",
       "Bash(gh api *)",
-      "Bash(git remote *)"
+      "Bash(git remote *)",
+      "Bash(git restore *)",
+      "Bash(python fix_table1.py)",
+      "Bash(dir docs\\\\assets\\\\images)",
+      "Bash(python fix_figures.py)",
+      "Bash(python -c \"import pathlib; [print\\(p.name, *[l for l in p.read_text\\(encoding='utf-8', errors='replace'\\).splitlines\\(\\)[:10] if 'section_number' in l or 'title' in l][:3]\\) for p in sorted\\(pathlib.Path\\('output'\\).glob\\('annexes_x*.md'\\)\\)]\")"
     ]
   }
 }

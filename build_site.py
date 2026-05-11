@@ -410,7 +410,7 @@ def build_section_lookup(nav_sections: list[dict], all_sub: list[dict]) -> None:
     # Top-level sections: integer → parent page
     for ch in nav_sections:
         snum = ch["section_number"]
-        if snum and 0 < snum <= 12:
+        if snum and 0 < snum:
             _XREF_LOOKUP[str(snum)] = f"chapters/{ch['slug']}.html"
 
     # Sub-pages: extract leading N.N from sub_section field
@@ -492,7 +492,11 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
 
     def _linkify_annexes(text: str, after_ctx: str = "") -> str:
         """Link Annex(es) X tokens. Single ref: include 'Annex' in link. Multiple: just roman nums."""
-        if re.search(r'\bRegulation\b', text + after_ctx, re.IGNORECASE):
+        # Skip linking when the annex belongs to a Regulation (e.g. "Annex X to Regulation")
+        # but NOT when the text merely mentions a Regulation elsewhere (e.g. "Annex XVI lists … Regulation").
+        if re.search(r'\bRegulation\b', text, re.IGNORECASE):
+            return text
+        if re.search(r'^\s*(?:to|of)\s+Regulation\b', after_ctx, re.IGNORECASE):
             return text
         ann_ms = list(re.finditer(r'(Annex(?:es)?\s+)([IVXLivxl]+)', text, re.IGNORECASE))
         bare_ms = list(re.finditer(r'(\s+and\s+|,\s*)([IVXLivxl]+)', text, re.IGNORECASE))
@@ -1141,7 +1145,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 .site-footer a { color: var(--secondary); font-size: .875rem; }
 .site-footer a:hover { color: var(--green); }
 .footer-smallprint {
-  font-size: 0.75rem; color: var(--secondary);
+  font-size: 0.41rem; color: var(--secondary);
   margin-bottom: 6px; line-height: 1.5;
 }
 

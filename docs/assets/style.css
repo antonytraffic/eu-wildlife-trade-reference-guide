@@ -485,7 +485,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 .site-footer a { color: var(--secondary); font-size: .875rem; }
 .site-footer a:hover { color: var(--green); }
 .footer-smallprint {
-  font-size: 0.75rem; color: var(--secondary);
+  font-size: 0.41rem; color: var(--secondary);
   margin-bottom: 6px; line-height: 1.5;
 }
 
