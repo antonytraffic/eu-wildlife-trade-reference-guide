@@ -390,7 +390,7 @@ _XREF_ANN_RE = re.compile(
 )
 # Match ALL bold Section/Annex references (not just those after "see")
 _SEC_BOLD_ALL_RE = re.compile(r'<strong>(Sections?\s+(\d[\d.]*)[^<]*)</strong>', re.IGNORECASE)
-_ANN_BOLD_ALL_RE = re.compile(r'<strong>(Annexes?\s+([IVXLivxl]+)[^<]*)</strong>', re.IGNORECASE)
+_ANN_BOLD_ALL_RE = re.compile(r'<strong>(Annex(?:es)?\s+([IVXLivxl]+)[^<]*)</strong>', re.IGNORECASE)
 
 
 def _predict_anchor(num: str, heading_text: str) -> str:
@@ -494,7 +494,7 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
         """Link Annex(es) X tokens. Single ref: include 'Annex' in link. Multiple: just roman nums."""
         if re.search(r'\bRegulation\b', text + after_ctx, re.IGNORECASE):
             return text
-        ann_ms = list(re.finditer(r'(Annexes?\s+)([IVXLivxl]+)', text, re.IGNORECASE))
+        ann_ms = list(re.finditer(r'(Annex(?:es)?\s+)([IVXLivxl]+)', text, re.IGNORECASE))
         bare_ms = list(re.finditer(r'(\s+and\s+|,\s*)([IVXLivxl]+)', text, re.IGNORECASE))
         # Only count bare roman numeral groups that are valid annexes
         valid_bare = [mm for mm in bare_ms if _XREF_LOOKUP.get(f"annex_{mm.group(2).upper()}")]
@@ -510,7 +510,7 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
                 return f'{mm.group(1)}<a href="{href}">{mm.group(2)}</a>'
             return f'<a href="{href}">{mm.group(1)}{mm.group(2)}</a>'
 
-        result = re.sub(r'(Annexes?\s+)([IVXLivxl]+)', _link_ann, text, flags=re.IGNORECASE)
+        result = re.sub(r'(Annex(?:es)?\s+)([IVXLivxl]+)', _link_ann, text, flags=re.IGNORECASE)
 
         def _link_bare_ann(mm: re.Match) -> str:
             sep, rom = mm.group(1), mm.group(2)
@@ -555,6 +555,33 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
     html = _XREF_ANN_RE.sub(_sub_annex, html)
     _apply_bold_all(_SEC_BOLD_ALL_RE, "section")
     _apply_bold_all(_ANN_BOLD_ALL_RE, "annex")
+
+    def _link_bare_bold_secs() -> None:
+        """Link standalone bold section numbers e.g. <strong>4.5</strong> or <strong>3.5.7</strong>
+        that appear without a 'Section' prefix (typically the second in a paired reference)."""
+        nonlocal html
+        _BARE_BOLD_SEC_RE = re.compile(r'<strong>(\d+\.\d[\d.]*)</strong>')
+        result: list[str] = []
+        pos = 0
+        for m in _BARE_BOLD_SEC_RE.finditer(html):
+            before = html[max(0, m.start() - 200) : m.start()]
+            result.append(html[pos : m.start()])
+            pos = m.end()
+            n_str = m.group(1).rstrip('.')
+            # Skip if already inside a link or already contains a link
+            if before.count('<a ') > before.count('</a>') or '<a ' in m.group(0):
+                result.append(m.group(0))
+                continue
+            u = _XREF_LOOKUP.get(n_str)
+            if u is None:
+                result.append(m.group(0))
+                continue
+            href = _xref_url(u, depth)
+            result.append(f'<strong><a href="{href}">{m.group(1)}</a></strong>')
+        result.append(html[pos:])
+        html = ''.join(result)
+
+    _link_bare_bold_secs()
     return html
 
 
@@ -1114,7 +1141,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 .site-footer a { color: var(--secondary); font-size: .875rem; }
 .site-footer a:hover { color: var(--green); }
 .footer-smallprint {
-  font-size: 0.5rem; color: var(--secondary);
+  font-size: 0.75rem; color: var(--secondary);
   margin-bottom: 6px; line-height: 1.5;
 }
 
@@ -1773,7 +1800,10 @@ def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
 
 def build_about_page(ch: dict) -> str:
     """About page (Section 1 content) at site root."""
-    rendered = render_markdown(ch["body"])
+    rendered = _link_figure_table_refs(
+        _replace_figures(autolink_xrefs(render_markdown(ch["body"]), depth=0), depth=0),
+        depth=0,
+    )
     headings = extract_headings(rendered)
     sidebar_html = make_sidebar(headings)
 
@@ -2139,7 +2169,7 @@ def main() -> None:
         sys.exit(1)
 
     if SITE_DIR.exists():
-        shutil.rmtree(SITE_DIR)
+        shutil.rmtree(SITE_DIR, ignore_errors=True)
         console.print(f"  Removed previous [cyan]{SITE_DIR}/[/cyan]")
 
     nav_sections, all_sub, summaries = build_site()
