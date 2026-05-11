@@ -14,7 +14,26 @@
       "Bash(start \"\" \"C:\\\\Users\\\\antonyb\\\\OneDrive - Traffic International\\\\EC European Commission\\\\Digitalisation\\\\Claude Code\\\\EU Reference Guide Website\\\\site\\\\index.html\")",
       "Bash(git config *)",
       "PowerShell(git config --global user.name)",
-      "PowerShell(git config --global user.email)"
+      "PowerShell(git config --global user.email)",
+      "Bash(python restructure_output.py)",
+      "Bash(python -c \"import shutil; shutil.rmtree\\('docs', ignore_errors=True\\)\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(python enrich_content.py)",
+      "PowerShell(cd \"C:\\\\Users\\\\antonyb\\\\OneDrive - Traffic International\\\\EC European Commission\\\\Digitalisation\\\\Claude Code\\\\EU Reference Guide Website\"; $env:ANTHROPIC_API_KEY = \"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\"; python build_site.py 2>&1)",
+      "Bash(git checkout *)",
+      "Bash(python fix_bullet_lists.py)",
+      "Bash(grep -n \"^| .* |$\" \"C:\\\\Users\\\\antonyb\\\\OneDrive - Traffic International\\\\EC European Commission\\\\Digitalisation\\\\Claude Code\\\\EU Reference Guide Website\\\\output\\\\03_6_are_there_derogations_from_the_normal_import_and_e.md\")",
+      "Bash(python fix_split_tables.py)",
+      "Bash(python fix_lettered_lists.py)",
+      "Bash(python \"C:\\\\Users\\\\antonyb\\\\OneDrive - Traffic International\\\\EC European Commission\\\\Digitalisation\\\\Claude Code\\\\EU Reference Guide Website\\\\build_site.py\" --version)",
+      "Bash(python _fix2.py)",
+      "Bash(python _fix_t6.py)",
+      "Bash(cmd /c \"rd /s /q docs\")",
+      "Bash(python _fix_33_table.py)",
+      "Bash(gh api *)",
+      "Bash(git remote *)"
     ]
   }
 }
