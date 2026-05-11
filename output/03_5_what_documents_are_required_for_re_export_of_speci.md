@@ -35,6 +35,10 @@ The export permit or the re-export certificate must be issued by the **Managemen
 
 - The applicant must be **informed** of significant delays[^3].
 
+*Figure 6: Steps required for obtaining an export permit or re-export certificate for specimens of species listed in Annex A, B or C of the EU Wildlife Trade Regulations*
+
+[Insert Figure 6]
+
 The procedures described in this Section are similar to the ones related to imports (see **Section 3.3.1** and **Figure 1**) and internal trade within the EU (see **Section 4.5**).
 
 **Presentation of the necessary documentation is required before specimens can be cleared by Customs**[^6]**. Specimens may be seized and subsequently confiscated in the absence of such documents.** 
@@ -64,6 +68,8 @@ In order for an export permit to be issued, the applicant must provide documenta
 For the re-export of specimens, documentary evidence of legal introduction into the EU is required for a re-export certificate to be issued. Where the specimen was **imported into another Member State** (than the Member State of re-export), a “**copy for the holder**” of the relevant **import permit**, or a **certificate** (for specimens of species listed in Annex A) or other documentation (for specimens of species listed in Annex B) must be available to prove the **legal introduction** into the EU[^17]. These documents are the most appropriate for this purpose, also containing the necessary information on country of origin, country of re-export, relevant document numbers and dates thereof, all of which are to be included in the application for (re-)export.
 
 *Figure 7: Annotated export permit/re-export certificate*
+
+[Insert Figure 7]
 
 **Summary of key instructions and explanations for (re-)export permit/certificate forms**
 

@@ -477,6 +477,8 @@ The scientists or scientific institution will then be attributed with a **unique
 
 *Figure 8: Label provided for in Article 2(6) of Regulation (EU) No 792/2012 and Article 52 of Regulation (EC) No 865/2006*
 
+[Insert Figure 8]
+
 ## 3.6.7  Can permits and certificates be pre-issued for trade in biological samples?
 
 In certain circumstances, such as for **biomedical research** or screening of fresh tissues for **poisons**, specimens of Annex-listed species must be **prepared and shipped as fast as possible**. To expedite this process, Article 18 of *Regulation (EC) No 865/2006* provides for **pre-issued permits and certificates** regarding certain trade in biological samples of specimens of species listed in the Annexes or the CITES Appendices. The type of samples covered by pre-issued permits and certificates and their use, are specified in Annex XI of *Regulation (EC) No 865/2006* (included in this Guide as **Annex XIII**).
@@ -560,13 +562,23 @@ Specimens which are covered by a travelling exhibition certificate **must be:**
 
 Where the specimens originated from outside the EU (i.e. from a third country), the certificate must include the following text in **box 20** of the form:
 
-  *This certificate is not valid unless accompanied by an original travelling exhibition certificate issued by a third country*[^82].
+> This certificate is not valid unless accompanied by an original travelling exhibition certificate issued by a third country[^82].
 
 The forms for travelling exhibition certificates, and the accompanying continuation sheet that must be endorsed by Customs whenever a border is crossed, are provided respectively in **Annexes III and IV** of *Regulation (EU) No 792/2012*, and also for reference as **Figures 10 and 11** of this Guide. 
 
 **Travelling exhibition certificates** issued by an EU Management Authority are valid for **three years**[^83] (see **Section 8.2**)
 
+*Figure 9: Steps involved in the application and issuance of a travelling exhibition certificate*
+
+[Insert Figure 9]
+
 *Figure 10: Travelling exhibition certificate*
+
+[Insert Figure 10]
+
+*Figure 11: Continuation sheet for travelling exhibition, musical instrument and personal ownership certificates*
+
+[Insert Figure 11]
 
 ## 3.6.10 Are there streamlined procedures for the non-commercial cross-border movement of musical instruments?
 
@@ -625,9 +637,13 @@ A specimen covered by a musical instrument certificate may not be sold or posses
 
 The forms on which musical instrument certificates should be drawn up must conform to the model set out in Annex I and, for the continuation sheet, to the model set out in Annex IV of *Regulation (EU) No 792/2012* (see also **Figures 2** and **11**).
 
-***3.6.10.4 How does the EU treat musical instrument certificates issued by third (non-EU) countries?***
+### 3.6.10.4 How does the EU treat musical instrument certificates issued by third (non-EU) countries?***
 
 An instrument covered by a musical instrument certificate issued by a third country may be introduced into the EU, or re-exported from the EU, without requiring the presentation of a (re)export document or an import permit, **provided that** the musical instrument certificate was issued by the third country under similar conditions to those described in Articles 44h and 44j of *Regulation (EC) No 865/2006* (see above).
+
+*Figure 12: Steps involved in the application and issuance of a musical instrument certificate*
+
+[Insert Figure 12]
 
 ## 3.6.11 Are there simpler procedures for personally owned live animals (e.g. pets, etc.)?
 
@@ -679,7 +695,9 @@ Specimens covered by a personal ownership certificate may not be used for commer
 
 The forms on which personal ownership certificates should be drawn up must conform to the model set out in Annex I and, for the continuation sheet, to the model set out in Annex IV of *Regulation (EU) No 792/2012* (see also **Figures 2** and **11**).
 
-## HOLDERReceives endorsed original certificate and endorsed original continuation sheet.HOLDERReceives endorsed original certificate and endorsed original continuation sheet.CITES MANAGEMENT AUTHORITYReceives from Customs an endorsed copy of the continuation sheet at each border crossing.CITES MANAGEMENT AUTHORITYReceives from Customs an endorsed copy of the continuation sheet at each border crossing.3.6.12 Can travelling sample collections make use of simpler procedures?
+*Figure 13: Steps involved in the application and issuance of a personal ownership certificate*
+
+[Insert Figure 13]
 
 **Sample collection certificates**[^109] may be issued in respect of sample collections, provided those collections are accompanied by a **valid ATA carnet**[^1] 
 
@@ -720,6 +738,10 @@ If the sample collection **originates in a country outside of the EU**, the **Ma
 A sample collection covered by a sample collection certificate must be **re-imported into the EU** **before** **the date of expiry** of the certificate.  The specimens **may also not be sold or otherwise transferred** whilst outside the territory of the EU Member State that issued the certificate.  If the **specimens** covered by the certificate are **stolen, destroyed, or lost,** the issuing Management Authority and the Management Authority of the country in which this occurred will be immediately informed[^117].
 
 **Sample collection certificates** issued by an EU Management Authority are valid for **six months**[^118].
+
+*Figure 14: Steps involved in the application and issuance of a sample collection certificate*
+
+[Insert Figure 14]
 
 [^1]: The ATA carnet is an international Customs document that can be used in different countries around the world to cover temporary use of goods without payment of Customs charges. Using a carnet simplifies Customs clearance of goods in exporting and importing countries by replacing Customs documents that would normally be required (https://iccwbo.org/resources-for-business/ata-carnet/).
 [^2]: Article 7(1)(a) *Regulation (EC) No 338/97. *This does not apply to ranched specimens and so-called source “F” specimens – i.e. specimens born in captivity but not meeting the formal definition of captive-bred/artificially-propagated.

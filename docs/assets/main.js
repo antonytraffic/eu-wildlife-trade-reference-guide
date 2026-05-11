@@ -53,8 +53,26 @@
     });
   }
 
+  function initFootnotesExpand() {
+    document.querySelectorAll('.footnotes-show-more').forEach(function (btn) {
+      var overflow = btn.parentElement.querySelector('.footnotes-overflow');
+      if (!overflow) return;
+      var moreText = btn.textContent;
+      btn.addEventListener('click', function () {
+        if (overflow.hidden) {
+          overflow.hidden = false;
+          btn.textContent = 'Show fewer footnotes';
+        } else {
+          overflow.hidden = true;
+          btn.textContent = moreText;
+        }
+      });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initSidebarHighlight();
     initBackToTop();
+    initFootnotesExpand();
   });
 }());

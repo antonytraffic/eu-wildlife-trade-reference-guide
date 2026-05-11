@@ -121,9 +121,9 @@ _SOURCE_FULL_RE = re.compile(
     r"^\s*(<p[^>]*>(?:<[^>]+>)*(?:Source|Note)s?:.*?</p>)",
     re.DOTALL | re.IGNORECASE,
 )
-# Matches table label paragraphs: <p><em>Table N: ...</em></p>
+# Matches table/figure label paragraphs: <p><em>Table N: ...</em></p>
 _LABEL_RE = re.compile(
-    r"<p><em>((?:Table|Figure)\s+\d+[^<]*)</em></p>",
+    r"<p><em>((Table|Figure)\s+(\d+)[^<]*)</em></p>",
     re.IGNORECASE,
 )
 
@@ -212,8 +212,150 @@ def _postprocess_tables(html: str) -> str:
 
 
 def _postprocess_table_labels(html: str) -> str:
-    """Convert <p><em>Table N: text</em></p> to <p class="table-label">Table N: text</p>."""
-    return _LABEL_RE.sub(r'<p class="table-label">\1</p>', html)
+    """Convert <p><em>Table/Figure N: text</em></p> to <p class="table-label" id="...">...</p>."""
+    def _sub(m: re.Match) -> str:
+        text, kind, num = m.group(1), m.group(2).lower(), m.group(3)
+        return f'<p class="table-label" id="{kind}-{num}">{text}</p>'
+    return _LABEL_RE.sub(_sub, html)
+
+
+_FOOTNOTES_RE = re.compile(
+    r'(<div class="footnotes">.*?<ol[^>]*>)(.*?)(</ol>.*?</div>)',
+    re.DOTALL,
+)
+
+
+def _postprocess_footnotes(html: str, threshold: int = 10) -> str:
+    """When a footnotes block has more than `threshold` items, collapse the extras."""
+    def _replace(m: re.Match) -> str:
+        pre_ol  = m.group(1)
+        ol_body = m.group(2)
+        post_ol = m.group(3)
+
+        parts = re.split(r'(?=<li\b)', ol_body)
+        items = [p for p in parts if "<li" in p]
+
+        if len(items) <= threshold:
+            return m.group(0)
+
+        n_more = len(items) - threshold
+        visible = "".join(items[:threshold])
+        hidden  = "".join(items[threshold:])
+        label   = f"Show {n_more} more footnote{'s' if n_more != 1 else ''}"
+        return (
+            f"{pre_ol}{visible}</ol>"
+            f'<ol class="footnotes-overflow" start="{threshold + 1}" hidden>'
+            f"{hidden}</ol>"
+            f'<button class="footnotes-show-more" type="button">{label}</button>'
+            f"</div>"
+        )
+
+    return _FOOTNOTES_RE.sub(_replace, html)
+
+
+# Caption paragraph immediately before placeholder: *Figure N: ...*\n[Insert Figure N]
+_FIG_WITH_CAP_RE = re.compile(
+    r'<p><em>(Figure\s+(\d+):[^<]*)</em></p>\s*\n\s*<p>\[Insert Figure \2\]</p>',
+    re.IGNORECASE,
+)
+_FIG_BARE_RE = re.compile(r'<p>\[Insert Figure (\d+)\]</p>', re.IGNORECASE)
+
+
+def _replace_figures(html: str, depth: int) -> str:
+    """Convert [Insert Figure N] placeholders to <figure> elements."""
+    root = "../" * depth
+
+    def _sub_with_cap(m: re.Match) -> str:
+        caption_text, num = m.group(1), m.group(2)
+        return (
+            f'<figure class="figure-block" id="figure-{num}">'
+            f'<img src="{root}assets/images/Figure-{num}.png" alt="{h(caption_text)}">'
+            f'<figcaption>{caption_text}</figcaption>'
+            f'</figure>'
+        )
+
+    def _sub_bare(m: re.Match) -> str:
+        num = m.group(1)
+        return (
+            f'<figure class="figure-block" id="figure-{num}">'
+            f'<img src="{root}assets/images/Figure-{num}.png" alt="Figure {num}">'
+            f'</figure>'
+        )
+
+    html = _FIG_WITH_CAP_RE.sub(_sub_with_cap, html)
+    html = _FIG_BARE_RE.sub(_sub_bare, html)
+    return html
+
+
+# Matches bold Figure/Table references for in-text linking
+_FIG_BOLD_REF_RE = re.compile(r'<strong>(Figure\s+(\d+))</strong>', re.IGNORECASE)
+_TAB_BOLD_REF_RE = re.compile(r'<strong>(Table\s+(\d+))</strong>', re.IGNORECASE)
+
+# Page-level lookups: figure/table number → docs/-relative URL with anchor
+_FIGURE_PAGE_LOOKUP: dict[str, str] = {}
+_TABLE_PAGE_LOOKUP: dict[str, str] = {}
+
+# Matches "Summary of key instructions" bold paragraph + optional paras + ol
+_SUMMARY_RE = re.compile(
+    r'(<p>\s*<strong>Summary of key instructions[^<]*</strong>\s*</p>'
+    r'(?:\s*<p>.*?</p>)*\s*'
+    r'<ol>.*?</ol>)',
+    re.DOTALL | re.IGNORECASE,
+)
+
+
+def build_figure_table_lookup(nav_sections: list[dict], all_sub: list[dict]) -> None:
+    """Build page-level lookups: figure/table number → docs/-relative URL with anchor."""
+    global _FIGURE_PAGE_LOOKUP, _TABLE_PAGE_LOOKUP
+    _FIGURE_PAGE_LOOKUP = {}
+    _TABLE_PAGE_LOOKUP = {}
+    for ch in nav_sections + all_sub:
+        slug = ch.get("slug", "")
+        body = ch.get("body", "")
+        for fm in re.finditer(r'\[Insert Figure (\d+)\]', body, re.IGNORECASE):
+            _FIGURE_PAGE_LOOKUP[fm.group(1)] = f"chapters/{slug}.html#figure-{fm.group(1)}"
+        for tm in re.finditer(r'\*Table\s+(\d+):', body, re.IGNORECASE):
+            _TABLE_PAGE_LOOKUP[tm.group(1)] = f"chapters/{slug}.html#table-{tm.group(1)}"
+
+
+def _link_figure_table_refs(html: str, depth: int) -> str:
+    """Link bold Figure N / Table N references; use cross-page URLs when needed."""
+    def _scan(pat: re.Pattern, anchor_prefix: str, page_lookup: dict) -> None:
+        nonlocal html
+        result: list[str] = []
+        pos = 0
+        for m in pat.finditer(html):
+            before = html[max(0, m.start() - 400) : m.start()]
+            result.append(html[pos : m.start()])
+            pos = m.end()
+            # Already inside a link
+            if before.count("<a ") > before.count("</a>"):
+                result.append(m.group(0))
+                continue
+            text, num = m.group(1), m.group(2)
+            # Skip if the target element appears immediately after (reference is directly above it)
+            after = html[m.end() : m.end() + 1200]
+            if f'id="{anchor_prefix}-{num}"' in after:
+                result.append(m.group(0))
+                continue
+            # Build URL — cross-page if on a different page, same-page anchor otherwise
+            page_url = page_lookup.get(num)
+            if page_url:
+                href = _xref_url(page_url, depth)
+            else:
+                href = f"#{anchor_prefix}-{num}"
+            result.append(f'<strong><a href="{href}">{text}</a></strong>')
+        result.append(html[pos:])
+        html = "".join(result)
+
+    _scan(_FIG_BOLD_REF_RE, "figure", _FIGURE_PAGE_LOOKUP)
+    _scan(_TAB_BOLD_REF_RE, "table", _TABLE_PAGE_LOOKUP)
+    return html
+
+
+def _postprocess_summary_sections(html: str) -> str:
+    """Wrap 'Summary of key instructions' + following list in a small-print div."""
+    return _SUMMARY_RE.sub(r'<div class="summary-smallprint">\1</div>', html)
 
 
 def render_markdown(content: str) -> str:
@@ -224,6 +366,8 @@ def render_markdown(content: str) -> str:
     html = _postprocess_lettered_lists(html)
     html = _postprocess_tables(html)
     html = _postprocess_table_labels(html)
+    html = _postprocess_footnotes(html)
+    html = _postprocess_summary_sections(html)
     return html
 
 
@@ -235,14 +379,18 @@ def render_markdown(content: str) -> str:
 _XREF_LOOKUP: dict[str, str] = {}
 
 # Match parenthetical cross-refs: (see... Section N.N.N...) or (see... Annex X...)
+# Trailing [^()]*(?:\([^()]*\)[^()]*)* allows one level of nested parens e.g. "(re-)"
 _XREF_SEC_RE = re.compile(
-    r'\(([^()]*?(?:see|see\s+also)[^()]*?Sections?\s+(\d[\d.]*)(?:[^()]*?))\)',
+    r'\(([^()]*?(?:see|see\s+also)[^()]*?Sections?\s+(\d[\d.]*)[^()]*(?:\([^()]*\)[^()]*)*)\)',
     re.IGNORECASE,
 )
 _XREF_ANN_RE = re.compile(
-    r'\(([^()]*?(?:see|see\s+also)[^()]*?Annex\s+([IVXLivxl]+)(?:[^()]*?))\)',
+    r'\(([^()]*?(?:see|see\s+also)[^()]*?Annex\s+([IVXLivxl]+)[^()]*(?:\([^()]*\)[^()]*)*)\)',
     re.IGNORECASE,
 )
+# Match ALL bold Section/Annex references (not just those after "see")
+_SEC_BOLD_ALL_RE = re.compile(r'<strong>(Sections?\s+(\d[\d.]*)[^<]*)</strong>', re.IGNORECASE)
+_ANN_BOLD_ALL_RE = re.compile(r'<strong>(Annexes?\s+([IVXLivxl]+)[^<]*)</strong>', re.IGNORECASE)
 
 
 def _predict_anchor(num: str, heading_text: str) -> str:
@@ -273,13 +421,23 @@ def build_section_lookup(nav_sections: list[dict], all_sub: list[dict]) -> None:
             if m:
                 _XREF_LOOKUP[m.group(1)] = f"chapters/{ch['slug']}.html"
 
-        # Also scan headings within each sub-page for deeper section numbers
+        # Also scan headings within each sub-page for deeper section numbers (3+ components)
         for hm in re.finditer(
             r"^#{2,}\s+((\d+(?:\.\d+){2,})\s+(.+))$", ch["body"], re.MULTILINE
         ):
             full_heading, num, text = hm.group(1), hm.group(2), hm.group(3)
             if num not in _XREF_LOOKUP:
                 anchor = _predict_anchor(num, text.strip())
+                _XREF_LOOKUP[num] = f"chapters/{ch['slug']}.html#{anchor}"
+
+    # Scan simple top-level section bodies (5, 8, 11, etc.) for sub-headings like 5.1, 8.2, 11.2.1
+    for ch in nav_sections:
+        for hm in re.finditer(
+            r"^#{2,}\s+((\d+(?:\.\d+)+)\s+(.+))$", ch["body"], re.MULTILINE
+        ):
+            num, text = hm.group(2), hm.group(3).strip()
+            if num not in _XREF_LOOKUP:
+                anchor = _predict_anchor(num, text)
                 _XREF_LOOKUP[num] = f"chapters/{ch['slug']}.html#{anchor}"
 
     # Annex sub-pages: map Roman numeral → annex slug
@@ -305,24 +463,98 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
     if not _XREF_LOOKUP:
         return html
 
+    def _linkify_sections(text: str) -> str:
+        """Link Section(s) N.N tokens. Single ref: include 'Section' in link. Multiple: just numbers."""
+        sec_ms = list(re.finditer(r'(Sections?\s+)(\d[\d.]*)', text, re.IGNORECASE))
+        bare_ms = list(re.finditer(r'(\s+and\s+|,\s*)(\d[\d.]*)', text, re.IGNORECASE))
+        multiple = len(sec_ms) + len(bare_ms) > 1
+
+        def _link_sec(mm: re.Match) -> str:
+            n = mm.group(2).rstrip(".")
+            u = _XREF_LOOKUP.get(n)
+            if u is None:
+                return mm.group(0)
+            href = _xref_url(u, depth)
+            if multiple:
+                return f'{mm.group(1)}<a href="{href}">{mm.group(2)}</a>'
+            return f'<a href="{href}">{mm.group(1)}{mm.group(2)}</a>'
+
+        result = re.sub(r'(Sections?\s+)(\d[\d.]*)', _link_sec, text, flags=re.IGNORECASE)
+
+        def _link_bare(mm: re.Match) -> str:
+            sep, n_str = mm.group(1), mm.group(2)
+            u = _XREF_LOOKUP.get(n_str.rstrip("."))
+            if u is None:
+                return mm.group(0)
+            return f'{sep}<a href="{_xref_url(u, depth)}">{n_str}</a>'
+
+        return re.sub(r'(\s+and\s+|,\s*)(\d[\d.]*)', _link_bare, result, flags=re.IGNORECASE)
+
+    def _linkify_annexes(text: str, after_ctx: str = "") -> str:
+        """Link Annex(es) X tokens. Single ref: include 'Annex' in link. Multiple: just roman nums."""
+        if re.search(r'\bRegulation\b', text + after_ctx, re.IGNORECASE):
+            return text
+        ann_ms = list(re.finditer(r'(Annexes?\s+)([IVXLivxl]+)', text, re.IGNORECASE))
+        bare_ms = list(re.finditer(r'(\s+and\s+|,\s*)([IVXLivxl]+)', text, re.IGNORECASE))
+        # Only count bare roman numeral groups that are valid annexes
+        valid_bare = [mm for mm in bare_ms if _XREF_LOOKUP.get(f"annex_{mm.group(2).upper()}")]
+        multiple = len(ann_ms) + len(valid_bare) > 1
+
+        def _link_ann(mm: re.Match) -> str:
+            an = mm.group(2).strip().upper()
+            u = _XREF_LOOKUP.get(f"annex_{an}")
+            if u is None:
+                return mm.group(0)
+            href = _xref_url(u, depth)
+            if multiple:
+                return f'{mm.group(1)}<a href="{href}">{mm.group(2)}</a>'
+            return f'<a href="{href}">{mm.group(1)}{mm.group(2)}</a>'
+
+        result = re.sub(r'(Annexes?\s+)([IVXLivxl]+)', _link_ann, text, flags=re.IGNORECASE)
+
+        def _link_bare_ann(mm: re.Match) -> str:
+            sep, rom = mm.group(1), mm.group(2)
+            u = _XREF_LOOKUP.get(f"annex_{rom.upper()}")
+            if u is None:
+                return mm.group(0)
+            return f'{sep}<a href="{_xref_url(u, depth)}">{rom}</a>'
+
+        return re.sub(r'(\s+and\s+|,\s*)([IVXLivxl]+)', _link_bare_ann, result, flags=re.IGNORECASE)
+
     def _sub_section(m: re.Match) -> str:
-        inner, num = m.group(1), m.group(2).strip()
-        url = _XREF_LOOKUP.get(num)
-        if url is None:
-            return m.group(0)
-        href = _xref_url(url, depth)
-        return f'(<a href="{href}">{inner}</a>)'
+        return f'({_linkify_sections(m.group(1))})'
 
     def _sub_annex(m: re.Match) -> str:
-        inner, num = m.group(1), m.group(2).strip().upper()
-        url = _XREF_LOOKUP.get(f"annex_{num}")
-        if url is None:
-            return m.group(0)
-        href = _xref_url(url, depth)
-        return f'(<a href="{href}">{inner}</a>)'
+        return f'({_linkify_annexes(m.group(1))})'
+
+    def _apply_bold_all(pat: re.Pattern, kind: str) -> None:
+        """Link ALL bold Section/Annex refs (with or without 'see' context)."""
+        nonlocal html
+        result: list[str] = []
+        pos = 0
+        for m in pat.finditer(html):
+            before = html[max(0, m.start() - 400) : m.start()]
+            result.append(html[pos : m.start()])
+            pos = m.end()
+            inner_text = m.group(1)
+            # Skip if already inside a link or already contains a link
+            if before.count("<a ") > before.count("</a>") or "<a " in inner_text:
+                result.append(m.group(0))
+                continue
+            if kind == "section":
+                linked = _linkify_sections(inner_text)
+                result.append(f'<strong>{linked}</strong>')
+            else:
+                after_ctx = html[m.end() : m.end() + 150]
+                linked = _linkify_annexes(inner_text, after_ctx)
+                result.append(f'<strong>{linked}</strong>')
+        result.append(html[pos:])
+        html = "".join(result)
 
     html = _XREF_SEC_RE.sub(_sub_section, html)
     html = _XREF_ANN_RE.sub(_sub_annex, html)
+    _apply_bold_all(_SEC_BOLD_ALL_RE, "section")
+    _apply_bold_all(_ANN_BOLD_ALL_RE, "annex")
     return html
 
 
@@ -718,13 +950,16 @@ table caption {
   background: var(--light-grey); border-bottom: 1px solid var(--border);
   padding: 40px 0;
 }
+.hero .container { text-align: center; }
 .hero h1 { margin-bottom: 12px; font-size: 1.75rem; }
 .hero__lead {
   font-size: 1.1875rem; max-width: 680px; line-height: 1.6; margin-bottom: 24px;
+  margin-left: auto; margin-right: auto;
 }
 
 /* -- Homepage search ---------------------------------- */
 .search-form { display: flex; max-width: 580px; gap: 0; }
+.hero .search-form { margin-left: auto; margin-right: auto; }
 .search-form input[type="search"] {
   flex: 1; padding: 10px 14px; font: inherit; font-size: 1rem;
   border: 2px solid var(--black); border-right: none; color: var(--black); background: var(--white);
@@ -793,6 +1028,10 @@ table caption {
   margin-bottom: 8px; line-height: 1.3;
 }
 .subpage-card:hover .subpage-card__title { text-decoration: underline; }
+.subpage-card__num {
+  font-size: .75rem; color: var(--secondary);
+  text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px;
+}
 .subpage-card__excerpt {
   font-size: .85rem; color: var(--secondary); line-height: 1.45;
 }
@@ -826,6 +1065,39 @@ sup.footnote-ref a:hover { text-decoration: underline; }
 .footnotes li { margin-bottom: 4px; line-height: 1.5; }
 .footnotes a { color: var(--secondary); }
 
+/* -- Figures ------------------------------------------ */
+.figure-block {
+  margin: 14px auto 18px;
+  text-align: center;
+}
+.figure-block img {
+  max-width: 100%; height: auto;
+  display: block; margin: 0 auto;
+  border: none;
+}
+.figure-block figcaption {
+  margin-top: 10px;
+  font-size: 0.875rem; font-style: italic;
+  color: var(--secondary); text-align: center;
+}
+
+/* -- Summary of key instructions (small print) -------- */
+.summary-smallprint { font-size: 0.8rem; color: #505a5f; }
+.summary-smallprint p { margin-top: 6px; }
+.summary-smallprint strong { color: #505a5f; font-weight: 600; }
+.summary-smallprint ol { margin-top: 6px; }
+.summary-smallprint li { margin-bottom: 2px; }
+
+/* -- Footnote expand button --------------------------- */
+.footnotes-overflow { list-style: decimal; }
+.footnotes-show-more {
+  display: inline-block; margin-top: 6px;
+  background: none; border: none; padding: 0;
+  color: var(--green); font-size: 0.8rem; cursor: pointer;
+  text-decoration: underline; font-family: var(--font);
+}
+.footnotes-show-more:hover { color: var(--dark-green); }
+
 /* -- Lettered lists ----------------------------------- */
 ol.lettered-list {
   list-style-type: lower-alpha;
@@ -842,7 +1114,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 .site-footer a { color: var(--secondary); font-size: .875rem; }
 .site-footer a:hover { color: var(--green); }
 .footer-smallprint {
-  font-size: 0.65rem; color: var(--secondary);
+  font-size: 0.5rem; color: var(--secondary);
   margin-bottom: 6px; line-height: 1.5;
 }
 
@@ -964,9 +1236,27 @@ MAIN_JS = """\
     });
   }
 
+  function initFootnotesExpand() {
+    document.querySelectorAll('.footnotes-show-more').forEach(function (btn) {
+      var overflow = btn.parentElement.querySelector('.footnotes-overflow');
+      if (!overflow) return;
+      var moreText = btn.textContent;
+      btn.addEventListener('click', function () {
+        if (overflow.hidden) {
+          overflow.hidden = false;
+          btn.textContent = 'Show fewer footnotes';
+        } else {
+          overflow.hidden = true;
+          btn.textContent = moreText;
+        }
+      });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initSidebarHighlight();
     initBackToTop();
+    initFootnotesExpand();
   });
 }());
 """
@@ -1175,13 +1465,11 @@ def base_html(
 <div class="phase-banner">
   <div class="container">
     <strong class="phase-tag">Beta</strong>
-    <span>This is a new service &mdash; your <a href="mailto:wildlife.trade@ec.europa.eu">feedback</a> will help us improve it.</span>
+    <span>This is a new service &mdash; your <a href="mailto:antony.bagott@traffic.org">feedback</a> will help us improve it.</span>
   </div>
 </div>
 
-<nav class="breadcrumbs" aria-label="Breadcrumb">
-  <ol>{bc_items}</ol>
-</nav>
+{f'<nav class="breadcrumbs" aria-label="Breadcrumb"><ol>{bc_items}</ol></nav>' if bc_items else ''}
 
 <div class="main-content">
   <div class="container" id="main-content">
@@ -1329,10 +1617,12 @@ def make_prev_next(prev: dict | None, next: dict | None) -> str:
 
 def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     """Sections 2, 5-12: full article with sidebar, contents box, prev/next."""
-    rendered = autolink_xrefs(render_markdown(ch["body"]), depth=1)
+    rendered = _link_figure_table_refs(
+        _replace_figures(autolink_xrefs(render_markdown(ch["body"]), depth=1), depth=1),
+        depth=1,
+    )
     headings = extract_headings(rendered)
 
-    contents_box    = make_contents_box(headings)
     mobile_contents = make_mobile_contents(headings)
     sidebar_html    = make_sidebar(headings)
 
@@ -1344,7 +1634,6 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     label_html = _section_label_html(ch)
     content = f"""
 {mobile_contents}
-{contents_box}
 <article class="article-body">
   {label_html}
   <h1>{h(ch['title'])}</h1>
@@ -1393,11 +1682,16 @@ def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[
         if is_annexes:
             heading     = sub["title"]          # "Annex I", "Annex II", …
             description = annex_first_heading(sub)
+            num_html    = ""
         else:
             heading     = sub["title"]
             description = summaries.get(sub["slug"]) or first_sentences(strip_markdown(sub["body"]), 2)
+            ss    = sub.get("sub_section", "")
+            nm    = re.match(r"^(\d+(?:\.\d+)+)", ss) if ss else None
+            num_html = f'<div class="subpage-card__num">Section {h(nm.group(1))}</div>' if nm else ""
         cards += (
             f'<a class="subpage-card" href="{h(sub["slug"])}.html">'
+            f'{num_html}'
             f'<div class="subpage-card__title">{h(heading)}</div>'
             f'<div class="subpage-card__excerpt">{h(description)}</div>'
             f'</a>'
@@ -1430,10 +1724,12 @@ def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[
 
 def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
     """Individual sub-page within Section 3, 4, or Annexes."""
-    rendered = autolink_xrefs(render_markdown(ch["body"]), depth=1)
+    rendered = _link_figure_table_refs(
+        _replace_figures(autolink_xrefs(render_markdown(ch["body"]), depth=1), depth=1),
+        depth=1,
+    )
     headings = extract_headings(rendered)
 
-    contents_box    = make_contents_box(headings)
     mobile_contents = make_mobile_contents(headings)
     sidebar_html    = make_sidebar(headings)
 
@@ -1445,7 +1741,6 @@ def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
     label_html = _section_label_html(ch)
     content = f"""
 {mobile_contents}
-{contents_box}
 <article class="article-body">
   {label_html}
   <h1>{h(ch['title'])}</h1>
@@ -1476,7 +1771,6 @@ def build_about_page(ch: dict) -> str:
 
     content = f"""
 {make_mobile_contents(headings)}
-{make_contents_box(headings)}
 <article class="article-body">
   <h1>{h(ch['title'])}</h1>
   {rendered}
@@ -1553,7 +1847,7 @@ def build_index_page(nav_sections: list[dict], summaries: dict,
     return base_html(
         title="Home",
         content=content,
-        breadcrumbs=[("Home", None)],
+        breadcrumbs=[],
         depth=0,
         active_nav="home",
     )
@@ -1686,6 +1980,8 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
     # -- Build cross-reference lookup (section/annex number → URL) ----------------
     build_section_lookup(nav_sections, all_sub)
     console.print(f"  [green]+[/green] Cross-reference lookup built ({len(_XREF_LOOKUP)} entries)")
+    build_figure_table_lookup(nav_sections, all_sub)
+    console.print(f"  [green]+[/green] Figure/table lookup built ({len(_FIGURE_PAGE_LOOKUP)} figures, {len(_TABLE_PAGE_LOOKUP)} tables)")
 
     # -- Create output directories ------------------------------------------------
     (SITE_DIR / "assets").mkdir(parents=True, exist_ok=True)
@@ -1696,6 +1992,18 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
     (SITE_DIR / "assets" / "main.js" ).write_text(MAIN_JS,   encoding="utf-8")
     (SITE_DIR / "assets" / "search.js").write_text(SEARCH_JS, encoding="utf-8")
     console.print("  [green]+[/green] assets/style.css, main.js, search.js")
+
+    # -- Images -------------------------------------------------------------------
+    images_src = Path("images")
+    if images_src.exists():
+        images_dst = SITE_DIR / "assets" / "images"
+        images_dst.mkdir(parents=True, exist_ok=True)
+        copied = 0
+        for img_file in images_src.glob("*"):
+            if img_file.is_file():
+                shutil.copy2(img_file, images_dst / img_file.name)
+                copied += 1
+        console.print(f"  [green]+[/green] Copied {copied} image(s) to assets/images/")
 
     # -- GitHub Pages config ------------------------------------------------------
     (SITE_DIR / ".nojekyll").write_text("", encoding="utf-8")

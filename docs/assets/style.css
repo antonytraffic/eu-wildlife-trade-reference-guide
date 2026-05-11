@@ -321,13 +321,16 @@ table caption {
   background: var(--light-grey); border-bottom: 1px solid var(--border);
   padding: 40px 0;
 }
+.hero .container { text-align: center; }
 .hero h1 { margin-bottom: 12px; font-size: 1.75rem; }
 .hero__lead {
   font-size: 1.1875rem; max-width: 680px; line-height: 1.6; margin-bottom: 24px;
+  margin-left: auto; margin-right: auto;
 }
 
 /* -- Homepage search ---------------------------------- */
 .search-form { display: flex; max-width: 580px; gap: 0; }
+.hero .search-form { margin-left: auto; margin-right: auto; }
 .search-form input[type="search"] {
   flex: 1; padding: 10px 14px; font: inherit; font-size: 1rem;
   border: 2px solid var(--black); border-right: none; color: var(--black); background: var(--white);
@@ -396,6 +399,10 @@ table caption {
   margin-bottom: 8px; line-height: 1.3;
 }
 .subpage-card:hover .subpage-card__title { text-decoration: underline; }
+.subpage-card__num {
+  font-size: .75rem; color: var(--secondary);
+  text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px;
+}
 .subpage-card__excerpt {
   font-size: .85rem; color: var(--secondary); line-height: 1.45;
 }
@@ -429,6 +436,39 @@ sup.footnote-ref a:hover { text-decoration: underline; }
 .footnotes li { margin-bottom: 4px; line-height: 1.5; }
 .footnotes a { color: var(--secondary); }
 
+/* -- Figures ------------------------------------------ */
+.figure-block {
+  margin: 14px auto 18px;
+  text-align: center;
+}
+.figure-block img {
+  max-width: 100%; height: auto;
+  display: block; margin: 0 auto;
+  border: none;
+}
+.figure-block figcaption {
+  margin-top: 10px;
+  font-size: 0.875rem; font-style: italic;
+  color: var(--secondary); text-align: center;
+}
+
+/* -- Summary of key instructions (small print) -------- */
+.summary-smallprint { font-size: 0.8rem; color: #505a5f; }
+.summary-smallprint p { margin-top: 6px; }
+.summary-smallprint strong { color: #505a5f; font-weight: 600; }
+.summary-smallprint ol { margin-top: 6px; }
+.summary-smallprint li { margin-bottom: 2px; }
+
+/* -- Footnote expand button --------------------------- */
+.footnotes-overflow { list-style: decimal; }
+.footnotes-show-more {
+  display: inline-block; margin-top: 6px;
+  background: none; border: none; padding: 0;
+  color: var(--green); font-size: 0.8rem; cursor: pointer;
+  text-decoration: underline; font-family: var(--font);
+}
+.footnotes-show-more:hover { color: var(--dark-green); }
+
 /* -- Lettered lists ----------------------------------- */
 ol.lettered-list {
   list-style-type: lower-alpha;
@@ -445,7 +485,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 .site-footer a { color: var(--secondary); font-size: .875rem; }
 .site-footer a:hover { color: var(--green); }
 .footer-smallprint {
-  font-size: 0.65rem; color: var(--secondary);
+  font-size: 0.5rem; color: var(--secondary);
   margin-bottom: 6px; line-height: 1.5;
 }
 

@@ -105,7 +105,7 @@ The Management Authority of a Member State may accept an import permit as an int
 
 *Figure 15: Annotated internal trade certificate form (Annex V Regulation (EU) No 792/2012)*
 
-
+[Insert Figure 15]
 
 **Summary of key instructions and explanations for internal trade certificates**
 
