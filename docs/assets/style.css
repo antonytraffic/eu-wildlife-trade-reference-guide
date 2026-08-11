@@ -257,7 +257,7 @@ a:focus-visible {
 
 /* -- Sidebar ------------------------------------------ */
 .sidebar {
-  flex: 0 0 260px; max-width: 260px;
+  flex: 0 0 320px; max-width: 320px;
   position: sticky; top: 24px;
   max-height: calc(100vh - 48px); overflow-y: auto;
   background: var(--white);
