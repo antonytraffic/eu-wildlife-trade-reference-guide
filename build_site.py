@@ -698,7 +698,7 @@ CSS = """\
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { font-size: 16px; scroll-behavior: smooth; }
+html { font-size: 16px; scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
   font-family: var(--font);
@@ -707,6 +707,7 @@ body {
   color: var(--text);
   background: var(--white);
   margin: 0;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -1039,20 +1040,28 @@ table caption {
 }
 
 /* -- Homepage hero ------------------------------------ */
+.main-content:has(.hero) { padding-top: 0; }
 .hero {
-  background: var(--light-grey); border-bottom: 1px solid var(--border);
-  padding: 40px 0;
+  width: 100vw;
+  margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+  background:
+    linear-gradient(100deg, rgba(0,0,46,.84) 0%, rgba(0,0,46,.68) 38%, rgba(0,0,46,.34) 64%, rgba(0,0,46,.10) 83%, rgba(0,0,46,0) 98%),
+    url("images/hero-elephants-ngorongoro.jpg") center 66% / cover no-repeat;
+  border-bottom: 1px solid var(--border);
+  padding: 72px 0;
+  color: var(--white);
 }
-.hero .container { text-align: center; }
-.hero h1 { margin-bottom: 12px; font-size: 1.75rem; }
+.hero .container {
+  text-align: left; max-width: var(--max-width); margin: 0 auto; padding: 0 20px;
+}
+.hero h1 { margin-bottom: 12px; font-size: 2.25rem; max-width: 620px; color: var(--white); }
 .hero__lead {
-  font-size: 1.1875rem; max-width: 680px; line-height: 1.6; margin-bottom: 24px;
-  margin-left: auto; margin-right: auto;
+  font-size: 1.1875rem; max-width: 560px; line-height: 1.6; margin-bottom: 24px;
+  color: var(--white);
 }
 
 /* -- Homepage search ---------------------------------- */
 .search-form { display: flex; max-width: 580px; gap: 0; }
-.hero .search-form { margin-left: auto; margin-right: auto; }
 .search-form input[type="search"] {
   flex: 1; padding: 10px 14px; font: inherit; font-size: 1rem;
   border: 2px solid var(--black); border-right: none; border-radius: var(--radius) 0 0 var(--radius);
@@ -2350,6 +2359,13 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
         if _logo_src.exists():
             shutil.copy2(_logo_src, images_dst / _logo_name)
             console.print(f"  [green]+[/green] assets/images/{_logo_name}")
+
+    _static_images_src = Path("static") / "images"
+    if _static_images_src.exists():
+        for img_file in _static_images_src.glob("*"):
+            if img_file.is_file():
+                shutil.copy2(img_file, images_dst / img_file.name)
+                console.print(f"  [green]+[/green] assets/images/{img_file.name}")
 
     # -- GitHub Pages config ------------------------------------------------------
     (SITE_DIR / ".nojekyll").write_text("", encoding="utf-8")
