@@ -996,6 +996,9 @@ h2 {
   font-size: 1.5rem;   font-weight: 700; line-height: 1.25;
   margin: 44px 0 18px; padding-top: 12px; border-top: 1px solid var(--border);
 }
+.article-body > h2:first-child, .article-body > h3:first-child {
+  margin-top: 0; padding-top: 0; border-top: none;
+}
 h3 { font-size: 1.1875rem; font-weight: 700; line-height: 1.3;  margin: 30px 0 14px; }
 h4 { font-size: 1rem;     font-weight: 700; line-height: 1.4;  margin: 24px 0 12px; }
 p  { margin: 0 0 18px; }
@@ -1845,18 +1848,10 @@ def split_heading_ref(text: str) -> tuple[str, str]:
     return "", text.strip()
 
 
-def heading_items(
-    headings: list[dict], fallback_title: str | None = None
-) -> list[tuple[str, str, str]]:
-    """H2 headings -> (ref, title, href) triples. Falls back to a single
-    item pointing at the page top when there are no H2s, so single-topic
-    pages still get a (one-item) contents box."""
+def heading_items(headings: list[dict]) -> list[tuple[str, str, str]]:
+    """H2 headings -> (ref, title, href) triples."""
     h2s = [hd for hd in headings if hd["level"] == 2]
-    if h2s:
-        return [(*split_heading_ref(hd["text"]), f'#{hd["id"]}') for hd in h2s]
-    if fallback_title:
-        return [("", fallback_title, "#top")]
-    return []
+    return [(*split_heading_ref(hd["text"]), f'#{hd["id"]}') for hd in h2s]
 
 
 def _contents_li(ref: str, title: str, href: str) -> str:
@@ -1876,20 +1871,17 @@ def make_mobile_contents(items: list[tuple[str, str, str]]) -> str:
     )
 
 
-def make_sidebar(headings: list[dict], fallback_title: str | None = None) -> str:
-    if headings:
-        nav_items = ""
-        for hd in headings:
-            level_class = "sidebar-h3" if hd["level"] >= 3 else ""
-            nav_items += (
-                f'<li class="{level_class}">'
-                f'<a href="#{h(hd["id"])}">{h(hd["text"])}</a>'
-                f'</li>\n'
-            )
-    elif fallback_title:
-        nav_items = f'<li><a href="#top">{h(fallback_title)}</a></li>\n'
-    else:
+def make_sidebar(headings: list[dict]) -> str:
+    if not headings:
         return ""
+    nav_items = ""
+    for hd in headings:
+        level_class = "sidebar-h3" if hd["level"] >= 3 else ""
+        nav_items += (
+            f'<li class="{level_class}">'
+            f'<a href="#{h(hd["id"])}">{h(hd["text"])}</a>'
+            f'</li>\n'
+        )
     return (
         '<p class="sidebar__label">On this page</p>'
         f'<ul class="sidebar__nav">{nav_items}</ul>'
@@ -1962,10 +1954,10 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
         depth=1,
     )
     headings = extract_headings(rendered)
-    items    = heading_items(headings, fallback_title=ch["title"])
+    items    = heading_items(headings)
 
     mobile_contents = make_mobile_contents(items)
-    sidebar_html    = make_sidebar(headings, fallback_title=ch["title"])
+    sidebar_html    = make_sidebar(headings)
 
     idx  = next((i for i, s in enumerate(nav_sections) if s["slug"] == ch["slug"]), -1)
     prev = nav_sections[idx - 1] if idx > 0 else None
@@ -2078,10 +2070,10 @@ def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
         depth=1,
     )
     headings = extract_headings(rendered)
-    items    = heading_items(headings, fallback_title=ch["title"])
+    items    = heading_items(headings)
 
     mobile_contents = make_mobile_contents(items)
-    sidebar_html = make_sidebar(headings, fallback_title=ch["title"])
+    sidebar_html = make_sidebar(headings)
 
     idx  = next((i for i, s in enumerate(siblings) if s["slug"] == ch["slug"]), -1)
     prev = siblings[idx - 1] if idx > 0 else None
@@ -2123,8 +2115,8 @@ def build_about_page(ch: dict) -> str:
         depth=0,
     )
     headings = extract_headings(rendered)
-    items    = heading_items(headings, fallback_title=ch["title"])
-    sidebar_html = make_sidebar(headings, fallback_title=ch["title"])
+    items    = heading_items(headings)
+    sidebar_html = make_sidebar(headings)
 
     page_header_html = make_page_header(
         title=ch["title"],
