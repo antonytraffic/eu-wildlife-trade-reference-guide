@@ -700,7 +700,7 @@ CSS = """\
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { font-size: 16px; scroll-behavior: smooth; overflow-x: hidden; }
+html { font-size: 16px; scroll-behavior: smooth; overflow-x: clip; }
 
 body {
   font-family: var(--font);
@@ -709,7 +709,7 @@ body {
   color: var(--text);
   background: var(--white);
   margin: 0;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -821,33 +821,31 @@ a:focus-visible {
   position: relative;
 }
 .top-nav__list {
-  list-style: none; margin: 0; padding: 0;
+  list-style: none; margin: 0 0 0 -16px; padding: 0;
   display: flex; gap: 0;
-  max-width: var(--max-width); margin: 0 auto; padding: 0 20px;
 }
 .top-nav__link {
   display: block; padding: 10px 16px;
-  color: #bfc1c3; text-decoration: none;
+  color: var(--white); text-decoration: none;
   font-size: .875rem; font-weight: 400; line-height: 1.6;
-  border-bottom: 3px solid transparent;
   transition: background-color .1s, color .1s;
 }
 .top-nav__link:hover {
-  background: var(--white); color: var(--black); text-decoration: none;
+  background: var(--icon-bg); color: var(--black); text-decoration: none;
 }
-.top-nav__link:visited        { color: #bfc1c3; }
-.top-nav__link--active        { color: var(--white); border-bottom-color: var(--green); }
-.top-nav__link--active:visited { color: var(--white); }
-.top-nav__link--active:hover  { color: var(--black); }
+.top-nav__link:visited { color: var(--white); }
 
 /* -- Top navigation: "Reference Guide" mega-menu ------- */
 .top-nav__dropdown-toggle {
   display: flex; align-items: center; gap: 6px;
-  background: none; border: none; border-bottom: 3px solid transparent;
+  appearance: none; background: none; border: none;
   font-family: inherit; margin: 0; cursor: pointer;
 }
 .top-nav__caret { width: 10px; height: 7px; flex-shrink: 0; transition: transform .15s; }
 .top-nav__item--dropdown.is-open .top-nav__caret { transform: rotate(180deg); }
+.top-nav__item--dropdown.is-open .top-nav__dropdown-toggle {
+  background: var(--white); color: var(--black);
+}
 .top-nav__dropdown {
   display: none;
   position: absolute; top: 100%; left: 0; right: 0; z-index: 20;
@@ -939,19 +937,22 @@ a:focus-visible {
   letter-spacing: .07em; color: var(--secondary);
   border-bottom: 2px solid var(--black); padding-bottom: 8px; margin-bottom: 6px;
 }
-.sidebar__nav { list-style: none; padding: 0; margin: 0; }
-.sidebar__nav li { border-bottom: 1px solid var(--light-grey); }
+.sidebar__nav { list-style: none; padding: 0; margin: 0; border-left: 1px solid var(--border); }
+.sidebar__nav li { margin: 0; }
 .sidebar__nav a {
-  display: block; padding: 7px 0; color: var(--text);
+  display: block; padding: 8px 12px 8px 14px; margin-left: -1px;
+  border-left: 3px solid transparent;
+  color: var(--text);
   text-decoration: none; font-size: .875rem; line-height: 1.35;
 }
-.sidebar__nav a:hover { color: var(--green); text-decoration: underline; }
+.sidebar__nav a:hover { background: var(--light-grey); text-decoration: none; }
 .sidebar__nav a.is-active {
-  font-weight: 700; color: var(--green);
-  border-left: 4px solid var(--green); padding-left: 10px; margin-left: -14px;
+  font-weight: 700; color: var(--black);
+  background: var(--icon-bg);
+  border-left-color: var(--green);
 }
-.sidebar__nav .sidebar-h3 a { padding-left: 14px; color: var(--secondary); font-size: .8125rem; }
-.sidebar__nav .sidebar-h3 a.is-active { padding-left: 24px; margin-left: -14px; }
+.sidebar__nav .sidebar-h3 a { padding-left: 26px; color: var(--secondary); font-size: .8125rem; }
+.sidebar__nav .sidebar-h3 a.is-active { color: var(--black); }
 
 /* -- Article area ------------------------------------- */
 .article { flex: 1 1 auto; min-width: 0; }
@@ -1626,7 +1627,6 @@ def base_html(
     depth: int = 0,
     sidebar_html: str = "",
     extra_js: str = "",
-    active_nav: str = "home",
     page_header_html: str = "",
 ) -> str:
     root       = "../" * depth
@@ -1639,11 +1639,6 @@ def base_html(
             bc_items += f'<li><span aria-current="page">{h(label)}</span></li>\n'
         else:
             bc_items += f'<li><a href="{h(url)}">{h(label)}</a></li>\n'
-
-    home_cls    = " top-nav__link--active" if active_nav == "home"    else ""
-    about_cls   = " top-nav__link--active" if active_nav == "about"   else ""
-    guide_cls   = " top-nav__link--active" if active_nav == "guide"   else ""
-    annex_cls   = " top-nav__link--active" if active_nav == "annexes" else ""
 
     guide_dropdown_items = "".join(
         f'<li><a href="{root}chapters/{h(slug)}.html" class="top-nav__dropdown-link">{h(item_title)}</a></li>'
@@ -1731,10 +1726,10 @@ def base_html(
 <nav class="top-nav" aria-label="Main navigation">
   <div class="container">
     <ul class="top-nav__list">
-      <li><a href="{root}index.html" class="top-nav__link{home_cls}">Home</a></li>
-      <li><a href="{root}about.html" class="top-nav__link{about_cls}">About</a></li>
+      <li><a href="{root}index.html" class="top-nav__link">Home</a></li>
+      <li><a href="{root}about.html" class="top-nav__link">About</a></li>
       <li class="top-nav__item--dropdown">
-        <button type="button" class="top-nav__link top-nav__dropdown-toggle{guide_cls}" aria-expanded="false">
+        <button type="button" class="top-nav__link top-nav__dropdown-toggle" aria-expanded="false">
           Reference Guide
           <svg class="top-nav__caret" viewBox="0 0 12 8" aria-hidden="true" focusable="false"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
@@ -1750,7 +1745,7 @@ def base_html(
           </div>
         </div>
       </li>
-      <li><a href="{annexes_href}" class="top-nav__link{annex_cls}">Annexes</a></li>
+      <li><a href="{annexes_href}" class="top-nav__link">Annexes</a></li>
     </ul>
   </div>
 </nav>
@@ -1879,18 +1874,6 @@ def _contents_li(ref: str, title: str, href: str) -> str:
     return f'<li>{ref_html}<a href="{h(href)}">{h(title)}</a></li>\n'
 
 
-def make_contents_box(items: list[tuple[str, str, str]]) -> str:
-    if not items:
-        return ""
-    li_html = "".join(_contents_li(*item) for item in items)
-    return (
-        '<div class="contents-box">'
-        '<p class="contents-box__title">Contents</p>'
-        f'<ul class="contents-list">{li_html}</ul>'
-        '</div>'
-    )
-
-
 def make_mobile_contents(items: list[tuple[str, str, str]]) -> str:
     if not items:
         return ""
@@ -1982,16 +1965,6 @@ def make_prev_next(prev: dict | None, next: dict | None) -> str:
 # SECTION 7 -- Page builders
 # ==============================================================================
 
-def _top_nav_active(ch: dict) -> str:
-    """Which top-nav item to highlight for a given chapter/sub-page."""
-    snum = ch.get("section_number", 0)
-    if 0 < snum <= 12:
-        return "guide"
-    if snum == 0 or snum > 12:
-        return "annexes"
-    return "home"
-
-
 def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     """Sections 2, 5-12: full article with sidebar, contents box, prev/next."""
     rendered = _link_figure_table_refs(
@@ -2002,7 +1975,6 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     items    = heading_items(headings, fallback_title=ch["title"])
 
     mobile_contents = make_mobile_contents(items)
-    contents_box    = make_contents_box(items)
     sidebar_html    = make_sidebar(headings, fallback_title=ch["title"])
 
     idx  = next((i for i, s in enumerate(nav_sections) if s["slug"] == ch["slug"]), -1)
@@ -2018,7 +1990,6 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     )
     content = f"""
 {mobile_contents}
-{contents_box}
 <article class="article-body">
   {rendered}
 </article>
@@ -2031,7 +2002,6 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
         breadcrumbs=[],
         depth=1,
         sidebar_html=sidebar_html,
-        active_nav=_top_nav_active(ch),
         page_header_html=page_header_html,
     )
 
@@ -2107,7 +2077,6 @@ def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[
         content=content,
         breadcrumbs=[],
         depth=1,
-        active_nav=_top_nav_active(ch),
         page_header_html=page_header_html,
     )
 
@@ -2122,7 +2091,6 @@ def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
     items    = heading_items(headings, fallback_title=ch["title"])
 
     mobile_contents = make_mobile_contents(items)
-    contents_box = make_contents_box(items)
     sidebar_html = make_sidebar(headings, fallback_title=ch["title"])
 
     idx  = next((i for i, s in enumerate(siblings) if s["slug"] == ch["slug"]), -1)
@@ -2142,7 +2110,6 @@ def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
     )
     content = f"""
 {mobile_contents}
-{contents_box}
 <article class="article-body">
   {rendered}
 </article>
@@ -2155,7 +2122,6 @@ def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
         breadcrumbs=[],
         depth=1,
         sidebar_html=sidebar_html,
-        active_nav=_top_nav_active(ch),
         page_header_html=page_header_html,
     )
 
@@ -2176,7 +2142,6 @@ def build_about_page(ch: dict) -> str:
     )
     content = f"""
 {make_mobile_contents(items)}
-{make_contents_box(items)}
 <article class="article-body">
   {rendered}
 </article>
@@ -2188,7 +2153,6 @@ def build_about_page(ch: dict) -> str:
         breadcrumbs=[],
         depth=0,
         sidebar_html=sidebar_html,
-        active_nav="about",
         page_header_html=page_header_html,
     )
 
@@ -2305,7 +2269,6 @@ def build_index_page(nav_sections: list[dict], summaries: dict,
         content=content,
         breadcrumbs=[],
         depth=0,
-        active_nav="home",
     )
 
 
@@ -2331,7 +2294,6 @@ def build_search_page() -> str:
         breadcrumbs=[("Home", "index.html"), ("Search", None)],
         depth=0,
         extra_js='<script src="assets/search.js"></script>',
-        active_nav="home",
     )
 
 
@@ -2349,7 +2311,6 @@ def build_404_page() -> str:
         content=content,
         breadcrumbs=[("Home", "index.html"), ("Page not found", None)],
         depth=0,
-        active_nav="home",
     )
 
 
