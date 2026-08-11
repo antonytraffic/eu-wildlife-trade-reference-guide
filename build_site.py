@@ -903,6 +903,7 @@ a:focus-visible {
 .page-header .container { padding-bottom: 24px; max-width: var(--max-width); margin: 0 auto; padding-left: 20px; padding-right: 20px; }
 .page-header + .main-content { padding-top: 0; }
 .page-header .breadcrumbs { border-bottom: none; background: transparent; padding: 10px 0 0; }
+.page-header .breadcrumbs ol { max-width: none; margin: 0; padding: 0; }
 .page-header__meta {
   list-style: none; margin: 8px 0 0; padding: 0;
 }
@@ -957,15 +958,7 @@ a:focus-visible {
 /* -- Article area ------------------------------------- */
 .article { flex: 1 1 auto; min-width: 0; }
 
-/* -- Contents box ------------------------------------- */
-.contents-box {
-  border: 1px solid var(--mid-grey);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-1);
-  padding: 20px 24px 16px;
-  margin-bottom: 30px;
-}
-.contents-box__title { font-size: 1rem; font-weight: 700; margin: 0 0 10px; }
+/* -- Contents list (used by mobile contents dropdown) - */
 .contents-list { list-style: none; margin: 0; padding: 0; }
 .contents-list li {
   margin: 6px 0; font-size: .9375rem;
@@ -975,7 +968,6 @@ a:focus-visible {
   color: var(--black); flex-shrink: 0;
   font-variant-numeric: tabular-nums; min-width: 2.4em;
 }
-.contents-box a  { color: var(--green); }
 
 /* -- Mobile contents dropdown ------------------------- */
 .mobile-contents { display: none; margin-bottom: 20px; }
@@ -1327,7 +1319,6 @@ ol.lettered-list li { margin-bottom: 6px; }
   .page-grid { flex-direction: column; }
   .sidebar { display: none; }
   .mobile-contents { display: block; }
-  .contents-box { display: none; }
 
   h1 { font-size: 1.5rem; }
   h2 { font-size: 1.25rem; }
@@ -1348,12 +1339,11 @@ ol.lettered-list li { margin-bottom: 6px; }
 }
 @media screen and (min-width: 769px) {
   .mobile-contents { display: none; }
-  .contents-box { display: block; }
 }
 
 /* -- Print -------------------------------------------- */
 @media print {
-  .official-strip, .site-header, .top-nav, .breadcrumbs, .sidebar, .contents-box,
+  .official-strip, .site-header, .top-nav, .breadcrumbs, .sidebar,
   .mobile-contents, .chapter-nav, .back-to-top,
   .site-footer, .hero .search-form { display: none !important; }
   .page-grid { display: block; }
