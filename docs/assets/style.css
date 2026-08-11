@@ -88,6 +88,7 @@ a:focus-visible {
 }
 .official-strip__inner {
   display: flex; align-items: center; gap: 8px;
+  max-width: none; margin: 0;
   padding: 6px 20px;
   font-size: .75rem; color: var(--secondary);
 }
@@ -119,11 +120,9 @@ a:focus-visible {
   margin: 0 auto;
 }
 .site-header__site-name {
-  color: var(--black); text-decoration: none;
+  color: var(--black);
   font-size: 1.0625rem; font-weight: 400; letter-spacing: .01em;
 }
-.site-header__site-name:hover { text-decoration: underline; }
-.site-header__site-name:visited { color: var(--black); }
 
 /* -- Header search ------------------------------------ */
 .header-search {

@@ -756,6 +756,7 @@ a:focus-visible {
 }
 .official-strip__inner {
   display: flex; align-items: center; gap: 8px;
+  max-width: none; margin: 0;
   padding: 6px 20px;
   font-size: .75rem; color: var(--secondary);
 }
@@ -787,11 +788,9 @@ a:focus-visible {
   margin: 0 auto;
 }
 .site-header__site-name {
-  color: var(--black); text-decoration: none;
+  color: var(--black);
   font-size: 1.0625rem; font-weight: 400; letter-spacing: .01em;
 }
-.site-header__site-name:hover { text-decoration: underline; }
-.site-header__site-name:visited { color: var(--black); }
 
 /* -- Header search ------------------------------------ */
 .header-search {
@@ -1708,7 +1707,7 @@ def base_html(
 <header class="site-header" role="banner">
   <div class="site-header__top">
     <div class="container site-header__top-inner">
-      <a class="site-header__logo-link" href="{root}index.html">
+      <a class="site-header__logo-link" href="https://commission.europa.eu/index_en" target="_blank" rel="noopener">
         <img class="site-header__logo" src="{root}assets/images/logo-ec-positive.svg" alt="European Commission">
       </a>
       <form class="header-search" action="{root}search.html" method="get" role="search">
@@ -1724,7 +1723,7 @@ def base_html(
   </div>
   <div class="site-header__banner">
     <div class="container">
-      <a class="site-header__site-name" href="{root}index.html">EU Wildlife Trade Regulations &mdash; Reference Guide</a>
+      <span class="site-header__site-name">EU Wildlife Trade Regulations &ndash; Reference Guide</span>
     </div>
   </div>
 </header>
