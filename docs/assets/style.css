@@ -25,7 +25,9 @@
   --visited:      #66439a;   /* EC purple-700 */
   --radius:       4px;       /* EC border-radius 's' */
   --shadow-1:     0 0 0.5px 0.5px rgba(24,39,75,.08), 0 6px 12px 0 rgba(24,39,75,.08);
-  --max-width:    1060px;
+  --shadow-2:     0 0 0.5px 0.5px rgba(24,39,75,.08), 0 10px 22px 0 rgba(24,39,75,.1);
+  --icon-bg:      #d9e3ff;   /* EC primary-200, teardrop icon badge background */
+  --max-width:    1140px;   /* EC container "l" tier */
   --font:         "Inter", Arial, sans-serif;
 }
 
@@ -63,6 +65,9 @@ body {
   margin: 0 auto;
   padding: 0 20px;
 }
+/* A .container nested inside another .container (e.g. the hero band, which
+   sits inside #main-content's container) shouldn't double the width cap/padding. */
+.container .container { max-width: none; padding: 0; }
 
 /* -- Links -------------------------------------------- */
 a                { color: var(--green); }
@@ -209,7 +214,7 @@ a:focus-visible {
 
 /* -- Sidebar ------------------------------------------ */
 .sidebar {
-  flex: 0 0 230px; max-width: 230px;
+  flex: 0 0 260px; max-width: 260px;
   position: sticky; top: 24px;
   max-height: calc(100vh - 48px); overflow-y: auto;
   background: var(--white);
@@ -404,24 +409,40 @@ table caption {
 }
 .chapter-card {
   display: flex; flex-direction: column;
-  border: 1px solid var(--border); border-radius: var(--radius); padding: 20px;
+  position: relative;
+  background: var(--white); border: none; border-radius: var(--radius); padding: 20px;
+  box-shadow: var(--shadow-1);
   text-decoration: none; color: inherit;
-  transition: border-color .1s, box-shadow .1s;
+  transition: box-shadow .15s;
 }
 .chapter-card:hover {
-  border-color: var(--green); box-shadow: 0 2px 8px rgba(0,0,0,.07);
+  box-shadow: var(--shadow-2);
   text-decoration: none;
 }
 .chapter-card:visited { color: inherit; }
+
+/* Teardrop icon badge (EC "navigation list -- illustration" pattern) */
+.chapter-card__icon {
+  position: absolute; top: 16px; right: 16px;
+  width: 56px; height: 56px;
+  border-radius: 100px 0 100px 100px;
+  background: var(--icon-bg);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--green);
+}
+.chapter-card__icon svg { width: 28px; height: 28px; }
+.chapter-card--icon .chapter-card__num,
+.chapter-card--icon .chapter-card__title { padding-right: 60px; }
+
 .chapter-card__num {
   font-size: .75rem; color: var(--secondary);
   text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px;
 }
 .chapter-card__title {
-  font-size: 1rem; font-weight: 700; color: var(--black);
+  font-size: 1rem; font-weight: 400; color: var(--green);
   margin-bottom: 8px; line-height: 1.3;
 }
-.chapter-card:hover .chapter-card__title { color: var(--green); text-decoration: underline; }
+.chapter-card:hover .chapter-card__title { color: var(--dark-green); text-decoration: underline; }
 .chapter-card__summary {
   font-size: .85rem; color: var(--secondary); flex-grow: 1;
   margin-bottom: 12px; line-height: 1.45;
@@ -440,19 +461,20 @@ table caption {
 }
 .subpage-card {
   display: flex; flex-direction: column;
-  border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px;
+  background: var(--white); border: none; border-radius: var(--radius); padding: 18px 20px;
+  box-shadow: var(--shadow-1);
   text-decoration: none; color: inherit;
-  transition: border-color .1s, box-shadow .1s;
+  transition: box-shadow .15s;
 }
 .subpage-card:hover {
-  border-color: var(--green); box-shadow: 0 2px 6px rgba(0,0,0,.06);
+  box-shadow: var(--shadow-2);
 }
 .subpage-card:visited { color: inherit; }
 .subpage-card__title {
-  font-size: 1rem; font-weight: 700; color: var(--black);
+  font-size: 1rem; font-weight: 400; color: var(--green);
   margin-bottom: 8px; line-height: 1.3;
 }
-.subpage-card:hover .subpage-card__title { color: var(--green); text-decoration: underline; }
+.subpage-card:hover .subpage-card__title { color: var(--dark-green); text-decoration: underline; }
 .subpage-card__num {
   font-size: .75rem; color: var(--secondary);
   text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px;
@@ -572,7 +594,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 .site-footer__divider { border: none; border-top: 1px solid rgba(255,255,255,.15); margin: 0 0 16px; }
 
 /* -- Homepage section dividers ------------------------ */
-.container > hr { margin: 2rem 0; border: none; border-top: 1px solid var(--border); }
+.home-sections > hr { margin: 2rem 0; border: none; border-top: 1px solid var(--border); }
 
 /* -- Responsive --------------------------------------- */
 @media screen and (max-width: 768px) {
