@@ -593,8 +593,8 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
 # Section label helper
 # ==============================================================================
 
-def _section_label_text(ch: dict) -> str:
-    """Return 'Section N' (or 'Section N.N') for a chapter or sub-page, or ''."""
+def _section_ref_number(ch: dict) -> str:
+    """Return the bare section/sub-section number, e.g. '7' or '3.1', or ''."""
     snum = ch.get("section_number", 0)
     ss   = ch.get("sub_section", "")
 
@@ -602,11 +602,17 @@ def _section_label_text(ch: dict) -> str:
         # Sub-page: extract leading N.N from sub_section "3.1 Overview"
         m = re.match(r"^(\d+(?:\.\d+)+)", ss)
         if m:
-            return f"Section {m.group(1)}"
+            return m.group(1)
     if snum and 2 <= snum <= 12:
-        return f"Section {snum}"
+        return str(snum)
 
     return ""
+
+
+def _section_label_text(ch: dict) -> str:
+    """Return 'Section N' (or 'Section N.N') for a chapter or sub-page, or ''."""
+    ref = _section_ref_number(ch)
+    return f"Section {ref}" if ref else ""
 
 
 def extract_headings(html: str) -> list[dict]:
@@ -1325,7 +1331,7 @@ MAIN_JS = """\
     var nav = document.querySelector('.sidebar__nav');
     if (!nav) return;
     var links = Array.from(nav.querySelectorAll('a[href^="#"]'));
-    if (!links.length) return;
+    if (links.length <= 1) return; // nothing to distinguish -- leave unselected
     var targets = links.map(function (l) {
       return document.getElementById(l.getAttribute('href').slice(1));
     }).filter(Boolean);
@@ -1737,51 +1743,63 @@ def split_heading_ref(text: str) -> tuple[str, str]:
     return "", text.strip()
 
 
-def make_contents_box(headings: list[dict]) -> str:
+def heading_items(
+    headings: list[dict], fallback_title: str | None = None
+) -> list[tuple[str, str, str]]:
+    """H2 headings -> (ref, title, href) triples. Falls back to a single
+    item pointing at the page top when there are no H2s, so single-topic
+    pages still get a (one-item) contents box."""
     h2s = [hd for hd in headings if hd["level"] == 2]
-    if not h2s:
+    if h2s:
+        return [(*split_heading_ref(hd["text"]), f'#{hd["id"]}') for hd in h2s]
+    if fallback_title:
+        return [("", fallback_title, "#top")]
+    return []
+
+
+def _contents_li(ref: str, title: str, href: str) -> str:
+    ref_html = f'<span class="contents-ref">{h(ref)}</span>' if ref else ""
+    return f'<li>{ref_html}<a href="{h(href)}">{h(title)}</a></li>\n'
+
+
+def make_contents_box(items: list[tuple[str, str, str]]) -> str:
+    if not items:
         return ""
-    items = ""
-    for hd in h2s:
-        ref, title = split_heading_ref(hd["text"])
-        ref_html = f'<span class="contents-ref">{h(ref)}</span>' if ref else ""
-        items += f'<li>{ref_html}<a href="#{h(hd["id"])}">{h(title)}</a></li>\n'
+    li_html = "".join(_contents_li(*item) for item in items)
     return (
         '<div class="contents-box">'
         '<p class="contents-box__title">Contents</p>'
-        f'<ul class="contents-list">{items}</ul>'
+        f'<ul class="contents-list">{li_html}</ul>'
         '</div>'
     )
 
 
-def make_mobile_contents(headings: list[dict]) -> str:
-    h2s = [hd for hd in headings if hd["level"] == 2]
-    if not h2s:
+def make_mobile_contents(items: list[tuple[str, str, str]]) -> str:
+    if not items:
         return ""
-    items = ""
-    for hd in h2s:
-        ref, title = split_heading_ref(hd["text"])
-        ref_html = f'<span class="contents-ref">{h(ref)}</span>' if ref else ""
-        items += f'<li>{ref_html}<a href="#{h(hd["id"])}">{h(title)}</a></li>\n'
+    li_html = "".join(_contents_li(*item) for item in items)
     return (
         '<details class="mobile-contents">'
         '<summary>Contents <span aria-hidden="true">&#9662;</span></summary>'
-        f'<div class="mobile-contents__body"><ul class="contents-list">{items}</ul></div>'
+        f'<div class="mobile-contents__body"><ul class="contents-list">{li_html}</ul></div>'
         '</details>'
     )
 
 
-def make_sidebar(headings: list[dict]) -> str:
-    if not headings:
+def make_sidebar(headings: list[dict], fallback_title: str | None = None) -> str:
+    if headings:
+        nav_items = ""
+        for hd in headings:
+            level_class = "sidebar-h3" if hd["level"] >= 3 else ""
+            nav_items += (
+                f'<li class="{level_class}">'
+                f'<a href="#{h(hd["id"])}">{h(hd["text"])}</a>'
+                f'</li>\n'
+            )
+    elif fallback_title:
+        nav_items = f'<li><a href="#top">{h(fallback_title)}</a></li>\n'
+    else:
         return ""
-    nav_items = ""
-    for hd in headings:
-        level_class = "sidebar-h3" if hd["level"] >= 3 else ""
-        nav_items += (
-            f'<li class="{level_class}">'
-            f'<a href="#{h(hd["id"])}">{h(hd["text"])}</a>'
-            f'</li>\n'
-        )
     return (
         '<p class="sidebar__label">On this page</p>'
         f'<ul class="sidebar__nav">{nav_items}</ul>'
@@ -1854,10 +1872,11 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
         depth=1,
     )
     headings = extract_headings(rendered)
+    items    = heading_items(headings, fallback_title=ch["title"])
 
-    mobile_contents = make_mobile_contents(headings)
-    contents_box    = make_contents_box(headings)
-    sidebar_html    = make_sidebar(headings)
+    mobile_contents = make_mobile_contents(items)
+    contents_box    = make_contents_box(items)
+    sidebar_html    = make_sidebar(headings, fallback_title=ch["title"])
 
     idx  = next((i for i, s in enumerate(nav_sections) if s["slug"] == ch["slug"]), -1)
     prev = nav_sections[idx - 1] if idx > 0 else None
@@ -1914,9 +1933,11 @@ def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[
 
     is_annexes = ch["slug"] == "annexes"
 
-    # Sub-page cards
+    # Sub-page cards. Landing pages are a hub of cards, not "content" --
+    # they don't get a contents box or sidebar.
     cards = ""
     for sub in sub_chapters:
+        href = f'{sub["slug"]}.html'
         if is_annexes:
             heading     = sub["title"]          # "Annex I", "Annex II", …
             description = annex_first_heading(sub)
@@ -1928,7 +1949,7 @@ def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[
             nm    = re.match(r"^(\d+(?:\.\d+)+)", ss) if ss else None
             num_html = f'<div class="subpage-card__num">Section {h(nm.group(1))}</div>' if nm else ""
         cards += (
-            f'<a class="subpage-card" href="{h(sub["slug"])}.html">'
+            f'<a class="subpage-card" href="{h(href)}">'
             f'{num_html}'
             f'<div class="subpage-card__title">{h(heading)}</div>'
             f'<div class="subpage-card__excerpt">{h(description)}</div>'
@@ -1971,10 +1992,11 @@ def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
         depth=1,
     )
     headings = extract_headings(rendered)
+    items    = heading_items(headings, fallback_title=ch["title"])
 
-    mobile_contents = make_mobile_contents(headings)
-    contents_box = make_contents_box(headings)
-    sidebar_html = make_sidebar(headings)
+    mobile_contents = make_mobile_contents(items)
+    contents_box = make_contents_box(items)
+    sidebar_html = make_sidebar(headings, fallback_title=ch["title"])
 
     idx  = next((i for i, s in enumerate(siblings) if s["slug"] == ch["slug"]), -1)
     prev = siblings[idx - 1] if idx > 0 else None
@@ -2018,15 +2040,16 @@ def build_about_page(ch: dict) -> str:
         depth=0,
     )
     headings = extract_headings(rendered)
-    sidebar_html = make_sidebar(headings)
+    items    = heading_items(headings, fallback_title=ch["title"])
+    sidebar_html = make_sidebar(headings, fallback_title=ch["title"])
 
     page_header_html = make_page_header(
         title=ch["title"],
         breadcrumbs=[("Home", "index.html"), ("About", None)],
     )
     content = f"""
-{make_mobile_contents(headings)}
-{make_contents_box(headings)}
+{make_mobile_contents(items)}
+{make_contents_box(items)}
 <article class="article-body">
   {rendered}
 </article>

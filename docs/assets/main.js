@@ -6,7 +6,7 @@
     var nav = document.querySelector('.sidebar__nav');
     if (!nav) return;
     var links = Array.from(nav.querySelectorAll('a[href^="#"]'));
-    if (!links.length) return;
+    if (links.length <= 1) return; // nothing to distinguish -- leave unselected
     var targets = links.map(function (l) {
       return document.getElementById(l.getAttribute('href').slice(1));
     }).filter(Boolean);
