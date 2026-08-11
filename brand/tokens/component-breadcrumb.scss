@@ -1,0 +1,21 @@
+@use 'sass:map';
+@use '../index' as *;
+
+$breadcrumb: (
+  padding-vertical: var(--s-xs),
+  typography: 'body-xs',
+  link-color: var(--cm-on-surface-brand),
+  link-color-hover: var(--cm-on-surface-grey),
+  link-style: underline,
+  last-link-color: var(--cm-on-surface-brand),
+  icon-color: var(--cm-on-surface-brand),
+  icon-spacing-mobile: 0 var(--s-2xs),
+  icon-spacing-desktop: var(--s-xs),
+  ellipsis: (
+    background: transparent,
+    background-hover: var(--cm-surface-neutral-lowest),
+    font-weight: map.get($font-weight, 'regular'),
+    offset-vertical: calc(-1 * var(--s-xs)),
+    offset-horizontal: calc(-1 * var(--s-xs)),
+  ),
+);

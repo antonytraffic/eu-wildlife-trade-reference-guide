@@ -1,0 +1,56 @@
+@use 'sass:map';
+@use '../index' as *;
+
+$notification: (
+  radius: map.get($border-radius, 's') 0 0 map.get($border-radius, 's'),
+  padding: var(--s-m),
+  padding-mobile: var(--s-m),
+  padding-end: var(--s-11xl),
+  padding-end-mobile: var(--s-11xl),
+  padding-start: var(--s-s),
+  padding-start-mobile: var(--s-s),
+  border-width: 0px,
+  font: 'body-s',
+  color: var(--cm-on-surface-brand),
+  title-font: 'body-s',
+  title-font-weight: map.get($font-weight, 'semi-bold'),
+  title-spacing: 0,
+  icon-spacing-mobile: var(--s-s),
+  icon-spacing: var(--s-s),
+  close-color: var(--cm-on-surface-brand),
+  close-offset-top: var(--s-s),
+  close-offset-end: var(--s-s),
+  link-color: var(--cm-on-surface-brand),
+  link-color-hover: var(--cm-on-surface-grey),
+  info: (
+    background: var(--cm-surface-status-info-lowest),
+    color: var(--cm-on-surface-status-info),
+    border-start-color: var(--cm-border-status-info),
+    border-color: transparent,
+  ),
+  success: (
+    background: var(--cm-surface-status-success-lowest),
+    color: var(--cm-on-surface-status-success),
+    border-start-color: var(--cm-border-status-success),
+    border-color: transparent,
+  ),
+  warning: (
+    background: var(--cm-surface-status-warning-lowest),
+    color: var(--cm-on-surface-status-warning),
+    border-start-color: var(--cm-border-status-warning),
+    border-color: transparent,
+  ),
+  error: (
+    background: var(--cm-surface-status-error-lowest),
+    color: var(--cm-on-surface-status-error),
+    border-start-color: var(--cm-border-status-error),
+    border-color: transparent,
+  ),
+);
+$notification-print: (
+  padding: map.get($spacing-print, 'l') map.get($spacing-print, '5xl')
+    map.get($spacing-print, 'l') map.get($spacing-print, 's'),
+  font: map.get($font-print, 'm'),
+  title-font: map.get($font-print, 'm'),
+  title-spacing: 0,
+);

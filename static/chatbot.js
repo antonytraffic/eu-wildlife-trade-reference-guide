@@ -33,13 +33,13 @@
     #cw-btn {
       position:fixed;bottom:24px;right:24px;z-index:9999;
       height:48px;padding:0 18px;border-radius:24px;
-      background:#1a5276;color:#fff;border:none;
+      background:var(--green,#0046ff);color:#fff;border:none;
       cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.28);
       display:flex;align-items:center;gap:8px;
-      font-family:system-ui,-apple-system,sans-serif;font-size:14px;font-weight:600;
+      font-family:var(--font,Inter,Arial,sans-serif);font-size:14px;font-weight:600;
       transition:background .2s,transform .15s;white-space:nowrap;
     }
-    #cw-btn:hover{background:#154360;}
+    #cw-btn:hover{background:var(--dark-green,#0035bf);}
     #cw-btn .cw-btn-icon{font-size:18px;line-height:1;}
     #cw-btn.open .cw-btn-icon{display:none;}
     #cw-btn.open::before{content:'✕';font-size:18px;}
@@ -49,13 +49,13 @@
       background:#fff;border-radius:14px;
       box-shadow:0 8px 32px rgba(0,0,0,.18);
       display:flex;flex-direction:column;overflow:hidden;
-      font-family:system-ui,-apple-system,sans-serif;font-size:14px;
+      font-family:var(--font,Inter,Arial,sans-serif);font-size:14px;
       transform-origin:bottom right;
       transition:transform .2s cubic-bezier(.34,1.56,.64,1),opacity .15s;
     }
     #cw-panel.cw-hide{transform:scale(.75);opacity:0;pointer-events:none;}
     #cw-head {
-      background:#1a5276;color:#fff;padding:13px 16px;
+      background:var(--black,#00002e);color:#fff;padding:13px 16px;
       font-weight:600;font-size:15px;
       display:flex;align-items:center;justify-content:space-between;
       flex-shrink:0;
@@ -72,36 +72,36 @@
       line-height:1.5;word-wrap:break-word;white-space:pre-wrap;
       font-size:13.5px;
     }
-    .cw-u{align-self:flex-end;background:#1a5276;color:#fff;
+    .cw-u{align-self:flex-end;background:var(--green,#0046ff);color:#fff;
           border-bottom-right-radius:3px;}
-    .cw-b{align-self:flex-start;background:#f2f3f4;color:#1a1a1a;
+    .cw-b{align-self:flex-start;background:var(--light-grey,#f6f6f8);color:var(--black,#00002e);
           border-bottom-left-radius:3px;}
-    .cw-err{background:#fdecea!important;color:#c0392b!important;}
-    .cw-typing{align-self:flex-start;background:#f2f3f4;
+    .cw-err{background:#fce9ea!important;color:#cb2029!important;}
+    .cw-typing{align-self:flex-start;background:var(--light-grey,#f6f6f8);
                padding:10px 14px;border-radius:12px;border-bottom-left-radius:3px;}
     .cw-dot{display:inline-block;width:7px;height:7px;border-radius:50%;
-            background:#888;margin:0 2px;
+            background:var(--secondary,#696984);margin:0 2px;
             animation:cwb .9s ease-in-out infinite;}
     .cw-dot:nth-child(2){animation-delay:.15s;}
     .cw-dot:nth-child(3){animation-delay:.3s;}
     @keyframes cwb{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
-    #cw-form{display:flex;padding:10px;border-top:1px solid #e5e5e5;
+    #cw-form{display:flex;padding:10px;border-top:1px solid var(--border,#d4d4dc);
              gap:8px;flex-shrink:0;}
     #cw-in {
-      flex:1;padding:9px 11px;border:1.5px solid #ddd;border-radius:8px;
+      flex:1;padding:9px 11px;border:1.5px solid var(--border,#d4d4dc);border-radius:8px;
       font-size:13.5px;outline:none;resize:none;font-family:inherit;
       max-height:90px;overflow-y:auto;line-height:1.4;
     }
-    #cw-in:focus{border-color:#1a5276;}
+    #cw-in:focus{border-color:var(--green,#0046ff);}
     #cw-send {
-      padding:9px 15px;background:#1a5276;color:#fff;
+      padding:9px 15px;background:var(--green,#0046ff);color:#fff;
       border:none;border-radius:8px;cursor:pointer;font-size:13.5px;
       transition:background .2s;align-self:flex-end;
     }
-    #cw-send:hover:not(:disabled){background:#154360;}
+    #cw-send:hover:not(:disabled){background:var(--dark-green,#0035bf);}
     #cw-send:disabled{background:#b0b0b0;cursor:not-allowed;}
     #cw-clear{
-      font-size:11px;color:#888;cursor:pointer;border:none;background:none;
+      font-size:11px;color:var(--secondary,#696984);cursor:pointer;border:none;background:none;
       padding:0 0 6px 12px;text-decoration:underline;align-self:flex-start;
     }
     @media(max-width:480px){
@@ -293,7 +293,7 @@
         if (history.length === 12) {
           const nudge = document.createElement('div');
           nudge.className = 'cw-m cw-b';
-          nudge.style.cssText = 'background:#fef9e7;color:#7d6608;font-size:12px;font-style:italic;';
+          nudge.style.cssText = 'background:#fff3e8;color:#8b4c11;font-size:12px;font-style:italic;';
           nudge.textContent = 'Tip: starting a new topic? Use "Clear conversation" above to keep responses focused.';
           el('cw-msgs').appendChild(nudge);
         }

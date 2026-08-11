@@ -1,0 +1,14 @@
+@use 'sass:map';
+@use '../index' as *;
+
+$expandable: (
+  content-color: var(--cm-on-surface-brand),
+  content-divider: 1px solid var(--cm-border-neutral),
+  content-margin: var(--s-s),
+  content-padding: var(--s-m),
+  content-spacing-bottom: var(--s-m),
+  toggle-background-active: var(--cm-surface-primary-low-0),
+  toggle-border-active: var(--cm-border-primary-highest),
+  toggle-color-active: var(--cm-on-surface-primary-highest),
+  toggle-radius: map.get($border-radius, 'xs'),
+);

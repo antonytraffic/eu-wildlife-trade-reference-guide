@@ -1,0 +1,24 @@
+@use 'sass:map';
+@use '../index' as *;
+
+$link: (
+  outline-color: var(--cm-border-primary),
+  outline-width: 2px,
+  outline-radius: 1px,
+  standalone-line-height: map.get($line-height, 'xs'),
+  inverted: (
+    color: var(--cm-on-surface-inverted),
+    color-hover: var(--c-g-300),
+    color-visited: var(--cm-on-surface-inverted),
+    color-active: var(--c-g-300),
+    outline-color: var(--cm-on-surface-inverted),
+    shadow-focus: 0px 0px 0px 2px var(--cm-border-primary),
+  ),
+  brand: (
+    color: var(--cm-on-surface-brand),
+    color-hover: var(--cm-on-surface-grey),
+    color-visited: var(--cm-on-surface-brand),
+    color-active: var(--cm-on-surface-brand),
+    outline-color: var(--cm-border-primary),
+  ),
+);

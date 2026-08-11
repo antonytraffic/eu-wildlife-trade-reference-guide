@@ -562,8 +562,8 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
 # Section label helper
 # ==============================================================================
 
-def _section_label_html(ch: dict) -> str:
-    """Return a <span class="section-label"> for a chapter or sub-page, or ''."""
+def _section_label_text(ch: dict) -> str:
+    """Return 'Section N' (or 'Section N.N') for a chapter or sub-page, or ''."""
     snum = ch.get("section_number", 0)
     ss   = ch.get("sub_section", "")
 
@@ -571,9 +571,9 @@ def _section_label_html(ch: dict) -> str:
         # Sub-page: extract leading N.N from sub_section "3.1 Overview"
         m = re.match(r"^(\d+(?:\.\d+)+)", ss)
         if m:
-            return f'<span class="section-label">Section {m.group(1)}</span>'
+            return f"Section {m.group(1)}"
     if snum and 2 <= snum <= 12:
-        return f'<span class="section-label">Section {snum}</span>'
+        return f"Section {snum}"
 
     return ""
 
@@ -629,23 +629,33 @@ def first_sentences(text: str, n: int = 2, max_chars: int = 280) -> str:
 CSS = """\
 /* ================================================
    EU Wildlife Trade Reference Guide
-   GOV.UK-inspired stylesheet
+   EC-branded stylesheet (Europa Component Library tokens)
    ================================================ */
 
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/InterVariable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --green:        #00703c;
-  --dark-green:   #004e2a;
-  --black:        #0b0c0c;
-  --text:         #0b0c0c;
-  --secondary:    #505a5f;
-  --border:       #b1b4b6;
-  --light-grey:   #f3f2f1;
-  --mid-grey:     #dee0e2;
+  --green:        #0046ff;   /* EC primary-600 */
+  --dark-green:   #0035bf;   /* EC primary-700, hover state */
+  --black:        #00002e;   /* EC brand navy (grey-950) */
+  --text:         #00002e;
+  --secondary:    #696984;   /* EC grey-600 */
+  --border:       #d4d4dc;   /* EC grey-200 */
+  --light-grey:   #f6f6f8;   /* EC grey-50 */
+  --mid-grey:     #ededf0;   /* EC grey-75 */
   --white:        #ffffff;
-  --focus:        #ffdd00;
-  --visited:      #4c2c92;
+  --focus:        #ffce00;   /* EC yellow-gold-500 */
+  --visited:      #66439a;   /* EC purple-700 */
+  --radius:       4px;       /* EC border-radius 's' */
+  --shadow-1:     0 0 0.5px 0.5px rgba(24,39,75,.08), 0 6px 12px 0 rgba(24,39,75,.08);
   --max-width:    1060px;
-  --font:         "GDS Transport", Arial, sans-serif;
+  --font:         "Inter", Arial, sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -667,7 +677,14 @@ body {
   padding: 8px 14px; background: var(--focus); color: var(--black);
   font-weight: 700; text-decoration: none;
 }
-.skip-link:focus { left: 0; }
+.skip-link:focus-visible { left: 0; }
+
+/* -- Screen-reader only -------------------------------- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
 
 /* -- Container ---------------------------------------- */
 .container {
@@ -681,53 +698,77 @@ a                { color: var(--green); }
 a:hover          { color: var(--dark-green); }
 a:visited        { color: var(--visited); }
 a:visited:hover  { color: var(--dark-green); }
-a:focus {
+a:focus-visible {
   outline: 3px solid var(--focus);
-  outline-offset: 0;
-  background: var(--focus);
-  color: var(--black);
-  text-decoration: none;
+  outline-offset: 2px;
+  border-radius: 1px;
 }
 
-/* -- Site header -------------------------------------- */
-.site-header {
-  background: var(--black);
-  border-bottom: 8px solid var(--green);
+/* -- Official strip ------------------------------------ */
+.official-strip {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
 }
-.site-header__inner {
+.official-strip__inner {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 20px;
+  font-size: .75rem; color: var(--secondary);
+}
+.official-strip__flag { width: 20px; height: auto; flex-shrink: 0; }
+
+/* -- Site header -------------------------------------- */
+.site-header { background: var(--white); }
+.site-header__top {
+  border-bottom: 1px solid var(--border);
+}
+.site-header__top-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  min-height: 54px;
-  padding: 10px 20px;
+  padding: 24px 20px;
   max-width: var(--max-width);
   margin: 0 auto;
   flex-wrap: wrap;
 }
-.site-header__title a {
-  color: var(--white); text-decoration: none;
-  font-size: 1rem; font-weight: 700; letter-spacing: .01em;
+.site-header__logo-link { display: block; flex-shrink: 0; }
+.site-header__logo { height: 3.75rem; width: auto; display: block; }
+.site-header__banner {
+  background: var(--mid-grey);
 }
-.site-header__title a:hover     { text-decoration: underline; color: var(--white); }
-.site-header__title a:visited   { color: var(--white); }
-.site-header__title a:focus     { background: var(--focus); color: var(--black); }
+.site-header__banner .container {
+  padding: 12px 20px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.site-header__site-name {
+  color: var(--black); text-decoration: none;
+  font-size: 1.0625rem; font-weight: 400; letter-spacing: .01em;
+}
+.site-header__site-name:hover { text-decoration: underline; }
+.site-header__site-name:visited { color: var(--black); }
 
 /* -- Header search ------------------------------------ */
-.header-search { display: flex; flex-shrink: 0; }
+.header-search {
+  display: flex; align-items: center; flex-shrink: 0;
+  border: 1px solid var(--border); border-radius: 22px;
+  background: var(--white); overflow: hidden;
+}
+.header-search:focus-within { outline: 3px solid var(--focus); outline-offset: 1px; }
 .header-search input[type="search"] {
-  padding: 6px 10px; border: 2px solid var(--white); border-right: none;
-  font: inherit; font-size: .875rem; min-width: 190px; background: var(--white);
+  border: none; padding: 9px 6px 9px 16px;
+  font: inherit; font-size: .875rem; min-width: 190px; background: transparent;
   color: var(--black);
 }
-.header-search input[type="search"]:focus { outline: 3px solid var(--focus); }
+.header-search input[type="search"]:focus { outline: none; }
 .header-search button {
-  padding: 6px 14px; background: var(--green); color: var(--white);
-  border: 2px solid var(--green); font: inherit; font-size: .875rem;
-  font-weight: 700; cursor: pointer; white-space: nowrap;
+  border: none; background: transparent; color: var(--black);
+  padding: 0 14px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
 }
-.header-search button:hover { background: var(--dark-green); border-color: var(--dark-green); }
-.header-search button:focus { outline: 3px solid var(--focus); }
+.header-search button svg { width: 18px; height: 18px; }
+.header-search button:hover { color: var(--green); }
 
 /* -- Top navigation ----------------------------------- */
 .top-nav {
@@ -744,13 +785,15 @@ a:focus {
   color: #bfc1c3; text-decoration: none;
   font-size: .875rem; font-weight: 400;
   border-bottom: 3px solid transparent;
-  transition: color .1s;
+  transition: background-color .1s, color .1s;
 }
-.top-nav__link:hover          { color: var(--white); text-decoration: none; }
+.top-nav__link:hover {
+  background: var(--white); color: var(--black); text-decoration: none;
+}
 .top-nav__link:visited        { color: #bfc1c3; }
-.top-nav__link:focus          { background: var(--focus); color: var(--black); outline: none; }
-.top-nav__link--active        { color: var(--white); font-weight: 700; border-bottom-color: var(--green); }
+.top-nav__link--active        { color: var(--white); border-bottom-color: var(--green); }
 .top-nav__link--active:visited { color: var(--white); }
+.top-nav__link--active:hover  { color: var(--black); }
 
 /* -- Breadcrumbs -------------------------------------- */
 .breadcrumbs {
@@ -765,19 +808,26 @@ a:focus {
 }
 .breadcrumbs li { display: flex; align-items: center; gap: 4px; }
 .breadcrumbs li + li::before { content: ">"; color: var(--secondary); }
-.breadcrumbs a   { color: var(--green); font-size: .875rem; }
-.breadcrumbs [aria-current="page"] { color: var(--secondary); }
+.breadcrumbs a   { color: var(--black); font-size: .875rem; }
+.breadcrumbs a:hover { color: var(--green); }
+.breadcrumbs [aria-current="page"] { color: var(--black); }
 
-/* -- Phase banner ------------------------------------- */
-.phase-banner {
-  background: var(--light-grey);
-  border-bottom: 1px solid var(--border);
-  padding: 8px 0;
+/* -- Page header (ECL page-header component) ---------- */
+.page-header { background: var(--white); }
+.page-header .container { padding-bottom: 24px; max-width: var(--max-width); margin: 0 auto; padding-left: 20px; padding-right: 20px; }
+.page-header + .main-content { padding-top: 0; }
+.page-header .breadcrumbs { border-bottom: none; background: transparent; padding: 10px 0 0; }
+.page-header__meta {
+  list-style: none; margin: 8px 0 0; padding: 0;
 }
-.phase-banner .container { display: flex; align-items: center; gap: 12px; font-size: .875rem; }
-.phase-tag {
-  padding: 2px 8px; background: var(--green); color: var(--white);
-  font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+.page-header__title { margin: 4px 0 0; }
+.page-header__meta-item {
+  display: inline;
+  font-size: .8125rem; color: var(--secondary);
+}
+.page-header__meta-item:first-child {
+  display: block; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .05em; color: var(--secondary); margin-bottom: 2px;
 }
 
 /* -- Main wrapper ------------------------------------- */
@@ -791,6 +841,10 @@ a:focus {
   flex: 0 0 230px; max-width: 230px;
   position: sticky; top: 24px;
   max-height: calc(100vh - 48px); overflow-y: auto;
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+  padding: 16px;
 }
 .sidebar__label {
   font-size: .75rem; font-weight: 700; text-transform: uppercase;
@@ -816,7 +870,9 @@ a:focus {
 
 /* -- Contents box ------------------------------------- */
 .contents-box {
-  border: 1px solid var(--border);
+  border: 1px solid var(--mid-grey);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
   padding: 20px 24px 16px;
   margin-bottom: 30px;
 }
@@ -837,23 +893,18 @@ a:focus {
 .mobile-contents summary {
   display: flex; align-items: center; justify-content: space-between;
   padding: 12px 16px; background: var(--light-grey); border: 1px solid var(--border);
+  border-radius: var(--radius);
   cursor: pointer; font-weight: 700; font-size: .9375rem; list-style: none;
 }
 .mobile-contents summary::-webkit-details-marker { display: none; }
-.mobile-contents[open] summary { border-bottom: none; }
+.mobile-contents[open] summary { border-bottom: none; border-radius: var(--radius) var(--radius) 0 0; }
 .mobile-contents__body {
   border: 1px solid var(--border); border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
   padding: 12px 16px 16px; background: var(--white);
 }
 .mobile-contents__body .contents-list { padding: 0; }
 .mobile-contents__body li { margin: 7px 0; font-size: .9375rem; }
-
-/* -- Section label (above h1 on chapter pages) -------- */
-.section-label {
-  font-size: 0.8rem; color: #505a5f; text-transform: uppercase;
-  font-weight: normal; letter-spacing: 0.05em;
-  display: block; margin-bottom: 0.25rem;
-}
 
 /* -- Small list (Table 12 footnotes) ------------------ */
 .small-list, .small-list li { font-size: 0.8rem; }
@@ -921,7 +972,7 @@ table caption {
 }
 .badge {
   display: inline-block; padding: 2px 8px; background: var(--green);
-  color: var(--white); font-size: .75rem; font-weight: 700; border-radius: 2px;
+  color: var(--white); font-size: .75rem; font-weight: 700; border-radius: var(--radius);
 }
 
 /* -- Prev / Next nav ---------------------------------- */
@@ -962,14 +1013,17 @@ table caption {
 .hero .search-form { margin-left: auto; margin-right: auto; }
 .search-form input[type="search"] {
   flex: 1; padding: 10px 14px; font: inherit; font-size: 1rem;
-  border: 2px solid var(--black); border-right: none; color: var(--black); background: var(--white);
+  border: 2px solid var(--black); border-right: none; border-radius: var(--radius) 0 0 var(--radius);
+  color: var(--black); background: var(--white);
 }
 .search-form input[type="search"]:focus { outline: 3px solid var(--focus); }
 .search-form button {
   padding: 10px 20px; background: var(--green); color: var(--white);
-  border: 2px solid var(--green); font: inherit; font-size: 1rem; font-weight: 700; cursor: pointer;
+  border: 2px solid var(--green); border-radius: 0 var(--radius) var(--radius) 0;
+  font: inherit; font-size: 1rem; font-weight: 700; cursor: pointer;
 }
 .search-form button:hover { background: var(--dark-green); }
+.search-form button:focus-visible { outline: 3px solid var(--focus); }
 
 /* -- Section card grid -------------------------------- */
 .chapter-grid {
@@ -979,7 +1033,7 @@ table caption {
 }
 .chapter-card {
   display: flex; flex-direction: column;
-  border: 1px solid var(--border); padding: 20px;
+  border: 1px solid var(--border); border-radius: var(--radius); padding: 20px;
   text-decoration: none; color: inherit;
   transition: border-color .1s, box-shadow .1s;
 }
@@ -993,10 +1047,10 @@ table caption {
   text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px;
 }
 .chapter-card__title {
-  font-size: 1rem; font-weight: 700; color: var(--green);
+  font-size: 1rem; font-weight: 700; color: var(--black);
   margin-bottom: 8px; line-height: 1.3;
 }
-.chapter-card:hover .chapter-card__title { text-decoration: underline; }
+.chapter-card:hover .chapter-card__title { color: var(--green); text-decoration: underline; }
 .chapter-card__summary {
   font-size: .85rem; color: var(--secondary); flex-grow: 1;
   margin-bottom: 12px; line-height: 1.45;
@@ -1015,7 +1069,7 @@ table caption {
 }
 .subpage-card {
   display: flex; flex-direction: column;
-  border: 1px solid var(--border); padding: 18px 20px;
+  border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px;
   text-decoration: none; color: inherit;
   transition: border-color .1s, box-shadow .1s;
 }
@@ -1024,10 +1078,10 @@ table caption {
 }
 .subpage-card:visited { color: inherit; }
 .subpage-card__title {
-  font-size: 1rem; font-weight: 700; color: var(--green);
+  font-size: 1rem; font-weight: 700; color: var(--black);
   margin-bottom: 8px; line-height: 1.3;
 }
-.subpage-card:hover .subpage-card__title { text-decoration: underline; }
+.subpage-card:hover .subpage-card__title { color: var(--green); text-decoration: underline; }
 .subpage-card__num {
   font-size: .75rem; color: var(--secondary);
   text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px;
@@ -1107,23 +1161,52 @@ ol.lettered-list li { margin-bottom: 6px; }
 
 /* -- Footer ------------------------------------------- */
 .site-footer {
-  background: var(--light-grey); border-top: 1px solid var(--border);
-  padding: 30px 0; margin-top: 60px;
+  background: var(--black); color: #fff;
+  padding: 0 0 30px; margin-top: 60px;
 }
-.site-footer p { font-size: .875rem; color: var(--secondary); margin-bottom: 6px; }
-.site-footer a { color: var(--secondary); font-size: .875rem; }
-.site-footer a:hover { color: var(--green); }
+.site-footer p { font-size: .875rem; color: #c1ccec; margin-bottom: 6px; }
+.site-footer a { color: #fff; font-size: .875rem; }
+.site-footer a:hover { color: #b0c6ff; }
 .footer-smallprint {
-  font-size: 0.5rem; color: var(--secondary);
+  font-size: 0.5rem; color: #9eaee1;
   margin-bottom: 6px; line-height: 1.5;
 }
+.site-footer__cta { padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,.15); margin-bottom: 32px; }
+.site-footer__cta-inner {
+  display: flex; align-items: center; justify-content: flex-start;
+  flex-wrap: wrap; gap: 24px;
+}
+.site-footer__cta-inner span { font-size: .9375rem; }
+.site-footer__cta-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #fea439; color: var(--black) !important;
+  font-weight: 700; font-size: .875rem;
+  padding: 10px 18px; border-radius: var(--radius); text-decoration: none !important;
+}
+.site-footer__cta-btn:hover { background: #fc8713; }
+.site-footer__columns {
+  display: flex; flex-wrap: wrap; gap: 32px;
+  padding-bottom: 24px;
+}
+.site-footer__col { flex: 1 1 180px; min-width: 160px; }
+.site-footer__col--brand { flex: 1 1 220px; max-width: 260px; }
+.site-footer__tagline { font-size: .8125rem; margin-top: 12px; }
+.site-footer .site-footer__heading {
+  font-size: .75rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; color: #fff; margin-bottom: 10px;
+}
+.site-footer__links { list-style: none; margin: 0; padding: 0; }
+.site-footer__links li { margin-bottom: 6px; }
+.site-footer__logo { height: 2.5rem; width: auto; }
+.site-footer__divider { border: none; border-top: 1px solid rgba(255,255,255,.15); margin: 0 0 16px; }
 
 /* -- Homepage section dividers ------------------------ */
 .container > hr { margin: 2rem 0; border: none; border-top: 1px solid var(--border); }
 
 /* -- Responsive --------------------------------------- */
 @media screen and (max-width: 768px) {
-  .site-header__inner { flex-wrap: wrap; gap: 8px; }
+  .site-header__top-inner { flex-wrap: wrap; gap: 12px; padding: 16px 20px; }
+  .site-header__logo { height: 2.75rem; }
   .header-search { width: 100%; }
   .header-search input[type="search"] { flex: 1; min-width: 0; }
 
@@ -1150,9 +1233,9 @@ ol.lettered-list li { margin-bottom: 6px; }
 
 /* -- Print -------------------------------------------- */
 @media print {
-  .site-header, .top-nav, .breadcrumbs, .sidebar, .contents-box,
+  .official-strip, .site-header, .top-nav, .breadcrumbs, .sidebar, .contents-box,
   .mobile-contents, .chapter-nav, .back-to-top,
-  .site-footer, .phase-banner, .hero .search-form { display: none !important; }
+  .site-footer, .hero .search-form { display: none !important; }
   .page-grid { display: block; }
   .article { width: 100%; }
   body { font-size: 11pt; line-height: 1.45; color: #000; }
@@ -1394,6 +1477,7 @@ def base_html(
     sidebar_html: str = "",
     extra_js: str = "",
     active_nav: str = "home",
+    page_header_html: str = "",
 ) -> str:
     root       = "../" * depth
     page_title = f"{h(title)} -- EU Wildlife Trade Reference Guide"
@@ -1434,22 +1518,55 @@ def base_html(
   <title>{page_title}</title>
   <meta name="description" content="EU Wildlife Trade Regulations Reference Guide -- {h(title)}">
   <link rel="stylesheet" href="{root}assets/style.css">
-  <meta name="theme-color" content="#0b0c0c">
+  <meta name="theme-color" content="#00002e">
 </head>
 <body id="top">
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
+<div class="official-strip">
+  <div class="container official-strip__inner">
+    <svg class="official-strip__flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false">
+      <rect width="24" height="16" fill="#003399"/>
+      <g fill="#FFCC00">
+        <circle cx="12"   cy="3"    r="0.6"/>
+        <circle cx="14.5" cy="3.67" r="0.6"/>
+        <circle cx="16.33" cy="5.5" r="0.6"/>
+        <circle cx="17"   cy="8"    r="0.6"/>
+        <circle cx="16.33" cy="10.5" r="0.6"/>
+        <circle cx="14.5" cy="12.33" r="0.6"/>
+        <circle cx="12"   cy="13"   r="0.6"/>
+        <circle cx="9.5"  cy="12.33" r="0.6"/>
+        <circle cx="7.67" cy="10.5" r="0.6"/>
+        <circle cx="7"    cy="8"    r="0.6"/>
+        <circle cx="7.67" cy="5.5"  r="0.6"/>
+        <circle cx="9.5"  cy="3.67" r="0.6"/>
+      </g>
+    </svg>
+    <span>A reference guide developed by the European Commission and TRAFFIC</span>
+  </div>
+</div>
+
 <header class="site-header" role="banner">
-  <div class="site-header__inner">
-    <div class="site-header__title">
-      <a href="{root}index.html">EU Wildlife Trade Regulations &mdash; Reference Guide</a>
+  <div class="site-header__top">
+    <div class="container site-header__top-inner">
+      <a class="site-header__logo-link" href="{root}index.html">
+        <img class="site-header__logo" src="{root}assets/images/logo-ec-positive.svg" alt="European Commission">
+      </a>
+      <form class="header-search" action="{root}search.html" method="get" role="search">
+        <label for="header-search-input" class="skip-link">Search</label>
+        <input type="search" id="header-search-input" name="q"
+               placeholder="Search the guide" aria-label="Search the guide">
+        <button type="submit">
+          <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M13.6 12.2h-.7l-.3-.3c1-1.1 1.6-2.6 1.6-4.2C14.2 4.1 11.6 1.5 8.1 1.5S2 4.1 2 7.6s2.6 6.1 6.1 6.1c1.6 0 3.1-.6 4.2-1.6l.3.3v.7l4.4 4.4 1.3-1.3-4.4-4.4zm-5.5 0c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5z" fill="currentColor"/></svg>
+          <span class="sr-only">Search</span>
+        </button>
+      </form>
     </div>
-    <form class="header-search" action="{root}search.html" method="get" role="search">
-      <label for="header-search-input" class="skip-link">Search</label>
-      <input type="search" id="header-search-input" name="q"
-             placeholder="Search the guide" aria-label="Search the guide">
-      <button type="submit">Search</button>
-    </form>
+  </div>
+  <div class="site-header__banner">
+    <div class="container">
+      <a class="site-header__site-name" href="{root}index.html">EU Wildlife Trade Regulations &mdash; Reference Guide</a>
+    </div>
   </div>
 </header>
 
@@ -1462,14 +1579,7 @@ def base_html(
   </div>
 </nav>
 
-<div class="phase-banner">
-  <div class="container">
-    <strong class="phase-tag">Beta</strong>
-    <span>This is a new service &mdash; your <a href="mailto:antony.bagott@traffic.org">feedback</a> will help us improve it.</span>
-  </div>
-</div>
-
-{f'<nav class="breadcrumbs" aria-label="Breadcrumb"><ol>{bc_items}</ol></nav>' if bc_items else ''}
+{page_header_html if page_header_html else (f'<nav class="breadcrumbs" aria-label="Breadcrumb"><ol>{bc_items}</ol></nav>' if bc_items else '')}
 
 <div class="main-content">
   <div class="container" id="main-content">
@@ -1483,9 +1593,35 @@ def base_html(
 </div>
 
 <footer class="site-footer" role="contentinfo">
+  <div class="site-footer__cta">
+    <div class="container site-footer__cta-inner">
+      <span>Help us improve this guide</span>
+      <a class="site-footer__cta-btn" href="mailto:antony.bagott@traffic.org">Send feedback <span aria-hidden="true">&#8599;</span></a>
+    </div>
+  </div>
   <div class="container">
+    <div class="site-footer__columns">
+      <div class="site-footer__col site-footer__col--brand">
+        <img class="site-footer__logo" src="{root}assets/images/logo-ec.svg" alt="European Commission">
+        <p class="site-footer__tagline">A reference guide developed by the European Commission and TRAFFIC.</p>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__heading">Reference Guide</p>
+        <ul class="site-footer__links">
+          <li><a href="{root}index.html">Home</a></li>
+          <li><a href="{root}about.html">About</a></li>
+          <li><a href="{root}search.html">Search</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__heading">Contact</p>
+        <ul class="site-footer__links">
+          <li><a href="mailto:antony.bagott@traffic.org">Send feedback</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="site-footer__divider">
     {footer_extra}
-    <p style="margin-top:12px"><a href="{root}index.html">Home</a> &middot; <a href="{root}about.html">About</a> &middot; <a href="{root}search.html">Search</a></p>
   </div>
 </footer>
 
@@ -1599,6 +1735,41 @@ def make_sidebar(headings: list[dict]) -> str:
     )
 
 
+def make_page_header(
+    *,
+    title: str,
+    breadcrumbs: list[tuple[str, str | None]],
+    meta: list[str] | None = None,
+) -> str:
+    """ECL page-header component: breadcrumb + h1 + meta, as one full-width block."""
+    bc_items = ""
+    for i, (label, url) in enumerate(breadcrumbs):
+        is_last = i == len(breadcrumbs) - 1
+        if is_last:
+            bc_items += f'<li><span aria-current="page">{h(label)}</span></li>\n'
+        else:
+            bc_items += f'<li><a href="{h(url)}">{h(label)}</a></li>\n'
+    breadcrumb_html = (
+        f'<nav class="breadcrumbs page-header__breadcrumb" aria-label="Breadcrumb"><ol>{bc_items}</ol></nav>'
+        if bc_items else ""
+    )
+
+    meta_html = ""
+    if meta:
+        items = "".join(f'<li class="page-header__meta-item">{h(m)}</li>' for m in meta)
+        meta_html = f'<ul class="page-header__meta">{items}</ul>'
+
+    return f"""
+<div class="page-header">
+  <div class="container">
+    {breadcrumb_html}
+    {meta_html}
+    <h1 class="page-header__title">{h(title)}</h1>
+  </div>
+</div>
+"""
+
+
 def make_prev_next(prev: dict | None, next: dict | None) -> str:
     nav = '<div class="chapter-nav">'
     if prev:
@@ -1632,6 +1803,7 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     headings = extract_headings(rendered)
 
     mobile_contents = make_mobile_contents(headings)
+    contents_box    = make_contents_box(headings)
     sidebar_html    = make_sidebar(headings)
 
     idx  = next((i for i, s in enumerate(nav_sections) if s["slug"] == ch["slug"]), -1)
@@ -1639,12 +1811,16 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     nxt  = nav_sections[idx + 1] if idx < len(nav_sections) - 1 else None
     nav_html = make_prev_next(prev, nxt)
 
-    label_html = _section_label_html(ch)
+    label_text = _section_label_text(ch)
+    page_header_html = make_page_header(
+        title=ch["title"],
+        breadcrumbs=[("Home", "../index.html"), (ch["title"], None)],
+        meta=[label_text] if label_text else None,
+    )
     content = f"""
 {mobile_contents}
+{contents_box}
 <article class="article-body">
-  {label_html}
-  <h1>{h(ch['title'])}</h1>
   {rendered}
 </article>
 {nav_html}
@@ -1653,10 +1829,11 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     return base_html(
         title=ch["title"],
         content=content,
-        breadcrumbs=[("Home", "../index.html"), (ch["title"], None)],
+        breadcrumbs=[],
         depth=1,
         sidebar_html=sidebar_html,
         active_nav="home",
+        page_header_html=page_header_html,
     )
 
 
@@ -1710,11 +1887,14 @@ def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[
     nxt  = nav_sections[idx + 1] if idx < len(nav_sections) - 1 else None
     nav_html = make_prev_next(prev, nxt)
 
-    label_html = _section_label_html(ch)
+    label_text = _section_label_text(ch)
+    page_header_html = make_page_header(
+        title=ch["title"],
+        breadcrumbs=[("Home", "../index.html"), (ch["title"], None)],
+        meta=[label_text] if label_text else None,
+    )
     content = f"""
 <article class="article-body">
-  {label_html}
-  <h1>{h(ch['title'])}</h1>
   {intro_html}
 </article>
 <div class="subpage-grid">{cards}</div>
@@ -1724,9 +1904,10 @@ def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[
     return base_html(
         title=ch["title"],
         content=content,
-        breadcrumbs=[("Home", "../index.html"), (ch["title"], None)],
+        breadcrumbs=[],
         depth=1,
         active_nav="home",
+        page_header_html=page_header_html,
     )
 
 
@@ -1739,19 +1920,28 @@ def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
     headings = extract_headings(rendered)
 
     mobile_contents = make_mobile_contents(headings)
-    sidebar_html    = make_sidebar(headings)
+    contents_box = make_contents_box(headings)
+    sidebar_html = make_sidebar(headings)
 
     idx  = next((i for i, s in enumerate(siblings) if s["slug"] == ch["slug"]), -1)
     prev = siblings[idx - 1] if idx > 0 else None
     nxt  = siblings[idx + 1] if idx < len(siblings) - 1 else None
     nav_html = make_prev_next(prev, nxt)
 
-    label_html = _section_label_html(ch)
+    label_text = _section_label_text(ch)
+    page_header_html = make_page_header(
+        title=ch["title"],
+        breadcrumbs=[
+            ("Home", "../index.html"),
+            (parent["title"], f"{h(parent['slug'])}.html"),
+            (ch["title"], None),
+        ],
+        meta=[label_text] if label_text else None,
+    )
     content = f"""
 {mobile_contents}
+{contents_box}
 <article class="article-body">
-  {label_html}
-  <h1>{h(ch['title'])}</h1>
   {rendered}
 </article>
 {nav_html}
@@ -1760,14 +1950,11 @@ def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
     return base_html(
         title=ch["title"],
         content=content,
-        breadcrumbs=[
-            ("Home", "../index.html"),
-            (parent["title"], f"{h(parent['slug'])}.html"),
-            (ch["title"], None),
-        ],
+        breadcrumbs=[],
         depth=1,
         sidebar_html=sidebar_html,
         active_nav="home",
+        page_header_html=page_header_html,
     )
 
 
@@ -1777,10 +1964,14 @@ def build_about_page(ch: dict) -> str:
     headings = extract_headings(rendered)
     sidebar_html = make_sidebar(headings)
 
+    page_header_html = make_page_header(
+        title=ch["title"],
+        breadcrumbs=[("Home", "index.html"), ("About", None)],
+    )
     content = f"""
 {make_mobile_contents(headings)}
+{make_contents_box(headings)}
 <article class="article-body">
-  <h1>{h(ch['title'])}</h1>
   {rendered}
 </article>
 <a href="#top" class="back-to-top">Back to top</a>
@@ -1788,10 +1979,11 @@ def build_about_page(ch: dict) -> str:
     return base_html(
         title="About",
         content=content,
-        breadcrumbs=[("Home", "index.html"), ("About", None)],
+        breadcrumbs=[],
         depth=0,
         sidebar_html=sidebar_html,
         active_nav="about",
+        page_header_html=page_header_html,
     )
 
 
@@ -2005,17 +2197,30 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
         shutil.copy(_chatbot_src, SITE_DIR / "assets" / "chatbot.js")
         console.print("  [green]+[/green] assets/chatbot.js")
 
+    _font_src = Path("static") / "fonts" / "InterVariable.woff2"
+    if _font_src.exists():
+        fonts_dst = SITE_DIR / "assets" / "fonts"
+        fonts_dst.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(_font_src, fonts_dst / "InterVariable.woff2")
+        console.print("  [green]+[/green] assets/fonts/InterVariable.woff2")
+
     # -- Images -------------------------------------------------------------------
     images_src = Path("images")
+    images_dst = SITE_DIR / "assets" / "images"
+    images_dst.mkdir(parents=True, exist_ok=True)
     if images_src.exists():
-        images_dst = SITE_DIR / "assets" / "images"
-        images_dst.mkdir(parents=True, exist_ok=True)
         copied = 0
         for img_file in images_src.glob("*"):
             if img_file.is_file():
                 shutil.copy2(img_file, images_dst / img_file.name)
                 copied += 1
         console.print(f"  [green]+[/green] Copied {copied} image(s) to assets/images/")
+
+    for _logo_name in ("logo-ec.svg", "logo-ec-positive.svg"):
+        _logo_src = Path("static") / _logo_name
+        if _logo_src.exists():
+            shutil.copy2(_logo_src, images_dst / _logo_name)
+            console.print(f"  [green]+[/green] assets/images/{_logo_name}")
 
     # -- GitHub Pages config ------------------------------------------------------
     (SITE_DIR / ".nojekyll").write_text("", encoding="utf-8")
