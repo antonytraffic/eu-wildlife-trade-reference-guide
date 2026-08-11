@@ -1691,6 +1691,9 @@ def base_html(
   <title>{page_title}</title>
   <meta name="description" content="EU Wildlife Trade Regulations Reference Guide -- {h(title)}">
   <link rel="stylesheet" href="{root}assets/style.css">
+  <link rel="icon" type="image/svg+xml" href="{root}favicon.svg">
+  <link rel="icon" type="image/x-icon" href="{root}favicon.ico">
+  <link rel="apple-touch-icon" href="{root}apple-touch-icon.png">
   <meta name="theme-color" content="#00002e">
 </head>
 <body id="top">
@@ -2447,6 +2450,12 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
         fonts_dst.mkdir(parents=True, exist_ok=True)
         shutil.copy2(_font_src, fonts_dst / "InterVariable.woff2")
         console.print("  [green]+[/green] assets/fonts/InterVariable.woff2")
+
+    for _favicon_name in ("favicon.svg", "favicon.ico", "apple-touch-icon.png"):
+        _favicon_src = Path("static") / _favicon_name
+        if _favicon_src.exists():
+            shutil.copy2(_favicon_src, SITE_DIR / _favicon_name)
+            console.print(f"  [green]+[/green] {_favicon_name}")
 
     # -- Images -------------------------------------------------------------------
     images_src = Path("images")
