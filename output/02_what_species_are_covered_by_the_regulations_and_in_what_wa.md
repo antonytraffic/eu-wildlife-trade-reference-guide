@@ -19,7 +19,7 @@ Under CITES, animal and plant species[^1] are subject to different degrees of re
 
 **Appendix III** contains species that are **subject to regulation within the jurisdiction of a CITES Party** and for which the **co-operation of other CITES Parties is needed** to prevent or restrict their exploitation.
 
-Table 1: Numbers of species and subspecies listed in the CITES Appendices, updated 10 July 2025
+*Table 1: Numbers of species and subspecies listed in the CITES Appendices, updated 10 July 2025*
 
 |  | **Appendix I** | **Appendix II** | **Appendix III** | **Total** |
 | --- | --- | --- | --- | --- |

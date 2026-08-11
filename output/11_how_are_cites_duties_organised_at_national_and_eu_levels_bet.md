@@ -42,6 +42,10 @@ It is, however, important to note that the Regulations – and Article 4 of *Reg
 
 ## 11.2 Which bodies operate at EU level?
 
+*Figure 16: EU-level bodies for CITES implementation*
+
+[Insert Figure 16]
+
 ### 11.2.1 What is the role of the Committee and the Expert Group?
 
 Article 18 of *Regulation (EC) No 338/97* establishes a ***Committee on Trade in Wild Fauna and Flora*** that consists of representatives of Member States’ competent authorities (usually these would be the Management Authorities) and is chaired by a representative of the Commission. As of 2015, a division was made between the Committee on Trade in Wild Fauna and Flora (“Management Committee”) and the Group of Experts of the Competent CITES Management Authorities (“Expert Group”). 

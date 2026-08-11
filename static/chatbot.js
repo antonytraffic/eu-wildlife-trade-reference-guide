@@ -45,7 +45,7 @@
     #cw-btn.open::before{content:'✕';font-size:18px;}
     #cw-panel {
       position:fixed;bottom:92px;right:24px;z-index:9998;
-      width:360px;max-height:540px;
+      width:380px;max-height:560px;
       background:#fff;border-radius:14px;
       box-shadow:0 8px 32px rgba(0,0,0,.18);
       display:flex;flex-direction:column;overflow:hidden;
@@ -90,7 +90,7 @@
     #cw-in {
       flex:1;padding:9px 11px;border:1.5px solid var(--border,#d4d4dc);border-radius:8px;
       font-size:13.5px;outline:none;resize:none;font-family:inherit;
-      max-height:90px;overflow-y:auto;line-height:1.4;
+      min-height:44px;max-height:110px;overflow-y:auto;line-height:1.5;
     }
     #cw-in:focus{border-color:var(--green,#0046ff);}
     #cw-send {
@@ -104,6 +104,9 @@
       font-size:11px;color:var(--secondary,#696984);cursor:pointer;border:none;background:none;
       padding:0 0 6px 12px;text-decoration:underline;align-self:flex-start;
     }
+    .cw-m ul{margin:4px 0;padding-left:18px;white-space:normal;}
+    .cw-m ul ul{margin:2px 0;padding-left:16px;}
+    .cw-m li{margin:2px 0;}
     @media(max-width:480px){
       #cw-panel{width:calc(100vw - 16px);right:8px;bottom:82px;}
       #cw-btn{font-size:13px;padding:0 14px;}
@@ -127,29 +130,43 @@
   function mdToHtml(text) {
     const lines = text.split('\n');
     const out = [];
-    let inList = false;
-    for (let i = 0; i < lines.length; i++) {
-      let line = lines[i];
-      const isBullet = /^[-*] /.test(line);
+    let listDepth = 0; // 0=none, 1=top-level ul, 2=nested ul
 
-      if (!isBullet && inList) {
+    function closeToDepth(target) {
+      while (listDepth > target) {
         out.push('</ul>');
-        inList = false;
+        listDepth--;
+      }
+    }
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const topBullet = /^[-*] (.*)/.exec(line);
+      const subBullet = /^[ \t]+[-*] (.*)/.exec(line);
+
+      if (!topBullet && !subBullet) {
+        closeToDepth(0);
+        if (/^#{1,3} /.test(line)) {
+          out.push('<p style="margin:6px 0 2px"><strong>' + applyInline(escHtml(line.replace(/^#{1,3} /, ''))) + '</strong></p>');
+        } else if (line.trim() === '') {
+          out.push('<br>');
+        } else {
+          out.push('<p style="margin:3px 0">' + applyInline(escHtml(line)) + '</p>');
+        }
+        continue;
       }
 
-      if (/^#{1,3} /.test(line)) {
-        out.push('<p style="margin:6px 0 2px"><strong>' + applyInline(escHtml(line.replace(/^#{1,3} /, ''))) + '</strong></p>');
-        continue;
+      if (subBullet) {
+        if (listDepth < 1) { out.push('<ul>'); listDepth = 1; }
+        if (listDepth < 2) { out.push('<ul>'); listDepth = 2; }
+        out.push('<li>' + applyInline(escHtml(subBullet[1])) + '</li>');
+      } else {
+        closeToDepth(1);
+        if (listDepth < 1) { out.push('<ul>'); listDepth = 1; }
+        out.push('<li>' + applyInline(escHtml(topBullet[1])) + '</li>');
       }
-      if (isBullet) {
-        if (!inList) { out.push('<ul style="margin:4px 0;padding-left:18px">'); inList = true; }
-        out.push('<li>' + applyInline(escHtml(line.replace(/^[-*] /, ''))) + '</li>');
-        continue;
-      }
-      if (line.trim() === '') { out.push('<br>'); continue; }
-      out.push('<p style="margin:3px 0">' + applyInline(escHtml(line)) + '</p>');
     }
-    if (inList) out.push('</ul>');
+    closeToDepth(0);
     return out.join('');
   }
 
@@ -203,7 +220,7 @@
       </div>
       <button id="cw-clear">Clear conversation</button>
       <form id="cw-form">
-        <textarea id="cw-in" rows="1" placeholder="${CFG.placeholder}"></textarea>
+        <textarea id="cw-in" rows="2" placeholder="${CFG.placeholder}"></textarea>
         <button id="cw-send" type="submit">Send</button>
       </form>`;
 

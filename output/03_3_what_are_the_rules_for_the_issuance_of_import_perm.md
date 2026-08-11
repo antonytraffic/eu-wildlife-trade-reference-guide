@@ -27,6 +27,10 @@ The rules for the issuance of import permits for specimens of Annex A- or B-list
 
 - the applicant must be informed of **significant delays**[^3].
 
+*Figure 1: A simplified procedure for obtaining an import permit for Annex A and B specimens*
+
+[Insert Figure 1]
+
 The procedures described in this Section are similar to those that apply when dealing with **exports**, **re-exports** (see **Section 3.5.1** and **Figure 6**) and internal trade within the EU (see **Section 4.5**).
 
 Note that specimens will **not be authorised to be assigned to a Customs procedure until the necessary documents have been presented**[^4] (as required for export and re-exports – see **Section 3.5.1**). In the absence of documents, specimens may be seized and subsequently confiscated.
@@ -62,6 +66,10 @@ Upon import of the shipment, the importer (or their authorised representative) m
 **Summary of key instructions and explanations for import permit forms**
 
 (Note: For full instructions and explanations, see Annex I to *Regulation (EC) No 792/2012.* The numbers below refer to the numbers of the boxes on the form - see also **Figure 2**.)
+
+*Figure 2: Annotated import permit form*
+
+[Insert Figure 2]
 
 1. **Exporter/re-exporter:** Must contain the full name and address of the actual exporter or re-exporter and not of an agent.
 
@@ -323,13 +331,13 @@ If **no new information** is provided by the range State or other sources, or if
 
 Note that in the case of import prohibitions established in respect of Annex B specimens under Article 4(6)(c) (concerns relating to high mortality rates during shipment or low prospects of survival in captivity) or (d) (specimens presenting an ecological threat), import prohibitions may be applied directly without the formation of a prior Negative Opinion by the SRG (see **Section 3.3.9.1**).    
 
-**Figure 3:** **Overview of procedures to establish Positive and Negative Opinions and import**   **restrictions for species listed in Annex A or B of the EU Wildlife Trade Regulations***
+*Figure 3: Overview of procedures to establish Positive and Negative Opinions and import restrictions for species listed in Annex A or B of the EU Wildlife Trade Regulations*
 
 *Letters in bold to the right of the diagram highlight stages explained in more detail above.
 
 **At national level:**
 
-\[Insert flowchart\]
+[Insert Figure 3]
 
 Unless specifically decided otherwise, restrictions in accordance with Article 4(6) of *Regulation (EC) No 338/97* **do not apply to**[^68]: 
 
