@@ -1198,7 +1198,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 .site-footer p { font-size: .875rem; color: #c1ccec; margin-bottom: 6px; }
 .site-footer a { color: #fff; font-size: .875rem; }
 .site-footer a:hover { color: #b0c6ff; }
-.footer-smallprint {
+.site-footer p.footer-smallprint {
   font-size: 0.41rem; color: #9eaee1;
   margin-bottom: 6px; line-height: 1.5;
 }
