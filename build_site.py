@@ -792,27 +792,31 @@ a:focus-visible {
   font-size: 1.0625rem; font-weight: 400; letter-spacing: .01em;
 }
 
-/* -- Header search ------------------------------------ */
+/* -- Header search (standard EC Component Library search-form) ----- */
 .header-search {
-  display: flex; align-items: center; flex-shrink: 0;
-  border: 1px solid var(--border); border-radius: 22px;
+  display: flex; align-items: stretch; flex-shrink: 0;
+  border: 1px solid var(--border); border-radius: var(--radius);
   background: var(--white); overflow: hidden;
 }
-.header-search:focus-within { outline: 3px solid var(--focus); outline-offset: 1px; }
 .header-search input[type="search"] {
   border: none; padding: 9px 6px 9px 16px;
   font: inherit; font-size: .875rem; min-width: 190px; background: transparent;
   color: var(--black);
 }
-.header-search input[type="search"]:focus { outline: none; }
+.header-search input[type="search"]:focus { outline: 3px solid var(--focus); outline-offset: -3px; }
 .header-search button {
-  border: none; background: transparent; color: var(--black);
-  padding: 0 14px; height: 38px;
+  position: relative; border: none; background: transparent; color: var(--black);
+  padding: 0 14px;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
 }
+.header-search button::before {
+  content: ""; position: absolute; left: 0; top: 25%; bottom: 25%; width: 1px;
+  background: var(--border);
+}
 .header-search button svg { width: 18px; height: 18px; }
 .header-search button:hover { color: var(--green); }
+.header-search button:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; }
 
 /* -- Top navigation ----------------------------------- */
 .top-nav {
@@ -1101,21 +1105,40 @@ table caption {
   color: var(--white);
 }
 
-/* -- Homepage search ---------------------------------- */
-.search-form { display: flex; max-width: 580px; gap: 0; }
+/* -- Homepage search (EC Component Library search-form pattern) ---- */
+.search-form {
+  display: flex; align-items: stretch; max-width: 580px;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--white); overflow: hidden;
+}
 .search-form input[type="search"] {
-  flex: 1; padding: 10px 14px; font: inherit; font-size: 1rem;
-  border: 2px solid var(--black); border-right: none; border-radius: var(--radius) 0 0 var(--radius);
-  color: var(--black); background: var(--white);
+  flex: 1; padding: 12px 16px; font: inherit; font-size: 1rem;
+  border: none; color: var(--black); background: transparent;
 }
-.search-form input[type="search"]:focus { outline: 3px solid var(--focus); }
+.search-form input[type="search"]:focus { outline: 3px solid var(--focus); outline-offset: -3px; }
 .search-form button {
-  padding: 10px 20px; background: var(--green); color: var(--white);
-  border: 2px solid var(--green); border-radius: 0 var(--radius) var(--radius) 0;
-  font: inherit; font-size: 1rem; font-weight: 700; cursor: pointer;
+  position: relative; display: flex; align-items: center; justify-content: center;
+  padding: 0 16px; background: transparent; color: var(--black);
+  border: none; cursor: pointer;
 }
-.search-form button:hover { background: var(--dark-green); }
-.search-form button:focus-visible { outline: 3px solid var(--focus); }
+.search-form button::before {
+  content: ""; position: absolute; left: 0; top: 25%; bottom: 25%; width: 1px;
+  background: var(--border);
+}
+.search-form button svg { width: 18px; height: 18px; flex-shrink: 0; }
+.search-form button:hover { color: var(--green); }
+.search-form button:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; }
+
+/* -- Hero search: amber CTA button variant ------------ */
+.hero .search-form { border: none; background: none; gap: 8px; }
+.hero .search-form input[type="search"] {
+  border: 1px solid var(--border); border-radius: var(--radius); background: var(--white);
+}
+.hero .search-form button {
+  border-radius: var(--radius); background: #fea439; color: var(--black);
+}
+.hero .search-form button::before { display: none; }
+.hero .search-form button:hover { background: #fc8713; color: var(--black); }
 
 /* -- Section card grid -------------------------------- */
 .chapter-grid {
@@ -1331,8 +1354,12 @@ ol.lettered-list li { margin-bottom: 6px; }
   .subpage-grid { grid-template-columns: 1fr; }
   .chapter-nav a { max-width: 100%; }
   .search-form { flex-wrap: wrap; }
-  .search-form input[type="search"] { border-right: 2px solid var(--black); width: 100%; }
-  .search-form button { width: 100%; }
+  .search-form input[type="search"] { width: 100%; }
+  .search-form button { width: 100%; border-top: 1px solid var(--border); }
+  .search-form button::before { display: none; }
+  .hero .search-form { flex-wrap: nowrap; }
+  .hero .search-form input[type="search"] { width: auto; }
+  .hero .search-form button { width: auto; border-top: none; }
 
   .top-nav__dropdown-inner { flex-direction: column; gap: 20px; padding: 20px; max-height: calc(100vh - 100px); overflow-y: auto; }
   .top-nav__dropdown-intro {
@@ -2233,7 +2260,10 @@ def build_index_page(nav_sections: list[dict], summaries: dict,
       <label for="home-search" class="skip-link">Search</label>
       <input type="search" id="home-search" name="q"
              placeholder="Search the guide&hellip;" aria-label="Search the guide">
-      <button type="submit">Search</button>
+      <button type="submit">
+        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M13.6 12.2h-.7l-.3-.3c1-1.1 1.6-2.6 1.6-4.2C14.2 4.1 11.6 1.5 8.1 1.5S2 4.1 2 7.6s2.6 6.1 6.1 6.1c1.6 0 3.1-.6 4.2-1.6l.3.3v.7l4.4 4.4 1.3-1.3-4.4-4.4zm-5.5 0c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5z" fill="currentColor"/></svg>
+        <span class="sr-only">Search</span>
+      </button>
     </form>
   </div>
 </div>
@@ -2263,7 +2293,10 @@ def build_search_page() -> str:
     <label for="search-input" class="skip-link">Search</label>
     <input type="search" id="search-input" name="q"
            placeholder="Search the guide&hellip;" aria-label="Search the guide" autofocus>
-    <button type="submit">Search</button>
+    <button type="submit">
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M13.6 12.2h-.7l-.3-.3c1-1.1 1.6-2.6 1.6-4.2C14.2 4.1 11.6 1.5 8.1 1.5S2 4.1 2 7.6s2.6 6.1 6.1 6.1c1.6 0 3.1-.6 4.2-1.6l.3.3v.7l4.4 4.4 1.3-1.3-4.4-4.4zm-5.5 0c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5z" fill="currentColor"/></svg>
+      <span class="sr-only">Search</span>
+    </button>
   </form>
   <p class="search-count" id="search-count" aria-live="polite"></p>
 </div>
