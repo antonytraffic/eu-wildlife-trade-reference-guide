@@ -70,9 +70,40 @@
     });
   }
 
+  function initTopNavDropdown() {
+    var item = document.querySelector('.top-nav__item--dropdown');
+    if (!item) return;
+    var toggle = item.querySelector('.top-nav__dropdown-toggle');
+    if (!toggle) return;
+
+    function close() {
+      item.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+    function open() {
+      item.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    toggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (item.classList.contains('is-open')) close(); else open();
+    });
+    document.addEventListener('click', function (e) {
+      if (!item.contains(e.target)) close();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        close();
+        toggle.focus();
+      }
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initSidebarHighlight();
     initBackToTop();
     initFootnotesExpand();
+    initTopNavDropdown();
   });
 }());

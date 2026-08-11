@@ -28,6 +28,8 @@ SUMMARIES_FILE = INPUT_DIR / "_summaries.json"
 
 console = Console()
 FOOTER_TEXT: str = ""   # set at build time from _footer_content.md
+_GUIDE_NAV_ITEMS: list[tuple[str, str]] = []  # (title, slug) for Reference Guide dropdown, set at build time
+_ANNEXES_SLUG: str | None = None               # slug of the Annexes landing page, set at build time
 
 
 # ==============================================================================
@@ -817,6 +819,7 @@ a:focus-visible {
 .top-nav {
   background: var(--black);
   border-bottom: 1px solid #333;
+  position: relative;
 }
 .top-nav__list {
   list-style: none; margin: 0; padding: 0;
@@ -826,7 +829,7 @@ a:focus-visible {
 .top-nav__link {
   display: block; padding: 10px 16px;
   color: #bfc1c3; text-decoration: none;
-  font-size: .875rem; font-weight: 400;
+  font-size: .875rem; font-weight: 400; line-height: 1.6;
   border-bottom: 3px solid transparent;
   transition: background-color .1s, color .1s;
 }
@@ -837,6 +840,49 @@ a:focus-visible {
 .top-nav__link--active        { color: var(--white); border-bottom-color: var(--green); }
 .top-nav__link--active:visited { color: var(--white); }
 .top-nav__link--active:hover  { color: var(--black); }
+
+/* -- Top navigation: "Reference Guide" mega-menu ------- */
+.top-nav__dropdown-toggle {
+  display: flex; align-items: center; gap: 6px;
+  background: none; border: none; border-bottom: 3px solid transparent;
+  font-family: inherit; margin: 0; cursor: pointer;
+}
+.top-nav__caret { width: 10px; height: 7px; flex-shrink: 0; transition: transform .15s; }
+.top-nav__item--dropdown.is-open .top-nav__caret { transform: rotate(180deg); }
+.top-nav__dropdown {
+  display: none;
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 20;
+  background: var(--white); border-top: 1px solid #333;
+  box-shadow: 0 12px 20px rgba(0,0,0,.15);
+}
+.top-nav__item--dropdown.is-open .top-nav__dropdown { display: block; }
+.top-nav__dropdown-inner {
+  max-width: var(--max-width); margin: 0 auto; padding: 32px 20px;
+  display: flex; gap: 48px;
+}
+.top-nav__dropdown-intro {
+  flex: 0 0 240px;
+  padding-right: 48px;
+  border-right: 1px solid var(--mid-grey);
+}
+.top-nav__dropdown-intro h2 {
+  margin: 0 0 8px; padding: 0; border: none;
+  font-size: 1.25rem;
+}
+.top-nav__dropdown-intro p {
+  margin: 0; color: var(--secondary); font-size: .875rem; line-height: 1.5;
+}
+.top-nav__dropdown-links {
+  flex: 1; list-style: none; margin: 0; padding: 0;
+}
+.top-nav__dropdown-link {
+  display: block; padding: 10px 0;
+  color: var(--black); font-size: .9375rem; text-decoration: none;
+  border-bottom: 1px solid var(--light-grey);
+}
+.top-nav__dropdown-links li:last-child .top-nav__dropdown-link { border-bottom: none; }
+.top-nav__dropdown-link:hover { color: var(--green); text-decoration: underline; }
+.top-nav__dropdown-link:visited { color: var(--black); }
 
 /* -- Breadcrumbs -------------------------------------- */
 .breadcrumbs {
@@ -1293,6 +1339,12 @@ ol.lettered-list li { margin-bottom: 6px; }
   .search-form { flex-wrap: wrap; }
   .search-form input[type="search"] { border-right: 2px solid var(--black); width: 100%; }
   .search-form button { width: 100%; }
+
+  .top-nav__dropdown-inner { flex-direction: column; gap: 20px; padding: 20px; max-height: calc(100vh - 100px); overflow-y: auto; }
+  .top-nav__dropdown-intro {
+    flex: none; padding-right: 0; padding-bottom: 20px;
+    border-right: none; border-bottom: 1px solid var(--mid-grey);
+  }
 }
 @media screen and (min-width: 769px) {
   .mobile-contents { display: none; }
@@ -1404,10 +1456,41 @@ MAIN_JS = """\
     });
   }
 
+  function initTopNavDropdown() {
+    var item = document.querySelector('.top-nav__item--dropdown');
+    if (!item) return;
+    var toggle = item.querySelector('.top-nav__dropdown-toggle');
+    if (!toggle) return;
+
+    function close() {
+      item.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+    function open() {
+      item.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    toggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (item.classList.contains('is-open')) close(); else open();
+    });
+    document.addEventListener('click', function (e) {
+      if (!item.contains(e.target)) close();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        close();
+        toggle.focus();
+      }
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initSidebarHighlight();
     initBackToTop();
     initFootnotesExpand();
+    initTopNavDropdown();
   });
 }());
 """
@@ -1558,8 +1641,16 @@ def base_html(
         else:
             bc_items += f'<li><a href="{h(url)}">{h(label)}</a></li>\n'
 
-    home_cls  = " top-nav__link--active" if active_nav == "home"  else ""
-    about_cls = " top-nav__link--active" if active_nav == "about" else ""
+    home_cls    = " top-nav__link--active" if active_nav == "home"    else ""
+    about_cls   = " top-nav__link--active" if active_nav == "about"   else ""
+    guide_cls   = " top-nav__link--active" if active_nav == "guide"   else ""
+    annex_cls   = " top-nav__link--active" if active_nav == "annexes" else ""
+
+    guide_dropdown_items = "".join(
+        f'<li><a href="{root}chapters/{h(slug)}.html" class="top-nav__dropdown-link">{h(item_title)}</a></li>'
+        for item_title, slug in _GUIDE_NAV_ITEMS
+    )
+    annexes_href = f'{root}chapters/{h(_ANNEXES_SLUG)}.html' if _ANNEXES_SLUG else f'{root}index.html'
 
     if sidebar_html:
         grid_open     = '<div class="page-grid">'
@@ -1643,6 +1734,24 @@ def base_html(
     <ul class="top-nav__list">
       <li><a href="{root}index.html" class="top-nav__link{home_cls}">Home</a></li>
       <li><a href="{root}about.html" class="top-nav__link{about_cls}">About</a></li>
+      <li class="top-nav__item--dropdown">
+        <button type="button" class="top-nav__link top-nav__dropdown-toggle{guide_cls}" aria-expanded="false">
+          Reference Guide
+          <svg class="top-nav__caret" viewBox="0 0 12 8" aria-hidden="true" focusable="false"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="top-nav__dropdown">
+          <div class="top-nav__dropdown-inner">
+            <div class="top-nav__dropdown-intro">
+              <h2>Reference Guide</h2>
+              <p>Browse the sections of the EU Wildlife Trade Regulations Reference Guide.</p>
+            </div>
+            <ul class="top-nav__dropdown-links">
+              {guide_dropdown_items}
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li><a href="{annexes_href}" class="top-nav__link{annex_cls}">Annexes</a></li>
     </ul>
   </div>
 </nav>
@@ -1874,6 +1983,16 @@ def make_prev_next(prev: dict | None, next: dict | None) -> str:
 # SECTION 7 -- Page builders
 # ==============================================================================
 
+def _top_nav_active(ch: dict) -> str:
+    """Which top-nav item to highlight for a given chapter/sub-page."""
+    snum = ch.get("section_number", 0)
+    if 0 < snum <= 12:
+        return "guide"
+    if snum == 0 or snum > 12:
+        return "annexes"
+    return "home"
+
+
 def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
     """Sections 2, 5-12: full article with sidebar, contents box, prev/next."""
     rendered = _link_figure_table_refs(
@@ -1913,7 +2032,7 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
         breadcrumbs=[],
         depth=1,
         sidebar_html=sidebar_html,
-        active_nav="home",
+        active_nav=_top_nav_active(ch),
         page_header_html=page_header_html,
     )
 
@@ -1989,7 +2108,7 @@ def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[
         content=content,
         breadcrumbs=[],
         depth=1,
-        active_nav="home",
+        active_nav=_top_nav_active(ch),
         page_header_html=page_header_html,
     )
 
@@ -2037,7 +2156,7 @@ def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
         breadcrumbs=[],
         depth=1,
         sidebar_html=sidebar_html,
-        active_nav="home",
+        active_nav=_top_nav_active(ch),
         page_header_html=page_header_html,
     )
 
@@ -2258,7 +2377,7 @@ def build_search_index(all_pages: list[dict], summaries: dict) -> list[dict]:
 # ==============================================================================
 
 def build_site() -> tuple[list[dict], list[dict], dict]:
-    global FOOTER_TEXT
+    global FOOTER_TEXT, _GUIDE_NAV_ITEMS, _ANNEXES_SLUG
     console.rule("[bold blue]Building site[/bold blue]")
 
     # -- Read all markdown files --------------------------------------------------
@@ -2301,6 +2420,18 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
     # Separate nav_sections into parents and simple
     parent_pages = [c for c in nav_sections if c["sub_pages"]]
     simple_pages = [c for c in nav_sections if not c["sub_pages"]]
+
+    # -- Top-nav "Reference Guide" dropdown / "Annexes" link ----------------------
+    # Sections 2-12 populate the Reference Guide dropdown; the Annexes parent page
+    # (section_number 0 or > 12) is linked to directly.
+    _GUIDE_NAV_ITEMS = [
+        (c["title"], c["slug"]) for c in nav_sections if 0 < c["section_number"] <= 12
+    ]
+    _annexes_ch = next(
+        (c for c in nav_sections if c["section_number"] == 0 or c["section_number"] > 12),
+        None,
+    )
+    _ANNEXES_SLUG = _annexes_ch["slug"] if _annexes_ch else None
 
     # All pages that appear as cards (summaries needed).
     # Individual annex sub-pages are excluded — their cards use title + first heading.
