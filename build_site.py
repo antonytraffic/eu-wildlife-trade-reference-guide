@@ -1089,9 +1089,11 @@ table caption {
 .hero {
   width: 100vw;
   margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
-  background:
-    linear-gradient(100deg, rgba(0,0,46,.84) 0%, rgba(0,0,46,.68) 38%, rgba(0,0,46,.34) 64%, rgba(0,0,46,.10) 83%, rgba(0,0,46,0) 98%),
-    url("images/hero-elephants-ngorongoro.jpg") center 66% / cover no-repeat;
+  background-color: var(--black);
+  background-image: url("images/hero-elephants-line.jpg");
+  background-position: right center;
+  background-size: cover;
+  background-repeat: no-repeat;
   border-bottom: 1px solid var(--border);
   padding: 72px 0;
   color: var(--white);
@@ -1360,6 +1362,7 @@ ol.lettered-list li { margin-bottom: 6px; }
   .hero .search-form { flex-wrap: nowrap; }
   .hero .search-form input[type="search"] { width: auto; }
   .hero .search-form button { width: auto; border-top: none; }
+  .hero { background-image: none; }
 
   .top-nav__dropdown-inner { flex-direction: column; gap: 20px; padding: 20px; max-height: calc(100vh - 100px); overflow-y: auto; }
   .top-nav__dropdown-intro {
