@@ -9,6 +9,8 @@ section_number: 1
 
 # How do I use this guide?
 
+## 1.1 Overview
+
 The European Union (EU)[^1] represents one of the largest markets for wild animals and plants, their products and derivatives. For many years, legislation to govern this trade has been a conservation priority in the region. Since 1984, the EU has been implementing the provisions of **CITES,** the **Convention on International Trade in Endangered Species of Wild Fauna and Flora** (or simply, “the Convention”), through common Regulations, which are referred to hereafter collectively as the **EU Wildlife Trade Regulations** (or simply, “the Regulations”)[^2]. 
 
 The Regulations currently in force are: 
@@ -33,6 +35,8 @@ On 9th November 2022, the Commission adopted the **revised** [EU action plan aga
 Each priority has several objectives and for each of the objectives a number of actions have been identified. Overall, the revised WAP has 17 objectives and 69 actions. The list of actions is not exhaustive and may be complemented by additional measures.
 
 The implementation of the WAP will be a common effort by the Commission, Member States, EU and international organisations. On the basis of a monitoring framework, Member States will need to report annually on how the WAP is implemented at national level. The first Progress Report for 2023 was published on the [CIRCABC repository](https://circabc.europa.eu/ui/group/3f466d71-92a7-49eb-9c63-6cb0fadf29dc/library/2cca1f7c-431a-4a9c-a7a0-bacc82705b6c?p=1&n=10&sort=modified_DESC) in June 2025.
+
+## 1.2 How do I use this guide?
 
 CITES Management and Scientific Authorities, wildlife trade enforcement officials, wildlife traders and anyone interested in the legislation and the technicalities of the provisions of the Regulations may use this **reference guide** as background material.
 

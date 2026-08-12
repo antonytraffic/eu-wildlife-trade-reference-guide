@@ -2152,7 +2152,7 @@ def build_about_page(ch: dict) -> str:
     sidebar_html = make_sidebar(headings)
 
     page_header_html = make_page_header(
-        title=ch["title"],
+        title="About",
         breadcrumbs=[("Home", "index.html"), ("About", None)],
     )
     content = f"""
@@ -2210,6 +2210,14 @@ _CARD_ICON_COLORS: dict[int, str] = {
     13: "#66439A",  # purple-700 -- list-checks (Annexes, section_number 13)
 }
 
+# Compass -- used for the "1.1 Overview" homepage sub-card (About section).
+_ICON_COMPASS_PATH = (
+    "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,"
+    "88.1,0,0,1,128,216ZM172.42,72.84l-64,32a8.05,8.05,0,0,0-3.58,3.58l-32,64A8,8,0,0,0,80,184a"
+    "8.1,8.1,0,0,0,3.58-.84l64-32a8.05,8.05,0,0,0,3.58-3.58l32-64a8,8,0,0,0-10.74-10.74ZM138,138,"
+    "97.89,158.11,118,118l40.15-20.07Z"
+)
+
 
 def _make_card(ch: dict, summaries: dict, href: str | None = None) -> str:
     snum = ch["section_number"]
@@ -2236,6 +2244,26 @@ def _make_card(ch: dict, summaries: dict, href: str | None = None) -> str:
     )
 
 
+def _make_about_subcard(ref: str, title: str, href: str, summary: str,
+                         icon_path: str, icon_color: str) -> str:
+    """Homepage card for an About sub-section (1.1, 1.2, ...) anchored on about.html."""
+    icon_html = (
+        f'<div class="chapter-card__icon" aria-hidden="true" style="color:{icon_color}">'
+        f'<svg viewBox="0 0 256 256" fill="currentColor"><path d="{icon_path}"/></svg>'
+        f'</div>'
+    ) if icon_path else ""
+    card_class = "chapter-card chapter-card--icon" if icon_path else "chapter-card"
+
+    return (
+        f'<a class="{card_class}" href="{h(href)}">'
+        f'{icon_html}'
+        f'<div class="chapter-card__num">Section {h(ref)}</div>'
+        f'<div class="chapter-card__title">{h(title)}</div>'
+        f'<div class="chapter-card__summary">{h(summary)}</div>'
+        f'</a>'
+    )
+
+
 def build_index_page(nav_sections: list[dict], summaries: dict,
                      about_ch: dict | None = None) -> str:
     """Homepage: hero + three grouped card sections (About / Reference Guide / Annexes)."""
@@ -2244,7 +2272,20 @@ def build_index_page(nav_sections: list[dict], summaries: dict,
     guide_sections = [c for c in nav_sections if 0 < c["section_number"] <= 12]
     annex_sections = [c for c in nav_sections if c["section_number"] == 0 or c["section_number"] > 12]
 
-    about_cards  = _make_card(about_ch, summaries, href="about.html") if about_ch else ""
+    about_cards  = (
+        _make_about_subcard(
+            "1.1", "Overview", "about.html#11-overview",
+            "The EU's implementation of CITES, the Regulations currently in force, "
+            "and the EU action plan against wildlife trafficking.",
+            icon_path=_ICON_COMPASS_PATH, icon_color="#696984",  # grey-600 -- compass
+        )
+        + _make_about_subcard(
+            "1.2", "How do I use this guide?", "about.html#12-how-do-i-use-this-guide",
+            "Who this guide is for, how its sections and annexes are organised, "
+            "and tips for finding what you need.",
+            icon_path=_CARD_ICON_PATHS[1], icon_color=_CARD_ICON_COLORS[1],  # book-open
+        )
+    ) if about_ch else ""
     guide_cards  = "".join(_make_card(c, summaries) for c in guide_sections)
     annex_cards  = "".join(_make_card(c, summaries) for c in annex_sections)
 
