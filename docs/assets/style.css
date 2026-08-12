@@ -132,7 +132,7 @@ a:focus-visible {
 }
 .header-search input[type="search"] {
   border: none; padding: 9px 6px 9px 16px;
-  font: inherit; font-size: .875rem; min-width: 190px; background: transparent;
+  font: inherit; font-size: .875rem; min-width: 320px; background: transparent;
   color: var(--black);
 }
 .header-search input[type="search"]:focus { outline: 3px solid var(--focus); outline-offset: -3px; }
