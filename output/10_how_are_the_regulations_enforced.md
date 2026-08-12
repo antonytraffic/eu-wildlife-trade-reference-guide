@@ -9,6 +9,8 @@ section_number: 10
 
 # How are the Regulations enforced?
 
+## 10.1 How is compliance monitored and communicated?
+
 There are several Articles of *Regulation (EC) No 338/97* that deal with aspects of enforcement and the co-ordination thereof. These are, for example, Articles 14 (Monitoring of compliance and investigation of infringements), 15 (Communication of information) and 16 (Sanctions).
 
 Under Article 14, the competent authorities of the Member States are responsible for monitoring compliance with the provisions of the Regulations. These authorities must take the appropriate steps to **ensure compliance,** or to **instigate legal action** if they have reason to believe that provisions are being infringed. The **Commission** and (where CITES-listed species are concerned) the **CITES Secretariat** must be **informed** of any steps taken in relation to **significant infringements** of the Regulations. These significant cases include seizures and confiscations. The **Commission**, in turn, can **draw the attention** of the competent authorities of the Member States to matters where it **considers investigation necessary**. The result of any subsequent investigation must be provided to the Commission and, where appropriate, to the CITES Secretariat.
@@ -16,6 +18,8 @@ Under Article 14, the competent authorities of the Member States are responsible
 Article 14(3) of *Regulation (EC) No 338/97* establishes the Enforcement Group, which consists of representatives of each Member State's authorities with responsibility for monitoring compliance with the Regulations (see **Section 11.2.3**). 
 
 Article 15 more generally addresses communication and requires that **Member States and the Commission will communicate to one another the information necessary to implement the Regulation**. The Commission must further communicate with the CITES Secretariat, to ensure that CITES is effectively implemented throughout the territory to which the Regulations apply.
+
+## 10.2 What sanctions apply to infringements?
 
 Article 16 is one of the most significant assets of *Regulation (EC) No 338/97,* where enforcement is concerned. It provides that Member States will take appropriate measures to ensure the imposition of **sanctions** for **infringements** and contains a minimum list of infringements to be sanctioned, as follows:
 
@@ -44,6 +48,8 @@ k. **use** of a permit or certificate for any **specimen other than one** for wh
 l. **falsification** or alteration of any permit or certificate issued in accordance with this Regulation, and
 
 m. failure to **disclose rejection** of an application for an EU import, export or re-export permit or certificate.
+
+## 10.3 What happens to seized or confiscated specimens?
 
 Article 16 further provides that **sanctions will be appropriate to the nature and gravity of infringements and must include provisions on seizure and, where appropriate, confiscation**. 
 
