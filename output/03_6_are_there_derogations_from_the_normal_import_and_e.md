@@ -699,7 +699,9 @@ The forms on which personal ownership certificates should be drawn up must confo
 
 [Insert Figure 13]
 
-**Sample collection certificates**[^109] may be issued in respect of sample collections, provided those collections are accompanied by a **valid ATA carnet**[^1] 
+## 3.6.12 Are there simplified procedures for sample collections?
+
+**Sample collection certificates**[^109] may be issued in respect of sample collections, provided those collections are accompanied by a **valid ATA carnet**[^1].
 
 ### 3.6.12.1 When can sample collection certificates be used?
 
