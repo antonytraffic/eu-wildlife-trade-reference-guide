@@ -753,27 +753,23 @@ a:focus-visible {
 /* -- Official strip ------------------------------------ */
 .official-strip {
   background: var(--light-grey);
-  border-bottom: 1px solid var(--border);
 }
 .official-strip__inner {
   display: flex; align-items: center; gap: 8px;
   max-width: none; margin: 0;
-  padding: 4px 16px;
+  padding: 4px 16px; line-height: 20px;
   font-size: .875rem; color: var(--secondary);
 }
 .official-strip__flag { width: 26px; height: auto; flex-shrink: 0; }
 
 /* -- Site header -------------------------------------- */
 .site-header { background: var(--white); }
-.site-header__top {
-  border-bottom: 1px solid var(--border);
-}
 .site-header__top-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 32px var(--gutter);
+  padding: 32px var(--gutter) 24px;
   max-width: var(--max-width);
   margin: 0 auto;
   flex-wrap: wrap;
@@ -784,7 +780,7 @@ a:focus-visible {
   background: var(--mid-grey);
 }
 .site-header__banner .container {
-  padding: 10px var(--gutter);
+  padding: 12px var(--gutter); line-height: 20px;
   max-width: var(--max-width);
   margin: 0 auto;
 }
@@ -830,7 +826,7 @@ a:focus-visible {
   display: flex; gap: 0;
 }
 .top-nav__link {
-  display: block; padding: 16px 20px;
+  display: block; padding: 13px 20px;
   color: var(--white); text-decoration: none;
   font-size: 1rem; font-weight: 400; line-height: 1.5;
   transition: background-color .1s, color .1s;
@@ -1097,7 +1093,7 @@ table caption {
 .hero .container {
   text-align: left; max-width: var(--max-width); margin: 0 auto; padding: 0 var(--gutter);
 }
-.hero h1 { margin-bottom: 12px; font-size: 4.5rem; max-width: 820px; color: var(--white); }
+.hero h1 { margin-bottom: 12px; font-size: 3.25rem; max-width: 820px; color: var(--white); }
 .hero__lead {
   font-size: 1.25rem; max-width: 600px; line-height: 1.6; margin-bottom: 24px;
   color: var(--white);
@@ -1336,7 +1332,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 /* -- Responsive --------------------------------------- */
 @media screen and (max-width: 768px) {
   :root { --gutter: 20px; }
-  .site-header__top-inner { flex-wrap: wrap; gap: 12px; padding: 20px var(--gutter); }
+  .site-header__top-inner { flex-wrap: wrap; gap: 12px; padding: 8px var(--gutter); }
   .site-header__logo { height: 3.25rem; }
   .site-header__site-name { font-size: 1.125rem; }
   .header-search { width: 100%; }
@@ -1350,7 +1346,7 @@ ol.lettered-list li { margin-bottom: 6px; }
   h2 { font-size: 2.375rem; }
   h3 { font-size: 1.5rem; }
   h4 { font-size: 1.25rem; }
-  .hero h1 { font-size: 3.5rem; }
+  .hero h1 { font-size: 1.5rem; }
 
   .chapter-grid { grid-template-columns: 1fr; }
   .subpage-grid { grid-template-columns: 1fr; }
@@ -2298,7 +2294,7 @@ def build_index_page(nav_sections: list[dict], summaries: dict,
     content = f"""
 <div class="hero">
   <div class="container">
-    <h1>EU Wildlife Trade Regulations Reference Guide</h1>
+    <h1>EU Wildlife Trade Regulations<br>Reference Guide</h1>
     <p class="hero__lead">
       A comprehensive reference guide on the rules governing the trade of wildlife
       into, out of, and within the European Union.
