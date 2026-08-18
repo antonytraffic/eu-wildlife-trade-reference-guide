@@ -2418,9 +2418,14 @@ def build_search_index(all_pages: list[dict], summaries: dict) -> list[dict]:
 PDF_CSS = """
 @page {
   size: A4;
-  margin: 25mm 20mm 20mm 20mm;
-  @top-center {
+  margin: 30mm 20mm 25mm 20mm;
+  @top-left {
+    content: url(assets/images/logo-ec-header.svg);
+  }
+  @top-right {
     content: string(chapter);
+    width: 130mm;
+    text-align: right;
     font-family: "Inter", Arial, sans-serif;
     font-size: 9pt;
     color: #696984;
@@ -2433,7 +2438,8 @@ PDF_CSS = """
   }
 }
 @page :first {
-  @top-center { content: ""; }
+  @top-left { content: ""; }
+  @top-right { content: ""; }
   @bottom-center { content: ""; }
 }
 
@@ -2453,7 +2459,8 @@ h3 { font-size: 12pt; margin: 8mm 0 3mm; }
 p, li { orphans: 3; widows: 3; margin: 0 0 3mm; }
 a { color: #0046ff; text-decoration: none; }
 
-.pdf-cover { text-align: center; margin-top: 60mm; }
+.pdf-cover { text-align: center; margin-top: 40mm; }
+.pdf-cover__logo { width: 55mm; margin-bottom: 25mm; }
 .pdf-cover__kicker {
   text-transform: uppercase; letter-spacing: 0.08em;
   font-size: 10pt; color: #696984; margin-bottom: 12mm;
@@ -2474,8 +2481,25 @@ a { color: #0046ff; text-decoration: none; }
   color: #696984;
 }
 
-.pdf-chapter { page-break-before: page; }
+.pdf-chapter { page-break-before: page; counter-reset: footnote; }
 .pdf-subchapter { page-break-before: auto; }
+
+.pdf-footnote { float: footnote; font-size: 7.5pt; line-height: 1.35; }
+::footnote-marker { content: counter(footnote) ". "; font-weight: 600; }
+::footnote-call {
+  content: counter(footnote);
+  vertical-align: super;
+  font-size: 0.7em;
+  line-height: 0;
+}
+@footnote {
+  border-top: 0.5pt solid #d4d4dc;
+  padding-top: 2.5mm;
+  margin-top: 8mm;
+  font-size: 7.5pt;
+  line-height: 1.35;
+  color: #505a5f;
+}
 
 table { border-collapse: collapse; width: 100%; margin: 4mm 0 6mm; font-size: 9pt; page-break-inside: avoid; }
 th, td { border: 0.5pt solid #d4d4dc; padding: 2mm 3mm; text-align: left; vertical-align: top; }
@@ -2494,6 +2518,47 @@ ol.lettered-list { padding-left: 6mm; }
 _PDF_HREF_CHAPTER_RE = re.compile(r'href="chapters/([a-zA-Z0-9_\-]+)\.html(#[^"]*)?"')
 _PDF_HREF_FRAG_RE    = re.compile(r'href="#([^"]*)"')
 _PDF_ID_RE           = re.compile(r'\bid="([^"]*)"')
+
+_PDF_FN_REF_RE     = re.compile(r'<sup class="footnote-ref" id="fnref-(\d+)"><a href="#fn-\d+">\d+</a></sup>')
+_PDF_FN_BLOCK_RE   = re.compile(r'<div class="footnotes">.*?</div>\s*', re.DOTALL)
+_PDF_FN_LI_RE      = re.compile(r'<li id="fn-(\d+)">(.*?)</li>', re.DOTALL)
+_PDF_FN_BACKLINK_RE = re.compile(r'\s*(?:&#160;|&nbsp;)?\s*<a[^>]*class="footnoteBackLink"[^>]*>.*?</a>\s*')
+_PDF_FN_POPEN_RE   = re.compile(r'<p[^>]*>')
+_PDF_FN_PCLOSE_RE  = re.compile(r'</p>\s*')
+_PDF_FN_TRAIL_BR_RE = re.compile(r'(?:<br\s*/?>\s*)+$')
+
+
+def _pdf_relocate_footnotes(html: str) -> str:
+    """Move markdown2's end-of-section footnote list back inline as CSS
+    `float: footnote` spans, so each note prints at the bottom of the physical
+    page it's cited on instead of the end of the (possibly much longer) section."""
+    block_m = _PDF_FN_BLOCK_RE.search(html)
+    if not block_m:
+        return html
+
+    notes: dict[str, str] = {}
+    for li_m in _PDF_FN_LI_RE.finditer(block_m.group(0)):
+        num, content = li_m.group(1), li_m.group(2)
+        content = _PDF_FN_BACKLINK_RE.sub("", content)
+        # A float:footnote span is inline -- a nested <p> would close the
+        # *outer* <p> it's substituted into (block content isn't valid inside
+        # a <span>), silently breaking the float and leaking the note into
+        # normal flow. Flatten to inline content, keeping <br> between any
+        # multi-paragraph notes.
+        content = _PDF_FN_POPEN_RE.sub("", content)
+        content = _PDF_FN_PCLOSE_RE.sub("<br>", content)
+        content = _PDF_FN_TRAIL_BR_RE.sub("", content)
+        notes[num] = content.strip()
+
+    def _sub_ref(m: re.Match) -> str:
+        content = notes.get(m.group(1))
+        if content is None:
+            return m.group(0)
+        return f'<span class="pdf-footnote">{content}</span>'
+
+    html = _PDF_FN_REF_RE.sub(_sub_ref, html)
+    html = _PDF_FN_BLOCK_RE.sub("", html, count=1)
+    return html
 
 
 def _css_str(text: str) -> str:
@@ -2534,6 +2599,7 @@ def _prepare_pdf_chunk(ch: dict, *, top_level: bool = True) -> str:
         _replace_figures(autolink_xrefs(render_markdown(ch["body"]), depth=0), depth=0),
         depth=0,
     )
+    rendered = _pdf_relocate_footnotes(rendered)
     rendered = _pdf_namespace_refs(rendered, ch["slug"])
     return _wrap_pdf_section(ch, rendered, top_level=top_level)
 
@@ -2549,7 +2615,10 @@ def _prepare_pdf_parent_chunk(ch: dict) -> str:
         m2 = re.search(r'\n- \[', body)
         if m2:
             body = body[:m2.start()].strip()
-    intro_html = _pdf_namespace_refs(render_markdown(body), ch["slug"]) if body else ""
+    intro_html = (
+        _pdf_namespace_refs(_pdf_relocate_footnotes(render_markdown(body)), ch["slug"])
+        if body else ""
+    )
     return _wrap_pdf_section(ch, intro_html, top_level=True)
 
 
@@ -2578,6 +2647,30 @@ def build_pdf_toc(
 PDF_FILENAME = "EU-Wildlife-Trade-Reference-Guide.pdf"
 
 
+_LOGO_SVG_DIM_RE = re.compile(r'width="(\d+(?:\.\d+)?)"\s*\n?\s*height="(\d+(?:\.\d+)?)"')
+
+
+def _make_pdf_header_logo(target_width_mm: float = 20.0) -> None:
+    """Write a copy of the EC logo with a fixed mm width/height baked into the SVG
+    file itself. WeasyPrint's page-margin-box `content: url()` ignores CSS
+    width/height set on the margin box and just uses the image's own intrinsic
+    size, so -- unlike the cover logo, a normal in-flow <img> where CSS sizing
+    works fine -- the running-header logo has to be pre-sized on disk."""
+    src = SITE_DIR / "assets" / "images" / "logo-ec-positive.svg"
+    if not src.exists():
+        return
+    content = src.read_text(encoding="utf-8")
+    m = _LOGO_SVG_DIM_RE.search(content)
+    if not m:
+        return
+    w, h = float(m.group(1)), float(m.group(2))
+    target_height_mm = target_width_mm * h / w
+    resized = _LOGO_SVG_DIM_RE.sub(
+        f'width="{target_width_mm}mm" height="{target_height_mm:.2f}mm"', content, count=1,
+    )
+    (SITE_DIR / "assets" / "images" / "logo-ec-header.svg").write_text(resized, encoding="utf-8")
+
+
 def generate_pdf(nav_sections: list[dict], all_sub: list[dict], about_ch: dict | None) -> None:
     """Render the whole guide, in the same order as the homepage, to one PDF."""
     try:
@@ -2591,6 +2684,8 @@ def generate_pdf(nav_sections: list[dict], all_sub: list[dict], about_ch: dict |
             "https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#windows"
         )
         return
+
+    _make_pdf_header_logo()
 
     by_slug = {ch["slug"]: ch for ch in nav_sections + all_sub}
     # Same split the homepage uses (build_index_page): sections 2-10 in the
@@ -2616,6 +2711,7 @@ def generate_pdf(nav_sections: list[dict], all_sub: list[dict], about_ch: dict |
     today = date.today()
     cover_html = f"""
 <section class="pdf-cover">
+  <img class="pdf-cover__logo" src="assets/images/logo-ec-positive.svg" alt="European Commission">
   <p class="pdf-cover__kicker">European Commission &amp; TRAFFIC</p>
   <h1>EU Wildlife Trade Regulations</h1>
   <p class="pdf-cover__subtitle">Reference Guide</p>
@@ -2636,7 +2732,7 @@ def generate_pdf(nav_sections: list[dict], all_sub: list[dict], about_ch: dict |
     out_path = SITE_DIR / PDF_FILENAME
     base_url = SITE_DIR.resolve().as_uri() + "/"
     weasyprint.HTML(string=doc_html, base_url=base_url).write_pdf(
-        out_path, stylesheets=[weasyprint.CSS(string=PDF_CSS)]
+        out_path, stylesheets=[weasyprint.CSS(string=PDF_CSS, base_url=base_url)]
     )
     console.print(f"  [green]+[/green] {out_path.name} ({out_path.stat().st_size / 1024:.0f} KB)")
 
