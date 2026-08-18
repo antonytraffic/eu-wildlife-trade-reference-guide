@@ -2203,15 +2203,15 @@ _CARD_ICON_PATHS: dict[int, str] = {
 # only the icon glyph colour varies, drawn from the EC brand palette).
 _CARD_ICON_COLORS: dict[int, str] = {
     1:  "#0046FF",  # primary-600 blue -- book-open (About)
-    2:  "#66439A",  # purple-700 -- paw-print
-    3:  "#FC8713",  # secondary-600 orange -- arrows-out-simple
-    4:  "#CB2029",  # error-600 red -- door-open-fill (Derogations)
+    2:  "#A63F82",  # pink (was purple-700) -- paw-print
+    3:  "#696984",  # grey-600 -- arrows-out-simple
+    4:  "#FC8713",  # secondary-600 orange -- door-open-fill (Derogations)
     5:  "#0046FF",  # primary-600 blue -- arrows-in-simple
     6:  "#049E62",  # success-700 green -- leaf
     7:  "#696984",  # grey-600 -- tag
-    8:  "#66439A",  # purple-700 -- pencil-simple (merged permits/certificates)
-    9:  "#049E62",  # success-700 green -- tree-structure (merged CITES duties + enforcement)
-    10: "#696984",  # grey-600 -- clipboard-text
+    8:  "#A63F82",  # pink (was purple-700) -- pencil-simple (merged permits/certificates)
+    9:  "#FC8713",  # secondary-600 orange -- tree-structure (merged CITES duties + enforcement)
+    10: "#0046FF",  # primary-600 blue -- clipboard-text
     0:  "#66439A",  # purple-700 -- list-checks (Annexes, section_number 0)
 }
 
