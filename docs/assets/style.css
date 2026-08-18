@@ -282,7 +282,7 @@ a:focus-visible {
 }
 .sidebar__nav a:hover { text-decoration: underline; }
 .sidebar__nav a.is-active {
-  font-weight: 700; color: var(--black);
+  color: var(--black);
   background: var(--icon-bg);
   border-left-color: var(--green);
 }
