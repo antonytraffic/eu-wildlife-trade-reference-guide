@@ -780,7 +780,8 @@ a:focus-visible {
   background: var(--mid-grey);
 }
 .site-header__banner .container {
-  padding: 10px var(--gutter); line-height: 24px;
+  display: flex; align-items: center; height: 44px;
+  padding: 0 var(--gutter);
   max-width: var(--max-width);
   margin: 0 auto;
 }
@@ -825,9 +826,14 @@ a:focus-visible {
   list-style: none; margin: 0 0 0 -20px; padding: 0;
   display: flex; align-items: center; gap: 0; height: 55px;
 }
-.top-nav__list > li { display: block; margin: 0; }
+.top-nav__list > li { display: flex; align-items: center; align-self: stretch; margin: 0; }
+.top-nav__list > li::after {
+  content: ""; display: block; flex-shrink: 0;
+  width: 1px; height: 40px;
+  background: rgba(209, 217, 241, .6);
+}
 .top-nav__link {
-  display: flex; align-items: center; padding: 13px 20px;
+  display: flex; align-items: center; padding: 8px 16px 8px 20px;
   color: var(--white); text-decoration: none;
   font-size: 1rem; font-weight: 400; line-height: 1.5;
   transition: background-color .1s, color .1s;
@@ -885,8 +891,8 @@ a:focus-visible {
 
 /* -- Breadcrumbs -------------------------------------- */
 .breadcrumbs {
+  display: flex; align-items: center; height: 68px;
   border-bottom: 1px solid var(--mid-grey);
-  padding: 16px 0;
   background: var(--white);
 }
 .breadcrumbs ol {
@@ -909,7 +915,7 @@ a:focus-visible {
 .page-header { background: var(--white); }
 .page-header .container { padding-bottom: 0; max-width: var(--max-width); margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); }
 .page-header + .main-content { padding-top: 28px; }
-.page-header .breadcrumbs { border-bottom: none; background: transparent; padding: 16px 0 0; }
+.page-header .breadcrumbs { border-bottom: none; background: transparent; }
 .page-header .breadcrumbs ol { max-width: none; margin: 0; padding: 0; }
 .page-header__meta {
   list-style: none; margin: 8px 0 0; padding: 0;
@@ -1143,7 +1149,7 @@ table caption {
 /* -- Section card grid -------------------------------- */
 .chapter-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px; margin-top: 30px;
 }
 .chapter-card {
@@ -1161,29 +1167,30 @@ table caption {
 .chapter-card:visited { color: inherit; }
 
 /* Teardrop icon badge (EC "navigation list -- illustration" pattern) */
+.chapter-card__head { display: flow-root; }
 .chapter-card__icon {
-  position: absolute; top: 16px; right: 16px;
-  width: 56px; height: 56px;
+  float: right;
+  margin: -12px -12px 8px 12px;
+  width: 64px; height: 64px;
   border-radius: 100px 0 100px 100px;
   background: var(--icon-bg);
   display: flex; align-items: center; justify-content: center;
   color: var(--green);
+  shape-outside: margin-box;
 }
-.chapter-card__icon svg { width: 28px; height: 28px; }
-.chapter-card--icon .chapter-card__num,
-.chapter-card--icon .chapter-card__title { padding-right: 60px; }
+.chapter-card__icon svg { width: 32px; height: 32px; }
 
 .chapter-card__num {
   font-size: .75rem; color: var(--secondary);
   text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px;
 }
 .chapter-card__title {
-  font-size: 1rem; font-weight: 400; color: var(--green);
+  font-size: 22px; font-weight: 400; color: var(--green);
   margin-bottom: 8px; line-height: 1.3;
 }
 .chapter-card:hover .chapter-card__title { color: var(--dark-green); text-decoration: underline; }
 .chapter-card__summary {
-  font-size: .85rem; color: var(--secondary); flex-grow: 1;
+  font-size: 18px; color: var(--secondary); flex-grow: 1;
   margin-bottom: 12px; line-height: 1.45;
 }
 .chapter-card__foot {
@@ -1195,12 +1202,12 @@ table caption {
 /* -- Sub-page card grid (parent landing pages) -------- */
 .subpage-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px; margin-top: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px; margin-top: 24px;
 }
 .subpage-card {
   display: flex; flex-direction: column;
-  background: var(--white); border: none; border-radius: var(--radius); padding: 18px 20px;
+  background: var(--white); border: none; border-radius: var(--radius); padding: 20px;
   box-shadow: var(--shadow-1);
   text-decoration: none; color: inherit;
   transition: box-shadow .15s;
@@ -1210,7 +1217,7 @@ table caption {
 }
 .subpage-card:visited { color: inherit; }
 .subpage-card__title {
-  font-size: 1rem; font-weight: 400; color: var(--green);
+  font-size: 22px; font-weight: 400; color: var(--green);
   margin-bottom: 8px; line-height: 1.3;
 }
 .subpage-card:hover .subpage-card__title { color: var(--dark-green); text-decoration: underline; }
@@ -1219,7 +1226,7 @@ table caption {
   text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px;
 }
 .subpage-card__excerpt {
-  font-size: .85rem; color: var(--secondary); line-height: 1.45;
+  font-size: 18px; color: var(--secondary); line-height: 1.45;
 }
 
 /* -- Search results ----------------------------------- */
@@ -2240,9 +2247,11 @@ def _make_card(ch: dict, summaries: dict, href: str | None = None) -> str:
 
     return (
         f'<a class="{card_class}" href="{actual_href}">'
+        f'<div class="chapter-card__head">'
         f'{icon_html}'
         f'<div class="chapter-card__num">{label}</div>'
         f'<div class="chapter-card__title">{h(ch["title"])}</div>'
+        f'</div>'
         f'<div class="chapter-card__summary">{h(summary)}</div>'
         f'</a>'
     )
@@ -2260,9 +2269,11 @@ def _make_about_subcard(ref: str, title: str, href: str, summary: str,
 
     return (
         f'<a class="{card_class}" href="{h(href)}">'
+        f'<div class="chapter-card__head">'
         f'{icon_html}'
         f'<div class="chapter-card__num">Section {h(ref)}</div>'
         f'<div class="chapter-card__title">{h(title)}</div>'
+        f'</div>'
         f'<div class="chapter-card__summary">{h(summary)}</div>'
         f'</a>'
     )
