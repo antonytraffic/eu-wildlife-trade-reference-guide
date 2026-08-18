@@ -48,21 +48,19 @@ The following is a summary of the topics covered:
 
 - **Section 3** focuses on **trade into and out of the EU**, and the conditions that must be met. The bulk of such trade is in imports, but you may find yourself engaged in exports or re-exports – if you are an animal breeder or plant propagator, for example, or if you are leaving the EU and taking personal effects with you that originated outside of the EU;
 
-- **Section 4** deals with **trade within the EU**. In particular, trade in Annex A specimens is subject to strict controls, and you should be aware of these;
+- **Section 4** deals with **derogations from the normal import and export rules** – for example for captive-bred and artificially propagated specimens, worked “antique” specimens, personal effects and household goods, and specimens covered by streamlined certificates such as travelling exhibitions;
 
-- **Section 5** deals with the **transport, keeping and movement of live specimens**;
+- **Section 5** deals with **trade within the EU**. In particular, trade in Annex A specimens is subject to strict controls, and you should be aware of these;
 
-- **Section 6** deals with the **marking requirements** for certain specimens;
+- **Section 6** deals with the **transport, keeping and movement of live specimens**;
 
-- **Section 7** deals with the specific circumstances where permits and certificates may be issued **retrospectively**;
+- **Section 7** deals with the **marking requirements** for certain specimens;
 
-- **Section 8** deals with the **validity of permits and certificates,** and the **special conditions** that may be attached to them;
+- **Section 8** deals with **what happens to permits and certificates after they are issued** – their **validity**, the specific circumstances where they may be issued **retrospectively**, and how they may be **amended or replaced**;
 
-- **Section 9** deals with procedures at **places of introduction and export**;
+- **Section 9** deals with the **national and EU-level bodies** responsible for CITES implementation, and explains **how the Regulations are enforced**, including the role of the **European Commission**;
 
-- **Section 10** deals with the national and EU-level bodies that deal with **scientific, management and enforcement issues** and explains the role of the **European Commission**;
-
-- **Sections 11, 12 and 13** deal with **enforcement, public awareness and reporting requirements** respectively.
+- **Section 10** deals with **public information and reporting requirements** for Member States and the Commission.
 
 At the end of this guide, a number of annexes are included with additional information:
 

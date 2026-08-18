@@ -31,7 +31,7 @@ The rules for the issuance of import permits for specimens of Annex A- or B-list
 
 [Insert Figure 1]
 
-The procedures described in this Section are similar to those that apply when dealing with **exports**, **re-exports** (see **Section 3.5.1** and **Figure 6**) and internal trade within the EU (see **Section 4.5**).
+The procedures described in this Section are similar to those that apply when dealing with **exports**, **re-exports** (see **Section 3.5.1** and **Figure 6**) and internal trade within the EU (see **Section 5.5**).
 
 Note that specimens will **not be authorised to be assigned to a Customs procedure until the necessary documents have been presented**[^4] (as required for export and re-exports – see **Section 3.5.1**). In the absence of documents, specimens may be seized and subsequently confiscated.
 
@@ -149,23 +149,23 @@ Re-export certificates will only be accepted if they specify the **country of or
 
 ## 3.3.3 What other conditions or requirements apply to imports into the EU under the EU  Wildlife Trade Regulations?
 
-In general, specimens of species listed in **Annex A** **cannot be imported for primarily commercial purposes**[^31] (except for relevant derogations as set out in **Section 3.6**). 
+In general, specimens of species listed in **Annex A** **cannot be imported for primarily commercial purposes**[^31] (except for relevant derogations as set out in **Section 4**). 
 
 **Imports** of specimens of species listed in **Annexes A and B** are **never allowed** if such an import would have a **detrimental conservation effect**[^32] - this is explained in more detail in **Section 3.3.9.3.**
 
 Import permits should not be issued by Member States in cases where, despite a request to this end, they do not obtain **satisfactory information** from the exporting or re-exporting country as to the **legality of the specimens** to be imported into the EU[^33]. 
 
-Some specimens intended for import into the EU[^34] must be **marked** in accordance with Article 66(6) of *Regulation (EC) No 865/2006* (see **Section 6**).
+Some specimens intended for import into the EU[^34] must be **marked** in accordance with Article 66(6) of *Regulation (EC) No 865/2006* (see **Section 7**).
 
 For live specimens, the **adequacy of proposed** **housing** needs to be considered. The **intended location** must be specified in **box 6** of the application form for an import permit where **Annex A specimens are concerned**, except those which have been captive-bred or artificially-propagated[^35]. In the case of species with particular housing requirements, this location may be prescribed as the only authorised location for keeping the specimens. A **detailed description of the intended housing facilities** must be submitted, together with the application for **all Annex A- and B-listed** species in order to allow the competent authorities (Scientific Authority for Annex A, and Scientific or Management Authority for Annex B to judge their adequacy[^36]. 
 
-Furthermore, the **transport of live specimens** must be in accordance with Article 9(5) of *Regulation (EC) No 338/97,* which states that:  *“When any live specimens are transported into, from or within the Community or are held during any period of transit or transhipment, they shall be prepared, moved and cared for in a manner such as to minimise the risk of injury, damage to health or cruel treatment and, in the case of animals, must be in conformity with Community legislation on the protection of animals during transport”* (see **Section 5.1**). 
+Furthermore, the **transport of live specimens** must be in accordance with Article 9(5) of *Regulation (EC) No 338/97,* which states that:  *“When any live specimens are transported into, from or within the Community or are held during any period of transit or transhipment, they shall be prepared, moved and cared for in a manner such as to minimise the risk of injury, damage to health or cruel treatment and, in the case of animals, must be in conformity with Community legislation on the protection of animals during transport”* (see **Section 6.1**). 
 
 The transport of all live animals from, into and within the EU is governed by *Council Regulation (EC) No 1/2005 of 22 December 2004 on the protection of animals during transport and related operations*[^37].  However, this does not apply to transport within the EU of animals for distances of less than 50 kilometres nor to the movement of personal pets.
 
-CITES *Resolution Conf. 10.21* *(Rev. CoP19) on the Transport of Live Specimens* recommends that the *IATA*[^38] *Live Animals Regulations* (for animals), the *IATA Perishable Cargo Regulations* (for plants) and the *CITES guidelines for the non-air transport of live wild animals and plants*[^39] be deemed to meet CITES transport requirements and should be followed by all CITES Parties as well as (relevant sections) incorporated into national legislation or policies (see **Section 5** for further information). *Regulation (EC) No 1/2005* provides that animals transported by air must be transported in containers, pens or stalls appropriate for the species, which comply with the *IATA* *Live Animals Regulations*[^40]. 
+CITES *Resolution Conf. 10.21* *(Rev. CoP19) on the Transport of Live Specimens* recommends that the *IATA*[^38] *Live Animals Regulations* (for animals), the *IATA Perishable Cargo Regulations* (for plants) and the *CITES guidelines for the non-air transport of live wild animals and plants*[^39] be deemed to meet CITES transport requirements and should be followed by all CITES Parties as well as (relevant sections) incorporated into national legislation or policies (see **Section 6** for further information). *Regulation (EC) No 1/2005* provides that animals transported by air must be transported in containers, pens or stalls appropriate for the species, which comply with the *IATA* *Live Animals Regulations*[^40]. 
 
-In view of the sanctions for non-compliance, it is essential that importers of live specimens adequately inform their (re-)exporters about these transportation requirements (see also **Section 5.1**).
+In view of the sanctions for non-compliance, it is essential that importers of live specimens adequately inform their (re-)exporters about these transportation requirements (see also **Section 6.1**).
 
 For **import (or re-export) of live rhinoceroses or live elephants from populations listed in Annex B,** permits and certificates will contain a condition stating that horn or ivory from those animals or from their progeny may not enter commercial trade or commercial activities within the EU, in accordance with Article 5b of *Regulation (EC) No 865/2006.*
 
@@ -201,11 +201,11 @@ The corresponding document from the **(re-)exporting country** will only be cons
 
 If expired, an import permit is considered void and of no legal value; it must be returned without delay to the issuing Management Authority. These expired documents may be replaced by a new document, which must indicate the number of the replaced document and the reason for its replacement. This also applies to lost, stolen, destroyed or cancelled documents[^47]. Unused permits must also be returned to the Management Authority[^48].
 
-Exceptionally, documents may be issued **retrospectively**[^49] (see **Section 7**).
+Exceptionally, documents may be issued **retrospectively**[^49] (see **Section 8.3**).
 
 ## 3.3.7 What happens at the point of introduction into the EU?
 
-At the time of introduction into the EU, the importer – or their authorised representative – must surrender to the border Customs office at a designated point of introduction (see **Section 9**)[^50]: 
+At the time of introduction into the EU, the importer – or their authorised representative – must surrender to the border Customs office at a designated point of introduction (see **Section 3.6**)[^50]: 
 
 - The **original** of the permit;
 
@@ -223,11 +223,11 @@ The Customs office will carry out the **necessary checks** (as also described in
 
 - where required by law or otherwise, the representative sampling of the shipment (i.e. examination of the specimens and, where appropriate, taking of samples for analysis or more detailed checks).
 
-When the shipment and required documentation are in order, the Customs office completes **box 27** of the **original** and the “**copy for the holder**”, returns the **latter to the importer** (for later proof of legal importation) and sends the **original** - together with the document from the (re-)exporting country - to the **Management Authority of their country**[^51].  This Management Authority must then, in turn, forward the documentation to the **Management Authority of the Member State which has issued the permit** (if different)[^52]. It is crucial that the original is returned to the issuing Management Authority so that it knows whether the import has actually taken place. This in turn ensures that accurate and actual trade data is provided in the Annual Reports (see **Section 12**). 
+When the shipment and required documentation are in order, the Customs office completes **box 27** of the **original** and the “**copy for the holder**”, returns the **latter to the importer** (for later proof of legal importation) and sends the **original** - together with the document from the (re-)exporting country - to the **Management Authority of their country**[^51].  This Management Authority must then, in turn, forward the documentation to the **Management Authority of the Member State which has issued the permit** (if different)[^52]. It is crucial that the original is returned to the issuing Management Authority so that it knows whether the import has actually taken place. This in turn ensures that accurate and actual trade data is provided in the Annual Reports (see **Section 10**). 
 
 The part of the import permit to be completed by Customs must also contain information on the **number of dead animals** in the shipment at the time of arrival (see **Figure 2, box 27**). This is important in view of the possible need to improve transport conditions, or to restrict trade in live animals of species that are subject to high transport mortality[^53]. 
 
-Should there be a problem with the shipment (e.g. lack of documentation), the Customs office must consult with the Management Authority in that country to find a solution. **Until the necessary documents are available, specimens will not be authorised to be assigned to a Customs procedure**[^4] (see also **Section 9)**.
+Should there be a problem with the shipment (e.g. lack of documentation), the Customs office must consult with the Management Authority in that country to find a solution. **Until the necessary documents are available, specimens will not be authorised to be assigned to a Customs procedure**[^4] (see also **Section 3.6)**.
 
 ## 3.3.8 Use of import documents as proof of legal importation
 
@@ -255,7 +255,7 @@ In these cases, the copy must without undue delay **be returned to the issuing M
 
 Article 4(6) of *Regulation (EC) No 338/97* provides the Commission with the legal authority to **prohibit imports** into the EU with regard to certain species and countries. These import prohibitions must be adopted by the whole EU. It is therefore essential that import prohibitions are uniformly implemented, i.e. it must be ensured that, at any moment in time, all Member States issue or do not issue import permits for a given species exported from a given country. 
 
-Prohibitions of imports into the EU of certain species from certain countries of origin are usually decided after the **Scientific Review Group (SRG)** (see **Section 11.2.2**) has formed a “**Negative Opinion**” on the import of a species from a particular country, and has **consulted with the relevant range State(s)** on the matter. A Negative Opinion is formed if the imports are deemed to have a harmful effect on the conservation status of the species; once a Negative Opinion is issued, import permits cannot be granted for the species from the particular range State. 
+Prohibitions of imports into the EU of certain species from certain countries of origin are usually decided after the **Scientific Review Group (SRG)** (see **Section 9.2.2**) has formed a “**Negative Opinion**” on the import of a species from a particular country, and has **consulted with the relevant range State(s)** on the matter. A Negative Opinion is formed if the imports are deemed to have a harmful effect on the conservation status of the species; once a Negative Opinion is issued, import permits cannot be granted for the species from the particular range State. 
 
 Negative Opinions by the SRG are of a temporary nature and may be lifted immediately when new information on the trade or conservation status of the species in the country of concern is provided and addresses concerns raised. However, if such imports continue to be of concern and the range State in question has not provided information proving otherwise, the European Commission can prohibit imports on a long-term basis by adopting the so-called “Suspensions Regulation” which is published in the Official Journal of the European Union.  
 
@@ -341,11 +341,11 @@ Note that in the case of import prohibitions established in respect of Annex B s
 
 Unless specifically decided otherwise, restrictions in accordance with Article 4(6) of *Regulation (EC) No 338/97* **do not apply to**[^68]: 
 
-- specimens that are **born and bred in captivity** or **artificially-propagated** in accordance with the criteria laid down in Section XIII of *Regulation (EC) No 865/2006* (see **Section 3.6.1**);
+- specimens that are **born and bred in captivity** or **artificially-propagated** in accordance with the criteria laid down in Section XIII of *Regulation (EC) No 865/2006* (see **Section 4.1**);
 
-- specimens that are being imported for **essential biomedical purposes**, for conservation-oriented **breeding/propagation programmes** or for **research or education** aimed at the preservation or conservation of the species (see **Section 4.2**); and
+- specimens that are being imported for **essential biomedical purposes**, for conservation-oriented **breeding/propagation programmes** or for **research or education** aimed at the preservation or conservation of the species (see **Section 5.2**); and
 
-- specimens, alive or dead, that are part of the household possessions of persons moving into the EU to take up residence there (see **Section 3.6.5**).
+- specimens, alive or dead, that are part of the household possessions of persons moving into the EU to take up residence there (see **Section 4.4**).
 
 Member States should inform **every importer** that each **application will be considered on its own merits**, and that **the absence of a Negative Opinion** or an **import restriction** at the time of the application **does not mean that a permit will be issued**.  It should be advised that it would be extremely unwise to conclude definitive contracts, to pay for ordered specimens and to arrange for their shipment in the absence of an import permit or, at least, of a sufficient guarantee that a permit will be issued.
 
@@ -379,7 +379,7 @@ Import restrictions under Article 4(6) are published by the Commission in the Su
 <tr>
   <td>A*</td>
   <td></td>
-  <td>The Management Authority is satisfied that the specimens <strong>are not to be used for primarily commercial purposes</strong>, i.e. will be used for purposes of which the non-commercial aspects clearly predominate (Articles 4(1)(d) and 2(m) <em>Regulation (EC) No 338/97</em>). Note: This applies to <strong>wild specimens only</strong>; the prohibition on commercial use of Annex A specimens does not apply to captive-bred specimens (see <strong>Sections 3.6.1 and 4.1</strong>).</td>
+  <td>The Management Authority is satisfied that the specimens <strong>are not to be used for primarily commercial purposes</strong>, i.e. will be used for purposes of which the non-commercial aspects clearly predominate (Articles 4(1)(d) and 2(m) <em>Regulation (EC) No 338/97</em>). Note: This applies to <strong>wild specimens only</strong>; the prohibition on commercial use of Annex A specimens does not apply to captive-bred specimens (see <strong>Sections 4.1 and 5.1</strong>).</td>
 </tr>
 <tr>
   <td>A*</td>
@@ -414,7 +414,7 @@ Import restrictions under Article 4(6) are published by the Commission in the Su
 </tbody>
 </table>
 
-Note: A* and B*: Does not apply to re-imports and worked specimens acquired more than 50 years before the EU Wildlife Trade Regulations came into effect, i.e. before 3 March 1947 (see **Section 3.6.3**) (Article 4(5) *Regulation (EC) No 338/97*)
+Note: A* and B*: Does not apply to re-imports and worked specimens acquired more than 50 years before the EU Wildlife Trade Regulations came into effect, i.e. before 3 March 1947 (see **Section 4.3.1**) (Article 4(5) *Regulation (EC) No 338/97*)
 
 [^1]: Articles 4(1) and (2) *Regulation (EC) No 338/97*
 [^2]: Article 13(1) *Regulation (EC) No 865/2006*

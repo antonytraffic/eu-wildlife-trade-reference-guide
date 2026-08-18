@@ -193,7 +193,7 @@ If trade occurs in specimens of a species where only a national population is in
 [^9]: For CITES Appendix III-listed species in Annex A, all populations of the species are subject to the corresponding provisions of the Regulations and not just the populations of the countries that listed them in Appendix III.
 [^10]: *Directive 2009/147/EC of the European Parliament and of the Council of 30 November 2009 on the conservation of wild birds* (OJ No. L 20 of 26.01.2010 p.7) (codified version of *Council Directive 79/409/EEC of 2 April 1979 on the conservation of wild birds, *as amended).
 [^11]: *Council Directive 92/43/EEC of 21 May 1992 on the conservation of natural habitats and of wild fauna and flora *(OJ No. L 206 of 22.7.92 p.7)*.*
-[^12]: Captive-bred specimens of species listed in Annex A are exempted from this prohibition and can be traded for commercial purposes (see **Section 3.6.1**).
+[^12]: Captive-bred specimens of species listed in Annex A are exempted from this prohibition and can be traded for commercial purposes (see **Section 4.1**).
 [^13]: Article 3(2) *Regulation (EC) No 338/97*.
 [^14]: Once again, for Appendix III-listed species listed in Annex B, all populations of the species are subject to the corresponding provisions of the Regulations, and not just the populations of the countries that listed them in Appendix III.
 [^15]: Painted Turtle (*Chrysemys picta*),

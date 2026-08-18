@@ -1,50 +1,14 @@
 {
   "02_what_species_are_covered_by_the_regulations_and_in_what_wa": {
-    "hash": "7247658db1b8",
+    "hash": "99b63c2368af",
     "summary": "Understanding which species are covered by the three CITES Appendices and the level of trade protection each provides."
   },
   "03_what_are_the_rules_governing_trade_into_and_from_the_eu_fo": {
-    "hash": "1cf969a8ae61",
+    "hash": "f689e8c9d7cb",
     "summary": "Obtaining the correct import permits, export permits, re-export certificates, and import notifications for listed species."
   },
-  "04_what_rules_govern_internal_eu_trade": {
-    "hash": "40deed34e6bb",
-    "summary": "Understanding which species require certificates for trade within the EU and how to obtain and use them."
-  },
-  "05_what_are_the_rules_governing_transport_keeping_and_movemen": {
-    "hash": "01574e51e1b9",
-    "summary": "Following IATA and CITES guidelines when transporting, keeping, and moving live specimens to ensure their welfare."
-  },
-  "06_what_are_the_rules_regarding_marking_of_specimens": {
-    "hash": "53fab7915b8a",
-    "summary": "Understanding which specimens must be uniquely marked and how marking prevents fraud and controls illegal trade."
-  },
-  "07_when_can_permits_and_certificates_be_issued_retrospectivel": {
-    "hash": "db1b9a8389ee",
-    "summary": "Circumstances where permits and certificates can be issued after the fact, and how to apply in exceptional cases."
-  },
-  "08_validity_replacement_and_amendment_of_permits_and_certific": {
-    "hash": "09292e842bc9",
-    "summary": "Understanding validity periods, how to replace lost or damaged documents, and when amendments can be made."
-  },
-  "09_can_specimens_be_traded_through_any_customs_office": {
-    "hash": "57c6ca38cd4a",
-    "summary": "Finding designated customs offices for trading specimens and understanding specific requirements for live animals."
-  },
-  "10_how_are_the_regulations_enforced": {
-    "hash": "1245485ab19a",
-    "summary": "How Member States monitor compliance, investigate infringements, and apply sanctions under Articles 14, 15, and 16."
-  },
-  "11_how_are_cites_duties_organised_at_national_and_eu_levels_bet": {
-    "hash": "a01338d73f0d",
-    "summary": "Identifying national management and scientific authorities responsible for implementing CITES and issuing permits."
-  },
-  "12_what_information_must_be_provided_by_member_states_and_th": {
-    "hash": "8b37a74fa4bd",
-    "summary": "Reporting obligations for Member States, including annual trade reports and public information requirements."
-  },
   "03_1_overview": {
-    "hash": "36ee8a7fba73",
+    "hash": "1d1d7f08c8bc",
     "summary": "An overview of the documents required for importing, exporting, and re-exporting listed species into and from the EU."
   },
   "03_2_what_document_for_what_purpose": {
@@ -52,51 +16,103 @@
     "summary": "Identifying which permit or certificate is required depending on the species, Annex listing, and type of trade."
   },
   "03_3_what_are_the_rules_for_the_issuance_of_import_perm": {
-    "hash": "09701d957846",
+    "hash": "656e40967389",
     "summary": "Applying for import permits, completing the required forms correctly, and meeting documentation requirements."
   },
   "03_4_how_are_import_notifications_for_specimens_of_anne": {
-    "hash": "087e0babc8d1",
+    "hash": "6a3798607a8a",
     "summary": "Obtaining import notifications for Annex C and D species, gathering export documents, and submitting forms to customs."
   },
   "03_5_what_documents_are_required_for_re_export_of_speci": {
-    "hash": "30691368a032",
+    "hash": "842b8002b77e",
     "summary": "Obtaining export permits and re-export certificates from the Management Authority before exporting specimens."
   },
-  "03_6_are_there_derogations_from_the_normal_import_and_e": {
-    "hash": "fc508634ba30",
-    "summary": "Circumstances where import and export rules are less strict, including captive-bred specimens, antiques, and personal effects."
-  },
-  "03_7_trade_involving_eu_dependent_and_other_territories": {
-    "hash": "5cd979ddcbd7",
-    "summary": "Understanding how EU wildlife trade rules apply to dependent and overseas territories, and who to contact."
-  },
-  "04_1_what_are_the_general_principles": {
-    "hash": "a6ed27c0e183",
-    "summary": "Understanding which Annex A and B species require an EU certificate before being sold or used commercially."
-  },
-  "04_2_are_there_any_exemptions_from_the_internal_trade_p": {
-    "hash": "8bb494dd421d",
-    "summary": "Finding exemptions from certificate requirements for captive-bred animals, propagated plants, antiques, and crocodilians."
-  },
-  "04_3_what_about_trade_on_the_internet": {
-    "hash": "e14d0633c5f5",
-    "summary": "Ensuring valid certificates and documentation are in place when advertising or selling listed species online."
-  },
-  "04_4_derogations_for_the_benefit_of_scientific_institut": {
-    "hash": "61257bff43d6",
-    "summary": "How approved zoos, gardens, and museums obtain exemptions, and how breeders use pre-issued certificates for commercial activities."
-  },
-  "04_5_how_are_internal_trade_certificates_obtained_and_u": {
-    "hash": "a509bf3f932a",
-    "summary": "Understanding the purposes of internal trade certificates and how they are completed, used, and submitted in practice."
-  },
   "01_how_do_i_use_this_guide": {
-    "hash": "f04896feb12f",
+    "hash": "e5d1f35532ec",
     "summary": "An introduction to the guide's structure and how to navigate EU wildlife trade regulations effectively."
   },
   "annexes": {
     "hash": "b79bb05ce19e",
     "summary": "Reference tables, definitions, codes, and contact lists supporting the EU Wildlife Trade Regulations."
+  },
+  "05_what_rules_govern_internal_eu_trade": {
+    "hash": "81ae7393e760",
+    "summary": "Understanding which species require certificates for trade within the EU and how to obtain and use them."
+  },
+  "05_1_what_are_the_general_principles": {
+    "hash": "8d1dbb17c82b",
+    "summary": "Understanding which Annex A and B species require an EU certificate before being sold or used commercially."
+  },
+  "05_2_are_there_any_exemptions_from_the_internal_trade_p": {
+    "hash": "8c744db65ba1",
+    "summary": "Finding exemptions from certificate requirements for captive-bred animals, propagated plants, antiques, and crocodilians."
+  },
+  "05_3_what_about_trade_on_the_internet": {
+    "hash": "016a351e6356",
+    "summary": "Ensuring valid certificates and documentation are in place when advertising or selling listed species online."
+  },
+  "05_4_derogations_for_the_benefit_of_scientific_institut": {
+    "hash": "9c23b1cdfb6b",
+    "summary": "How approved zoos, gardens, and museums obtain exemptions, and how breeders use pre-issued certificates for commercial activities."
+  },
+  "05_5_how_are_internal_trade_certificates_obtained_and_u": {
+    "hash": "c9b980036ef9",
+    "summary": "Understanding the purposes of internal trade certificates and how they are completed, used, and submitted in practice."
+  },
+  "06_what_are_the_rules_governing_transport_keeping_and_movemen": {
+    "hash": "8c6d8871fa1c",
+    "summary": "Following IATA and CITES guidelines when transporting, keeping, and moving live specimens to ensure their welfare."
+  },
+  "07_what_are_the_rules_regarding_marking_of_specimens": {
+    "hash": "1382e2b4b4b0",
+    "summary": "Understanding which specimens must be uniquely marked and how marking prevents fraud and controls illegal trade."
+  },
+  "10_what_information_must_be_provided_by_member_states_and_th": {
+    "hash": "43a4d29e3d14",
+    "summary": "Reporting obligations for Member States, including annual trade reports and public information requirements."
+  },
+  "03_6_can_specimens_be_traded_through_any_customs_office": {
+    "hash": "d928de6e430d",
+    "summary": "Finding designated customs offices for trading specimens and understanding specific requirements for live animals."
+  },
+  "04_7_trade_involving_eu_dependent_and_other_territories": {
+    "hash": "ee22c7c62dc4",
+    "summary": "Understanding how EU wildlife trade rules apply to dependent and overseas territories, and who to contact."
+  },
+  "08_what_happens_to_permits_and_certificates_after_issue": {
+    "hash": "3efd189de40f",
+    "summary": "Understanding how long permits and certificates remain valid, when they can be issued retrospectively, and how they are amended or replaced."
+  },
+  "09_how_are_cites_duties_organised_at_national_and_eu_levels_bet": {
+    "hash": "3f73bd2f1e3d",
+    "summary": "Identifying the national and EU-level bodies responsible for CITES implementation, and how the Regulations are monitored, sanctioned, and enforced."
+  },
+  "04_are_there_derogations_from_the_normal_import_and_export_r": {
+    "hash": "fe71afd6b237",
+    "summary": "Circumstances where import and export rules are less strict, including captive-bred specimens, antiques, personal effects, and streamlined certificates."
+  },
+  "04_1_captive_bred_and_artificially_propagated": {
+    "hash": "4dac4d2a0622",
+    "summary": "Understanding the less strict rules that apply to trade in captive-bred animals and artificially propagated plants."
+  },
+  "04_2_specimens_in_transit": {
+    "hash": "3b9deab780e1",
+    "summary": "Understanding when specimens passing through the EU without import or export require CITES documentation."
+  },
+  "04_3_specimens_exempted_by_acquisition_date": {
+    "hash": "30c1c303b84a",
+    "summary": "Understanding the exemptions available for worked “antique” specimens and pre-Convention specimens acquired before controls applied."
+  },
+  "04_4_personal_effects_household_goods_and_hunting_trophies": {
+    "hash": "90ebbb129072",
+    "summary": "Understanding the documentation required for personal effects, household goods, and hunting trophies carried by travellers."
+  },
+  "04_5_simplified_procedures_for_registered_institutions": {
+    "hash": "b613f2178f52",
+    "summary": "How registered scientific institutions and persons use labels and pre-issued permits for biological samples and specimen exchange."
+  },
+  "04_6_streamlined_certificates_for_specific_movements": {
+    "hash": "c59b06e76381",
+    "summary": "Obtaining reusable certificates for travelling exhibitions, musical instruments, personal pets, and sample collections."
   }
 }

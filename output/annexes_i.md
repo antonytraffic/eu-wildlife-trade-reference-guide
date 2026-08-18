@@ -36,7 +36,7 @@ The provisions of CITES establish procedures for amending the Convention and its
 
 **How do the Parties implement CITES?**
 
-Each Party must designate one or more **Management Authorities** responsible for issuing CITES permits and certificates, subject to the advice from one or more Scientific Authorities designated for that purpose (see also **Section 11.1.2**). The contact details of the competent Management and Scientific Authorities for each Party can be found on the [website of the CITES Secretariat](https://cites.org/eng/parties/country-profiles/national-authorities).
+Each Party must designate one or more **Management Authorities** responsible for issuing CITES permits and certificates, subject to the advice from one or more Scientific Authorities designated for that purpose (see also **Section 9.1.2**). The contact details of the competent Management and Scientific Authorities for each Party can be found on the [website of the CITES Secretariat](https://cites.org/eng/parties/country-profiles/national-authorities).
 
 ### How are decisions made on the issuance of permits?
 
@@ -60,11 +60,11 @@ For **specimens of species listed in Appendix III** either an **export permit** 
 
 ### Are there any exemptions?
 
-The Convention provides for several conditioned exemptions and derogations from its provisions (see **Section 3.6**). They concern transit and transhipment, specimens acquired before the Convention became applicable to them (pre-Convention specimens), certain specimens that are personal or household effects, captive-bred animals and artificially propagated plants, the exchange of specimens between scientists and scientific institutions, trade in biological samples, certificates for travelling exhibitions, certificates for the frequent non-commercial cross-border movement of musical instruments and CITES certificates for personal ownership. Such transactions/specimens are less strictly regulated.
+The Convention provides for several conditioned exemptions and derogations from its provisions (see **Section 4**). They concern transit and transhipment, specimens acquired before the Convention became applicable to them (pre-Convention specimens), certain specimens that are personal or household effects, captive-bred animals and artificially propagated plants, the exchange of specimens between scientists and scientific institutions, trade in biological samples, certificates for travelling exhibitions, certificates for the frequent non-commercial cross-border movement of musical instruments and CITES certificates for personal ownership. Such transactions/specimens are less strictly regulated.
 
 ### How does CITES keep track of trade levels?
 
-The monitoring of trade is an essential tool for achieving the aims of the Convention. The CITES monitoring system is based on the trade records to be kept by all Parties and to be reported to the CITES Secretariat on an annual basis. The Annual Reports (see **Section 12.2.1**) of all Parties together should provide statistical information on the total volume of legal and reported world trade in CITES species, which is an invaluable element for the assessment of their conservation status. These Annual Reports further reflect the “performance” of Parties regarding CITES implementation when all reported exports and reexports are compared with all reported imports.
+The monitoring of trade is an essential tool for achieving the aims of the Convention. The CITES monitoring system is based on the trade records to be kept by all Parties and to be reported to the CITES Secretariat on an annual basis. The Annual Reports (see **Section 10.2.1**) of all Parties together should provide statistical information on the total volume of legal and reported world trade in CITES species, which is an invaluable element for the assessment of their conservation status. These Annual Reports further reflect the “performance” of Parties regarding CITES implementation when all reported exports and reexports are compared with all reported imports.
 
 This system is also of immediate use to Scientific Authorities, which must take into consideration the trends and actual level of trade in Appendix II-listed species. They have to advise their Management Authorities of suitable measures to control the export of certain species whenever they determine that the export should be limited in order to maintain a species throughout its range at a level consistent with its role in the ecosystems and well above the level at which it might become eligible for inclusion in Appendix I.
 

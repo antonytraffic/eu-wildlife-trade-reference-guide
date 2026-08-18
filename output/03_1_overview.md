@@ -11,7 +11,7 @@ page_end: 21
 
 # Overview
 
-For any animal or plant species that is listed in Annex A, B or C of *Regulation (EC) No 338/97* (or any parts or derivatives of the same), documentation is required before **trade to or from the EU** can take place (on trade *within* the EU, see Section 4). In the case of species listed in Annex D, documentation is only required for trade to the EU, unless the species is also listed in Appendix III of CITES. The required documents can only be issued if certain conditions are met. The designated Management Authority of the individual EU Member State, in collaboration with its national Scientific Authority, will verify whether these conditions are met. The documents must be presented to the relevant Customs offices before a shipment can be authorised to enter or leave the EU. 
+For any animal or plant species that is listed in Annex A, B or C of *Regulation (EC) No 338/97* (or any parts or derivatives of the same), documentation is required before **trade to or from the EU** can take place (on trade *within* the EU, see Section 5). In the case of species listed in Annex D, documentation is only required for trade to the EU, unless the species is also listed in Appendix III of CITES. The required documents can only be issued if certain conditions are met. The designated Management Authority of the individual EU Member State, in collaboration with its national Scientific Authority, will verify whether these conditions are met. The documents must be presented to the relevant Customs offices before a shipment can be authorised to enter or leave the EU. 
 
 It should be noted that this Guide deals **only** with the requirements of the EU Wildlife Trade Regulations. Other documents may be needed for trade into and from the EU, for purposes other than those covered by *Regulation (EC) No 338/97* and *Regulation (EC) No 865/2006*, e.g. for sanitary purposes in the case of food products (seafood, caviar, etc.) or live animals and animal products (blood, semen, tissue, etc.), and for phytosanitary purposes for plants or plant produce/products, such as fruit, seeds for planting and cut flowers.[^1] 
 
@@ -25,7 +25,7 @@ There are different types of **documents required** under the Wildlife Trade Reg
 
 - an **import notification** form for the import of Annex C37 or D-listed species, which is to be completed by the importer[^6].
 
-In certain cases, special certificates may be used instead of import or export permits and re-export certificates – for example, **travelling exhibition certificates, personal ownership certificates** and **musical instrument certificates** (see **Section 3.6**). 
+In certain cases, special certificates may be used instead of import or export permits and re-export certificates – for example, **travelling exhibition certificates, personal ownership certificates** and **musical instrument certificates** (see **Section 4.6**). 
 
 In addition to documents issued by EU Management Authorities, **relevant documents may also be required from the country of (re-)export or import**. For example, for the **import** of species listed in **Annex A or B, and which are also listed in the CITES Appendices**[^7], an **export permit or re-export certificate** is also needed from the country of origin or re-export[^2]. For the **export** of species listed **in Appendix I** of CITES, an **import permit** is required from the **country of destination** before an export permit can be issued[^8]. (The import permit is only required from a third country when the species is listed in Appendix I of CITES.) **Table 6** presents an overview of documents needed for trade into and from the EU. 
 
@@ -62,7 +62,7 @@ Note that this overview represents the basic permitting scheme. More details, in
 
 - **Section 3.5** deals with the documents required for the **(re-)export** of specimens of species listed in **Annexes A, B and C**;
 
-- **Section 3.6** deals with the cases where **derogations** from normal import and (re-)export rules apply.
+- **Section 3.6** deals with whether specimens can be traded through **any Customs office**.
 
 It is important to note that the Commission has, in cooperation with the competent CITES Management Authorities of the EU Member States, developed and adopted **guidance documents** for interpreting the EU Regulations on specific topics/trade. Commission guidance currently available covers the following specific cases and requirements:
 

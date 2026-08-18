@@ -522,7 +522,7 @@ table caption {
 }
 .chapter-card:hover .chapter-card__title { color: var(--dark-green); text-decoration: underline; }
 .chapter-card__summary {
-  font-size: 18px; color: var(--secondary); flex-grow: 1;
+  font-size: 18px; color: #00002E; flex-grow: 1;
   margin-bottom: 12px; line-height: 1.45;
 }
 .chapter-card__foot {
@@ -558,7 +558,7 @@ table caption {
   text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px;
 }
 .subpage-card__excerpt {
-  font-size: 18px; color: var(--secondary); line-height: 1.45;
+  font-size: 18px; color: #00002E; line-height: 1.45;
 }
 
 /* -- Search results ----------------------------------- */
