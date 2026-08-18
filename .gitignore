@@ -8,5 +8,5 @@ venv/
 .DS_Store
 
 # Source documents (too large for version control)
-*.pdf
-*.docx
+data/*.pdf
+data/*.docx

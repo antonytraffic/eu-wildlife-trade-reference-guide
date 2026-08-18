@@ -14,6 +14,7 @@ import os
 import re
 import shutil
 import sys
+from datetime import date
 from pathlib import Path
 
 import markdown2
@@ -1819,6 +1820,7 @@ def base_html(
           <li><a href="{root}index.html">Home</a></li>
           <li><a href="{root}about.html">About</a></li>
           <li><a href="{root}search.html">Search</a></li>
+          <li><a href="{root}{PDF_FILENAME}">Download PDF</a></li>
         </ul>
       </div>
       <div class="site-footer__col">
@@ -2404,6 +2406,242 @@ def build_search_index(all_pages: list[dict], summaries: dict) -> list[dict]:
 
 
 # ==============================================================================
+# SECTION 8b -- PDF generation (whole guide, single downloadable file)
+# ==============================================================================
+#
+# Reuses the exact same render pipeline as the HTML chapter pages (render_markdown
+# -> autolink_xrefs -> _replace_figures -> _link_figure_table_refs) so the PDF's
+# prose, cross-references, figures and tables are identical to the live site --
+# it is simply the same content re-flowed into one paginated document instead of
+# many linked pages. Regenerated every time build_site() runs.
+
+PDF_CSS = """
+@page {
+  size: A4;
+  margin: 25mm 20mm 20mm 20mm;
+  @top-center {
+    content: string(chapter);
+    font-family: "Inter", Arial, sans-serif;
+    font-size: 9pt;
+    color: #696984;
+  }
+  @bottom-center {
+    content: counter(page) " / " counter(pages);
+    font-family: "Inter", Arial, sans-serif;
+    font-size: 9pt;
+    color: #696984;
+  }
+}
+@page :first {
+  @top-center { content: ""; }
+  @bottom-center { content: ""; }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.5;
+  color: #00002e;
+}
+
+h1, h2, h3, h4 { color: #00002e; page-break-after: avoid; }
+h1 { font-size: 20pt; margin: 0 0 10mm; }
+h2 { font-size: 14pt; margin: 10mm 0 4mm; }
+h3 { font-size: 12pt; margin: 8mm 0 3mm; }
+p, li { orphans: 3; widows: 3; margin: 0 0 3mm; }
+a { color: #0046ff; text-decoration: none; }
+
+.pdf-cover { text-align: center; margin-top: 60mm; }
+.pdf-cover__kicker {
+  text-transform: uppercase; letter-spacing: 0.08em;
+  font-size: 10pt; color: #696984; margin-bottom: 12mm;
+}
+.pdf-cover h1 { font-size: 30pt; margin-bottom: 4mm; }
+.pdf-cover__subtitle { font-size: 16pt; color: #696984; margin-bottom: 20mm; }
+.pdf-cover__date { font-size: 10pt; color: #696984; }
+
+.pdf-toc { page-break-before: page; page-break-after: page; }
+.pdf-toc h1 { font-size: 18pt; }
+.pdf-toc ol { list-style: none; margin: 0; padding: 0; }
+.pdf-toc > ol > li { margin: 3mm 0 0; font-weight: 600; }
+.pdf-toc ol ol { margin-top: 1mm; }
+.pdf-toc ol ol li { font-weight: 400; font-size: 9.5pt; margin: 1mm 0 0 6mm; }
+.pdf-toc a { display: block; color: #00002e; }
+.pdf-toc a::after {
+  content: leader(".") target-counter(attr(href), page);
+  color: #696984;
+}
+
+.pdf-chapter { page-break-before: page; }
+.pdf-subchapter { page-break-before: auto; }
+
+table { border-collapse: collapse; width: 100%; margin: 4mm 0 6mm; font-size: 9pt; page-break-inside: avoid; }
+th, td { border: 0.5pt solid #d4d4dc; padding: 2mm 3mm; text-align: left; vertical-align: top; }
+th { background: #ededf0; font-weight: 600; }
+tr:nth-child(even) td { background: #f6f6f8; }
+
+.figure-block { margin: 6mm 0; page-break-inside: avoid; text-align: center; }
+.figure-block img { max-width: 100%; }
+.figure-block figcaption { font-size: 9pt; color: #696984; margin-top: 2mm; }
+
+.summary-smallprint { font-size: 9pt; color: #696984; border-left: 2pt solid #d4d4dc; padding-left: 4mm; }
+ol.lettered-list { padding-left: 6mm; }
+.table-label { font-weight: 600; margin-top: 4mm; }
+"""
+
+_PDF_HREF_CHAPTER_RE = re.compile(r'href="chapters/([a-zA-Z0-9_\-]+)\.html(#[^"]*)?"')
+_PDF_HREF_FRAG_RE    = re.compile(r'href="#([^"]*)"')
+_PDF_ID_RE           = re.compile(r'\bid="([^"]*)"')
+
+
+def _css_str(text: str) -> str:
+    """Escape a string for use inside a single-quoted CSS string literal."""
+    return text.replace("\\", "\\\\").replace("'", "\\'")
+
+
+def _pdf_namespace_refs(html: str, slug: str) -> str:
+    """Namespace ids/hrefs so this page's anchors stay unique once merged into
+    one PDF document, and turn cross-page site links into in-document jumps."""
+
+    def _chapter_href(m: re.Match) -> str:
+        target_slug, frag = m.group(1), m.group(2)
+        anchor = f"--{frag[1:]}" if frag else ""
+        return f'href="#pdf-{target_slug}{anchor}"'
+
+    html = _PDF_HREF_CHAPTER_RE.sub(_chapter_href, html)
+    html = _PDF_HREF_FRAG_RE.sub(lambda m: f'href="#pdf-{slug}--{m.group(1)}"', html)
+    html = _PDF_ID_RE.sub(lambda m: f'id="pdf-{slug}--{m.group(1)}"', html)
+    return html
+
+
+def _wrap_pdf_section(ch: dict, body_html: str, *, top_level: bool) -> str:
+    ref = _section_ref_number(ch)
+    label = f"{ref} {ch['title']}" if ref else ch["title"]
+    css_class = "pdf-chapter" if top_level else "pdf-subchapter"
+    return (
+        f'<section class="{css_class}" id="pdf-{h(ch["slug"])}">'
+        f'<h1 style="string-set: chapter \'{_css_str(label)}\'">{h(label)}</h1>'
+        f'{body_html}'
+        f'</section>'
+    )
+
+
+def _prepare_pdf_chunk(ch: dict, *, top_level: bool = True) -> str:
+    """Full-body page (simple section, sub-page, or the About section)."""
+    rendered = _link_figure_table_refs(
+        _replace_figures(autolink_xrefs(render_markdown(ch["body"]), depth=0), depth=0),
+        depth=0,
+    )
+    rendered = _pdf_namespace_refs(rendered, ch["slug"])
+    return _wrap_pdf_section(ch, rendered, top_level=top_level)
+
+
+def _prepare_pdf_parent_chunk(ch: dict) -> str:
+    """Intro-only page for a parent section (3, 4, Annexes) -- its sub-pages
+    follow immediately after as their own chunks, so no card grid is needed."""
+    body = ch["body"]
+    m = re.search(r'(?:^|\n)## ', body)
+    if m:
+        body = body[:m.start()].strip()
+    else:
+        m2 = re.search(r'\n- \[', body)
+        if m2:
+            body = body[:m2.start()].strip()
+    intro_html = _pdf_namespace_refs(render_markdown(body), ch["slug"]) if body else ""
+    return _wrap_pdf_section(ch, intro_html, top_level=True)
+
+
+def build_pdf_toc(
+    about_ch: dict | None,
+    guide_sections: list[dict],
+    annex_sections: list[dict],
+    by_slug: dict,
+) -> str:
+    def _entry(ch: dict, sub_chs: list[dict] | None = None) -> str:
+        ref = _section_ref_number(ch)
+        label = f"{ref} {ch['title']}" if ref else ch["title"]
+        li = f'<li><a href="#pdf-{h(ch["slug"])}">{h(label)}</a>'
+        if sub_chs:
+            li += f'<ol>{"".join(_entry(sub) for sub in sub_chs)}</ol>'
+        return li + "</li>"
+
+    items = _entry(about_ch) if about_ch else ""
+    for ch in guide_sections + annex_sections:
+        sub_chs = [by_slug[s] for s in (ch.get("sub_pages") or []) if s in by_slug]
+        items += _entry(ch, sub_chs)
+
+    return f'<nav class="pdf-toc"><h1>Contents</h1><ol>{items}</ol></nav>'
+
+
+PDF_FILENAME = "EU-Wildlife-Trade-Reference-Guide.pdf"
+
+
+def generate_pdf(nav_sections: list[dict], all_sub: list[dict], about_ch: dict | None) -> None:
+    """Render the whole guide, in the same order as the homepage, to one PDF."""
+    try:
+        import weasyprint
+    except (ImportError, OSError) as exc:
+        console.print(
+            "  [yellow]![/yellow] Skipping PDF -- WeasyPrint isn't usable here "
+            f"({exc.__class__.__name__}: {exc})\n"
+            "    Install with 'pip install weasyprint'. On Windows it also needs the "
+            "GTK3 runtime (Pango/HarfBuzz/fontconfig) -- see "
+            "https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#windows"
+        )
+        return
+
+    by_slug = {ch["slug"]: ch for ch in nav_sections + all_sub}
+    # Same split the homepage uses (build_index_page): sections 2-10 in the
+    # Reference Guide group, everything else (Annexes, section_number 0 or >10) last.
+    guide_sections = [c for c in nav_sections if 0 < c["section_number"] <= 10]
+    annex_sections = [c for c in nav_sections if c["section_number"] == 0 or c["section_number"] > 10]
+
+    chunks: list[str] = []
+    if about_ch:
+        chunks.append(_prepare_pdf_chunk(about_ch))
+    for ch in guide_sections + annex_sections:
+        sub_slugs = ch.get("sub_pages") or []
+        if sub_slugs:
+            chunks.append(_prepare_pdf_parent_chunk(ch))
+            for sub_slug in sub_slugs:
+                sub = by_slug.get(sub_slug)
+                if sub:
+                    chunks.append(_prepare_pdf_chunk(sub, top_level=False))
+        else:
+            chunks.append(_prepare_pdf_chunk(ch))
+
+    toc_html = build_pdf_toc(about_ch, guide_sections, annex_sections, by_slug)
+    today = date.today()
+    cover_html = f"""
+<section class="pdf-cover">
+  <p class="pdf-cover__kicker">European Commission &amp; TRAFFIC</p>
+  <h1>EU Wildlife Trade Regulations</h1>
+  <p class="pdf-cover__subtitle">Reference Guide</p>
+  <p class="pdf-cover__date">Generated on {today.day} {today:%B %Y} from the online reference guide</p>
+</section>
+"""
+
+    doc_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>EU Wildlife Trade Regulations -- Reference Guide</title></head>
+<body>
+{cover_html}
+{toc_html}
+{"".join(chunks)}
+</body>
+</html>"""
+
+    out_path = SITE_DIR / PDF_FILENAME
+    base_url = SITE_DIR.resolve().as_uri() + "/"
+    weasyprint.HTML(string=doc_html, base_url=base_url).write_pdf(
+        out_path, stylesheets=[weasyprint.CSS(string=PDF_CSS)]
+    )
+    console.print(f"  [green]+[/green] {out_path.name} ({out_path.stat().st_size / 1024:.0f} KB)")
+
+
+# ==============================================================================
 # SECTION 9 -- Build orchestration
 # ==============================================================================
 
@@ -2601,6 +2839,10 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
             )
             generated.append(sout)
             console.print(f"    [dim]+[/dim] chapters/{sub['slug']}.html")
+
+    # -- Whole-guide PDF -----------------------------------------------------
+    console.print("\n  Generating PDF...")
+    generate_pdf(nav_sections, all_sub, about_ch)
 
     return nav_sections, all_sub, summaries
 
