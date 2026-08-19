@@ -518,7 +518,7 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
         # but NOT when the text merely mentions a Regulation elsewhere (e.g. "Annex XVI lists … Regulation").
         if re.search(r'\bRegulation\b', text, re.IGNORECASE):
             return text
-        if re.search(r'^\s*(?:to|of)\s+Regulation\b', after_ctx, re.IGNORECASE):
+        if re.search(r'^\s*(?:to|of)\s+(?:<[^>]+>\s*)*Regulation\b', after_ctx, re.IGNORECASE):
             return text
         ann_ms = list(re.finditer(r'(Annex(?:es)?\s+)([IVXLivxl]+)', text, re.IGNORECASE))
         bare_ms = list(re.finditer(r'(\s+and\s+|,\s*)([IVXLivxl]+)', text, re.IGNORECASE))
