@@ -67,9 +67,9 @@ The requirement for a certificate to authorise the movement of live specimens of
 
 The applicant must obtain a **form** for a certificate application (model laid down in Annex V to *Regulation (EU) No 792/2012* – see **Figure 15**) from the Management Authority of the Member State in which the specimens are located. Management Authorities are required to issue certificates **within one month** from the date of submission of a full application, but this may take **longer** where third parties need to be **consulted**[^6]. Applications must therefore be made in a **timely fashion**. The applicant must be informed of significant delays. The applicant must also be informed of the rejection of his/her application and the reasons for which it was rejected.
 
-**Table 15** indicates the documents that are required for an internal trade certificate within the EU. The procedures described in this Section are similar to those that apply to imports (see **Section 3.3.1** and **Figure 1**) as well as exports or re-exports (see **Section 3.5.1** and **Figure 6**).
+**Table 16** indicates the documents that are required for an internal trade certificate within the EU. The procedures described in this Section are similar to those that apply to imports (see **Section 3.3.1** and **Figure 1**) as well as exports or re-exports (see **Section 3.5.1** and **Figure 6**).
 
-*Table 15: Documents required as part of an internal trade certificate*
+*Table 16: Documents required as part of an internal trade certificate*
 
 | **Type of document** | **Form Number** | **Colour** |
 | --- | --- | --- |

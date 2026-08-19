@@ -43,7 +43,7 @@ Subject to the above exceptions, **tourist souvenirs** made of dead specimens of
 
 There are **differences** in the treatment of **persons normally residing in the EU** (or **taking up residence there**) and of persons that are **residents of third countries**.  A person **normally residing in the EU** is a person who lives in the EU for at least **185 days** in each calendar year because of occupational ties, or if there are no occupational ties, because of personal ties which show close links between that person and the place where s/he is living[^11].
 
-**Table 12** provides an overview of the documents needed by **EU and non-EU residents**, for trade into and from the EU in specimens considered as personal effects and household goods under CITES and the EU Wildlife Trade Regulations.  It is also noted that, for the import and export to/from the EU of certain specimens of Annex B-listed species, general exemptions may apply (see **Section 4.4.2**)[^12].
+**Table 13** provides an overview of the documents needed by **EU and non-EU residents**, for trade into and from the EU in specimens considered as personal effects and household goods under CITES and the EU Wildlife Trade Regulations.  It is also noted that, for the import and export to/from the EU of certain specimens of Annex B-listed species, general exemptions may apply (see **Section 4.4.2**)[^12].
 
 **Imports** 
 
@@ -75,7 +75,7 @@ Persons that are **not** **normally residing in the EU** do **not** require an *
 
 **(Re-)exports**
 
-The derogation for personal and household effects **does not apply** to the **export** from the EU of specimens of species listed in **Annexes A or B**, regardless of **whether being carried out by an EU or non-EU resident**[^18].  Therefore, an **export permit** will be required (unless the export falls within the more general exemption outlined at **Section 4.4.2**) and the full set of conditions for issuance of the permit detailed in **Table 10** will need to be fulfilled.
+The derogation for personal and household effects **does not apply** to the **export** from the EU of specimens of species listed in **Annexes A or B**, regardless of **whether being carried out by an EU or non-EU resident**[^18].  Therefore, an **export permit** will be required (unless the export falls within the more general exemption outlined at **Section 4.4.2**) and the full set of conditions for issuance of the permit detailed in **Table 11** will need to be fulfilled.
 
 The derogation for personal and household effects **does apply** to the **re-export** from the EU of specimens of species listed in **Annexes A or B**.  The re-export by an **EU resident** of personal or household effects (including personal hunting trophies) that are specimens of species listed in Annexes A or B **will not require the presentation of a re-export certificate** provided that one of the following is presented:
 
@@ -113,7 +113,7 @@ Following the ruling of the European Court of Justice[^23] it has been confirmed
 
 ## 4.4.3 What is the situation for the import of hunting trophies into the EU?
 
-Hunting trophies[^24] that are introduced into the EU for **non-commercial purposes** are considered to be **personal effects** under the EU Wildlife Trade Regulations – even if they do not accompany the importer and are shipped at a later date (in order to allow for them to be preserved or cured)[^25]. Hence, the provisions described above for personal effects and household goods apply to the import of these specimens into the EU (see **Table 12**). 
+Hunting trophies[^24] that are introduced into the EU for **non-commercial purposes** are considered to be **personal effects** under the EU Wildlife Trade Regulations – even if they do not accompany the importer and are shipped at a later date (in order to allow for them to be preserved or cured)[^25]. Hence, the provisions described above for personal effects and household goods apply to the import of these specimens into the EU (see **Table 13**). 
 
 However, the **first introduction** into the EU **by EU residents** of hunting trophy specimens of **AnnexB listed species/populations** that **are also** **listed in Annex XIII to** ***Regulation (EC) No 865/2006*** **do not fall within the derogation** for personal and household effects[^26]. Therefore the normal import documentation requirements will apply in these cases. The species/populations for which more stringent control of imports has been deemed necessary are those for which there are **concerns as to the sustainability** of trade in hunting trophies or for which there are **indications of significant illegal trade**[^27] (see **Annex XI** of this Guide for the current list of species/populations).
 
@@ -125,7 +125,7 @@ Persons importing hunting trophies should also check that there are no considera
 
 It should be noted that the provisions of CITES governing personal and household effects are somewhat different compared to those of the EU Wildlife Trade Regulations. Therefore, the Convention text and relevant Resolutions are not an adequate guide to the provisions of the Regulations in this regard.
 
-*Table 12: Documents needed by EU and non-EU residents for the trade in personal effects and household goods made of animal and plant species regulated under CITES and the EU Wildlife Trade Regulations*
+*Table 13: Documents needed by EU and non-EU residents for the trade in personal effects and household goods made of animal and plant species regulated under CITES and the EU Wildlife Trade Regulations*
 
 <div class="table-wrap">
 <table class="govuk-table">

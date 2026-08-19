@@ -150,12 +150,15 @@ def _check_row(row_m: re.Match, n_cols: int) -> str:
 
 
 def _make_colgroup(inner: str, n_cols: int) -> str:
-    """Return <colgroup> HTML for tables whose 3rd header is 'Documents Required'."""
-    if n_cols != 4:
-        return ""
+    """Return <colgroup> HTML for a handful of known wide-text-column tables,
+    keyed off header wording so new tables pick up the right widths automatically
+    rather than needing a per-annex special case."""
     headers = re.findall(r"<th[^>]*>(.*?)</th>", inner, re.DOTALL)
-    texts = [re.sub(r"<[^>]+>", "", h).lower() for h in headers]
-    if any("documents required" in t for t in texts):
+    texts = [re.sub(r"<[^>]+>", "", h).lower().strip() for h in headers]
+    if len(texts) != n_cols:
+        return ""
+
+    if n_cols == 4 and any("documents required" in t for t in texts):
         return (
             '<colgroup>'
             '<col style="width:12%">'
@@ -164,6 +167,16 @@ def _make_colgroup(inner: str, n_cols: int) -> str:
             '<col style="width:20%">'
             '</colgroup>'
         )
+
+    # Last column is a long free-text explanation/reference -- give it most of
+    # the width and split the rest evenly among the (usually short, code-like)
+    # remaining columns.
+    if texts and ("explanation" in texts[-1] or "taxonomic reference" in texts[-1]):
+        last_width = 55
+        other_width = (100 - last_width) / (n_cols - 1)
+        cols = "".join(f'<col style="width:{other_width:.1f}%">' for _ in range(n_cols - 1))
+        return f'<colgroup>{cols}<col style="width:{last_width}%"></colgroup>'
+
     return ""
 
 
@@ -2464,12 +2477,49 @@ PDF_CSS = """
 /* A handful of figures (annotated CITES forms) are close to full-page
    images. Rather than shrink those images, the page they land on gets
    slightly smaller margins so the caption fits alongside the image
-   instead of being pushed onto its own page before it. .pdf-chapter/
-   .pdf-subchapter explicitly reset back to the normal page afterwards
-   (page: normal) so this doesn't leak into unrelated following content. */
+   instead of being pushed onto its own page before it. The reduced-margin
+   page is reset back to normal by _pdf_tall_figures_css()'s own "+ *"
+   sibling rule right after the figure, plus a fallback `page: normal` on
+   each chapter/subchapter's own leading <h1> (see below) in case the
+   figure is the very last thing in its subchapter. That reset is scoped to
+   just those two spots deliberately: WeasyPrint won't collapse an
+   element's top margin into a natural (non-forced) page break once that
+   element's own `page` value resolves to anything other than `auto` --
+   setting `page: normal` on *every* .pdf-chapter/.pdf-subchapter (so it
+   inherited into every heading inside them) used to do exactly that,
+   leaving a stray gap above any X.X.X/X.X.X.X subheading that happened to
+   land at the top of a page. */
 @page figure-page {
   size: A4;
   margin: 22mm 20mm 12mm 20mm;
+  @top-left {
+    content: url(assets/images/logo-ec-header.svg);
+  }
+  @top-right {
+    content: string(chapter);
+    width: 130mm;
+    text-align: right;
+    font-family: "Inter", Arial, sans-serif;
+    font-size: 9pt;
+    color: #696984;
+  }
+  @bottom-center {
+    content: counter(page) " / " counter(pages);
+    font-family: "Inter", Arial, sans-serif;
+    font-size: 9pt;
+    color: #696984;
+  }
+}
+/* Same idea as figure-page, but for large tables that don't fit as one
+   block under normal margins -- see _pdf_tall_tables_css(). Cut further
+   than figure-page's margins: a text table has no fixed aspect ratio to
+   stay visually balanced against (unlike a photo/scan), so there's more
+   room to give before it looks cramped, and that extra room is exactly
+   what lets borderline tables (a table whose rows fit but whose one-line
+   Source/Note was landing on the next page) become a single block. */
+@page table-page {
+  size: A4;
+  margin: 15mm 20mm 8mm 20mm;
   @top-left {
     content: url(assets/images/logo-ec-header.svg);
   }
@@ -2541,8 +2591,9 @@ a { color: #0046ff; text-decoration: none; }
   color: #696984;
 }
 
-.pdf-chapter { break-before: page; counter-reset: footnote; page: normal; }
-.pdf-subchapter { break-before: auto; page: normal; }
+.pdf-chapter { break-before: page; counter-reset: footnote; }
+.pdf-chapter > h1 { page: normal; }
+.pdf-subchapter { break-before: auto; }
 
 .pdf-footnote { float: footnote; font-size: 7.5pt; line-height: 1.35; }
 ::footnote-marker { content: counter(footnote) ". "; font-weight: 600; }
@@ -2565,6 +2616,28 @@ table { border-collapse: collapse; width: 100%; margin: 4mm 0 6mm; font-size: 9p
 th, td { border: 0.5pt solid #d4d4dc; padding: 2mm 3mm; text-align: left; vertical-align: top; }
 th { background: #ededf0; font-weight: 600; }
 tr:nth-child(even) td { background: #f6f6f8; }
+/* A couple of table headers (Table 13's "Annex"/"Article" columns) use
+   inline writing-mode:vertical-lr + rotate(180deg) to read sideways,
+   bottom-to-top -- a combination browsers render correctly (confirmed on
+   the site) but WeasyPrint renders upside-down. Plain rotation without
+   writing-mode gives the same bottom-to-top reading and renders correctly
+   in WeasyPrint, so override just for the PDF; !important is needed to
+   beat the inline style itself, the most specific thing in the cascade. */
+span[style*="writing-mode:vertical-lr"] {
+  writing-mode: horizontal-tb !important;
+  transform: rotate(-90deg) !important;
+}
+th:has(span[style*="writing-mode:vertical-lr"]) { vertical-align: middle !important; }
+/* A table's trailing Source:/Note: text is relocated out of <caption> and
+   into this paragraph by _pdf_relocate_table_captions() -- see that
+   function for why (WeasyPrint doesn't keep a bottom <caption> reliably
+   bound to its table across a page break, so it's treated as a plain
+   paragraph pinned to the table above it instead). */
+.table-source {
+  break-before: avoid;
+  font-size: 8pt;
+  color: #696984;
+}
 
 .figure-block { margin: 6mm 0; page-break-inside: avoid; text-align: center; }
 .figure-block img { max-width: 100%; }
@@ -2629,6 +2702,75 @@ def _pdf_relocate_footnotes(html: str) -> str:
     return html
 
 
+_PDF_TABLE_CAPTION_RE = re.compile(
+    r'(<div class="table-wrap">\s*<table[^>]*>)\s*<caption>(.*?)</caption>(.*?</table>\s*</div>)',
+    re.DOTALL,
+)
+
+
+def _pdf_relocate_table_captions(html: str) -> str:
+    """Move a table's trailing Source:/Note: text out of its <caption> and
+    into a plain paragraph straight after the table, with break-before:avoid
+    binding it to the table above. `caption-side: bottom` alone isn't enough
+    here: WeasyPrint's table fragmentation doesn't treat a bottom caption as
+    protected by the table's own `page-break-inside: avoid` the way rows
+    are, so on a tall table the caption alone could still be pushed onto the
+    following page while every row stayed on the page before it."""
+    def _sub(m: re.Match) -> str:
+        open_tag, caption, rest = m.group(1), m.group(2), m.group(3)
+        return f'{open_tag}{rest}<p class="table-source">{caption}</p>'
+
+    return _PDF_TABLE_CAPTION_RE.sub(_sub, html)
+
+
+_PDF_TABLE_GROUP_RE = re.compile(
+    # `.table-label` is shared with figure captions (see _postprocess_table_labels),
+    # and a figure caption is never immediately followed by a table-wrap --
+    # `(?:(?!</p>).)*` stops the label group at its OWN first </p> instead of
+    # `.*?`, which would happily backtrack past an unrelated figure (and any
+    # other content) in search of the next table-wrap anywhere later in the
+    # document, silently pairing the wrong label with a wrap.
+    r'(<p class="table-label" id="([^"]+)">(?:(?!</p>).)*</p>\s*)'
+    # A handful of complex tables (rowspan/vertical headers) are hand-authored
+    # as raw HTML in the markdown source, e.g. <table class="govuk-table">
+    # with real newlines/indentation around the tags, rather than produced by
+    # _postprocess_tables() -- match any attributes on <table> (not just the
+    # bare tag that function emits) and allow whitespace around the tags.
+    r'(<div class="table-wrap">\s*<table[^>]*>.*?</table>\s*</div>)'
+    r'(\s*<p class="table-source">.*?</p>)?',
+    re.DOTALL,
+)
+
+
+def _pdf_mark_table_bounds(html: str) -> str:
+    """Tag a table's wrapper div, its first row, and its source note (if
+    any) with ids derived from the table's own label id, so
+    _pdf_tall_tables_css() can later look up which physical page each part
+    of the group landed on. Purely a measurement aid -- these ids don't
+    affect rendering.
+
+    The first row gets its own id specifically because the wrapper div's
+    anchor isn't reliable for detecting a split: when `page-break-inside:
+    avoid` on the <table> defers every row to the next page, WeasyPrint can
+    still register the (now-empty-on-this-page) div's own box -- and thus
+    its anchor -- on the *earlier* page, making the label and "body" look
+    like they're on the same page even though every visible row moved. The
+    first row's anchor always reflects where a row actually renders."""
+    def _sub(m: re.Match) -> str:
+        label_prefix, label_id, wrap, source = m.group(1), m.group(2), m.group(3), m.group(4) or ""
+        wrap = wrap.replace(
+            '<div class="table-wrap">', f'<div class="table-wrap" id="{label_id}--body">', 1
+        )
+        wrap = re.sub(r'<tr(?![^>]*\bid=)', f'<tr id="{label_id}--row1"', wrap, count=1)
+        if source:
+            source = source.replace(
+                '<p class="table-source">', f'<p class="table-source" id="{label_id}--src">', 1
+            )
+        return f'{label_prefix}{wrap}{source}'
+
+    return _PDF_TABLE_GROUP_RE.sub(_sub, html)
+
+
 def _css_str(text: str) -> str:
     """Escape a string for use inside a single-quoted CSS string literal."""
     return text.replace("\\", "\\\\").replace("'", "\\'")
@@ -2668,6 +2810,8 @@ def _prepare_pdf_chunk(ch: dict, *, top_level: bool = True) -> str:
         depth=0,
     )
     rendered = _pdf_relocate_footnotes(rendered)
+    rendered = _pdf_relocate_table_captions(rendered)
+    rendered = _pdf_mark_table_bounds(rendered)
     rendered = _pdf_namespace_refs(rendered, ch["slug"])
     return _wrap_pdf_section(ch, rendered, top_level=top_level)
 
@@ -2684,7 +2828,12 @@ def _prepare_pdf_parent_chunk(ch: dict) -> str:
         if m2:
             body = body[:m2.start()].strip()
     intro_html = (
-        _pdf_namespace_refs(_pdf_relocate_footnotes(render_markdown(body)), ch["slug"])
+        _pdf_namespace_refs(
+            _pdf_mark_table_bounds(
+                _pdf_relocate_table_captions(_pdf_relocate_footnotes(render_markdown(body)))
+            ),
+            ch["slug"],
+        )
         if body else ""
     )
     return _wrap_pdf_section(ch, intro_html, top_level=True)
@@ -2770,12 +2919,132 @@ def _pdf_tall_figures_css() -> str:
         return ""
     # $= (ends-with), not *= (contains) -- "--figure-1" is a substring of
     # "--figure-11", so a contains-match would wrongly also select figures
-    # 11-19 whenever figure 1 is in the tall list.
-    selectors = ", ".join(
-        f'.table-label[id$="--figure-{n}"], .figure-block[id$="--figure-{n}"]'
-        for n in tall_nums
+    # 11-19 whenever figure 1 is in the tall list. The caption paragraph and
+    # the <figure> share the same id, so this rule and the reset below both
+    # end up targeting the <figure> element twice -- harmless, since the
+    # more specific `.figure-block[id$=...]` declaration always wins.
+    rules: list[str] = []
+    for n in tall_nums:
+        rules.append(
+            f'.table-label[id$="--figure-{n}"], .figure-block[id$="--figure-{n}"] '
+            f"{{ page: figure-page; }}"
+        )
+        # Resets whatever immediately follows this figure back to normal
+        # margins, so figure-page doesn't leak into the rest of the
+        # subchapter. Doesn't help if the figure is the *last* thing in its
+        # subchapter (nothing follows it to reset) -- the fallback
+        # `page: normal` on each chapter/subchapter's own <h1> (see the CSS
+        # above) covers that case at the next section boundary.
+        rules.append(f'.figure-block[id$="--figure-{n}"] + * {{ page: normal; }}')
+    return "\n".join(rules)
+
+
+_PDF_TABLE_LABEL_ID_RE = re.compile(r'<p class="table-label" id="([^"]+)">')
+
+
+def _pdf_tall_tables_css(doc_html: str, base_css: str, base_url: str) -> str:
+    """CSS assigning `page: table-page` (a reduced-margin page, see the CSS
+    definition above) to exactly the tables whose label, body, or trailing
+    source note land on different physical pages under normal margins --
+    i.e. WeasyPrint has started splitting the group apart (orphaned label,
+    or the source note pushed onto the following page) -- AND where the
+    extra room actually fixes it.
+
+    Row height depends on how much each cell's text wraps, so unlike figures
+    (a fixed-size image) there's no way to compute a table's rendered height
+    up front -- this renders the document (a layout pass only, no PDF
+    written) and reads real per-anchor page numbers off the result, via the
+    marker ids _pdf_mark_table_bounds() adds to every table's wrapper/source
+    elements, to find out which tables need the extra room.
+
+    A genuinely too-tall table (more rows than fit on any single page, even
+    with table-page's reduced margins) would still split even after forcing
+    it onto its own page -- so candidates are re-checked after tentatively
+    applying the fix, and page:table-page is only kept where it verifiably
+    worked. For the ones it doesn't fix, forcing the page-name switch
+    anyway would strand the label alone at the top of an otherwise-blank
+    page (see the comment below), so those get a different, targeted fix
+    instead: dropping page-break-inside:avoid for just that one table."""
+    import weasyprint
+
+    def _anchor_pages(css: str) -> dict[str, int]:
+        document = weasyprint.HTML(string=doc_html, base_url=base_url).render(
+            stylesheets=[weasyprint.CSS(string=css, base_url=base_url)]
+        )
+        pages: dict[str, int] = {}
+        for i, page in enumerate(document.pages):
+            for anchor_id in page.anchors:
+                pages.setdefault(anchor_id, i)
+        return pages
+
+    def _is_split(pages: dict[str, int], label_id: str, row1_id: str, src_id: str, has_src: bool) -> bool:
+        # Compares the label against the first *row*, not the wrapper div --
+        # see _pdf_mark_table_bounds() for why the div's own anchor can't be
+        # trusted here.
+        group_pages = {pages.get(label_id), pages.get(row1_id)}
+        if has_src:
+            group_pages.add(pages.get(src_id))
+        return len(group_pages) > 1
+
+    def _rules_for(label_id: str, body_id: str, src_id: str, has_src: bool) -> list[str]:
+        group_ids = [label_id, body_id] + ([src_id] if has_src else [])
+        selectors = ", ".join(f'[id="{i}"]' for i in group_ids)
+        last_id = src_id if has_src else body_id
+        return [
+            f"{selectors} {{ page: table-page; }}",
+            # Without this, everything after the table would keep rendering
+            # on table-page's reduced margins too, all the way to the next
+            # .pdf-chapter/.pdf-subchapter boundary (those are the only
+            # other places the page name gets reset back to normal).
+            f'[id="{last_id}"] + * {{ page: normal; }}',
+        ]
+
+    groups: dict[str, tuple[str, str, str, bool]] = {}
+    for m in _PDF_TABLE_LABEL_ID_RE.finditer(doc_html):
+        label_id = m.group(1)
+        if "--table-" not in label_id:
+            continue
+        body_id = f"{label_id}--body"
+        row1_id = f"{label_id}--row1"
+        src_id = f"{label_id}--src"
+        has_src = f'id="{src_id}"' in doc_html
+        groups[label_id] = (body_id, row1_id, src_id, has_src)
+
+    base_pages = _anchor_pages(base_css)
+    candidates = {
+        label_id: bounds for label_id, bounds in groups.items()
+        if _is_split(base_pages, label_id, bounds[1], bounds[2], bounds[3])
+    }
+    if not candidates:
+        return ""
+
+    candidate_css = "\n".join(
+        rule
+        for label_id, (body_id, row1_id, src_id, has_src) in candidates.items()
+        for rule in _rules_for(label_id, body_id, src_id, has_src)
     )
-    return f"{selectors} {{ page: figure-page; }}"
+    fixed_pages = _anchor_pages(base_css + "\n" + candidate_css)
+
+    kept_rules: list[str] = []
+    for label_id, (body_id, row1_id, src_id, has_src) in candidates.items():
+        if _is_split(fixed_pages, label_id, row1_id, src_id, has_src):
+            # More room didn't fix it -- the table has more rows than fit on
+            # any single page, even with table-page's reduced margins.
+            # `table { page-break-inside: avoid }` (in the main PDF_CSS
+            # block) can never be satisfied for a table like this, and
+            # WeasyPrint's fallback when "avoid" can't be satisfied is to
+            # defer the *whole table* to a fresh page and try again there --
+            # which still doesn't fit, so it gives up and breaks inside on
+            # that page, leaving the page it deferred *from* almost
+            # entirely blank under just the stranded label. Dropping the
+            # avoid for this one table lets it flow (and break across
+            # pages) immediately after its label instead, exactly like a
+            # normal multi-page table -- no wasted page, no orphaned label.
+            kept_rules.append(f'[id="{body_id}"] table {{ page-break-inside: auto; break-inside: auto; }}')
+            continue
+        kept_rules.extend(_rules_for(label_id, body_id, src_id, has_src))
+
+    return "\n".join(kept_rules)
 
 
 def generate_pdf(nav_sections: list[dict], all_sub: list[dict], about_ch: dict | None) -> None:
@@ -2844,6 +3113,11 @@ def generate_pdf(nav_sections: list[dict], all_sub: list[dict], about_ch: dict |
     out_path = SITE_DIR / PDF_FILENAME
     base_url = SITE_DIR.resolve().as_uri() + "/"
     pdf_css = PDF_CSS + "\n" + _pdf_tall_figures_css()
+    # A table can only be measured against a real layout pass (unlike a
+    # figure's fixed image height), so lay the document out once first to
+    # find which tables need extra room, then render the real PDF with that
+    # CSS added.
+    pdf_css += "\n" + _pdf_tall_tables_css(doc_html, pdf_css, base_url)
     weasyprint.HTML(string=doc_html, base_url=base_url).write_pdf(
         out_path, stylesheets=[weasyprint.CSS(string=pdf_css, base_url=base_url)]
     )

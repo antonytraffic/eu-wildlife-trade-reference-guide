@@ -55,7 +55,7 @@ A **separate set** of forms must be completed for **each shipment** of specimens
 
 The **annex** attached to a permit and the number of pages must be **clearly indicated on the permit**. Each annexed page must include the number of the permit and the signature, and stamp or seal of the issuing authority[^11]. Annexes may also contain lists of numbers of identification marks (rings, tags and the like) for which there is no prescribed form for the annex.
 
-The completed form(s) must be **submitted to the Management Authority** of the Member State in which the specimens are located, together with the documentary evidence necessary to allow the Management Authority to determine whether a permit/certificate should be issued (see also **Table 10** on exports, and **Table 11** on re-exports)[^12].
+The completed form(s) must be **submitted to the Management Authority** of the Member State in which the specimens are located, together with the documentary evidence necessary to allow the Management Authority to determine whether a permit/certificate should be issued (see also **Table 11** on exports, and **Table 12** on re-exports)[^12].
 
 Member States may charge a **fee** for processing the application.
 
@@ -189,9 +189,9 @@ Until such time as the requisite documents are available, **specimens will not b
 
 ## 3.5.8 Summary of the conditions that must be fulfilled for the issue of export permits and re-export certificates for species listed in Annex A, B or C
 
-In order for an export permit or re-export certificate to be issued by an EU Management Authority for specimens of a species listed in Annex A, B or C, the conditions detailed in **Tables 10 and 11** below must be fulfilled:
+In order for an export permit or re-export certificate to be issued by an EU Management Authority for specimens of a species listed in Annex A, B or C, the conditions detailed in **Tables 11 and 12** below must be fulfilled:
 
-*Table 10: Conditions to be fulfilled for the issue of export permits for species listed in Annexes A, B or C*
+*Table 11: Conditions to be fulfilled for the issue of export permits for species listed in Annexes A, B or C*
 
 <div class="table-wrap">
 <table class="govuk-table">
@@ -237,7 +237,7 @@ In order for an export permit or re-export certificate to be issued by an EU Man
 </table>
 </div>
 
-*Table 11: Conditions to be fulfilled for the issue of re-export certificates for species listed in Annexes A, B or C*
+*Table 12: Conditions to be fulfilled for the issue of re-export certificates for species listed in Annexes A, B or C*
 
 <div class="table-wrap">
 <table class="govuk-table">

@@ -271,7 +271,7 @@ Longer-term prohibitions of import do not always require the prior establishment
 
 ### 3.3.9.2  What criteria are considered by Scientific Authorities and the SRG when making non-detriment findings, deciding on import prohibitions and forming Negative Opinions?
 
-One of the tasks of the Scientific Authority under Article 4(1) or (2) of *Regulation (EC) No 338/97* is to advise its Management Authority on whether the import of certain specimens of species listed in Annex A or B is likely to have a harmful effect on the conservation of the species (see also the tabular summary in **Section 3.3.10**). This is termed a “non-detriment finding” (NDF) and is also a requirement under CITES for imports of Appendix I species.  The *Guidelines on Duties and Tasks of the Scientific Authorities and Scientific Review Group under Regulation (EC) No 338/97 and Regulation (EC) No 865/2006* updated on 22 May 2025 (see **Annex XII of this Guide** and its attachments) present a more detailed overview of the factors and conditions that must be considered by a Scientific Authority when making NDFs, as appropriate. They include for example: 
+One of the tasks of the Scientific Authority under Article 4(1) or (2) of *Regulation (EC) No 338/97* is to advise its Management Authority on whether the import of certain specimens of species listed in Annex A or B is likely to have a harmful effect on the conservation of the species (see also the tabular summary in **Table 10**). This is termed a “non-detriment finding” (NDF) and is also a requirement under CITES for imports of Appendix I species.  The *Guidelines on Duties and Tasks of the Scientific Authorities and Scientific Review Group under Regulation (EC) No 338/97 and Regulation (EC) No 865/2006* updated on 22 May 2025 (see **Annex XII of this Guide** and its attachments) present a more detailed overview of the factors and conditions that must be considered by a Scientific Authority when making NDFs, as appropriate. They include for example: 
 
 - **Species characteristics** (life history characteristics, habitat adaptability, migratory/shared populations, risk of mortality after capture and before export);
 
@@ -361,7 +361,7 @@ Article 71(2) of *Regulation (EC) No 865/2006* contains a “**hardship clause**
 
 Import restrictions under Article 4(6) are published by the Commission in the Suspensions Regulation[^69]. The state of Negative Opinions and import restrictions under Article 4(6) at any given point in time can be checked on the [Species+ website](http://www.speciesplus.net/).
 
-## 3.3.10 Summary of conditions that must be fulfilled for the issue of import permits for  specimens of species listed in Annexes A or B
+*Table 10: Summary of conditions that must be fulfilled for the issue of import permits for specimens of species listed in Annexes A or B*
 
 <table>
 <thead>

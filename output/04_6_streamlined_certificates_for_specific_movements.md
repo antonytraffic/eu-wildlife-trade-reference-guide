@@ -15,9 +15,9 @@ summary: Summary unavailable (no API key).
 
 **A travelling exhibition is a sample collection, circus, menagerie, plant exhibition, orchestra or museums exhibition that is used for commercial display for the public**[^2].  
 
-A travelling exhibition certificate makes travelling with specimens of species listed in the Annexes of the EU Wildlife Trade Regulations much easier, because it **may be used more than once** providing that all the required conditions are met. Therefore, it **precludes** the need for application for **CITES permits** each time an international border is crossed, since it is accompanied by a **continuation sheet** which can be endorsed by Customs offices more than once. The type and colour of the paper used for the travelling exhibition certificates should be as detailed in **Table 13**.
+A travelling exhibition certificate makes travelling with specimens of species listed in the Annexes of the EU Wildlife Trade Regulations much easier, because it **may be used more than once** providing that all the required conditions are met. Therefore, it **precludes** the need for application for **CITES permits** each time an international border is crossed, since it is accompanied by a **continuation sheet** which can be endorsed by Customs offices more than once. The type and colour of the paper used for the travelling exhibition certificates should be as detailed in **Table 14**.
 
-*Table 13: Documents required as part of a travelling exhibition certificate[^3]*
+*Table 14: Documents required as part of a travelling exhibition certificate[^3]*
 
 | **Type of document** | **Form Number** | **Colour** |
 | --- | --- | --- |
@@ -84,9 +84,9 @@ The forms for travelling exhibition certificates, and the accompanying continuat
 
 **Musical instrument certificates**[^13] can be used for the **non-commercial cross-border movement of musical instruments** for purposes including, but not limited to, personal use, performance, production (recordings), broadcast, teaching, display or competition. Such certificates may be used for instruments derived from species listed in Annexes A, B or C of the Regulations, with the exception of specimens of species listed in Annex A that were acquired after the species was included in the CITES Appendices.
 
-A musical instrument certificate makes travelling with instruments derived from species listed in the Annexes of the EU Wildlife Trade Regulations much easier, because it **may be used more than once,** providing that all the required conditions are met. Therefore, it **precludes** the need for application for **CITES permits** each time an international border is crossed, since it is accompanied by a **continuation sheet** that can be endorsed by Customs offices more than once. The type and colour of the paper used for the musical instrument certificates should be as detailed in **Table 14**.
+A musical instrument certificate makes travelling with instruments derived from species listed in the Annexes of the EU Wildlife Trade Regulations much easier, because it **may be used more than once,** providing that all the required conditions are met. Therefore, it **precludes** the need for application for **CITES permits** each time an international border is crossed, since it is accompanied by a **continuation sheet** that can be endorsed by Customs offices more than once. The type and colour of the paper used for the musical instrument certificates should be as detailed in **Table 15**.
 
-*Table 14: Documents required as part of a musical instrument certificate[^3]*
+*Table 15: Documents required as part of a musical instrument certificate[^3]*
 
 | **Type of document** | **Form Number** | **Colour** |
 | --- | --- | --- |
