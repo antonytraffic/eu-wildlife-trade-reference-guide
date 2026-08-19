@@ -2461,6 +2461,33 @@ PDF_CSS = """
   @top-right { content: ""; }
   @bottom-center { content: ""; }
 }
+/* A handful of figures (annotated CITES forms) are close to full-page
+   images. Rather than shrink those images, the page they land on gets
+   slightly smaller margins so the caption fits alongside the image
+   instead of being pushed onto its own page before it. .pdf-chapter/
+   .pdf-subchapter explicitly reset back to the normal page afterwards
+   (page: normal) so this doesn't leak into unrelated following content. */
+@page figure-page {
+  size: A4;
+  margin: 22mm 20mm 12mm 20mm;
+  @top-left {
+    content: url(assets/images/logo-ec-header.svg);
+  }
+  @top-right {
+    content: string(chapter);
+    width: 130mm;
+    text-align: right;
+    font-family: "Inter", Arial, sans-serif;
+    font-size: 9pt;
+    color: #696984;
+  }
+  @bottom-center {
+    content: counter(page) " / " counter(pages);
+    font-family: "Inter", Arial, sans-serif;
+    font-size: 9pt;
+    color: #696984;
+  }
+}
 
 * { box-sizing: border-box; }
 
@@ -2514,8 +2541,8 @@ a { color: #0046ff; text-decoration: none; }
   color: #696984;
 }
 
-.pdf-chapter { break-before: page; counter-reset: footnote; }
-.pdf-subchapter { break-before: auto; }
+.pdf-chapter { break-before: page; counter-reset: footnote; page: normal; }
+.pdf-subchapter { break-before: auto; page: normal; }
 
 .pdf-footnote { float: footnote; font-size: 7.5pt; line-height: 1.35; }
 ::footnote-marker { content: counter(footnote) ". "; font-weight: 600; }
@@ -2545,8 +2572,16 @@ tr:nth-child(even) td { background: #f6f6f8; }
 
 .summary-smallprint { font-size: 9pt; color: #696984; border-left: 2pt solid #d4d4dc; padding-left: 4mm; }
 ol.lettered-list { padding-left: 6mm; }
-.table-label { font-weight: 600; margin-top: 4mm; }
+/* A Figure/Table caption is a separate sibling from the figure/table it
+   labels (not a nested figcaption), so without this a caption can end up
+   as the last line on one page while its figure/table starts the next. */
+.table-label { font-weight: 600; margin-top: 4mm; break-after: avoid; }
 """
+# Figures whose rendered height (at the content width) leaves no room for
+# even a one-line caption above them get `page: figure-page` -- see
+# _pdf_tall_figures_css(). Applying that to every figure indiscriminately
+# would also force an unwanted page break before every *small* figure too,
+# since switching the named page is itself an implicit break point.
 
 _PDF_HREF_CHAPTER_RE = re.compile(r'href="chapters/([a-zA-Z0-9_\-]+)\.html(#[^"]*)?"')
 _PDF_HREF_FRAG_RE    = re.compile(r'href="#([^"]*)"')
@@ -2707,6 +2742,42 @@ def _make_pdf_header_logo(target_width_mm: float = 20.0) -> None:
     (SITE_DIR / "assets" / "images" / "logo-ec-header.svg").write_text(resized, encoding="utf-8")
 
 
+# PDF content width = A4 width (210mm) minus the 20mm left/right margins.
+_PDF_CONTENT_WIDTH_MM = 170.0
+# A figure needs the reduced-margin page if its own rendered height leaves
+# less than ~12mm for the caption above it on a normal-margin page
+# (297mm - 30mm top - 20mm bottom = 247mm available).
+_PDF_TALL_FIGURE_THRESHOLD_MM = 247.0 - 12.0
+
+
+def _pdf_tall_figures_css() -> str:
+    """CSS assigning `page: figure-page` to exactly the figures whose PNG,
+    scaled to the content width, is too tall to leave room for its caption
+    on a normal page -- computed from each image's real pixel dimensions,
+    not guessed, so this stays correct as source images change."""
+    from PIL import Image
+
+    tall_nums: list[str] = []
+    for path in sorted(Path("images").glob("Figure-*.png")):
+        num = path.stem.split("-", 1)[1]
+        with Image.open(path) as img:
+            w, h = img.size
+        rendered_height_mm = _PDF_CONTENT_WIDTH_MM * h / w
+        if rendered_height_mm > _PDF_TALL_FIGURE_THRESHOLD_MM:
+            tall_nums.append(num)
+
+    if not tall_nums:
+        return ""
+    # $= (ends-with), not *= (contains) -- "--figure-1" is a substring of
+    # "--figure-11", so a contains-match would wrongly also select figures
+    # 11-19 whenever figure 1 is in the tall list.
+    selectors = ", ".join(
+        f'.table-label[id$="--figure-{n}"], .figure-block[id$="--figure-{n}"]'
+        for n in tall_nums
+    )
+    return f"{selectors} {{ page: figure-page; }}"
+
+
 def generate_pdf(nav_sections: list[dict], all_sub: list[dict], about_ch: dict | None) -> None:
     """Render the whole guide, in the same order as the homepage, to one PDF."""
     try:
@@ -2772,8 +2843,9 @@ def generate_pdf(nav_sections: list[dict], all_sub: list[dict], about_ch: dict |
 
     out_path = SITE_DIR / PDF_FILENAME
     base_url = SITE_DIR.resolve().as_uri() + "/"
+    pdf_css = PDF_CSS + "\n" + _pdf_tall_figures_css()
     weasyprint.HTML(string=doc_html, base_url=base_url).write_pdf(
-        out_path, stylesheets=[weasyprint.CSS(string=PDF_CSS, base_url=base_url)]
+        out_path, stylesheets=[weasyprint.CSS(string=pdf_css, base_url=base_url)]
     )
     console.print(f"  [green]+[/green] {out_path.name} ({out_path.stat().st_size / 1024:.0f} KB)")
 
