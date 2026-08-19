@@ -27,6 +27,11 @@ INPUT_DIR      = Path("output")
 SITE_DIR       = Path("docs")
 SUMMARIES_FILE = INPUT_DIR / "_summaries.json"
 
+# Display title for the About page (section_number 1) -- deliberately not the
+# frontmatter title ("How do I use this guide?"); used everywhere the site
+# and PDF need to refer to this page by name, so both stay in sync.
+ABOUT_TITLE = "About"
+
 console = Console()
 FOOTER_TEXT: str = ""   # set at build time from _footer_content.md
 _GUIDE_NAV_ITEMS: list[tuple[str, str]] = []  # (title, slug) for Reference Guide dropdown, set at build time
@@ -1765,7 +1770,7 @@ def base_html(
   <div class="container">
     <ul class="top-nav__list">
       <li><a href="{root}index.html" class="top-nav__link">Home</a></li>
-      <li><a href="{root}about.html" class="top-nav__link">About</a></li>
+      <li><a href="{root}about.html" class="top-nav__link">{h(ABOUT_TITLE)}</a></li>
       <li class="top-nav__item--dropdown">
         <button type="button" class="top-nav__link top-nav__dropdown-toggle" aria-expanded="false">
           Reference Guide
@@ -1818,7 +1823,7 @@ def base_html(
         <p class="site-footer__heading">Reference Guide</p>
         <ul class="site-footer__links">
           <li><a href="{root}index.html">Home</a></li>
-          <li><a href="{root}about.html">About</a></li>
+          <li><a href="{root}about.html">{h(ABOUT_TITLE)}</a></li>
           <li><a href="{root}search.html">Search</a></li>
           <li><a href="{root}{PDF_FILENAME}">Download PDF</a></li>
         </ul>
@@ -2165,8 +2170,8 @@ def build_about_page(ch: dict) -> str:
     sidebar_html = make_sidebar(headings)
 
     page_header_html = make_page_header(
-        title="About",
-        breadcrumbs=[("Home", "index.html"), ("About", None)],
+        title=ABOUT_TITLE,
+        breadcrumbs=[("Home", "index.html"), (ABOUT_TITLE, None)],
     )
     content = f"""
 {make_mobile_contents(items)}
@@ -2176,7 +2181,7 @@ def build_about_page(ch: dict) -> str:
 <a href="#top" class="back-to-top">Back to top</a>
 """
     return base_html(
-        title="About",
+        title=ABOUT_TITLE,
         content=content,
         breadcrumbs=[],
         depth=0,
@@ -2327,7 +2332,7 @@ def build_index_page(nav_sections: list[dict], summaries: dict,
 </div>
 
 <div class="home-sections" style="padding-top:30px">
-  {section_block("About", about_cards) if about_cards else ""}
+  {section_block(ABOUT_TITLE, about_cards) if about_cards else ""}
   {"<hr>" if about_cards else ""}
   {section_block("Reference Guide", guide_cards)}
   <hr>
@@ -2469,7 +2474,7 @@ a { color: #0046ff; text-decoration: none; }
 .pdf-cover__subtitle { font-size: 16pt; color: #696984; margin-bottom: 20mm; }
 .pdf-cover__date { font-size: 10pt; color: #696984; }
 
-.pdf-toc { page-break-before: page; page-break-after: page; }
+.pdf-toc { break-before: page; break-after: page; }
 .pdf-toc h1 { font-size: 18pt; }
 .pdf-toc ol { list-style: none; margin: 0; padding: 0; }
 .pdf-toc > ol > li { margin: 3mm 0 0; font-weight: 600; }
@@ -2481,8 +2486,8 @@ a { color: #0046ff; text-decoration: none; }
   color: #696984;
 }
 
-.pdf-chapter { page-break-before: page; counter-reset: footnote; }
-.pdf-subchapter { page-break-before: auto; }
+.pdf-chapter { break-before: page; counter-reset: footnote; }
+.pdf-subchapter { break-before: auto; }
 
 .pdf-footnote { float: footnote; font-size: 7.5pt; line-height: 1.35; }
 ::footnote-marker { content: counter(footnote) ". "; font-weight: 600; }
@@ -2628,15 +2633,18 @@ def build_pdf_toc(
     annex_sections: list[dict],
     by_slug: dict,
 ) -> str:
-    def _entry(ch: dict, sub_chs: list[dict] | None = None) -> str:
-        ref = _section_ref_number(ch)
+    def _entry(ch: dict, sub_chs: list[dict] | None = None, *, ref_override: str | None = None) -> str:
+        ref = ref_override if ref_override is not None else _section_ref_number(ch)
         label = f"{ref} {ch['title']}" if ref else ch["title"]
         li = f'<li><a href="#pdf-{h(ch["slug"])}">{h(label)}</a>'
         if sub_chs:
             li += f'<ol>{"".join(_entry(sub) for sub in sub_chs)}</ol>'
         return li + "</li>"
 
-    items = _entry(about_ch) if about_ch else ""
+    # About (section_number 1) gets no ref elsewhere (its own heading and running
+    # header stay plain "About", matching the site) -- "1" here is purely for the
+    # contents list to read consistently alongside 2, 3, 4...
+    items = _entry(about_ch, ref_override="1") if about_ch else ""
     for ch in guide_sections + annex_sections:
         sub_chs = [by_slug[s] for s in (ch.get("sub_pages") or []) if s in by_slug]
         items += _entry(ch, sub_chs)
@@ -2686,6 +2694,11 @@ def generate_pdf(nav_sections: list[dict], all_sub: list[dict], about_ch: dict |
         return
 
     _make_pdf_header_logo()
+
+    if about_ch:
+        # Display as "About", matching the site's nav/footer -- not the raw
+        # frontmatter title ("How do I use this guide?").
+        about_ch = {**about_ch, "title": ABOUT_TITLE}
 
     by_slug = {ch["slug"]: ch for ch in nav_sections + all_sub}
     # Same split the homepage uses (build_index_page): sections 2-10 in the
