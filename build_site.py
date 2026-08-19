@@ -303,11 +303,16 @@ _TAB_BOLD_REF_RE = re.compile(r'<strong>(Table\s+(\d+))</strong>', re.IGNORECASE
 _FIGURE_PAGE_LOOKUP: dict[str, str] = {}
 _TABLE_PAGE_LOOKUP: dict[str, str] = {}
 
-# Matches "Summary of key instructions" bold paragraph + optional paras + ol
+# Matches "Summary of key instructions" bold paragraph + optional paras + ol.
+# The intro paragraphs must NOT include a figure caption/placeholder pair --
+# those are captured separately (group 2) so a figure sitting between the
+# note and the list doesn't get dragged into the small-print styling too
+# (it was previously inheriting the box's grey/small text and left border).
 _SUMMARY_RE = re.compile(
     r'(<p>\s*<strong>Summary of key instructions[^<]*</strong>\s*</p>'
-    r'(?:\s*<p>.*?</p>)*\s*'
-    r'<ol>.*?</ol>)',
+    r'(?:\s*<p(?![^>]*class="table-label")(?!\s*>\[Insert Figure)[^>]*>.*?</p>)*)\s*'
+    r'((?:<p[^>]*class="table-label"[^>]*>.*?</p>\s*<p>\[Insert Figure \d+\]</p>\s*)*)'
+    r'(<ol>.*?</ol>)',
     re.DOTALL | re.IGNORECASE,
 )
 
@@ -362,8 +367,17 @@ def _link_figure_table_refs(html: str, depth: int) -> str:
 
 
 def _postprocess_summary_sections(html: str) -> str:
-    """Wrap 'Summary of key instructions' + following list in a small-print div."""
-    return _SUMMARY_RE.sub(r'<div class="summary-smallprint">\1</div>', html)
+    """Wrap 'Summary of key instructions' + following list in a small-print div.
+    A figure sitting between the intro and the list (see 3.3's Figure 2) is kept
+    out of the box, in its own normally-styled paragraph, instead of inheriting
+    the box's grey small-print text and border."""
+    def _sub(m: re.Match) -> str:
+        intro, figure, ol = m.group(1), m.group(2).strip(), m.group(3)
+        if figure:
+            return f'<div class="summary-smallprint">{intro}</div>{figure}<div class="summary-smallprint">{ol}</div>'
+        return f'<div class="summary-smallprint">{intro}{ol}</div>'
+
+    return _SUMMARY_RE.sub(_sub, html)
 
 
 def render_markdown(content: str) -> str:
@@ -2423,7 +2437,7 @@ def build_search_index(all_pages: list[dict], summaries: dict) -> list[dict]:
 PDF_CSS = """
 @page {
   size: A4;
-  margin: 30mm 20mm 25mm 20mm;
+  margin: 30mm 20mm 20mm 20mm;
   @top-left {
     content: url(assets/images/logo-ec-header.svg);
   }
@@ -2452,15 +2466,29 @@ PDF_CSS = """
 
 body {
   font-family: "Inter", Arial, sans-serif;
-  font-size: 10.5pt;
+  font-size: 9.5pt;
   line-height: 1.5;
   color: #00002e;
 }
 
+/* Heading sizes follow the guide's numbering DEPTH (X, X.X, X.X.X, X.X.X.X),
+   not the raw HTML tag. A sub-page's own <h1> wrapper (e.g. "3.3") sits at
+   the X.X level, so everything inside its body -- native h2/h3/h4 from its
+   own markdown, e.g. "3.3.1", "3.3.9.1", "Step 1..." -- is one level deeper
+   than the same tag means in a top-level chapter's own body (Section 2's
+   native h2/h3, "2.1"/"2.2.1"), and has to be sized down a step to match.
+   Without this, e.g. "3.3" (a wrapper h1) and "3.3.1" (a native h2 inside
+   it) both render at h2 size and read as the same level. */
 h1, h2, h3, h4 { color: #00002e; page-break-after: avoid; }
-h1 { font-size: 20pt; margin: 0 0 10mm; }
-h2 { font-size: 14pt; margin: 10mm 0 4mm; }
-h3 { font-size: 12pt; margin: 8mm 0 3mm; }
+h1 { font-size: 20pt; margin: 0 0 10mm; }   /* X       */
+h2 { font-size: 14pt; margin: 10mm 0 4mm; } /* X.X     */
+h3 { font-size: 12pt; margin: 8mm 0 3mm; }  /* X.X.X   */
+h4 { font-size: 11pt; margin: 6mm 0 3mm; }  /* X.X.X.X */
+
+.pdf-subchapter > h1 { font-size: 14pt; margin: 10mm 0 4mm; }    /* X.X       */
+.pdf-subchapter h2   { font-size: 12pt; margin: 8mm 0 3mm; }     /* X.X.X     */
+.pdf-subchapter h3   { font-size: 11pt; margin: 6mm 0 3mm; }     /* X.X.X.X   */
+.pdf-subchapter h4   { font-size: 10.25pt; margin: 5mm 0 2mm; }  /* X.X.X.X.X */
 p, li { orphans: 3; widows: 3; margin: 0 0 3mm; }
 a { color: #0046ff; text-decoration: none; }
 
