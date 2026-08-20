@@ -15,162 +15,177 @@ parent: annexes
 
 
 
-| **Regulation (EC) No 338/97 as amended** |  |
-| --- | --- |
-| ARTICLE | CONTENT |
-| Article 1 | Object |
-| Article 2 | Definitions |
-| Article 3 | Scope |
-| Article 4 | Introduction into the EU |
-| Article 5 | Export or re-export from the EU |
-| Article 6 | Rejection of applications for permits and certificates referred to in Articles 4, 5 and 10 |
-| Article 7 | Derogation |
-| Article 8 | Provisions relating the control of commercial activities |
-| Article 9 | Movement of live specimens |
-| Article 10 | Certificates to be issued |
-| Article 11 | Validity of  and special conditions for permits and certificates |
-| Article 12 | Places of introduction and export |
-| Article 13 | Management of scientific authorities and other competent authorities |
-| Article 14 | Monitoring of compliance and investigation of infringements |
-| Article 15 | Communication of information |
-| Article 16 | Sanctions |
-| Article 17 | The Scientific Review Group |
-| Articles 18 and 19 | The Committee |
-| Articles 20-22 | Final provisions |
-| Annex | Annexes A, B, C and D with notes on their interpretation |
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:16%"><col></colgroup>
+<thead>
+<tr><th colspan="2"><strong>Regulation (EC) No 338/97 as amended</strong></th></tr>
+<tr><th class="table-subheader">ARTICLE</th><th class="table-subheader">CONTENT</th></tr>
+</thead>
+<tbody>
+<tr><td>Article 1</td><td>Object</td></tr>
+<tr><td>Article 2</td><td>Definitions</td></tr>
+<tr><td>Article 3</td><td>Scope</td></tr>
+<tr><td>Article 4</td><td>Introduction into the EU</td></tr>
+<tr><td>Article 5</td><td>Export or re-export from the EU</td></tr>
+<tr><td>Article 6</td><td>Rejection of applications for permits and certificates referred to in Articles 4, 5 and 10</td></tr>
+<tr><td>Article 7</td><td>Derogation</td></tr>
+<tr><td>Article 8</td><td>Provisions relating the control of commercial activities</td></tr>
+<tr><td>Article 9</td><td>Movement of live specimens</td></tr>
+<tr><td>Article 10</td><td>Certificates to be issued</td></tr>
+<tr><td>Article 11</td><td>Validity of  and special conditions for permits and certificates</td></tr>
+<tr><td>Article 12</td><td>Places of introduction and export</td></tr>
+<tr><td>Article 13</td><td>Management of scientific authorities and other competent authorities</td></tr>
+<tr><td>Article 14</td><td>Monitoring of compliance and investigation of infringements</td></tr>
+<tr><td>Article 15</td><td>Communication of information</td></tr>
+<tr><td>Article 16</td><td>Sanctions</td></tr>
+<tr><td>Article 17</td><td>The Scientific Review Group</td></tr>
+<tr><td>Articles 18 and 19</td><td>The Committee</td></tr>
+<tr><td>Articles 20-22</td><td>Final provisions</td></tr>
+<tr><td>Annex</td><td>Annexes A, B, C and D with notes on their interpretation</td></tr>
+</tbody>
+</table>
+</div>
 
 
 
-| **Regulation (EC) No 865/2006 as amended** |  |  |
-| --- | --- | --- |
-| CHAPTER | ARTICLE | CONTENT |
-| CHAPTER I | Definitions |  |
-|  | Article 1 | Definitions |
-| CHAPTER II | Forms and technical requirements |  |
-|  | Article 2 | Forms |
-|  | Article 3 | Technical specifications with regard to forms |
-|  | Article 4 | Completion of forms |
-|  | Article 5 | Contents of permits, certificates and applications for the issue of such documents |
-|  | Article 5a | Specific content of permits, certificates and applications for plant specimens |
-|  | Article 5b | Specific content of permits and certificates for live rhinoceros and live elephants |
-|  | Article 6 Regulation (EU) No 791/2012) | Annexes to forms |
-|  | Article 7 | Permits and certificates issued by third countries |
-| CHAPTER III | Issue, use and validity of documents |  |
-|  | Article 8 | Issue and use of documents |
-|  | Article 9 | Shipments of specimens |
-|  | Article 10 | Validity of import and export permits, re-export certificates, travelling exhibition certificates, and personal ownership certificates |
-|  | Article 11 | Validity of used import permits and of the certificates referred to in Articles 47, 48, 49, 60 and 63 |
-|  | Article 12 | Replacement of documents |
-|  | Article 13 | Time of application for import and export permits and re-export certificates |
-|  | Article 14 | Validity of documents from third countries |
-|  | Article 15 | Retrospective issuance of certain documents |
-|  | Article 16 | Specimens in transit through the EU |
-|  | Article 17 | Issuance of phytosanitary certificates |
-|  | Article 18 | Pre-issued permits and certificates with regard to certain trade in biological samples |
-|  | Article 19 | Pre-issued permits and certificates with regard to export or re-export of dead specimens |
-| CHAPTER IV | Import permits |  |
-|  | Article 20 | Applications for import permits |
-|  | Article 20a (inserted by paragraph 10 of *Regulation (EC) No 100/2008*) | Rejection of applications for import permits |
-|  | Article 21 | Import permits issued for specimens of species included in Appendix I to the Convention and listed in Annex A to *Regulation (EC) No. 338/97* |
-|  | Article 22 | Documents to be surrendered by the importer to the Customs office |
-|  | Article 23 | Handling by the Customs office |
-| CHAPTER V | **Import notifications** |  |
-|  | Article 24 | Documents to be surrendered by the importer to the Customs office |
-|  | Article 25 | Handling by the Customs office |
-| CHAPTER VI | **Export permits and re-export certificates** |  |
-|  | Article 26 | Applications for export permits and re-export certificates |
-|  | Article 26a | Applications for export permits and re-export certificates |
-|  | Article 27 | Documents to be surrendered by the (re-) exporter to the Customs office |
-|  | Article 28 | Handling by the Customs office |
-|  | Article 29 | Pre-issued permits for nurseries |
-| CHAPTER VII | Travelling exhibition certificates |  |
-|  | Article 30 | Issuance of travelling exhibition certificates |
-|  | Article 31 | Use of travelling exhibition certificates |
-|  | Article 32 | Issuing authority for travelling exhibition certificates |
-|  | Article 33 | Conditions for travelling exhibition certificates |
-|  | Article 34 | Application for travelling exhibition certificates |
-|  | Article 35 | Documents to be surrendered by the holder of the travelling exhibition certificate to the Customs office |
-|  | Article 36 | Replacement of travelling exhibition certificates |
-| CHAPTER VIII | Personal ownership certificate |  |
-|  | Article 37 | Issuance of personal ownership certificates |
-|  | Article 38 | Use of personal ownership certificates |
-|  | Article 39 | Issuing authority for personal ownership certificates |
-|  | Article 40 | Conditions for a personal ownership certificate |
-|  | Article 41 | Application for personal ownership certificates |
-|  | Article 42 | Documents to be surrendered by the holder of  personal ownership certificate to Customs office |
-|  | Article 43 | Sales of specimens covered by personal ownership certificates |
-|  | Article 44 | Replacement of personal ownership certificates |
-| CHAPTER VIIIa | Sample collection certificates |  |
-|  | Article 44a | Issue |
-|  | Article 44b | Use |
-|  | Article 44c | Issuing authority |
-|  | Article 44d | Requirements |
-|  | Article 44e | Applications |
-|  | Article 44f | Documents to be surrendered by the holder to the Customs office |
-|  | Article 44g | Replacement |
-| CHAPTER VIIIb | Musical instrument certificates |  |
-|  | Article 44h | Issue |
-|  | Article 44i | Use |
-|  | Article 44j | Issuing authority |
-|  | Article 44k | Requirements for specimens |
-|  | Article 44l | Applications |
-|  | Article 44m | Documents to be surrendered by the holder to the customs office |
-|  | Article 44n | Sale of specimens covered |
-|  | Article 44o | Replacement |
-|  | Article 44p | Introduction of musical instruments into the Union with certificates issued by third countries |
-| CHAPTER IX | Customs procedure |  |
-|  | Article 45 | Forwarding of documents presented to Customs offices |
-| CHAPTER X | Certificates provided for in Article 5(2)(b), (3) and (4), Article 8(3) and Article 9(2)(b) of *Regulation (EC) No 338/97* |  |
-|  | Article 46 | Issuing authority |
-|  | Article 47 | Certificates provided for in Article 5(2)(b), (3) and (4) of Regulation (EC) No 338/97 (certificates required for export or re-export) |
-|  | Article 48 | Certificate provided for in Article 8(3) of Regulation (EC) No 338/97 (certificate for commercial use) |
-|  | Article 49 | Certificate provided for in Article 9(2)(b) of Regulation (EC) No 338/97 (certificate for movement of live specimens) |
-|  | Article 50 | Application for the certificates provided for in Article 5(2)(b), (3) and (4), Article 8(3) and Article 9(2)(b) of Regulation (EC) No 338/97 |
-|  | Article 51 | Amendments to permits, notifications and certificates |
-| CHAPTER XI | **Labels** |  |
-|  | Article 52 | Use of labels |
-| CHAPTER XII | Derogations from Customs procedures referred to in Article 4(7) of *Regulation (EC) No 338/97* |  |
-|  | Article 53 | Customs offices other than the border Customs office at the point of introduction |
-| CHAPTER XIII | Specimens born and bred in captivity and artificially propagated specimens |  |
-|  | Article 54 | Specimens born and bred in captivity   
-of animal species |
-|  | Article 55 | Establishment of ancestry |
-|  | Article 56 | Artificially propagated specimens of plant species |
-| CHAPTER XIV | Personal and household effects |  |
-|  | Article 57 | Introduction and reintroduction into the Community of personal and household effects |
-|  | Article 58 | Export and re-export from the EU of personal and household effects |
-|  | **Article 58a** | Commercial use of personal and household effects within the EU |
-| CHAPTER XV | **Exemptions and derogations** |  |
-|  | Article 59 | Exemptions from Article 8(1) of Regulation (EC) No 338/97 laid down in Article 8(3) thereof |
-|  | Article 60 | Derogation from Article 8(1) of Regulation (EC) No 338/97 for the benefit of scientific institutions |
-|  | Article 61 | Exemptions from Article 8(1) and (3) of Regulation (EC) No 338/97 |
-|  | Article 62 | General exemptions from Article 8(1) and (3) of Regulation (EC) No 338/97 |
-|  | Article 63 | Pre-issued certificates under Article 8(3) of Regulation (EC) No 338/97 |
-| CHAPTER XVI | **Marking requirements** |  |
-|  | Article 64 | Marking of specimens for the purpose of imports |
-|  | Article 65 | Marking of specimens for the purpose of export and re-export |
-|  | Article 66 | Marking methods |
-|  | Article 67 | Humane marking methods |
-|  | Article 68 | Mutual recognition of marking methods |
-| CHAPTER XVII | Reports and information |  |
-|  | Article 69 | Reports on imports, exports and re-exports |
-|  | Article 70 | Amendments to the Annexes to Regulation (EC) No 338/97 |
-| CHAPTER XVIII | **Final provisions** |  |
-|  | Article 71 | Rejection of applications for import permits |
-|  | Article 72 | Transitional measures |
-|  | Article 73 | Notification of implementing provisions |
-|  | Article 74 | Repeal |
-|  | Article 75 | Entry into force |
-|  | Annex I | Model form for import/ export/ re-export and “other” certificate |
-|  | Annex II | Model import notification |
-|  | Annex III | Model travelling exhibition certificate |
-|  | Annex IV | Model continuation sheet |
-|  | Annex V | Model internal trade certificate |
-|  | Annex VI | Model label for scientific exchanges |
-|  | Annex VII | Description codes |
-|  | Annex VIII | Standard nomenclature references |
-|  | Annex IX | Source and purpose codes |
-|  | Annex X | Animal species referred to in Article 62(1) |
-|  | Annex XI | Types of biological samples referred to in Article 18 and their use |
-|  | Annex XII | **Correlation Table (corresponding articles of current version of Regulation (EC) No 865/2006 and the previous version of this legislation)** |
-|  | Annex XIII | Species and populations referred to in Article 57(3a) |
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:10%"><col style="width:16%"><col></colgroup>
+<thead>
+<tr><th colspan="3"><strong>Regulation (EC) No 865/2006 as amended</strong></th></tr>
+<tr><th class="table-subheader">CHAPTER</th><th class="table-subheader">ARTICLE</th><th class="table-subheader">CONTENT</th></tr>
+</thead>
+<tbody>
+<tr><td>CHAPTER I</td><td>Definitions</td><td></td></tr>
+<tr><td></td><td>Article 1</td><td>Definitions</td></tr>
+<tr><td>CHAPTER II</td><td>Forms and technical requirements</td><td></td></tr>
+<tr><td></td><td>Article 2</td><td>Forms</td></tr>
+<tr><td></td><td>Article 3</td><td>Technical specifications with regard to forms</td></tr>
+<tr><td></td><td>Article 4</td><td>Completion of forms</td></tr>
+<tr><td></td><td>Article 5</td><td>Contents of permits, certificates and applications for the issue of such documents</td></tr>
+<tr><td></td><td>Article 5a</td><td>Specific content of permits, certificates and applications for plant specimens</td></tr>
+<tr><td></td><td>Article 5b</td><td>Specific content of permits and certificates for live rhinoceros and live elephants</td></tr>
+<tr><td></td><td>Article 6 Regulation (EU) No 791/2012)</td><td>Annexes to forms</td></tr>
+<tr><td></td><td>Article 7</td><td>Permits and certificates issued by third countries</td></tr>
+<tr><td>CHAPTER III</td><td>Issue, use and validity of documents</td><td></td></tr>
+<tr><td></td><td>Article 8</td><td>Issue and use of documents</td></tr>
+<tr><td></td><td>Article 9</td><td>Shipments of specimens</td></tr>
+<tr><td></td><td>Article 10</td><td>Validity of import and export permits, re-export certificates, travelling exhibition certificates, and personal ownership certificates</td></tr>
+<tr><td></td><td>Article 11</td><td>Validity of used import permits and of the certificates referred to in Articles 47, 48, 49, 60 and 63</td></tr>
+<tr><td></td><td>Article 12</td><td>Replacement of documents</td></tr>
+<tr><td></td><td>Article 13</td><td>Time of application for import and export permits and re-export certificates</td></tr>
+<tr><td></td><td>Article 14</td><td>Validity of documents from third countries</td></tr>
+<tr><td></td><td>Article 15</td><td>Retrospective issuance of certain documents</td></tr>
+<tr><td></td><td>Article 16</td><td>Specimens in transit through the EU</td></tr>
+<tr><td></td><td>Article 17</td><td>Issuance of phytosanitary certificates</td></tr>
+<tr><td></td><td>Article 18</td><td>Pre-issued permits and certificates with regard to certain trade in biological samples</td></tr>
+<tr><td></td><td>Article 19</td><td>Pre-issued permits and certificates with regard to export or re-export of dead specimens</td></tr>
+<tr><td>CHAPTER IV</td><td>Import permits</td><td></td></tr>
+<tr><td></td><td>Article 20</td><td>Applications for import permits</td></tr>
+<tr><td></td><td>Article 20a (inserted by paragraph 10 of <em>Regulation (EC) No 100/2008</em>)</td><td>Rejection of applications for import permits</td></tr>
+<tr><td></td><td>Article 21</td><td>Import permits issued for specimens of species included in Appendix I to the Convention and listed in Annex A to <em>Regulation (EC) No. 338/97</em></td></tr>
+<tr><td></td><td>Article 22</td><td>Documents to be surrendered by the importer to the Customs office</td></tr>
+<tr><td></td><td>Article 23</td><td>Handling by the Customs office</td></tr>
+<tr><td>CHAPTER V</td><td><strong>Import notifications</strong></td><td></td></tr>
+<tr><td></td><td>Article 24</td><td>Documents to be surrendered by the importer to the Customs office</td></tr>
+<tr><td></td><td>Article 25</td><td>Handling by the Customs office</td></tr>
+<tr><td>CHAPTER VI</td><td><strong>Export permits and re-export certificates</strong></td><td></td></tr>
+<tr><td></td><td>Article 26</td><td>Applications for export permits and re-export certificates</td></tr>
+<tr><td></td><td>Article 26a</td><td>Applications for export permits and re-export certificates</td></tr>
+<tr><td></td><td>Article 27</td><td>Documents to be surrendered by the (re-) exporter to the Customs office</td></tr>
+<tr><td></td><td>Article 28</td><td>Handling by the Customs office</td></tr>
+<tr><td></td><td>Article 29</td><td>Pre-issued permits for nurseries</td></tr>
+<tr><td>CHAPTER VII</td><td>Travelling exhibition certificates</td><td></td></tr>
+<tr><td></td><td>Article 30</td><td>Issuance of travelling exhibition certificates</td></tr>
+<tr><td></td><td>Article 31</td><td>Use of travelling exhibition certificates</td></tr>
+<tr><td></td><td>Article 32</td><td>Issuing authority for travelling exhibition certificates</td></tr>
+<tr><td></td><td>Article 33</td><td>Conditions for travelling exhibition certificates</td></tr>
+<tr><td></td><td>Article 34</td><td>Application for travelling exhibition certificates</td></tr>
+<tr><td></td><td>Article 35</td><td>Documents to be surrendered by the holder of the travelling exhibition certificate to the Customs office</td></tr>
+<tr><td></td><td>Article 36</td><td>Replacement of travelling exhibition certificates</td></tr>
+<tr><td>CHAPTER VIII</td><td>Personal ownership certificate</td><td></td></tr>
+<tr><td></td><td>Article 37</td><td>Issuance of personal ownership certificates</td></tr>
+<tr><td></td><td>Article 38</td><td>Use of personal ownership certificates</td></tr>
+<tr><td></td><td>Article 39</td><td>Issuing authority for personal ownership certificates</td></tr>
+<tr><td></td><td>Article 40</td><td>Conditions for a personal ownership certificate</td></tr>
+<tr><td></td><td>Article 41</td><td>Application for personal ownership certificates</td></tr>
+<tr><td></td><td>Article 42</td><td>Documents to be surrendered by the holder of  personal ownership certificate to Customs office</td></tr>
+<tr><td></td><td>Article 43</td><td>Sales of specimens covered by personal ownership certificates</td></tr>
+<tr><td></td><td>Article 44</td><td>Replacement of personal ownership certificates</td></tr>
+<tr><td>CHAPTER VIIIa</td><td>Sample collection certificates</td><td></td></tr>
+<tr><td></td><td>Article 44a</td><td>Issue</td></tr>
+<tr><td></td><td>Article 44b</td><td>Use</td></tr>
+<tr><td></td><td>Article 44c</td><td>Issuing authority</td></tr>
+<tr><td></td><td>Article 44d</td><td>Requirements</td></tr>
+<tr><td></td><td>Article 44e</td><td>Applications</td></tr>
+<tr><td></td><td>Article 44f</td><td>Documents to be surrendered by the holder to the Customs office</td></tr>
+<tr><td></td><td>Article 44g</td><td>Replacement</td></tr>
+<tr><td>CHAPTER VIIIb</td><td>Musical instrument certificates</td><td></td></tr>
+<tr><td></td><td>Article 44h</td><td>Issue</td></tr>
+<tr><td></td><td>Article 44i</td><td>Use</td></tr>
+<tr><td></td><td>Article 44j</td><td>Issuing authority</td></tr>
+<tr><td></td><td>Article 44k</td><td>Requirements for specimens</td></tr>
+<tr><td></td><td>Article 44l</td><td>Applications</td></tr>
+<tr><td></td><td>Article 44m</td><td>Documents to be surrendered by the holder to the customs office</td></tr>
+<tr><td></td><td>Article 44n</td><td>Sale of specimens covered</td></tr>
+<tr><td></td><td>Article 44o</td><td>Replacement</td></tr>
+<tr><td></td><td>Article 44p</td><td>Introduction of musical instruments into the Union with certificates issued by third countries</td></tr>
+<tr><td>CHAPTER IX</td><td>Customs procedure</td><td></td></tr>
+<tr><td></td><td>Article 45</td><td>Forwarding of documents presented to Customs offices</td></tr>
+<tr><td>CHAPTER X</td><td>Certificates provided for in Article 5(2)(b), (3) and (4), Article 8(3) and Article 9(2)(b) of <em>Regulation (EC) No 338/97</em></td><td></td></tr>
+<tr><td></td><td>Article 46</td><td>Issuing authority</td></tr>
+<tr><td></td><td>Article 47</td><td>Certificates provided for in Article 5(2)(b), (3) and (4) of Regulation (EC) No 338/97 (certificates required for export or re-export)</td></tr>
+<tr><td></td><td>Article 48</td><td>Certificate provided for in Article 8(3) of Regulation (EC) No 338/97 (certificate for commercial use)</td></tr>
+<tr><td></td><td>Article 49</td><td>Certificate provided for in Article 9(2)(b) of Regulation (EC) No 338/97 (certificate for movement of live specimens)</td></tr>
+<tr><td></td><td>Article 50</td><td>Application for the certificates provided for in Article 5(2)(b), (3) and (4), Article 8(3) and Article 9(2)(b) of Regulation (EC) No 338/97</td></tr>
+<tr><td></td><td>Article 51</td><td>Amendments to permits, notifications and certificates</td></tr>
+<tr><td>CHAPTER XI</td><td><strong>Labels</strong></td><td></td></tr>
+<tr><td></td><td>Article 52</td><td>Use of labels</td></tr>
+<tr><td>CHAPTER XII</td><td>Derogations from Customs procedures referred to in Article 4(7) of <em>Regulation (EC) No 338/97</em></td><td></td></tr>
+<tr><td></td><td>Article 53</td><td>Customs offices other than the border Customs office at the point of introduction</td></tr>
+<tr><td>CHAPTER XIII</td><td>Specimens born and bred in captivity and artificially propagated specimens</td><td></td></tr>
+<tr><td></td><td>Article 54</td><td>Specimens born and bred in captivity of animal species</td></tr>
+<tr><td></td><td>Article 55</td><td>Establishment of ancestry</td></tr>
+<tr><td></td><td>Article 56</td><td>Artificially propagated specimens of plant species</td></tr>
+<tr><td>CHAPTER XIV</td><td>Personal and household effects</td><td></td></tr>
+<tr><td></td><td>Article 57</td><td>Introduction and reintroduction into the Community of personal and household effects</td></tr>
+<tr><td></td><td>Article 58</td><td>Export and re-export from the EU of personal and household effects</td></tr>
+<tr><td></td><td><strong>Article 58a</strong></td><td>Commercial use of personal and household effects within the EU</td></tr>
+<tr><td>CHAPTER XV</td><td><strong>Exemptions and derogations</strong></td><td></td></tr>
+<tr><td></td><td>Article 59</td><td>Exemptions from Article 8(1) of Regulation (EC) No 338/97 laid down in Article 8(3) thereof</td></tr>
+<tr><td></td><td>Article 60</td><td>Derogation from Article 8(1) of Regulation (EC) No 338/97 for the benefit of scientific institutions</td></tr>
+<tr><td></td><td>Article 61</td><td>Exemptions from Article 8(1) and (3) of Regulation (EC) No 338/97</td></tr>
+<tr><td></td><td>Article 62</td><td>General exemptions from Article 8(1) and (3) of Regulation (EC) No 338/97</td></tr>
+<tr><td></td><td>Article 63</td><td>Pre-issued certificates under Article 8(3) of Regulation (EC) No 338/97</td></tr>
+<tr><td>CHAPTER XVI</td><td><strong>Marking requirements</strong></td><td></td></tr>
+<tr><td></td><td>Article 64</td><td>Marking of specimens for the purpose of imports</td></tr>
+<tr><td></td><td>Article 65</td><td>Marking of specimens for the purpose of export and re-export</td></tr>
+<tr><td></td><td>Article 66</td><td>Marking methods</td></tr>
+<tr><td></td><td>Article 67</td><td>Humane marking methods</td></tr>
+<tr><td></td><td>Article 68</td><td>Mutual recognition of marking methods</td></tr>
+<tr><td>CHAPTER XVII</td><td>Reports and information</td><td></td></tr>
+<tr><td></td><td>Article 69</td><td>Reports on imports, exports and re-exports</td></tr>
+<tr><td></td><td>Article 70</td><td>Amendments to the Annexes to Regulation (EC) No 338/97</td></tr>
+<tr><td>CHAPTER XVIII</td><td><strong>Final provisions</strong></td><td></td></tr>
+<tr><td></td><td>Article 71</td><td>Rejection of applications for import permits</td></tr>
+<tr><td></td><td>Article 72</td><td>Transitional measures</td></tr>
+<tr><td></td><td>Article 73</td><td>Notification of implementing provisions</td></tr>
+<tr><td></td><td>Article 74</td><td>Repeal</td></tr>
+<tr><td></td><td>Article 75</td><td>Entry into force</td></tr>
+<tr><td></td><td>Annex I</td><td>Model form for import/ export/ re-export and “other” certificate</td></tr>
+<tr><td></td><td>Annex II</td><td>Model import notification</td></tr>
+<tr><td></td><td>Annex III</td><td>Model travelling exhibition certificate</td></tr>
+<tr><td></td><td>Annex IV</td><td>Model continuation sheet</td></tr>
+<tr><td></td><td>Annex V</td><td>Model internal trade certificate</td></tr>
+<tr><td></td><td>Annex VI</td><td>Model label for scientific exchanges</td></tr>
+<tr><td></td><td>Annex VII</td><td>Description codes</td></tr>
+<tr><td></td><td>Annex VIII</td><td>Standard nomenclature references</td></tr>
+<tr><td></td><td>Annex IX</td><td>Source and purpose codes</td></tr>
+<tr><td></td><td>Annex X</td><td>Animal species referred to in Article 62(1)</td></tr>
+<tr><td></td><td>Annex XI</td><td>Types of biological samples referred to in Article 18 and their use</td></tr>
+<tr><td></td><td>Annex XII</td><td><strong>Correlation Table (corresponding articles of current version of Regulation (EC) No 865/2006 and the previous version of this legislation)</strong></td></tr>
+<tr><td></td><td>Annex XIII</td><td>Species and populations referred to in Article 57(3a)</td></tr>
+</tbody>
+</table>
+</div>

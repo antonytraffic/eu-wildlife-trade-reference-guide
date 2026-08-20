@@ -12,7 +12,7 @@ parent: annexes
 
 
 
-## Codes for the indication in permits and certificates of the purpose of a transaction, referred to in Article 5(5) of Regulation (EC) No 865/2006 as amended by Regulation (EU) No 2015/870
+## Codes for the indication in permits and certificates of the purpose of a transaction, referred to in Article 5(5) of Regulation (EC) No 865/2006 as amended by Regulation (EU) No 2015/870[^1]
 
 
 

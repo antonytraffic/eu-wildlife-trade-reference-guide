@@ -82,9 +82,9 @@ More specifically, this means *inter alia* the following:
 - The movement of specimens of protected species from Great Britain or from a third country to Northern Ireland is an import for the purposes of Regulation (EC) No 338/97. 
 - The movement of specimens of protected species from Northern Ireland to a third country is an export for the purposes of Regulation (EC) No 338/97.
 
-- Table 16. Summary table of procedures and applicable rules for the Northern Ireland protocol.
+*Table 16: Summary table of procedures and applicable rules for the Northern Ireland protocol.*
 
-- | **EU to NI / NI to EU (e.g. Brussels to Belfast or vice versa)** | **GB to NI (e.g. London to Belfast)** | **EU to GB (e.g. Brussels to London)** | **GB to EU(e.g. London to Brussels)** |
+| **EU to NI / NI to EU (e.g. Brussels to Belfast or vice versa)** | **GB to NI (e.g. London to Belfast)** | **EU to GB (e.g. Brussels to London)** | **GB to EU(e.g. London to Brussels)** |
 | --- | --- | --- | --- |
 | Considered as intra-EU trade | UK-GB issues export permit | EU-MS (e.g., Belgium) issues export permit | UK-GB issues export permit |
 | Normal intra-EU rules apply (certificate for Annex A-listed species, proof of legal acquisition for Annex B-listed species) | UK-NI issues import permit (according to EU rules) | UK-GB issues import permit (if required) | EU-MS (e.g., Belgium) issues import permit |

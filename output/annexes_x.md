@@ -12,7 +12,7 @@ parent: annexes
 
 
 
-## Animal species referred to in Article 62(1) of Regulation (EC) No 865/2006
+## Animal species referred to in Article 62(1) of Regulation (EC) No 865/2006[^1]
 
 
 

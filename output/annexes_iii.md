@@ -74,25 +74,20 @@ c. ***‘breeding stock’*** means all the animals in a breeding operation that
 
 d. ***‘a controlled environment’*** means an environment that is manipulated for the purpose of producing animals of a particular species, that has boundaries designed to prevent animals, eggs or gametes of the species from entering or leaving the controlled environment, and the general characteristics of which may include but are not limited to: artificial housing, waste removal, health care, protection from predators and the artificial supply of food;
 
-e. ‘***cultivated parental stock***’ means the ensemble of plants grown under controlled conditions that are used for reproduction, and which must have been, to the satisfaction of the designated CITES authorities of the exporting country: 
-  - (i) established in accordance with the provisions of CITES and relevant national laws and in a manner not detrimental to the survival of the species in the wild; and 
-  - (ii) maintained in sufficient quantities for propagation so as to minimise or eliminate the need for augmentation from the wild, with such augmentation occurring only as an exception and limited to the amount necessary to maintain the vigour and productivity of the cultivated parental stock;
+e. ***‘cultivated parental stock’*** means the ensemble of plants grown under controlled conditions that are used for reproduction, and which must have been, to the satisfaction of the designated CITES authorities of the exporting country:<br>(i) established in accordance with the provisions of CITES and relevant national laws and in a manner not detrimental to the survival of the species in the wild; and<br>(ii) maintained in sufficient quantities for propagation so as to minimise or eliminate the need for augmentation from the wild, with such augmentation occurring only as an exception and limited to the amount necessary to maintain the vigour and productivity of the cultivated parental stock;
 
-- ‘***hunting trophy’*** means a whole animal, or a readily recognizable part or derivative of an animal, specified on any accompanying CITES permit or certificate that fulfils the following conditions:
-  - is raw, processed or manufactured;
-  - was legally obtained by the hunter through hunting for the hunter’s personal use; 
-  - is being imported, exported or re-exported by or on behalf of the hunter, as part of the transfer from its country of origin, ultimately to the hunter's State of usual residence;
+f. ***‘hunting trophy’*** means a whole animal, or a readily recognizable part or derivative of an animal, specified on any accompanying CITES permit or certificate that fulfils the following conditions:<br>is raw, processed or manufactured;<br>was legally obtained by the hunter through hunting for the hunter’s personal use;<br>is being imported, exported or re-exported by or on behalf of the hunter, as part of the transfer from its country of origin, ultimately to the hunter's State of usual residence;
 
-a. ***‘a person normally residing in the EU’*** means a person who lives in the EU for at least 185 days in each calendar year because of occupational ties, or, in the case of a person with no occupational ties, because of personal ties which show close links between that person and the place where he/she is living;
+g. ***‘a person normally residing in the EU’*** means a person who lives in the EU for at least 185 days in each calendar year because of occupational ties, or, in the case of a person with no occupational ties, because of personal ties which show close links between that person and the place where he/she is living;
 
-b. ***‘pre-Convention specimen*****’** means a specimen acquired before the species was first included in the Appendices to the Convention;
+h. ***‘pre-Convention specimen’*** means a specimen acquired before the species was first included in the Appendices to the Convention;
 
-c. ***‘sample collection*****’** means a collection of legally acquired dead specimens, parts and derivatives thereof, that are transported across borders for presentation purposes;
+i. ***‘sample collection’*** means a collection of legally acquired dead specimens, parts and derivatives thereof, that are transported across borders for presentation purposes;
 
-d. ***‘travelling exhibitio****n*’ means a sample collection, circus, menagerie, plant exhibition, orchestra or museums exhibition that is used for commercial display for the public;
+j. ***‘travelling exhibition’*** means a sample collection, circus, menagerie, plant exhibition, orchestra or museums exhibition that is used for commercial display for the public;
 
-e. ***‘transaction-specific certificates’*** means certificates issued in accordance with Article 48 that are valid for one or more specified transactions;.
+k. ***‘transaction-specific certificates’*** means certificates issued in accordance with Article 48 that are valid for one or more specified transactions;.
 
-f. ***‘specimen-specific certificates’*** means certificates other than transaction-specific certificates that are issued in accordance with Article 48.
+l. ***‘specimen-specific certificates’*** means certificates other than transaction-specific certificates that are issued in accordance with Article 48.
 
 [^1]: [http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:52017XC0517(02)&from=EN](http://www.speciesplus.net/)

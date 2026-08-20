@@ -149,6 +149,64 @@ def _check_row(row_m: re.Match, n_cols: int) -> str:
     return row
 
 
+_THEAD_ROW_RE = re.compile(r"<thead>\s*<tr>(.*?)</tr>\s*</thead>", re.DOTALL)
+_TH_CELL_RE = re.compile(r"<th[^>]*>(.*?)</th>", re.DOTALL)
+
+
+def _span_single_cell_header(row_m: re.Match, n_cols: int) -> str:
+    row = row_m.group(1)
+    cells = _TH_CELL_RE.findall(row)
+    if len(cells) < 2:
+        return row_m.group(0)
+    non_empty = [c for c in cells if c.strip()]
+    if len(non_empty) != 1:
+        return row_m.group(0)
+    content = non_empty[0].strip()
+    return f'<thead><tr><th colspan="{n_cols}">{content}</th></tr></thead>'
+
+
+_MIN_COL_WIDTH_PCT = 10.0
+
+
+def _col_max_words(inner: str, n_cols: int) -> list:
+    """Longest single word (in characters) found in each column's body
+    cells, used to keep column widths from forcing mid-word wraps."""
+    col_max_word = [0] * n_cols
+    tbody_m = re.search(r"<tbody>(.*?)</tbody>", inner, re.DOTALL)
+    if not tbody_m:
+        return col_max_word
+    for row_m in _ROW_RE.finditer(tbody_m.group(0)):
+        cells = _CELL_RE.findall(row_m.group(0))
+        if len(cells) != n_cols:
+            continue
+        for i, c in enumerate(cells):
+            text = re.sub(r"<[^>]+>", "", c).strip()
+            longest_word = max((len(w) for w in text.split()), default=0)
+            col_max_word[i] = max(col_max_word[i], longest_word)
+    return col_max_word
+
+
+def _apply_word_floor(raw_pct: list, col_max_word: list) -> list:
+    """Adjust a row of candidate column-width percentages so no column ends
+    up narrower than its own longest single word needs. Each column is
+    floored at whatever width that word needs, then only the *leftover*
+    budget is handed out -- proportional to how far each column's raw share
+    exceeds its own floor -- rather than uniformly rescaling every column
+    back to 100%, which would shrink already-floored columns below the
+    width their longest word needs whenever more than one column in the
+    table has a floor."""
+    word_floor = [min(30.0, max(_MIN_COL_WIDTH_PCT, w * 1.15 + 3)) for w in col_max_word]
+    floor_total = sum(word_floor)
+    if floor_total >= 100:
+        return [f / floor_total * 100 for f in word_floor]
+    remaining = 100 - floor_total
+    excess = [max(r - f, 0) for r, f in zip(raw_pct, word_floor)]
+    excess_total = sum(excess)
+    if excess_total > 0:
+        return [f + remaining * (e / excess_total) for f, e in zip(word_floor, excess)]
+    return [f + remaining / len(word_floor) for f in word_floor]
+
+
 def _make_colgroup(inner: str, n_cols: int) -> str:
     """Return <colgroup> HTML for a handful of known wide-text-column tables,
     keyed off header wording so new tables pick up the right widths automatically
@@ -158,15 +216,12 @@ def _make_colgroup(inner: str, n_cols: int) -> str:
     if len(texts) != n_cols:
         return ""
 
+    col_max_word = _col_max_words(inner, n_cols)
+
     if n_cols == 4 and any("documents required" in t for t in texts):
-        return (
-            '<colgroup>'
-            '<col style="width:12%">'
-            '<col style="width:8%">'
-            '<col style="width:60%">'
-            '<col style="width:20%">'
-            '</colgroup>'
-        )
+        pct = _apply_word_floor([12, 8, 60, 20], col_max_word)
+        cols = "".join(f'<col style="width:{p:.1f}%">' for p in pct)
+        return f"<colgroup>{cols}</colgroup>"
 
     # Last column is a long free-text explanation/reference -- give it most of
     # the width and split the rest evenly among the (usually short, code-like)
@@ -174,10 +229,55 @@ def _make_colgroup(inner: str, n_cols: int) -> str:
     if texts and ("explanation" in texts[-1] or "taxonomic reference" in texts[-1]):
         last_width = 55
         other_width = (100 - last_width) / (n_cols - 1)
-        cols = "".join(f'<col style="width:{other_width:.1f}%">' for _ in range(n_cols - 1))
-        return f'<colgroup>{cols}<col style="width:{last_width}%"></colgroup>'
+        raw_pct = [other_width] * (n_cols - 1) + [last_width]
+        pct = _apply_word_floor(raw_pct, col_max_word)
+        cols = "".join(f'<col style="width:{p:.1f}%">' for p in pct)
+        return f"<colgroup>{cols}</colgroup>"
 
-    return ""
+    return _content_based_colgroup(inner, n_cols, col_max_word)
+
+
+def _content_based_colgroup(inner: str, n_cols: int, col_max_word: list = None) -> str:
+    """Fallback for tables with no special-cased header wording: size each
+    column proportionally to the average text length of its body cells, so
+    a column that's mostly long free-text paragraphs gets noticeably more
+    room than neighbouring short code/label columns, without needing a
+    per-table rule. Rows that don't have exactly n_cols cells (e.g. a
+    colspan sub-header row) are skipped since they carry no per-column
+    signal. A floor keeps short-but-important columns legible."""
+    if n_cols < 2:
+        return ""
+    tbody_m = re.search(r"<tbody>(.*?)</tbody>", inner, re.DOTALL)
+    if not tbody_m:
+        return ""
+    col_totals = [0] * n_cols
+    col_counts = [0] * n_cols
+    for row_m in _ROW_RE.finditer(tbody_m.group(0)):
+        cells = _CELL_RE.findall(row_m.group(0))
+        if len(cells) != n_cols:
+            continue
+        for i, c in enumerate(cells):
+            text = re.sub(r"<[^>]+>", "", c).strip()
+            col_totals[i] += len(text)
+            col_counts[i] += 1
+    if not any(col_counts):
+        return ""
+    avgs = [
+        (col_totals[i] / col_counts[i]) if col_counts[i] else 0
+        for i in range(n_cols)
+    ]
+    if sum(avgs) == 0:
+        return ""
+    # If every column is roughly the same length, an even split already
+    # looks right -- only worth a custom colgroup when there's real skew.
+    if max(avgs) < 1.6 * (sum(avgs) / n_cols):
+        return ""
+    raw_pct = [max(a, 1) / sum(max(x, 1) for x in avgs) * 100 for a in avgs]
+    if col_max_word is None:
+        col_max_word = _col_max_words(inner, n_cols)
+    pct = _apply_word_floor(raw_pct, col_max_word)
+    cols = "".join(f'<col style="width:{p:.1f}%">' for p in pct)
+    return f"<colgroup>{cols}</colgroup>"
 
 
 def _postprocess_tables(html: str) -> str:
@@ -207,7 +307,16 @@ def _postprocess_tables(html: str) -> str:
             new_tbody = _ROW_RE.sub(lambda r: _check_row(r, n_cols), tbody_m.group(0))
             inner = inner[: tbody_m.start()] + new_tbody + inner[tbody_m.end():]
 
+        # Width detection reads the header text (e.g. "Documents Required"),
+        # so it must run before the header row itself gets merged below.
         colgroup = _make_colgroup(inner, n_cols)
+
+        # A header row with content in only one <th> (the rest empty) is a
+        # table-wide title, not real per-column labels -- markdown tables can
+        # only express one header row, so the actual column labels usually
+        # live in the first tbody row instead. Merge it into one spanning
+        # cell so it reads as a title bar rather than a lopsided header row.
+        inner = _THEAD_ROW_RE.sub(lambda r: _span_single_cell_header(r, n_cols), inner, count=1)
 
         # Look for a Source:/Note: paragraph immediately after this table
         rest = html[m.end():]
@@ -393,6 +502,28 @@ def _postprocess_summary_sections(html: str) -> str:
     return _SUMMARY_RE.sub(_sub, html)
 
 
+_CONTEXT_BOX_RE = re.compile(
+    r'<p><strong>CONTEXT</strong></p>\s*<p>(.*?)</p>',
+    re.DOTALL,
+)
+
+
+def _postprocess_context_boxes(html: str) -> str:
+    """Wrap Annex XII's 'CONTEXT' call-outs (a bold CONTEXT label paragraph
+    immediately followed by one content paragraph -- the source markdown is
+    normalized to always have exactly this shape) in a bordered box, matching
+    how the source PDF visually sets these apart from the surrounding text."""
+    def _sub(m: re.Match) -> str:
+        content = m.group(1)
+        return (
+            '<div class="context-box">'
+            '<p class="context-box__label">CONTEXT</p>'
+            f'<p>{content}</p>'
+            '</div>'
+        )
+    return _CONTEXT_BOX_RE.sub(_sub, html)
+
+
 def render_markdown(content: str) -> str:
     html = markdown2.markdown(
         content,
@@ -403,6 +534,7 @@ def render_markdown(content: str) -> str:
     html = _postprocess_table_labels(html)
     html = _postprocess_footnotes(html)
     html = _postprocess_summary_sections(html)
+    html = _postprocess_context_boxes(html)
     return html
 
 
@@ -671,6 +803,7 @@ def strip_markdown(content: str) -> str:
     s = re.sub(r"\*{1,3}([^*]+)\*{1,3}", r"\1", s)
     s = re.sub(r"_{1,3}([^_]+)_{1,3}", r"\1", s)
     s = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", s)
+    s = re.sub(r"\[\^[^\]]+\]:?", "", s)
     s = re.sub(r"```.*?```", " ", s, flags=re.DOTALL)
     s = re.sub(r"`([^`]+)`", r"\1", s)
     s = re.sub(r"^\s*[-*+]\s+", "", s, flags=re.MULTILINE)
@@ -1085,6 +1218,13 @@ pre code { background: none; padding: 0; }
 .table-subheader {
   background: #f3f2f1; font-weight: 700; text-align: left; padding: 6px 8px;
 }
+/* .table-subheader also lands on <th> in a couple of hand-authored tables
+   (a second "column label" header row under a spanning title row) -- needs
+   its own selector since .article table th's black background otherwise
+   outranks the plain .table-subheader rule above on specificity. */
+.article table th.table-subheader, .article-body table th.table-subheader {
+  background: #f3f2f1; color: var(--black); font-weight: 700;
+}
 table caption {
   caption-side: bottom; font-size: 0.8rem; color: #505a5f;
   text-align: left; padding-top: 0.4rem; font-style: normal;
@@ -1313,6 +1453,17 @@ sup.footnote-ref a:hover { text-decoration: underline; }
 .summary-smallprint strong { color: #505a5f; font-weight: 600; }
 .summary-smallprint ol { margin-top: 6px; }
 .summary-smallprint li { margin-bottom: 2px; }
+
+/* -- Context box (Annex XII "CONTEXT" call-outs) ------- */
+.context-box {
+  margin: 20px 0; padding: 16px 20px;
+  background: var(--light-grey); border: 1px solid var(--border); border-radius: var(--radius);
+}
+.context-box__label {
+  font-weight: 700; text-transform: uppercase; font-size: .75rem;
+  letter-spacing: .05em; color: var(--secondary); margin-bottom: 8px;
+}
+.context-box p:last-child { margin-bottom: 0; }
 
 /* -- Footnote expand button --------------------------- */
 .footnotes-overflow { list-style: decimal; }
@@ -2067,9 +2218,11 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
 
 
 def annex_first_heading(sub: dict) -> str:
-    """Return the first H2 heading text from an annex sub-page body."""
+    """Return the first H2 heading text from an annex sub-page body, with any
+    inline markdown (bold/italic/footnote markers) stripped for display as a
+    plain-text card excerpt."""
     m = re.search(r'^## (.+)$', sub["body"], re.MULTILINE)
-    return m.group(1).strip() if m else ""
+    return strip_markdown(m.group(1)) if m else ""
 
 
 def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[dict], summaries: dict) -> str:
@@ -2644,6 +2797,14 @@ th:has(span[style*="writing-mode:vertical-lr"]) { vertical-align: middle !import
 .figure-block figcaption { font-size: 9pt; color: #696984; margin-top: 2mm; }
 
 .summary-smallprint { font-size: 9pt; color: #696984; border-left: 2pt solid #d4d4dc; padding-left: 4mm; }
+.context-box {
+  background: #f6f6f8; border: 0.5pt solid #d4d4dc; border-radius: 1mm;
+  padding: 3mm 4mm; margin: 4mm 0; page-break-inside: avoid;
+}
+.context-box__label {
+  font-weight: 700; text-transform: uppercase; font-size: 7.5pt;
+  letter-spacing: .05em; color: #696984; margin-bottom: 2mm;
+}
 ol.lettered-list { padding-left: 6mm; }
 /* A Figure/Table caption is a separate sibling from the figure/table it
    labels (not a nested figcaption), so without this a caption can end up

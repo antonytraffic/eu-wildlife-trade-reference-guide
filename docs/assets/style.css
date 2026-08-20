@@ -384,6 +384,13 @@ pre code { background: none; padding: 0; }
 .table-subheader {
   background: #f3f2f1; font-weight: 700; text-align: left; padding: 6px 8px;
 }
+/* .table-subheader also lands on <th> in a couple of hand-authored tables
+   (a second "column label" header row under a spanning title row) -- needs
+   its own selector since .article table th's black background otherwise
+   outranks the plain .table-subheader rule above on specificity. */
+.article table th.table-subheader, .article-body table th.table-subheader {
+  background: #f3f2f1; color: var(--black); font-weight: 700;
+}
 table caption {
   caption-side: bottom; font-size: 0.8rem; color: #505a5f;
   text-align: left; padding-top: 0.4rem; font-style: normal;
@@ -612,6 +619,17 @@ sup.footnote-ref a:hover { text-decoration: underline; }
 .summary-smallprint strong { color: #505a5f; font-weight: 600; }
 .summary-smallprint ol { margin-top: 6px; }
 .summary-smallprint li { margin-bottom: 2px; }
+
+/* -- Context box (Annex XII "CONTEXT" call-outs) ------- */
+.context-box {
+  margin: 20px 0; padding: 16px 20px;
+  background: var(--light-grey); border: 1px solid var(--border); border-radius: var(--radius);
+}
+.context-box__label {
+  font-weight: 700; text-transform: uppercase; font-size: .75rem;
+  letter-spacing: .05em; color: var(--secondary); margin-bottom: 8px;
+}
+.context-box p:last-child { margin-bottom: 0; }
 
 /* -- Footnote expand button --------------------------- */
 .footnotes-overflow { list-style: decimal; }

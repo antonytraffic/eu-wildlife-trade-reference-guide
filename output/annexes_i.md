@@ -97,7 +97,7 @@ Since then, the above-mentioned Commission Regulation, has been replaced twice i
 Although the EU Wildlife Trade Regulations are directly applicable in all EU Member States, necessary enforcement provisions must be transferred into national legislation and supplemented with national laws for matters that remain under the sovereignty of each Member State, such as penalties. In addition, the EU has a range of veterinary and phytosanitary provisions, while each EU Member State has national and/or regional legislation relevant to biodiversity and species conservation, animal and plant welfare, and Customs matters.
 
 [^1]: [http://cites.org/eng/eu_181st_party](http://www.speciesplus.net/)
-[^2]: *  Council Decision (EU) 2015/451* *of 6 March 2015 concerning the accession of the European Union to the Convention on International Trade in Endangered Species of Wild Fauna and Flora (CITES),* OJ No. L 75 of 19.3.15, p.1.
+[^2]: *Council Decision (EU) 2015/451* *of 6 March 2015 concerning the accession of the European Union to the Convention on International Trade in Endangered Species of Wild Fauna and Flora (CITES),* OJ No. L 75 of 19.3.15, p.1.
 [^3]: OJ No. L 384 of 31.12.82, p.1.
 [^4]: OJ No. L 344 of 7.12.83, p.1 .
 [^5]: OJ No. L 61 of 3.3.97, p. 1.

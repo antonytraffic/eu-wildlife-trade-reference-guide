@@ -11,7 +11,7 @@ parent: annexes
 # Annex VI
 
 
-## Codes to be included in the description of specimens and units of measurement to be used in permits and certificates pursuant to Articles 5(1) and (2) of Regulation (EC) No 865/2006
+## Codes to be included in the description of specimens and units of measurement to be used in permits and certificates pursuant to Articles 5(1) and (2) of Regulation (EC) No 865/2006[^1]
 
 
 

@@ -48,4 +48,4 @@ parent: annexes
 
 
 
-> * Year of succession. Previously Party to CITES as part of the former Czechoslovakia since 28/05/1992.
+\* Year of succession. Previously Party to CITES as part of the former Czechoslovakia since 28/05/1992.
