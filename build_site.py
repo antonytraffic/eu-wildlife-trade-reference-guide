@@ -32,6 +32,48 @@ SUMMARIES_FILE = INPUT_DIR / "_summaries.json"
 # and PDF need to refer to this page by name, so both stay in sync.
 ABOUT_TITLE = "About"
 
+# -- Reversibility flags -- see brand/ECL-Migration-Spec.md section 5.1 --------
+ECL_CHROME  = True    # False: Drupal / oe_theme supplies globan, header, footer
+ECL_CARDS   = True    # False: revert to the bespoke chapter/subpage card design
+ECL_CONTENT = False   # True:  article body adopts ECL type/table classes
+
+# Article-body element classes. With ECL_CONTENT False every value is "", so the
+# generated HTML is byte-identical to the pre-migration output -- which is what
+# makes the docs/chapters/ diff a meaningful gate rather than a formality.
+CONTENT_CLASSES: dict[bool, dict[str, str]] = {
+    False: {
+        "h2": "", "h3": "", "h4": "", "p": "", "ul": "", "li": "",
+        "table": "", "table_wrap": "table-wrap",
+        "thead": "", "th": "", "td": "",
+    },
+    True: {
+        "h2": "ecl-u-type-heading-2",
+        "h3": "ecl-u-type-heading-3",
+        "h4": "ecl-u-type-heading-4",
+        "p":  "ecl-u-type-paragraph-m",
+        "ul": "ecl-unordered-list",
+        "li": "ecl-unordered-list__item",
+        "table": "ecl-table", "table_wrap": "ecl-table-responsive",
+        "thead": "ecl-table__head", "th": "ecl-table__header",
+        "td": "ecl-table__cell",
+    },
+}
+
+
+def cc(key: str) -> str:
+    """Class name for an article-body element under the active ECL_CONTENT mode."""
+    return CONTENT_CLASSES[ECL_CONTENT].get(key, "")
+
+
+def cc_attr(key: str) -> str:
+    """Ready-to-interpolate class attribute, or '' when the class is empty."""
+    v = cc(key)
+    return f' class="{v}"' if v else ""
+
+# Note: cc_attr() has no caller while ECL_CONTENT is False -- that is deliberate.
+# It is the interpolation point the heading/paragraph/list transforms will use when
+# the flag is enabled. Do not delete it as dead code.
+
 console = Console()
 FOOTER_TEXT: str = ""   # set at build time from _footer_content.md
 _GUIDE_NAV_ITEMS: list[tuple[str, str]] = []  # (title, slug) for Reference Guide dropdown, set at build time
@@ -331,14 +373,17 @@ def _postprocess_tables(html: str) -> str:
             skip = cap_m.end()
 
         result.append(
-            f'<div class="table-wrap">'
+            f'<div class="{cc("table_wrap")}">'
             f"<table>{caption_html}{colgroup}{inner}</table>"
             f"</div>"
         )
         pos = m.end() + skip
 
     result.append(html[pos:])
-    return "".join(result)
+    html_result = "".join(result)
+    # Add data-ecl-table-header="" to all <td> tags unconditionally
+    html_result = re.sub(r'<td(\s|>)', r'<td data-ecl-table-header=""\1', html_result)
+    return html_result
 
 
 def _postprocess_table_labels(html: str) -> str:
