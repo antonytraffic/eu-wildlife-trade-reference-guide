@@ -90,18 +90,6 @@ a:focus-visible {
   border-radius: 1px;
 }
 
-/* -- Official strip ------------------------------------ */
-.official-strip {
-  background: var(--light-grey);
-}
-.official-strip__inner {
-  display: flex; align-items: center; gap: 8px;
-  max-width: none; margin: 0;
-  padding: 4px 16px; line-height: 20px;
-  font-size: .875rem; color: var(--secondary);
-}
-.official-strip__flag { width: 26px; height: auto; flex-shrink: 0; }
-
 /* -- Site header -------------------------------------- */
 .site-header { background: var(--white); }
 .site-header__top-inner {
@@ -745,7 +733,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 
 /* -- Print -------------------------------------------- */
 @media print {
-  .official-strip, .site-header, .top-nav, .breadcrumbs, .sidebar,
+  .site-header, .top-nav, .breadcrumbs, .sidebar,
   .mobile-contents, .chapter-nav, .back-to-top,
   .site-footer, .hero .search-form { display: none !important; }
   .page-grid { display: block; }

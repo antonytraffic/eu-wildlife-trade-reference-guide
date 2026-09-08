@@ -969,18 +969,6 @@ a:focus-visible {
   border-radius: 1px;
 }
 
-/* -- Official strip ------------------------------------ */
-.official-strip {
-  background: var(--light-grey);
-}
-.official-strip__inner {
-  display: flex; align-items: center; gap: 8px;
-  max-width: none; margin: 0;
-  padding: 4px 16px; line-height: 20px;
-  font-size: .875rem; color: var(--secondary);
-}
-.official-strip__flag { width: 26px; height: auto; flex-shrink: 0; }
-
 /* -- Site header -------------------------------------- */
 .site-header { background: var(--white); }
 .site-header__top-inner {
@@ -1624,7 +1612,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 
 /* -- Print -------------------------------------------- */
 @media print {
-  .official-strip, .site-header, .top-nav, .breadcrumbs, .sidebar,
+  .site-header, .top-nav, .breadcrumbs, .sidebar,
   .mobile-contents, .chapter-nav, .back-to-top,
   .site-footer, .hero .search-form { display: none !important; }
   .page-grid { display: block; }
@@ -1914,28 +1902,12 @@ def ecl_globan() -> str:
     """Official-status strip. Task 5 replaces this with the webtools globan."""
     if not ECL_CHROME:
         return ""
-    return """<div class="official-strip">
-  <div class="container official-strip__inner">
-    <svg class="official-strip__flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false">
-      <rect width="24" height="16" fill="#003399"/>
-      <g fill="#FFCC00">
-        <circle cx="12"   cy="3"    r="0.6"/>
-        <circle cx="14.5" cy="3.67" r="0.6"/>
-        <circle cx="16.33" cy="5.5" r="0.6"/>
-        <circle cx="17"   cy="8"    r="0.6"/>
-        <circle cx="16.33" cy="10.5" r="0.6"/>
-        <circle cx="14.5" cy="12.33" r="0.6"/>
-        <circle cx="12"   cy="13"   r="0.6"/>
-        <circle cx="9.5"  cy="12.33" r="0.6"/>
-        <circle cx="7.67" cy="10.5" r="0.6"/>
-        <circle cx="7"    cy="8"    r="0.6"/>
-        <circle cx="7.67" cy="5.5"  r="0.6"/>
-        <circle cx="9.5"  cy="3.67" r="0.6"/>
-      </g>
-    </svg>
-    <span>A reference guide developed by the European Commission and TRAFFIC</span>
-  </div>
-</div>"""
+    return (
+        '<div id="cck_here"><!-- cookie consent --></div>\n'
+        '<script type="application/json">'
+        '{"utility":"globan","theme":"light","logo":true,"link":true,"mode":false}'
+        '</script>'
+    )
 
 
 def ecl_site_header(root: str) -> str:
@@ -2066,7 +2038,9 @@ def ecl_scripts(root: str) -> str:
   }});
 </script>
 <script src="{root}assets/ecl/scripts/ecl-ec.js"></script>
-<script>ECL.autoInit();</script>"""
+<script>ECL.autoInit();</script>
+<script defer src="https://webtools.europa.eu/load.js"></script>
+<script type="application/json">{{"utility":"cck"}}</script>"""
 
 
 def base_html(
