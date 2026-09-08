@@ -1939,7 +1939,7 @@ def base_html(
   </div>
   <div class="site-header__banner">
     <div class="container">
-      <span class="site-header__site-name">EU Wildlife Trade Regulations &ndash; Reference Guide</span>
+      <span class="site-header__site-name">EU Wildlife Trade Regulations</span>
     </div>
   </div>
 </header>
