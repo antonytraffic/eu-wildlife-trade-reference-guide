@@ -884,9 +884,17 @@ CSS = """\
 
 @font-face {
   font-family: "Inter";
-  src: url("fonts/InterVariable.woff2") format("woff2");
+  src: url("ecl/fonts/InterVariable.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("ecl/fonts/InterVariable-Italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -1890,13 +1898,15 @@ SEARCH_JS = """\
 
 def ecl_head_links(root: str) -> str:
     """Stylesheet, font and favicon links for <head>."""
-    # Task 4 replaces the body of this function with the ECL link order.
+    e = f"{root}assets/ecl"
     return (
+        f'  <link rel="stylesheet" href="{e}/styles/optional/ecl-ec-default.css" media="screen">\n'
+        f'  <link rel="stylesheet" href="{e}/styles/ecl-ec.css" media="screen">\n'
+        f'  <link rel="stylesheet" href="{e}/styles/optional/ecl-ec-utilities.css" media="screen">\n'
         f'  <link rel="stylesheet" href="{root}assets/style.css">\n'
         f'  <link rel="icon" type="image/svg+xml" href="{root}favicon.svg">\n'
         f'  <link rel="icon" type="image/x-icon" href="{root}favicon.ico">\n'
-        f'  <link rel="apple-touch-icon" href="{root}apple-touch-icon.png">\n'
-        f'  <meta name="theme-color" content="#00002e">'
+        f'  <link rel="apple-touch-icon" href="{root}apple-touch-icon.png">'
     )
 
 
@@ -2054,7 +2064,9 @@ def ecl_scripts(root: str) -> str:
     title: 'Wildlife Trade Regulations Assistant',
     placeholder: 'Ask about permits, forms, species listings…'
   }});
-</script>"""
+</script>
+<script src="{root}assets/ecl/scripts/ecl-ec.js"></script>
+<script>ECL.autoInit();</script>"""
 
 
 def base_html(
@@ -2088,13 +2100,27 @@ def base_html(
         grid_open = grid_close = sidebar_col = ""
         article_open = article_close = ""
 
+    description = f"EU Wildlife Trade Regulations Reference Guide -- {h(title)}"
+
     return f"""<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
+  <script>
+    var cl = document.querySelector('html').classList;
+    cl.remove('no-js');
+    cl.add('has-js');
+  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{page_title}</title>
-  <meta name="description" content="EU Wildlife Trade Regulations Reference Guide -- {h(title)}">
+  <meta name="description" content="{description}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="EU Wildlife Trade Reference Guide">
+  <meta property="og:title" content="{page_title}">
+  <meta property="og:description" content="{description}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{page_title}">
+  <meta name="twitter:description" content="{description}">
 {ecl_head_links(root)}
 </head>
 <body id="top">
@@ -3504,13 +3530,6 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
     if _chatbot_src.exists():
         shutil.copy(_chatbot_src, SITE_DIR / "assets" / "chatbot.js")
         console.print("  [green]+[/green] assets/chatbot.js")
-
-    _font_src = Path("static") / "fonts" / "InterVariable.woff2"
-    if _font_src.exists():
-        fonts_dst = SITE_DIR / "assets" / "fonts"
-        fonts_dst.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(_font_src, fonts_dst / "InterVariable.woff2")
-        console.print("  [green]+[/green] assets/fonts/InterVariable.woff2")
 
     _ecl_n = copy_ecl_assets(SITE_DIR / "assets" / "ecl")
     console.print(f"  [green]+[/green] assets/ecl/ ({_ecl_n} ECL v5.1.0 files)")
