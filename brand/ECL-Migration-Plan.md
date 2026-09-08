@@ -27,6 +27,11 @@
   python build_site.py
   ```
   This worktree has no local `venv/` (git-ignored) — the main checkout's venv is reused via absolute path; no dependency install is needed. If a build ever shows the PDF and `logo-ec-header.svg` both missing from the diff and nothing in this plan should have touched either, re-run with the invocation above before concluding anything regressed.
+- **How to preview the site for visual/browser verification — do not use `preview_start` with the `docs-site` launch.json config.** It reliably serves stale or wrong content for this worktree (confirmed independently twice: it served pre-Task-4 markup — no `assets/ecl/*` requests at all — even immediately after a rebuild, and even after editing `launch.json`'s directory to an absolute worktree path and changing its port). The cause wasn't isolated further since it's a tooling quirk, not a project bug, and isolating it further wasn't worth the time against the actual migration work. Instead, start a plain server directly and point the Browser pane at it:
+  ```bash
+  python -m http.server 8199 --directory docs
+  ```
+  Run this via the Bash tool with `run_in_background: true` (a `&`-backgrounded process inside a foreground Bash call dies when the call returns — it must use the tool's own background flag), then use `tabs_create`/`navigate` to open `http://localhost:8199` in the Browser pane. Pick a port unlikely to collide with anything else already running. Verified working: `assets/ecl/*` requests return 200 and the served HTML matches the current worktree's `docs/` exactly.
 - **Never write planning or scratch files under `docs/`** — it is the published GitHub Pages output and `main()` deletes it on every build.
 - **Flag defaults:** `ECL_CHROME = True`, `ECL_CARDS = True`, `ECL_CONTENT = False`.
 - **`brand/ecl/quick_example.html` must survive until Task 10 completes** — it is the only source of the footer, globan and header markup.
