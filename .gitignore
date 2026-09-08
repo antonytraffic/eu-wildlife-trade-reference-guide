@@ -10,3 +10,6 @@ venv/
 # Source documents (too large for version control)
 data/*.pdf
 data/*.docx
+
+# Baseline screenshots for the ECL migration (local only)
+brand/baseline/
