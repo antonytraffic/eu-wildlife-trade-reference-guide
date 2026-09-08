@@ -288,12 +288,13 @@ This **will** change `docs/chapters/` output — the one intentional exception i
 
 - [ ] **Step 5: Build and verify the change is confined to `<td>` attributes**
 
+Build, then verify by stripping the new attribute from the new content and comparing against the old committed content — **not** by counting unmatched diff lines. (A naive `git diff | grep -vc 'data-ecl-table-header'` looks tempting but is not a valid gate: every removed `-` line lacks the new attribute by definition, so it always reports a large nonzero count regardless of correctness — this was caught during implementation and is recorded here so it isn't rediscovered.)
+
 ```bash
 python build_site.py
-git diff -- docs/chapters/ | grep '^[+-]' | grep -v '^[+-][+-]' | grep -vc 'data-ecl-table-header'
 ```
 
-Expected: `0` — every changed line is a `<td>` gaining the attribute and nothing else.
+For every file `git diff --name-only -- docs/chapters/` lists, confirm that stripping every ` data-ecl-table-header=""` occurrence (globally, not just the first per line — some lines carry several `<td>`s) from the new content reproduces `git show HEAD:<file>` exactly, and that the count of `<td` occurrences in old and new match the count of the new attribute. Expected: identical after stripping, for every changed file, with zero files that contain `<td` left unchanged.
 
 - [ ] **Step 6: Verify the accessors work and the default is off**
 
@@ -1125,7 +1126,7 @@ git commit -m "docs: record ECL migration verification outcomes"
 
 ## Deferred work (not in this plan)
 
-- **Enabling `ECL_CONTENT = True`** — full ECL adoption of the article body. Spec §5.1.2 warns this likely requires loading `ecl-reset.css`, which invalidates the §5 decision; it needs its own verification pass.
+- **Enabling `ECL_CONTENT = True`** — full ECL adoption of the article body. Spec §5.1.2 warns this likely requires loading `ecl-reset.css`, which invalidates the §5 decision; it needs its own verification pass. **Known gap to fix first:** the PDF-postprocessing functions `_pdf_relocate_table_captions()` and `_pdf_mark_table_bounds()` hardcode the literal string `"table-wrap"` instead of calling `cc("table_wrap")` (found during Task 2's implementation, `build_site.py`, PDF section). Harmless while `ECL_CONTENT` is `False` — `cc()` returns the same literal — but will silently stop matching once the flag flips, breaking PDF table-caption/bounds logic. Route these through `cc("table_wrap")` as part of enabling the flag.
 - **Reverting `ECL_CARDS = False`** — a one-line flag change plus a rebuild, should feedback go that way.
 - **Setting `SITE_NAME_BANNER`** once the domain is confirmed.
 - **Resolving the icon sprite** (spec §7.2) — request `icons/` from the EC contact; expect webtools to supply it in production.
