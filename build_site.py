@@ -1882,67 +1882,29 @@ SEARCH_JS = """\
 # SECTION 4 -- HTML base template
 # ==============================================================================
 
-def base_html(
-    *,
-    title: str,
-    content: str,
-    breadcrumbs: list[tuple[str, str | None]],
-    depth: int = 0,
-    sidebar_html: str = "",
-    extra_js: str = "",
-    page_header_html: str = "",
-) -> str:
-    root       = "../" * depth
-    page_title = f"{h(title)} -- EU Wildlife Trade Reference Guide"
+# ==============================================================================
+# Site chrome -- see brand/ECL-Migration-Spec.md section 4.
+# Each function returns "" when ECL_CHROME is False, so a move into Drupal /
+# oe_theme (which supplies its own chrome) is one flag rather than a rewrite.
+# ==============================================================================
 
-    bc_items = ""
-    for i, (label, url) in enumerate(breadcrumbs):
-        is_last = i == len(breadcrumbs) - 1
-        if is_last:
-            bc_items += f'<li><span aria-current="page">{h(label)}</span></li>\n'
-        else:
-            bc_items += f'<li><a href="{h(url)}">{h(label)}</a></li>\n'
-
-    guide_dropdown_items = "".join(
-        f'<li><a href="{root}chapters/{h(slug)}.html" class="top-nav__dropdown-link">{h(item_title)}</a></li>'
-        for item_title, slug in _GUIDE_NAV_ITEMS
+def ecl_head_links(root: str) -> str:
+    """Stylesheet, font and favicon links for <head>."""
+    # Task 4 replaces the body of this function with the ECL link order.
+    return (
+        f'  <link rel="stylesheet" href="{root}assets/style.css">\n'
+        f'  <link rel="icon" type="image/svg+xml" href="{root}favicon.svg">\n'
+        f'  <link rel="icon" type="image/x-icon" href="{root}favicon.ico">\n'
+        f'  <link rel="apple-touch-icon" href="{root}apple-touch-icon.png">\n'
+        f'  <meta name="theme-color" content="#00002e">'
     )
-    annexes_href = f'{root}chapters/{h(_ANNEXES_SLUG)}.html' if _ANNEXES_SLUG else f'{root}index.html'
 
-    if sidebar_html:
-        grid_open     = '<div class="page-grid">'
-        sidebar_col   = f'<aside class="sidebar" aria-label="Page contents">{sidebar_html}</aside>'
-        grid_close    = '</div>'
-        article_open  = '<div class="article">'
-        article_close = '</div>'
-    else:
-        grid_open = grid_close = sidebar_col = ""
-        article_open = article_close = ""
 
-    footer_extra = ""
-    if FOOTER_TEXT:
-        paras = [p.strip() for p in FOOTER_TEXT.strip().split("\n\n") if p.strip()]
-        footer_extra = "\n".join(
-            f'<p class="footer-smallprint">{h(p)}</p>' for p in paras
-        )
-
-    return f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{page_title}</title>
-  <meta name="description" content="EU Wildlife Trade Regulations Reference Guide -- {h(title)}">
-  <link rel="stylesheet" href="{root}assets/style.css">
-  <link rel="icon" type="image/svg+xml" href="{root}favicon.svg">
-  <link rel="icon" type="image/x-icon" href="{root}favicon.ico">
-  <link rel="apple-touch-icon" href="{root}apple-touch-icon.png">
-  <meta name="theme-color" content="#00002e">
-</head>
-<body id="top">
-<a href="#main-content" class="skip-link">Skip to main content</a>
-
-<div class="official-strip">
+def ecl_globan() -> str:
+    """Official-status strip. Task 5 replaces this with the webtools globan."""
+    if not ECL_CHROME:
+        return ""
+    return """<div class="official-strip">
   <div class="container official-strip__inner">
     <svg class="official-strip__flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false">
       <rect width="24" height="16" fill="#003399"/>
@@ -1963,9 +1925,19 @@ def base_html(
     </svg>
     <span>A reference guide developed by the European Commission and TRAFFIC</span>
   </div>
-</div>
+</div>"""
 
-<header class="site-header" role="banner">
+
+def ecl_site_header(root: str) -> str:
+    """<header> + <nav class="top-nav">. Task 6 separates header from top-nav."""
+    if not ECL_CHROME:
+        return ""
+    guide_dropdown_items = "".join(
+        f'<li><a href="{root}chapters/{h(slug)}.html" class="top-nav__dropdown-link">{h(item_title)}</a></li>'
+        for item_title, slug in _GUIDE_NAV_ITEMS
+    )
+    annexes_href = f'{root}chapters/{h(_ANNEXES_SLUG)}.html' if _ANNEXES_SLUG else f'{root}index.html'
+    return f"""<header class="site-header" role="banner">
   <div class="site-header__top">
     <div class="container site-header__top-inner">
       <a class="site-header__logo-link" href="https://commission.europa.eu/index_en" target="_blank" rel="noopener">
@@ -2014,22 +1986,25 @@ def base_html(
       <li><a href="{annexes_href}" class="top-nav__link">Annexes</a></li>
     </ul>
   </div>
-</nav>
+</nav>"""
 
-{page_header_html if page_header_html else (f'<nav class="breadcrumbs" aria-label="Breadcrumb"><ol>{bc_items}</ol></nav>' if bc_items else '')}
 
-<div class="main-content">
-  <div class="container" id="main-content">
-    {grid_open}
-      {sidebar_col}
-      {article_open}
-        {content}
-      {article_close}
-    {grid_close}
-  </div>
-</div>
+def ecl_breadcrumb(bc_items: str) -> str:
+    if not ECL_CHROME or not bc_items:
+        return ""
+    return f'<nav class="breadcrumbs" aria-label="Breadcrumb"><ol>{bc_items}</ol></nav>'
 
-<footer class="site-footer" role="contentinfo">
+
+def ecl_site_footer(root: str) -> str:
+    if not ECL_CHROME:
+        return ""
+    footer_extra = ""
+    if FOOTER_TEXT:
+        paras = [p.strip() for p in FOOTER_TEXT.strip().split("\n\n") if p.strip()]
+        footer_extra = "\n".join(
+            f'<p class="footer-smallprint">{h(p)}</p>' for p in paras
+        )
+    return f"""<footer class="site-footer" role="contentinfo">
   <div class="site-footer__cta">
     <div class="container site-footer__cta-inner">
       <span>Help us improve this guide</span>
@@ -2061,18 +2036,92 @@ def base_html(
     <hr class="site-footer__divider">
     {footer_extra}
   </div>
-</footer>
+</footer>"""
 
-<script src="{root}assets/main.js"></script>
-{extra_js}
-<script src="{root}assets/chatbot.js"></script>
+
+def ecl_scripts(root: str) -> str:
+    """Scripts after {extra_js}, before </body>. Task 4 adds ecl-ec.js + ECL.autoInit();
+    Task 5 adds the webtools loader. Deliberately excludes assets/main.js and {extra_js}
+    itself -- both stay as separate lines in base_html()'s own template, in their
+    original position, so search.html keeps loading assets/search.js. See Step 2's
+    note on extra_js."""
+    if not ECL_CHROME:
+        return ""
+    return f"""<script src="{root}assets/chatbot.js"></script>
 <script>
   ChatbotWidget.init({{
     apiUrl: 'https://chatbot-api-khaki.vercel.app/api/chat',
     title: 'Wildlife Trade Regulations Assistant',
     placeholder: 'Ask about permits, forms, species listings…'
   }});
-</script>
+</script>"""
+
+
+def base_html(
+    *,
+    title: str,
+    content: str,
+    breadcrumbs: list[tuple[str, str | None]],
+    depth: int = 0,
+    sidebar_html: str = "",
+    extra_js: str = "",
+    page_header_html: str = "",
+) -> str:
+    root       = "../" * depth
+    page_title = f"{h(title)} -- EU Wildlife Trade Reference Guide"
+
+    bc_items = ""
+    for i, (label, url) in enumerate(breadcrumbs):
+        is_last = i == len(breadcrumbs) - 1
+        if is_last:
+            bc_items += f'<li><span aria-current="page">{h(label)}</span></li>\n'
+        else:
+            bc_items += f'<li><a href="{h(url)}">{h(label)}</a></li>\n'
+
+    if sidebar_html:
+        grid_open     = '<div class="page-grid">'
+        sidebar_col   = f'<aside class="sidebar" aria-label="Page contents">{sidebar_html}</aside>'
+        grid_close    = '</div>'
+        article_open  = '<div class="article">'
+        article_close = '</div>'
+    else:
+        grid_open = grid_close = sidebar_col = ""
+        article_open = article_close = ""
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{page_title}</title>
+  <meta name="description" content="EU Wildlife Trade Regulations Reference Guide -- {h(title)}">
+{ecl_head_links(root)}
+</head>
+<body id="top">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+{ecl_globan()}
+
+{ecl_site_header(root)}
+
+{page_header_html if page_header_html else ecl_breadcrumb(bc_items)}
+
+<div class="main-content">
+  <div class="container" id="main-content">
+    {grid_open}
+      {sidebar_col}
+      {article_open}
+        {content}
+      {article_close}
+    {grid_close}
+  </div>
+</div>
+
+{ecl_site_footer(root)}
+
+<script src="{root}assets/main.js"></script>
+{extra_js}
+{ecl_scripts(root)}
 </body>
 </html>"""
 
