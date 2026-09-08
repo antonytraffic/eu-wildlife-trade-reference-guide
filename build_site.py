@@ -3289,6 +3289,38 @@ def generate_pdf(nav_sections: list[dict], all_sub: list[dict], about_ch: dict |
 # SECTION 9 -- Build orchestration
 # ==============================================================================
 
+# ECL v5.1.0 asset subset -- see brand/ECL-Migration-Spec.md section 3.
+# Deliberately excludes ecl-reset.css (spec section 5), the print stylesheets,
+# colour modes, easy-to-read, the ESM bundle, and 42 non-English logos.
+ECL_SRC = Path("brand") / "ecl"
+ECL_FILES = [
+    "styles/ecl-ec.css",
+    "styles/optional/ecl-ec-default.css",
+    "styles/optional/ecl-ec-utilities.css",
+    "scripts/ecl-ec.js",
+    "fonts/InterVariable.woff2",
+    "fonts/InterVariable-Italic.woff2",
+    "images/logo/positive/logo-ec--en.svg",
+    "images/logo/negative/logo-ec--en.svg",
+    "images/logo/logo-ec--mute-negative.svg",
+]
+
+
+def copy_ecl_assets(dst: Path) -> int:
+    """Copy the ECL subset into dst (docs/assets/ecl). Returns files copied."""
+    copied = 0
+    for rel in ECL_FILES:
+        src = ECL_SRC / rel
+        if not src.exists():
+            console.print(f"  [yellow]![/yellow] missing ECL asset: {rel}")
+            continue
+        target = dst / rel
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, target)
+        copied += 1
+    return copied
+
+
 def build_site() -> tuple[list[dict], list[dict], dict]:
     global FOOTER_TEXT, _GUIDE_NAV_ITEMS, _ANNEXES_SLUG
     console.rule("[bold blue]Building site[/bold blue]")
@@ -3385,6 +3417,9 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
         fonts_dst.mkdir(parents=True, exist_ok=True)
         shutil.copy2(_font_src, fonts_dst / "InterVariable.woff2")
         console.print("  [green]+[/green] assets/fonts/InterVariable.woff2")
+
+    _ecl_n = copy_ecl_assets(SITE_DIR / "assets" / "ecl")
+    console.print(f"  [green]+[/green] assets/ecl/ ({_ecl_n} ECL v5.1.0 files)")
 
     for _favicon_name in ("favicon.svg", "favicon.ico", "apple-touch-icon.png"):
         _favicon_src = Path("static") / _favicon_name
