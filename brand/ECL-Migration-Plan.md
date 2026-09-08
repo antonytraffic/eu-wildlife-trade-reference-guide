@@ -537,7 +537,7 @@ Then change the existing meta line to use it: `<meta name="description" content=
 
 - [ ] **Step 6: Point `@font-face` at the ECL fonts and add the italic**
 
-In `CSS` (line 834), find the `@font-face` block and repoint `src` to `assets/ecl/fonts/InterVariable.woff2`, then add a second block for `InterVariable-Italic.woff2` with `font-style: italic`. Then remove the now-redundant copy step:
+In `CSS`, find the `@font-face` block and repoint `src` to `ecl/fonts/InterVariable.woff2` (**not** `assets/ecl/fonts/...`). `CSS` is written to `docs/assets/style.css`, and its `url()` values are relative to that file's own location, not the page — confirmed by the existing `background-image: url("images/hero-elephants-line.jpg")` rule a few hundred lines down, which resolves to `docs/assets/images/...`. `assets/ecl/fonts/...` would resolve to the nonexistent `docs/assets/assets/ecl/fonts/...` and silently 404 the font (no build-time signal — the diff-empty check doesn't validate resource resolution). Then add a second `@font-face` block for `ecl/fonts/InterVariable-Italic.woff2` with `font-style: italic`. Then remove the now-redundant copy step:
 
 Delete the `static/fonts/InterVariable.woff2` copy block in `build_site()` (the `_font_src` lines, ~line 3383) and remove `docs/assets/fonts/` from the tree.
 
