@@ -1135,4 +1135,5 @@ git commit -m "docs: record ECL migration verification outcomes"
 - **Reverting `ECL_CARDS = False`** — a one-line flag change plus a rebuild, should feedback go that way.
 - **Setting `SITE_NAME_BANNER`** once the domain is confirmed.
 - **Resolving the icon sprite** (spec §7.2) — request `icons/` from the EC contact; expect webtools to supply it in production.
+- **375px breadcrumb collapse on 3-segment pages** — every `build_sub_page()` page (Home > Parent > Current) renders an invisible breadcrumb nav at mobile widths. Confirmed inherent to vendored ECL v5.1.0 itself (its `docs/assets/ecl/scripts/ecl-ec.js` hardcodes a `this.breakpoint=995` nav-width check; the untouched `brand/ecl/quick_example.html` reference shows the identical collapse), not something this plan's code introduced or can fix without patching vendored third-party JS. Degrades gracefully (H1 + mobile contents dropdown remain visible). Worth raising with the EC contact alongside the icon-sprite gap — a newer ECL release may have already fixed this.
 - **`ECL_CHROME = False`** — only relevant if the site moves into DG ENV's Drupal / `oe_theme`.
