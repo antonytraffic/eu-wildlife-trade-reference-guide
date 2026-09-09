@@ -37,6 +37,10 @@ ECL_CHROME  = True    # False: Drupal / oe_theme supplies globan, header, footer
 ECL_CARDS   = True    # False: revert to the bespoke chapter/subpage card design
 ECL_CONTENT = False   # True:  article body adopts ECL type/table classes
 
+# Header banner text. ECL convention is the PARENT site name, so if this lands
+# under environment.ec.europa.eu this becomes "Environment" -- spec section 6.3.
+SITE_NAME_BANNER = "EU Wildlife Trade Regulations"
+
 # Article-body element classes. With ECL_CONTENT False every value is "", so the
 # generated HTML is byte-identical to the pre-migration output -- which is what
 # makes the docs/chapters/ diff a meaningful gate rather than a formality.
@@ -969,133 +973,6 @@ a:focus-visible {
   border-radius: 1px;
 }
 
-/* -- Site header -------------------------------------- */
-.site-header { background: var(--white); }
-.site-header__top-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 32px var(--gutter) 24px;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  flex-wrap: wrap;
-}
-.site-header__logo-link { display: block; flex-shrink: 0; }
-.site-header__logo { height: 5rem; width: auto; display: block; }
-.site-header__banner {
-  background: var(--mid-grey);
-}
-.site-header__banner .container {
-  display: flex; align-items: center; height: 44px;
-  padding: 0 var(--gutter);
-  max-width: var(--max-width);
-  margin: 0 auto;
-}
-.site-header__site-name {
-  color: var(--black);
-  font-size: 1.25rem; font-weight: 400; letter-spacing: .01em;
-}
-
-/* -- Header search (standard EC Component Library search-form) ----- */
-.header-search {
-  display: flex; align-items: stretch; flex-shrink: 0;
-  border: 1px solid var(--secondary); border-radius: var(--radius) 0 0 var(--radius);
-  background: var(--white); overflow: hidden;
-}
-.header-search input[type="search"] {
-  border: none; padding: 12px 16px 12px 12px;
-  font: inherit; font-size: 1rem; line-height: 1.375; min-width: 360px; background: transparent;
-  color: var(--black);
-}
-.header-search input[type="search"]:focus { outline: 3px solid var(--focus); outline-offset: -3px; }
-.header-search button {
-  position: relative; border: none; background: transparent; color: var(--black);
-  padding: 0 14px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-}
-.header-search button::before {
-  content: ""; position: absolute; left: 0; top: 25%; bottom: 25%; width: 1px;
-  background: var(--border);
-}
-.header-search button svg { width: 20px; height: 20px; }
-.header-search button:hover { color: var(--green); }
-.header-search button:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; }
-
-/* -- Top navigation ----------------------------------- */
-.top-nav {
-  background: var(--black);
-  border-bottom: 1px solid #333;
-  position: relative;
-}
-.top-nav__list {
-  list-style: none; margin: 0 0 0 -20px; padding: 0;
-  display: flex; align-items: center; gap: 0; height: 55px;
-}
-.top-nav__list > li { display: flex; align-items: center; align-self: stretch; margin: 0; }
-.top-nav__list > li::after {
-  content: ""; display: block; flex-shrink: 0;
-  width: 1px; height: 40px;
-  background: rgba(209, 217, 241, .6);
-}
-.top-nav__link {
-  display: flex; align-items: center; padding: 8px 16px 8px 20px;
-  color: var(--white); text-decoration: none;
-  font-size: 1rem; font-weight: 400; line-height: 1.5;
-  transition: background-color .1s, color .1s;
-}
-.top-nav__link:hover {
-  background: var(--icon-bg); color: var(--black); text-decoration: none;
-}
-.top-nav__link:visited { color: var(--white); }
-
-/* -- Top navigation: "Reference Guide" mega-menu ------- */
-.top-nav__dropdown-toggle {
-  display: flex; align-items: center; gap: 6px;
-  appearance: none; background: none; border: none;
-  font-family: inherit; margin: 0; cursor: pointer;
-}
-.top-nav__caret { width: 10px; height: 7px; flex-shrink: 0; transition: transform .15s; }
-.top-nav__item--dropdown.is-open .top-nav__caret { transform: rotate(180deg); }
-.top-nav__item--dropdown.is-open .top-nav__dropdown-toggle {
-  background: var(--white); color: var(--black);
-}
-.top-nav__dropdown {
-  display: none;
-  position: absolute; top: 100%; left: 0; right: 0; z-index: 20;
-  background: var(--white); border-top: 1px solid #333;
-  box-shadow: 0 12px 20px rgba(0,0,0,.15);
-}
-.top-nav__item--dropdown.is-open .top-nav__dropdown { display: block; }
-.top-nav__dropdown-inner {
-  max-width: var(--max-width); margin: 0 auto; padding: 32px var(--gutter);
-  display: flex; gap: 48px;
-}
-.top-nav__dropdown-intro {
-  flex: 0 0 240px;
-  padding-right: 48px;
-  border-right: 1px solid var(--mid-grey);
-}
-.top-nav__dropdown-intro h2 {
-  margin: 0 0 8px; padding: 0; border: none;
-  font-size: 1.5rem;
-}
-.top-nav__dropdown-intro p {
-  margin: 0; color: var(--secondary); font-size: 1rem; line-height: 1.5;
-}
-.top-nav__dropdown-links {
-  flex: 1; list-style: none; margin: 0; padding: 0;
-}
-.top-nav__dropdown-link {
-  display: block; padding: 10px 0;
-  color: var(--black); font-size: 1.0625rem; text-decoration: none;
-  border-bottom: 1px solid var(--light-grey);
-}
-.top-nav__dropdown-links li:last-child .top-nav__dropdown-link { border-bottom: none; }
-.top-nav__dropdown-link:hover { color: var(--green); text-decoration: underline; }
-.top-nav__dropdown-link:visited { color: var(--black); }
-
 /* -- Breadcrumbs -------------------------------------- */
 .breadcrumbs {
   display: flex; align-items: center; height: 68px;
@@ -1570,17 +1447,10 @@ ol.lettered-list li { margin-bottom: 6px; }
 /* -- Responsive --------------------------------------- */
 @media screen and (max-width: 768px) {
   :root { --gutter: 20px; }
-  .site-header__top-inner { flex-wrap: wrap; gap: 12px; padding: 8px var(--gutter); }
-  .site-header__logo { height: 3.25rem; }
-  .site-header__site-name { font-size: 1.125rem; }
-  .header-search { width: 100%; }
-  .header-search input[type="search"] { flex: 1; min-width: 0; }
 
   .page-grid { flex-direction: column; }
   .sidebar { display: none; }
   .mobile-contents { display: block; }
-
-  .top-nav__list { height: auto; }
 
   h1 { font-size: 3.25rem; }
   h2 { font-size: 2.375rem; }
@@ -1599,12 +1469,6 @@ ol.lettered-list li { margin-bottom: 6px; }
   .hero .search-form input[type="search"] { width: auto; }
   .hero .search-form button { width: auto; border-top: none; }
   .hero { background-image: none; }
-
-  .top-nav__dropdown-inner { flex-direction: column; gap: 20px; padding: 20px; max-height: calc(100vh - 100px); overflow-y: auto; }
-  .top-nav__dropdown-intro {
-    flex: none; padding-right: 0; padding-bottom: 20px;
-    border-right: none; border-bottom: 1px solid var(--mid-grey);
-  }
 }
 @media screen and (min-width: 769px) {
   .mobile-contents { display: none; }
@@ -1612,7 +1476,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 
 /* -- Print -------------------------------------------- */
 @media print {
-  .site-header, .top-nav, .breadcrumbs, .sidebar,
+  .breadcrumbs, .sidebar,
   .mobile-contents, .chapter-nav, .back-to-top,
   .site-footer, .hero .search-form { display: none !important; }
   .page-grid { display: block; }
@@ -1911,64 +1775,140 @@ def ecl_globan() -> str:
 
 
 def ecl_site_header(root: str) -> str:
-    """<header> + <nav class="top-nav">. Task 6 separates header from top-nav."""
+    """<header class="ecl-site-header ..."> with an embedded ECL mega menu + search form.
+
+    Outer shell modelled on brand/ecl/quick_example.html (the vendored v5.1.0
+    reference). Menu and search markup modelled on
+    brand/ecl/reference-menu-search.html, fetched live from the EC Component
+    Library's SiteHeader/mega-menu Storybook demo -- that demo reported
+    v5.2.2 at fetch time, not this migration's v5.1.0 target; see that file
+    for the full version-mismatch note (spec section 10 -- header-only risk).
+    Icons reference icons/icons.svg#name per brand/ecl/quick_example.html;
+    that sprite is not vendored yet (spec section 7.2) so these render blank
+    until webtools/oe_theme supplies it in production.
+    """
     if not ECL_CHROME:
         return ""
-    guide_dropdown_items = "".join(
-        f'<li><a href="{root}chapters/{h(slug)}.html" class="top-nav__dropdown-link">{h(item_title)}</a></li>'
+    guide_sublist_items = "".join(
+        f'<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem>'
+        f'<a href="{root}chapters/{h(slug)}.html" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink>{h(item_title)}</a>'
+        f'</li>'
         for item_title, slug in _GUIDE_NAV_ITEMS
     )
     annexes_href = f'{root}chapters/{h(_ANNEXES_SLUG)}.html' if _ANNEXES_SLUG else f'{root}index.html'
-    return f"""<header class="site-header" role="banner">
-  <div class="site-header__top">
-    <div class="container site-header__top-inner">
-      <a class="site-header__logo-link" href="https://commission.europa.eu/index_en" target="_blank" rel="noopener">
-        <img class="site-header__logo" src="{root}assets/images/logo-ec-positive.svg" alt="European Commission">
-      </a>
-      <form class="header-search" action="{root}search.html" method="get" role="search">
-        <label for="header-search-input" class="skip-link">Search</label>
-        <input type="search" id="header-search-input" name="q"
-               aria-label="Search the guide">
-        <button type="submit">
-          <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M13.6 12.2h-.7l-.3-.3c1-1.1 1.6-2.6 1.6-4.2C14.2 4.1 11.6 1.5 8.1 1.5S2 4.1 2 7.6s2.6 6.1 6.1 6.1c1.6 0 3.1-.6 4.2-1.6l.3.3v.7l4.4 4.4 1.3-1.3-4.4-4.4zm-5.5 0c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5z" fill="currentColor"/></svg>
-          <span class="sr-only">Search</span>
-        </button>
-      </form>
-    </div>
-  </div>
-  <div class="site-header__banner">
-    <div class="container">
-      <span class="site-header__site-name">EU Wildlife Trade Regulations</span>
-    </div>
-  </div>
-</header>
-
-<nav class="top-nav" aria-label="Main navigation">
-  <div class="container">
-    <ul class="top-nav__list">
-      <li><a href="{root}index.html" class="top-nav__link">Home</a></li>
-      <li><a href="{root}about.html" class="top-nav__link">{h(ABOUT_TITLE)}</a></li>
-      <li class="top-nav__item--dropdown">
-        <button type="button" class="top-nav__link top-nav__dropdown-toggle" aria-expanded="false">
-          Reference Guide
-          <svg class="top-nav__caret" viewBox="0 0 12 8" aria-hidden="true" focusable="false"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="top-nav__dropdown">
-          <div class="top-nav__dropdown-inner">
-            <div class="top-nav__dropdown-intro">
-              <h2>Reference Guide</h2>
-              <p>Browse the sections of the EU Wildlife Trade Regulations Reference Guide.</p>
+    icons = f"{root}icons/icons.svg"
+    logo = f"{root}assets/ecl/images/logo/positive/logo-ec--en.svg"
+    return f"""<header class="ecl-site-header ecl-site-header-with-logo-l ecl-site-header--has-mega-menu" data-ecl-auto-init="SiteHeader">
+  <div class="ecl-site-header__inner">
+    <div class="ecl-site-header__background">
+      <div class="ecl-site-header__header">
+        <div class="ecl-site-header__container ecl-container">
+          <div class="ecl-site-header__top">
+            <a href="{root}index.html" class="ecl-link ecl-link--standalone ecl-site-header__logo-link">
+              <picture class="ecl-picture ecl-site-header__picture">
+                <source srcset="{logo}" media="(min-width: 996px)">
+                <img class="ecl-site-header__logo-image ecl-site-header__logo-image--l" src="{logo}" alt="European Commission">
+              </picture>
+            </a>
+            <div class="ecl-site-header__action">
+              <script type="application/json">{{
+                "service": "etrans",
+                "delay": 1000,
+                "lang": "en",
+                "languages": {{
+                  "exclude": ["en"]
+                }},
+                "renderAs": {{
+                  "icon": true,
+                  "button": false,
+                  "link": false
+                }}
+              }}</script>
+              <div class="ecl-site-header__search-container" role="search">
+                <button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-site-header__search-toggle ecl-button--icon-only" type="button" data-ecl-search-toggle aria-controls="header-search-form" aria-expanded="false">
+                  <span class="ecl-button__container">
+                    <span class="ecl-button__label" data-ecl-label="true">Search</span>
+                    <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-site-header__icon ecl-icon--search" focusable="false" aria-hidden="true"><use xlink:href="{icons}#search"></use></svg>
+                  </span>
+                </button>
+                <form class="ecl-search-form ecl-site-header__search" action="{root}search.html" method="get" data-ecl-search-form id="header-search-form">
+                  <div class="ecl-form-group">
+                    <label for="header-search-input" id="header-search-input-label" class="ecl-form-label-wrapper ecl-search-form__label">
+                      <span class="ecl-form-label">Search</span>
+                    </label>
+                    <input id="header-search-input" name="q" class="ecl-text-input ecl-text-input--m ecl-search-form__text-input" type="search" aria-label="Search the guide">
+                  </div>
+                  <button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-search-form__button ecl-button--icon-only" type="submit">
+                    <span class="ecl-button__container">
+                      <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--search" focusable="false" aria-hidden="true"><use xlink:href="{icons}#search"></use></svg>
+                      <span class="ecl-button__label" data-ecl-label="true">Search</span>
+                    </span>
+                  </button>
+                </form>
+              </div>
             </div>
-            <ul class="top-nav__dropdown-links">
-              {guide_dropdown_items}
-            </ul>
           </div>
         </div>
-      </li>
-      <li><a href="{annexes_href}" class="top-nav__link">Annexes</a></li>
-    </ul>
+        <div class="ecl-site-header__banner">
+          <div class="ecl-container">
+            <div class="ecl-site-header__site-name">{h(SITE_NAME_BANNER)}</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</nav>"""
+  <nav class="ecl-mega-menu" data-ecl-mega-menu data-ecl-auto-init="MegaMenu" data-ecl-mega-menu-label-open="Menu" data-ecl-mega-menu-label-close="Close" role="navigation" id="main-nav" aria-label="Main navigation">
+    <div class="ecl-mega-menu__overlay">&nbsp;</div>
+    <div class="ecl-container ecl-mega-menu__container">
+      <button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-mega-menu__open ecl-button--icon-only" type="button" data-ecl-mega-menu-open aria-expanded="false">
+        <span class="ecl-button__container">
+          <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--hamburger" focusable="false" aria-hidden="true"><use xlink:href="{icons}#hamburger"></use></svg>
+          <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--close" focusable="false" aria-hidden="true"><use xlink:href="{icons}#close"></use></svg>
+          <span class="ecl-button__label" data-ecl-label="true">Menu</span>
+        </span>
+      </button>
+      <section class="ecl-mega-menu__inner" data-ecl-mega-menu-inner>
+        <header class="ecl-mega-menu__inner-header">
+          <button class="ecl-button ecl-button--tertiary ecl-mega-menu__back" type="submit" data-ecl-mega-menu-back>
+            <span class="ecl-button__container">
+              <svg class="ecl-icon ecl-icon--xs ecl-icon--rotate-270 ecl-button__icon ecl-icon--corner-arrow" focusable="false" aria-hidden="true"><use xlink:href="{icons}#corner-arrow"></use></svg>
+              <span class="ecl-button__label" data-ecl-label="true">Back</span>
+            </span>
+          </button>
+        </header>
+        <ul class="ecl-mega-menu__list">
+          <li class="ecl-mega-menu__item" data-ecl-mega-menu-item id="ecl-mega-menu-item-main-0">
+            <a href="{root}index.html" class="ecl-link ecl-link--standalone ecl-mega-menu__link" data-ecl-mega-menu-link id="ecl-mega-menu-item-main-0-link">Home</a>
+          </li>
+          <li class="ecl-mega-menu__item" data-ecl-mega-menu-item id="ecl-mega-menu-item-main-1">
+            <a href="{root}about.html" class="ecl-link ecl-link--standalone ecl-mega-menu__link" data-ecl-mega-menu-link id="ecl-mega-menu-item-main-1-link">{h(ABOUT_TITLE)}</a>
+          </li>
+          <li class="ecl-mega-menu__item ecl-mega-menu__item--has-children ecl-mega-menu__item--one-level-only" data-ecl-mega-menu-item data-ecl-has-children aria-haspopup="true" id="ecl-mega-menu-item-main-2">
+            <button class="ecl-button ecl-button--primary ecl-mega-menu__link" type="button" data-ecl-mega-menu-link id="ecl-mega-menu-item-main-2-link" aria-expanded="false">
+              <span class="ecl-button__container">
+                <span class="ecl-button__label" data-ecl-label="true">Reference Guide</span>
+                <svg class="ecl-icon ecl-icon--2xs ecl-icon--rotate-90 ecl-button__icon ecl-icon--corner-arrow" focusable="false" aria-hidden="true"><use xlink:href="{icons}#corner-arrow"></use></svg>
+                <svg class="ecl-icon ecl-icon--s ecl-icon--flip-horizontal ecl-button__icon ecl-icon--arrow-left" focusable="false" aria-hidden="true"><use xlink:href="{icons}#arrow-left"></use></svg>
+              </span>
+            </button>
+            <div class="ecl-mega-menu__wrapper">
+              <div class="ecl-container">
+                <div class="ecl-mega-menu__mega ecl-mega-menu__mega--no-info" data-ecl-mega-menu-mega>
+                  <ul class="ecl-mega-menu__sublist" aria-label="Pages in this section">
+                    {guide_sublist_items}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="ecl-mega-menu__item" data-ecl-mega-menu-item id="ecl-mega-menu-item-main-3">
+            <a href="{annexes_href}" class="ecl-link ecl-link--standalone ecl-mega-menu__link" data-ecl-mega-menu-link id="ecl-mega-menu-item-main-3-link">Annexes</a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </nav>
+</header>"""
 
 
 def ecl_breadcrumb(bc_items: str) -> str:

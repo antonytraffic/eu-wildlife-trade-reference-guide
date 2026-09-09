@@ -31,56 +31,117 @@
 <div id="cck_here"><!-- cookie consent --></div>
 <script type="application/json">{"utility":"globan","theme":"light","logo":true,"link":true,"mode":false}</script>
 
-<header class="site-header" role="banner">
-  <div class="site-header__top">
-    <div class="container site-header__top-inner">
-      <a class="site-header__logo-link" href="https://commission.europa.eu/index_en" target="_blank" rel="noopener">
-        <img class="site-header__logo" src="assets/images/logo-ec-positive.svg" alt="European Commission">
-      </a>
-      <form class="header-search" action="search.html" method="get" role="search">
-        <label for="header-search-input" class="skip-link">Search</label>
-        <input type="search" id="header-search-input" name="q"
-               aria-label="Search the guide">
-        <button type="submit">
-          <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M13.6 12.2h-.7l-.3-.3c1-1.1 1.6-2.6 1.6-4.2C14.2 4.1 11.6 1.5 8.1 1.5S2 4.1 2 7.6s2.6 6.1 6.1 6.1c1.6 0 3.1-.6 4.2-1.6l.3.3v.7l4.4 4.4 1.3-1.3-4.4-4.4zm-5.5 0c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5z" fill="currentColor"/></svg>
-          <span class="sr-only">Search</span>
-        </button>
-      </form>
-    </div>
-  </div>
-  <div class="site-header__banner">
-    <div class="container">
-      <span class="site-header__site-name">EU Wildlife Trade Regulations</span>
-    </div>
-  </div>
-</header>
-
-<nav class="top-nav" aria-label="Main navigation">
-  <div class="container">
-    <ul class="top-nav__list">
-      <li><a href="index.html" class="top-nav__link">Home</a></li>
-      <li><a href="about.html" class="top-nav__link">About</a></li>
-      <li class="top-nav__item--dropdown">
-        <button type="button" class="top-nav__link top-nav__dropdown-toggle" aria-expanded="false">
-          Reference Guide
-          <svg class="top-nav__caret" viewBox="0 0 12 8" aria-hidden="true" focusable="false"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="top-nav__dropdown">
-          <div class="top-nav__dropdown-inner">
-            <div class="top-nav__dropdown-intro">
-              <h2>Reference Guide</h2>
-              <p>Browse the sections of the EU Wildlife Trade Regulations Reference Guide.</p>
+<header class="ecl-site-header ecl-site-header-with-logo-l ecl-site-header--has-mega-menu" data-ecl-auto-init="SiteHeader">
+  <div class="ecl-site-header__inner">
+    <div class="ecl-site-header__background">
+      <div class="ecl-site-header__header">
+        <div class="ecl-site-header__container ecl-container">
+          <div class="ecl-site-header__top">
+            <a href="index.html" class="ecl-link ecl-link--standalone ecl-site-header__logo-link">
+              <picture class="ecl-picture ecl-site-header__picture">
+                <source srcset="assets/ecl/images/logo/positive/logo-ec--en.svg" media="(min-width: 996px)">
+                <img class="ecl-site-header__logo-image ecl-site-header__logo-image--l" src="assets/ecl/images/logo/positive/logo-ec--en.svg" alt="European Commission">
+              </picture>
+            </a>
+            <div class="ecl-site-header__action">
+              <script type="application/json">{
+                "service": "etrans",
+                "delay": 1000,
+                "lang": "en",
+                "languages": {
+                  "exclude": ["en"]
+                },
+                "renderAs": {
+                  "icon": true,
+                  "button": false,
+                  "link": false
+                }
+              }</script>
+              <div class="ecl-site-header__search-container" role="search">
+                <button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-site-header__search-toggle ecl-button--icon-only" type="button" data-ecl-search-toggle aria-controls="header-search-form" aria-expanded="false">
+                  <span class="ecl-button__container">
+                    <span class="ecl-button__label" data-ecl-label="true">Search</span>
+                    <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-site-header__icon ecl-icon--search" focusable="false" aria-hidden="true"><use xlink:href="icons/icons.svg#search"></use></svg>
+                  </span>
+                </button>
+                <form class="ecl-search-form ecl-site-header__search" action="search.html" method="get" data-ecl-search-form id="header-search-form">
+                  <div class="ecl-form-group">
+                    <label for="header-search-input" id="header-search-input-label" class="ecl-form-label-wrapper ecl-search-form__label">
+                      <span class="ecl-form-label">Search</span>
+                    </label>
+                    <input id="header-search-input" name="q" class="ecl-text-input ecl-text-input--m ecl-search-form__text-input" type="search" aria-label="Search the guide">
+                  </div>
+                  <button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-search-form__button ecl-button--icon-only" type="submit">
+                    <span class="ecl-button__container">
+                      <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--search" focusable="false" aria-hidden="true"><use xlink:href="icons/icons.svg#search"></use></svg>
+                      <span class="ecl-button__label" data-ecl-label="true">Search</span>
+                    </span>
+                  </button>
+                </form>
+              </div>
             </div>
-            <ul class="top-nav__dropdown-links">
-              <li><a href="chapters/02_what_species_are_covered_by_the_regulations_and_in_what_wa.html" class="top-nav__dropdown-link">What species are covered by the Regulations, and in what way?</a></li><li><a href="chapters/03_what_are_the_rules_governing_trade_into_and_from_the_eu_fo.html" class="top-nav__dropdown-link">What are the rules governing trade into and from the EU for species covered by the Regulations?</a></li><li><a href="chapters/04_are_there_derogations_from_the_normal_import_and_export_r.html" class="top-nav__dropdown-link">Are there derogations from the normal import and export rules?</a></li><li><a href="chapters/05_what_rules_govern_internal_eu_trade.html" class="top-nav__dropdown-link">What rules govern internal EU trade?</a></li><li><a href="chapters/06_what_are_the_rules_governing_transport_keeping_and_movemen.html" class="top-nav__dropdown-link">What are the rules governing transport, keeping and movement of live specimens?</a></li><li><a href="chapters/07_what_are_the_rules_regarding_marking_of_specimens.html" class="top-nav__dropdown-link">What are the rules regarding marking of specimens?</a></li><li><a href="chapters/08_what_happens_to_permits_and_certificates_after_issue.html" class="top-nav__dropdown-link">What happens to permits and certificates after they are issued?</a></li><li><a href="chapters/09_how_are_cites_duties_organised_at_national_and_eu_levels_bet.html" class="top-nav__dropdown-link">How are CITES duties organised at national and EU levels between the relevant authorities?</a></li><li><a href="chapters/10_what_information_must_be_provided_by_member_states_and_th.html" class="top-nav__dropdown-link">What information must be provided by Member States and the Commission?</a></li>
-            </ul>
           </div>
         </div>
-      </li>
-      <li><a href="chapters/annexes.html" class="top-nav__link">Annexes</a></li>
-    </ul>
+        <div class="ecl-site-header__banner">
+          <div class="ecl-container">
+            <div class="ecl-site-header__site-name">EU Wildlife Trade Regulations</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</nav>
+  <nav class="ecl-mega-menu" data-ecl-mega-menu data-ecl-auto-init="MegaMenu" data-ecl-mega-menu-label-open="Menu" data-ecl-mega-menu-label-close="Close" role="navigation" id="main-nav" aria-label="Main navigation">
+    <div class="ecl-mega-menu__overlay">&nbsp;</div>
+    <div class="ecl-container ecl-mega-menu__container">
+      <button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-mega-menu__open ecl-button--icon-only" type="button" data-ecl-mega-menu-open aria-expanded="false">
+        <span class="ecl-button__container">
+          <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--hamburger" focusable="false" aria-hidden="true"><use xlink:href="icons/icons.svg#hamburger"></use></svg>
+          <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--close" focusable="false" aria-hidden="true"><use xlink:href="icons/icons.svg#close"></use></svg>
+          <span class="ecl-button__label" data-ecl-label="true">Menu</span>
+        </span>
+      </button>
+      <section class="ecl-mega-menu__inner" data-ecl-mega-menu-inner>
+        <header class="ecl-mega-menu__inner-header">
+          <button class="ecl-button ecl-button--tertiary ecl-mega-menu__back" type="submit" data-ecl-mega-menu-back>
+            <span class="ecl-button__container">
+              <svg class="ecl-icon ecl-icon--xs ecl-icon--rotate-270 ecl-button__icon ecl-icon--corner-arrow" focusable="false" aria-hidden="true"><use xlink:href="icons/icons.svg#corner-arrow"></use></svg>
+              <span class="ecl-button__label" data-ecl-label="true">Back</span>
+            </span>
+          </button>
+        </header>
+        <ul class="ecl-mega-menu__list">
+          <li class="ecl-mega-menu__item" data-ecl-mega-menu-item id="ecl-mega-menu-item-main-0">
+            <a href="index.html" class="ecl-link ecl-link--standalone ecl-mega-menu__link" data-ecl-mega-menu-link id="ecl-mega-menu-item-main-0-link">Home</a>
+          </li>
+          <li class="ecl-mega-menu__item" data-ecl-mega-menu-item id="ecl-mega-menu-item-main-1">
+            <a href="about.html" class="ecl-link ecl-link--standalone ecl-mega-menu__link" data-ecl-mega-menu-link id="ecl-mega-menu-item-main-1-link">About</a>
+          </li>
+          <li class="ecl-mega-menu__item ecl-mega-menu__item--has-children ecl-mega-menu__item--one-level-only" data-ecl-mega-menu-item data-ecl-has-children aria-haspopup="true" id="ecl-mega-menu-item-main-2">
+            <button class="ecl-button ecl-button--primary ecl-mega-menu__link" type="button" data-ecl-mega-menu-link id="ecl-mega-menu-item-main-2-link" aria-expanded="false">
+              <span class="ecl-button__container">
+                <span class="ecl-button__label" data-ecl-label="true">Reference Guide</span>
+                <svg class="ecl-icon ecl-icon--2xs ecl-icon--rotate-90 ecl-button__icon ecl-icon--corner-arrow" focusable="false" aria-hidden="true"><use xlink:href="icons/icons.svg#corner-arrow"></use></svg>
+                <svg class="ecl-icon ecl-icon--s ecl-icon--flip-horizontal ecl-button__icon ecl-icon--arrow-left" focusable="false" aria-hidden="true"><use xlink:href="icons/icons.svg#arrow-left"></use></svg>
+              </span>
+            </button>
+            <div class="ecl-mega-menu__wrapper">
+              <div class="ecl-container">
+                <div class="ecl-mega-menu__mega ecl-mega-menu__mega--no-info" data-ecl-mega-menu-mega>
+                  <ul class="ecl-mega-menu__sublist" aria-label="Pages in this section">
+                    <li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem><a href="chapters/02_what_species_are_covered_by_the_regulations_and_in_what_wa.html" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink>What species are covered by the Regulations, and in what way?</a></li><li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem><a href="chapters/03_what_are_the_rules_governing_trade_into_and_from_the_eu_fo.html" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink>What are the rules governing trade into and from the EU for species covered by the Regulations?</a></li><li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem><a href="chapters/04_are_there_derogations_from_the_normal_import_and_export_r.html" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink>Are there derogations from the normal import and export rules?</a></li><li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem><a href="chapters/05_what_rules_govern_internal_eu_trade.html" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink>What rules govern internal EU trade?</a></li><li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem><a href="chapters/06_what_are_the_rules_governing_transport_keeping_and_movemen.html" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink>What are the rules governing transport, keeping and movement of live specimens?</a></li><li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem><a href="chapters/07_what_are_the_rules_regarding_marking_of_specimens.html" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink>What are the rules regarding marking of specimens?</a></li><li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem><a href="chapters/08_what_happens_to_permits_and_certificates_after_issue.html" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink>What happens to permits and certificates after they are issued?</a></li><li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem><a href="chapters/09_how_are_cites_duties_organised_at_national_and_eu_levels_bet.html" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink>How are CITES duties organised at national and EU levels between the relevant authorities?</a></li><li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem><a href="chapters/10_what_information_must_be_provided_by_member_states_and_th.html" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink>What information must be provided by Member States and the Commission?</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="ecl-mega-menu__item" data-ecl-mega-menu-item id="ecl-mega-menu-item-main-3">
+            <a href="chapters/annexes.html" class="ecl-link ecl-link--standalone ecl-mega-menu__link" data-ecl-mega-menu-link id="ecl-mega-menu-item-main-3-link">Annexes</a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </nav>
+</header>
 
 <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
 <li><span aria-current="page">Page not found</span></li>

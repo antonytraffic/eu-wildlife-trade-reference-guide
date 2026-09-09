@@ -1,0 +1,964 @@
+<!--
+  Reference markup for Task 6 (site header, logo, search, main navigation).
+
+  SOURCE: Europa Component Library, "EC" flavour, fetched live via a headless
+  browser from the interactive Storybook playground iframe for the SiteHeader
+  component's "Core" story with the mega-menu shown:
+
+    https://ec.europa.eu/component-library/playground/ec/iframe.html?id=components-site-wide-site-header--core&args=show_menu:mega-menu
+
+  This is the same demo reachable from the human-facing doc pages:
+    https://ec.europa.eu/component-library/ec/components/navigation/mega-menu/code/
+    https://ec.europa.eu/component-library/ec/components/forms/search-form/usage/
+  (those doc pages themselves only describe usage; the actual rendered
+  markup lives in the Storybook iframe above, so that is what was captured
+  via document.querySelector('header.ecl-site-header').outerHTML.)
+
+  VERSION MISMATCH -- FLAG PER SPEC SECTION 10:
+  The component-library site banner reports v5.2.2 at the time of this
+  fetch (2026-09-09), NOT v5.1.0, which is the version this migration
+  otherwise targets (see brand/ecl/ vendored assets, all v5.1.0). No v5.1.0
+  archive of the interactive playground was available to fetch instead, so
+  this v5.2.2 markup is what Task 6's ecl_site_header() is modelled on.
+  Per the task brief this is a header-only risk (markup/class-name drift
+  between 5.1.0 and 5.2.2), not a build blocker, but must be visible here.
+
+  WHAT WAS KEPT VS ADAPTED when writing ecl_site_header() in build_site.py:
+  - Outer <header>...<div class="ecl-site-header__inner"> structure was
+    modelled on brand/ecl/quick_example.html instead (which nests an extra
+    .ecl-site-header__background level not present in this fetched demo --
+    itself a small cross-version inconsistency), per the task brief's
+    explicit instruction to use quick_example.html for the outer shell.
+  - The .ecl-site-header__language selector block below (EN / all EU
+    languages) was NOT ported -- this site is English-only and the brief
+    does not ask for a language switcher.
+  - The .ecl-site-header__search-container + .ecl-search-form block WAS
+    ported (see line ~253 below), with the real form's action/method/name
+    attributes substituted in build_site.py so search.js/search.html keep
+    working.
+  - The <nav class="ecl-mega-menu"> block WAS ported for its structural
+    classes/attributes. Its demo content (multi-level "News and media" /
+    "Topics" / "Priorities" / etc. items with info panels and featured
+    image sublists) was NOT reproduced verbatim -- this site's nav is only
+    4 items (Home / About / Reference Guide / Annexes) with a single flat
+    dropdown of guide sections under "Reference Guide". The closest demo
+    pattern for that shape is the "Topics" item below (~line 633):
+    ecl-mega-menu__item--has-children ecl-mega-menu__item--one-level-only
+    wrapping a single ecl-mega-menu__mega ecl-mega-menu__mega--no-info with
+    a flat ecl-mega-menu__sublist -- that is the pattern build_site.py uses.
+  - Every icon in this fetched markup is an inlined <svg><path d="..."/></svg>
+    because Storybook's build inlines icons rather than referencing a
+    sprite sheet. build_site.py instead follows brand/ecl/quick_example.html
+    (the vendored, non-Storybook reference), which uses
+    <svg class="..."><use xlink:href="icons/icons.svg#name"></use></svg>.
+    Per the task brief, icons/icons.svg does not exist in this repo yet;
+    the references are left exactly as ECL emits them.
+
+  This file is kept verbatim (structure only reformatted one-tag-per-line
+  for readability) as the record of where the menu/search markup came from.
+-->
+<header class="ecl-site-header ecl-site-header-with-logo-l ecl-site-header--has-mega-menu " data-ecl-auto-init="SiteHeader" data-ecl-auto-initialized="true">
+<div class="ecl-site-header__inner">
+<div class="ecl-site-header__header">
+<div class="ecl-site-header__container ecl-container">
+<div class="ecl-site-header__top" data-ecl-site-header-top="">
+<a href="/component-library/example#tywyk" class="ecl-link ecl-link--standalone ecl-site-header__logo-link">
+<picture class="ecl-picture ecl-site-header__picture">
+<source srcset="static/media/logo-ec--en.71eb7605.svg" media="(min-width: 415px)">
+<img class="ecl-site-header__logo-image ecl-site-header__logo-image--l" src="static/media/logo-ec--mute.2b1a3b38.svg" alt="European Commission">
+</picture>
+</a>
+<div class="ecl-site-header__action">
+<div class="ecl-site-header__language">
+<button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-site-header__language-selector" type="button" data-ecl-language-selector="" aria-label="Change language, current language is English - EN" aria-controls="language-list-overlay" aria-haspopup="dialog">
+<span class="ecl-site-header__language-icon">
+<svg viewBox="0 0 48 48" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--m ecl-site-header__icon ecl-icon--global" width="48" height="48" title="EN" role="img" aria-labelledby="title_urbiai654is" fill="currentColor">
+<title id="title_urbiai654is">EN</title>
+<path d="M24 3C12.39 3 3 12.39 3 24s9.39 21 21 21 21-9.39 21-21S35.61 3 24 3m18.24 19.65h-9.39c-.21-8.34-2.28-13.41-4.26-16.35 7.47 1.92 13.08 8.43 13.65 16.35M24.6 5.73c1.89 1.71 5.28 6.27 5.55 16.92h-12.3C18.12 12 21.51 7.44 23.4 5.73c.21 0 .39-.03.6-.03h.6zm-5.19.57c-1.98 2.94-4.05 7.98-4.26 16.35H5.76c.57-7.89 6.18-14.4 13.62-16.35zM5.76 25.35h9.36c.21 8.34 2.31 13.41 4.32 16.35-7.47-1.92-13.11-8.43-13.71-16.35zm17.7 16.92c-1.92-1.71-5.37-6.3-5.64-16.92h12.3C29.85 36 26.4 40.56 24.48 42.27h-1.02m5.04-.57c2.01-2.94 4.11-8.01 4.32-16.35h9.39c-.57 7.92-6.24 14.46-13.71 16.35">
+</path>
+</svg>
+</span>EN</button>
+<div class="ecl-site-header__language-container" id="language-list-overlay" hidden="" data-ecl-language-list-overlay="" aria-labelledby="ecl-site-header__language-title" role="dialog">
+<div class="ecl-site-header__language-header">
+<div class="ecl-site-header__language-title" id="ecl-site-header__language-title">Select your language</div>
+<button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-site-header__language-close ecl-button--icon-only" type="submit" data-ecl-language-list-close="">
+<span class="ecl-button__container">
+<span class="ecl-button__label" data-ecl-label="true">Close</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--close" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M42 8.01 39.99 6 24 21.99 8.01 6 6 8.01 21.99 24 6 39.99 8.01 42 24 26.01 39.99 42 42 39.99 26.01 24z">
+</path>
+</svg>
+</span>
+</button>
+</div>
+<div class="ecl-site-header__language-content" data-ecl-language-list-content="">
+<div class="ecl-site-header__language-category" data-ecl-language-list-eu="">
+<div class="ecl-site-header__language-category-title">Official EU languages:</div>
+<ul class="ecl-site-header__language-list" translate="no">
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#km2l3" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="bg">
+<span class="ecl-site-header__language-link-code">bg</span>
+<span class="ecl-site-header__language-link-label" lang="bg">български</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#d3c3p" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="es">
+<span class="ecl-site-header__language-link-code">es</span>
+<span class="ecl-site-header__language-link-label" lang="es">español</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#z93e7" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="cs">
+<span class="ecl-site-header__language-link-code">cs</span>
+<span class="ecl-site-header__language-link-label" lang="cs">čeština</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#bgfkr" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="da">
+<span class="ecl-site-header__language-link-code">da</span>
+<span class="ecl-site-header__language-link-label" lang="da">dansk</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#4vy7g" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="de">
+<span class="ecl-site-header__language-link-code">de</span>
+<span class="ecl-site-header__language-link-label" lang="de">Deutsch</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#i5znf" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="et">
+<span class="ecl-site-header__language-link-code">et</span>
+<span class="ecl-site-header__language-link-label" lang="et">eesti</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#zpkyu" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="el">
+<span class="ecl-site-header__language-link-code">el</span>
+<span class="ecl-site-header__language-link-label" lang="el">ελληνικά</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#5xn8g" class="ecl-link ecl-link--standalone ecl-site-header__language-link ecl-site-header__language-link--active" hreflang="en">
+<span class="ecl-site-header__language-link-code">en</span>
+<span class="ecl-site-header__language-link-label" lang="en">English</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#p1rb2" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="fr">
+<span class="ecl-site-header__language-link-code">fr</span>
+<span class="ecl-site-header__language-link-label" lang="fr">français</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#fxva6" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="ga">
+<span class="ecl-site-header__language-link-code">ga</span>
+<span class="ecl-site-header__language-link-label" lang="ga">Gaeilge</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#0ly0a" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="hr">
+<span class="ecl-site-header__language-link-code">hr</span>
+<span class="ecl-site-header__language-link-label" lang="hr">hrvatski</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#wco08" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="it">
+<span class="ecl-site-header__language-link-code">it</span>
+<span class="ecl-site-header__language-link-label" lang="it">italiano</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#wneye" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="lv">
+<span class="ecl-site-header__language-link-code">lv</span>
+<span class="ecl-site-header__language-link-label" lang="lv">latviešu</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#z4av4" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="lt">
+<span class="ecl-site-header__language-link-code">lt</span>
+<span class="ecl-site-header__language-link-label" lang="lt">lietuvių</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#n7k5n" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="hu">
+<span class="ecl-site-header__language-link-code">hu</span>
+<span class="ecl-site-header__language-link-label" lang="hu">magyar</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#yoyxm" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="mt">
+<span class="ecl-site-header__language-link-code">mt</span>
+<span class="ecl-site-header__language-link-label" lang="mt">Malti</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#rs0xf" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="nl">
+<span class="ecl-site-header__language-link-code">nl</span>
+<span class="ecl-site-header__language-link-label" lang="nl">Nederlands</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#pdrk8" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="pl">
+<span class="ecl-site-header__language-link-code">pl</span>
+<span class="ecl-site-header__language-link-label" lang="pl">polski</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#2zcj8" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="pt">
+<span class="ecl-site-header__language-link-code">pt</span>
+<span class="ecl-site-header__language-link-label" lang="pt">português</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#16ynh" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="ro">
+<span class="ecl-site-header__language-link-code">ro</span>
+<span class="ecl-site-header__language-link-label" lang="ro">română</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#hz8xt" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="sk">
+<span class="ecl-site-header__language-link-code">sk</span>
+<span class="ecl-site-header__language-link-label" lang="sk">slovenčina</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#17r0c" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="sl">
+<span class="ecl-site-header__language-link-code">sl</span>
+<span class="ecl-site-header__language-link-label" lang="sl">slovenščina</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#wfs11" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="fi">
+<span class="ecl-site-header__language-link-code">fi</span>
+<span class="ecl-site-header__language-link-label" lang="fi">suomi</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#x25rv" class="ecl-link ecl-link--standalone ecl-site-header__language-link" hreflang="sv">
+<span class="ecl-site-header__language-link-code">sv</span>
+<span class="ecl-site-header__language-link-label" lang="sv">svenska</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="ecl-site-header__language-category" data-ecl-language-list-non-eu="">
+<div class="ecl-site-header__language-category-title">Other languages:</div>
+<ul class="ecl-site-header__language-list" translate="no">
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#hpq3t" class="ecl-link ecl-link--standalone ecl-site-header__language-link" lang="ar" hreflang="ar">
+<span class="ecl-site-header__language-link-code">ar</span>
+<span class="ecl-site-header__language-link-label">عَرَبِيّ</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#n1hni" class="ecl-link ecl-link--standalone ecl-site-header__language-link" lang="ca" hreflang="ca">
+<span class="ecl-site-header__language-link-code">ca</span>
+<span class="ecl-site-header__language-link-label">Català</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#xlp95" class="ecl-link ecl-link--standalone ecl-site-header__language-link" lang="is" hreflang="is">
+<span class="ecl-site-header__language-link-code">is</span>
+<span class="ecl-site-header__language-link-label">Íslenska</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#emz39" class="ecl-link ecl-link--standalone ecl-site-header__language-link" lang="lb" hreflang="lb">
+<span class="ecl-site-header__language-link-code">lb</span>
+<span class="ecl-site-header__language-link-label">Lëtzebuergesch</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#vvzpd" class="ecl-link ecl-link--standalone ecl-site-header__language-link" lang="ja" hreflang="ja">
+<span class="ecl-site-header__language-link-code">ja</span>
+<span class="ecl-site-header__language-link-label">日本語</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#9clgx" class="ecl-link ecl-link--standalone ecl-site-header__language-link" lang="nb" hreflang="nb">
+<span class="ecl-site-header__language-link-code">nb</span>
+<span class="ecl-site-header__language-link-label">Norsk bokmål</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#8s6cw" class="ecl-link ecl-link--standalone ecl-site-header__language-link" lang="ru" hreflang="ru">
+<span class="ecl-site-header__language-link-code">ru</span>
+<span class="ecl-site-header__language-link-label">русский язык</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#x6jja" class="ecl-link ecl-link--standalone ecl-site-header__language-link" lang="tr" hreflang="tr">
+<span class="ecl-site-header__language-link-code">tr</span>
+<span class="ecl-site-header__language-link-label">Türkçe</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#gqo6y" class="ecl-link ecl-link--standalone ecl-site-header__language-link" lang="uk" hreflang="uk">
+<span class="ecl-site-header__language-link-code">uk</span>
+<span class="ecl-site-header__language-link-label">українська мова</span>
+</a>
+</li>
+<li class="ecl-site-header__language-item">
+<a href="/component-library/example#jjqu2" class="ecl-link ecl-link--standalone ecl-site-header__language-link" lang="zh" hreflang="zh">
+<span class="ecl-site-header__language-link-code">zh</span>
+<span class="ecl-site-header__language-link-label">中文</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="ecl-site-header__search-container" role="search">
+<button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-site-header__search-toggle ecl-button--icon-only" type="button" data-ecl-search-toggle="true" aria-controls="search-form-id" aria-expanded="false">
+<span class="ecl-button__container">
+<span class="ecl-button__label" data-ecl-label="true">Search</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--m ecl-button__icon ecl-site-header__icon ecl-icon--search" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M3 21c0-9.93 8.07-18 18-18s18 8.07 18 18c0 4.416-1.596 8.465-4.242 11.599l11.309 11.31-2.121 2.12L32.64 34.723A17.92 17.92 0 0 1 21 39c-9.93 0-18-8.07-18-18m33 0c0-8.28-6.72-15-15-15S6 12.72 6 21s6.72 15 15 15 15-6.72 15-15" clip-rule="evenodd">
+</path>
+</svg>
+</span>
+</button>
+<form class="ecl-search-form ecl-site-header__search" data-ecl-search-form="" id="search-form-id">
+<div class="ecl-form-group">
+<label for="search-input-id" id="search-input-id-label" class="ecl-form-label-wrapper ecl-search-form__label">
+<span class="ecl-form-label">Search</span>
+</label>
+<input id="search-input-id" class="ecl-text-input ecl-text-input--m ecl-search-form__text-input" type="search">
+</div>
+<button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-search-form__button ecl-button--icon-only" type="submit">
+<span class="ecl-button__container">
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--search" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M3 21c0-9.93 8.07-18 18-18s18 8.07 18 18c0 4.416-1.596 8.465-4.242 11.599l11.309 11.31-2.121 2.12L32.64 34.723A17.92 17.92 0 0 1 21 39c-9.93 0-18-8.07-18-18m33 0c0-8.28-6.72-15-15-15S6 12.72 6 21s6.72 15 15 15 15-6.72 15-15" clip-rule="evenodd">
+</path>
+</svg>
+<span class="ecl-button__label" data-ecl-label="true">Search</span>
+</span>
+</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="ecl-site-header__banner">
+<div class="ecl-container">
+<div class="ecl-site-header__site-name">News, policies, information and services</div>
+</div>
+</div>
+</div>
+<nav class="ecl-mega-menu" data-ecl-mega-menu="" data-ecl-auto-init="MegaMenu" data-ecl-mega-menu-label-open="Menu" data-ecl-mega-menu-label-close="Close" role="navigation" id="demo" aria-label="Main navigation" data-ecl-auto-initialized="true">
+<div class="ecl-mega-menu__overlay" style="top: 188px;">&nbsp;</div>
+<div class="ecl-container ecl-mega-menu__container">
+<button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-mega-menu__open ecl-button--icon-only" type="button" data-ecl-mega-menu-open="" aria-expanded="false">
+<span class="ecl-button__container">
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--hamburger" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M42 12H6v3h36zM42 33H6v3h36zM6 22.5h36v3H6z">
+</path>
+</svg>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--close" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M42 8.01 39.99 6 24 21.99 8.01 6 6 8.01 21.99 24 6 39.99 8.01 42 24 26.01 39.99 42 42 39.99 26.01 24z">
+</path>
+</svg>
+<span class="ecl-button__label" data-ecl-label="true">Menu</span>
+</span>
+</button>
+<section class="ecl-mega-menu__inner" data-ecl-mega-menu-inner="" style="top: 188px;">
+<header class="ecl-mega-menu__inner-header">
+<button class="ecl-button ecl-button--tertiary ecl-mega-menu__back" type="submit" data-ecl-mega-menu-back="">
+<span class="ecl-button__container">
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--xs ecl-icon--rotate-270 ecl-button__icon ecl-icon--corner-arrow" width="48" height="48" fill="currentColor">
+<path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z">
+</path>
+</svg>
+<span class="ecl-button__label" data-ecl-label="true">Back</span>
+</span>
+</button>
+</header>
+<ul class="ecl-mega-menu__list">
+<li class="ecl-mega-menu__item" data-ecl-mega-menu-item="" id="ecl-mega-menu-item-demo-0">
+<a href="/component-library/example#5lxcw" class="ecl-link ecl-link--standalone ecl-mega-menu__link" data-ecl-mega-menu-link="" id="ecl-mega-menu-item-demo-0-link">Home</a>
+</li>
+<li class="ecl-mega-menu__item ecl-mega-menu__item--has-children" data-ecl-mega-menu-item="" data-ecl-has-children="" aria-haspopup="true" id="ecl-mega-menu-item-demo-1">
+<button class="ecl-button ecl-button--primary ecl-mega-menu__link" type="button" data-ecl-mega-menu-link="" id="ecl-mega-menu-item-demo-1-link" aria-expanded="false">
+<span class="ecl-button__container">
+<span class="ecl-button__label" data-ecl-label="true">News and media</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--2xs ecl-icon--rotate-90 ecl-button__icon ecl-icon--corner-arrow" width="48" height="48" fill="currentColor">
+<path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z">
+</path>
+</svg>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--s ecl-icon--flip-horizontal ecl-button__icon ecl-icon--arrow-left" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M24.15 11.1 22.02 9 6 25.02 22.05 41.1l2.13-2.1-12.423-12.45H42v-3H11.7z">
+</path>
+</svg>
+</span>
+</button>
+<div class="ecl-mega-menu__wrapper">
+<div class="ecl-container">
+<div class="ecl-mega-menu__info ecl-mega-menu__info--has-link" data-ecl-mega-menu-mega="">
+<span class="ecl-mega-menu__info-title" id="ecl-mega-menu-item-demo-1-info-title">About the News and Media</span>
+<div class="ecl-mega-menu__info-scrollable">
+<div class="ecl-mega-menu__info-content">Description text, lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+</div>
+</div>
+<div class="ecl-mega-menu__mega" data-ecl-mega-menu-mega="">
+<ul class="ecl-mega-menu__sublist" aria-label="Pages in this section">
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<button class="ecl-button ecl-button--primary ecl-mega-menu__sublink" type="button" data-ecl-mega-menu-sublink="" aria-expanded="false">
+<span class="ecl-button__container">
+<span class="ecl-button__label" data-ecl-label="true">Item 2.1</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--2xs ecl-icon--rotate-90 ecl-button__icon ecl-icon--corner-arrow" width="48" height="48" fill="currentColor">
+<path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z">
+</path>
+</svg>
+</span>
+</button>
+<div class="ecl-mega-menu__mega ecl-mega-menu__mega--no-info ecl-mega-menu__mega--level-2" data-ecl-mega-menu-mega="">
+<ul class="ecl-mega-menu__sublist" aria-label="Sub-pages in this section">
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#257ef" class="ecl-link ecl-link--standalone ecl-link--icon ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">
+<span class="ecl-link__label">Item 2.1 subitem 2</span>
+<svg viewBox="0 0 48 48" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--2xs ecl-link__icon ecl-icon--external" width="48" height="48" title="Link to an external domain" role="img" aria-labelledby="title_j4yfiyzyhbl" fill="currentColor">
+<title id="title_j4yfiyzyhbl">Link to an external domain</title>
+<path fill-rule="evenodd" d="M30 6V3h15v15h-3V8.13L29.13 21 27 18.87 39.87 6z">
+</path>
+<path fill-rule="evenodd" d="M39 42V24h3v18c0 1.65-1.35 3-3 3H6c-1.65 0-3-1.35-3-3V9c0-1.65 1.35-3 3-3h18v3H6v33z">
+</path>
+</svg>
+</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="#anchor-link" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 2.1 subitem 3 (anchor)</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#xb4nm" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 2.1 subitem 4</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#s2wvj" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 2.1 subitem 5</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#awlqs" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 2.1 subitem 6</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#sk0ja" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 2.1 subitem 7</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#1l8eh" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink ecl-mega-menu__sublink--last" data-ecl-mega-menu-sublink="">Item 2.1 subitem 8</a>
+</li>
+</ul>
+<div class="ecl-mega-menu__featured" data-ecl-mega-menu-featured="">
+<div class="ecl-mega-menu__featured-scrollable">
+<ul class="ecl-mega-menu__featured-list">
+<li class="ecl-mega-menu__featured-list__item ecl-mega-menu__featured-list__item--image-only">
+<picture class="ecl-picture ecl-mega-menu__featured-picture">
+<img class="ecl-mega-menu__featured-image" src="https://inno-ecl.s3.amazonaws.com/media/examples/example-image.jpg" alt="Jean Monnet banner">
+</picture>
+</li>
+<li class="ecl-mega-menu__featured-list__item">
+<a href="#anchor-link" class="ecl-link ecl-link--standalone ecl-link--icon ecl-mega-menu__featured-link featrured-link-extra-class" an-extra-attribute-for-the-featured-link="" data-ecl-mega-menu-featured-link="">
+<span class="ecl-link__label">Featured link 1 (anchor)</span>
+<svg viewBox="0 0 48 48" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--2xs ecl-link__icon ecl-icon--external" width="48" height="48" title="this is an external link" role="img" aria-labelledby="title_bmywnp6moev" fill="currentColor">
+<title id="title_bmywnp6moev">this is an external link</title>
+<path fill-rule="evenodd" d="M30 6V3h15v15h-3V8.13L29.13 21 27 18.87 39.87 6z">
+</path>
+<path fill-rule="evenodd" d="M39 42V24h3v18c0 1.65-1.35 3-3 3H6c-1.65 0-3-1.35-3-3V9c0-1.65 1.35-3 3-3h18v3H6v33z">
+</path>
+</svg>
+</a>
+<div class="ecl-mega-menu__featured-list__item-description">Description text, lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="#anchor-link" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 2.2 (anchor)</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<button class="ecl-button ecl-button--primary ecl-mega-menu__sublink ecl-mega-menu__sublink--last" type="button" data-ecl-mega-menu-sublink="" aria-expanded="false" id="item-2.3-that-has-a-very-long-label-id">
+<span class="ecl-button__container">
+<span class="ecl-button__label" data-ecl-label="true">Item 2.3 that has a very long label</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--2xs ecl-icon--rotate-90 ecl-button__icon ecl-icon--corner-arrow" width="48" height="48" fill="currentColor">
+<path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z">
+</path>
+</svg>
+</span>
+</button>
+<div class="ecl-mega-menu__mega ecl-mega-menu__mega--no-info ecl-mega-menu__mega--level-2" data-ecl-mega-menu-mega="">
+<ul class="ecl-mega-menu__sublist" aria-label="Sub-pages in this section">
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#ru785" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 2.3 subitem 1</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#nxhqt" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 2.3 subitem 2</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#uyua4" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink ecl-mega-menu__sublink--last" data-ecl-mega-menu-sublink="">Item 2.3 subitem 3</a>
+</li>
+<li class="ecl-mega-menu__spacer" data-ecl-mega-menu-subitem="">&nbsp;</li>
+<li class="ecl-mega-menu__subitem ecl-mega-menu__see-all" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#7a0uf" class="ecl-link ecl-link--standalone ecl-link--brand ecl-link--icon" aria-describedby="item-2.3-that-has-a-very-long-label-id">
+<span class="ecl-link__label">See all pages</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--xs ecl-icon--rotate-180 ecl-link__icon ecl-icon--arrow-left" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M24.15 11.1 22.02 9 6 25.02 22.05 41.1l2.13-2.1-12.423-12.45H42v-3H11.7z">
+</path>
+</svg>
+</a>
+</li>
+</ul>
+</div>
+</li>
+<li class="ecl-mega-menu__spacer" data-ecl-mega-menu-subitem="">&nbsp;</li>
+<li class="ecl-mega-menu__subitem ecl-mega-menu__see-all" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#kcf65" class="ecl-link ecl-link--standalone ecl-link--brand ecl-link--icon  ecl-mega-menu__info-link" aria-describedby="ecl-mega-menu-item-demo-1-info-title">
+<span class="ecl-link__label">Discover more</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--xs ecl-icon--flip-horizontal ecl-link__icon ecl-icon--arrow-left" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M24.15 11.1 22.02 9 6 25.02 22.05 41.1l2.13-2.1-12.423-12.45H42v-3H11.7z">
+</path>
+</svg>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+<li class="ecl-mega-menu__item ecl-mega-menu__item--has-children ecl-mega-menu__item--one-level-only" data-ecl-mega-menu-item="" data-ecl-has-children="" aria-haspopup="true" id="ecl-mega-menu-item-demo-2">
+<button class="ecl-button ecl-button--primary ecl-mega-menu__link" type="button" data-ecl-mega-menu-link="" id="ecl-mega-menu-item-demo-2-link" aria-expanded="false">
+<span class="ecl-button__container">
+<span class="ecl-button__label" data-ecl-label="true">About the EU</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--2xs ecl-icon--rotate-90 ecl-button__icon ecl-icon--corner-arrow" width="48" height="48" fill="currentColor">
+<path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z">
+</path>
+</svg>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--s ecl-icon--flip-horizontal ecl-button__icon ecl-icon--arrow-left" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M24.15 11.1 22.02 9 6 25.02 22.05 41.1l2.13-2.1-12.423-12.45H42v-3H11.7z">
+</path>
+</svg>
+</span>
+</button>
+<div class="ecl-mega-menu__wrapper">
+<div class="ecl-container">
+<div class="ecl-mega-menu__info ecl-mega-menu__info--has-link" data-ecl-mega-menu-mega="">
+<span class="ecl-mega-menu__info-title" id="ecl-mega-menu-item-demo-2-info-title">About the European Union</span>
+<div class="ecl-mega-menu__info-scrollable">
+<div class="ecl-mega-menu__info-content">Description text, lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+</div>
+</div>
+<div class="ecl-mega-menu__mega ecl-mega-menu__mega--has-featured" data-ecl-mega-menu-mega="">
+<ul class="ecl-mega-menu__sublist" aria-label="Pages in this section">
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#e4s2x" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.1</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#clqoy" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.2</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#mtojv" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.3</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#s7cor" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.4</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#tobop" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.5</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#1ahfx" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.6</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#kdunt" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.7</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#h9lf7" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.8</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#aogfp" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink ecl-mega-menu__sublink--last" data-ecl-mega-menu-sublink="">Item 3.9</a>
+</li>
+<li class="ecl-mega-menu__spacer" data-ecl-mega-menu-subitem="">&nbsp;</li>
+<li class="ecl-mega-menu__subitem ecl-mega-menu__see-all" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#fd7tv" class="ecl-link ecl-link--standalone ecl-link--brand ecl-link--icon  ecl-mega-menu__info-link" aria-describedby="ecl-mega-menu-item-demo-2-info-title">
+<span class="ecl-link__label">Discover more</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--xs ecl-icon--flip-horizontal ecl-link__icon ecl-icon--arrow-left" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M24.15 11.1 22.02 9 6 25.02 22.05 41.1l2.13-2.1-12.423-12.45H42v-3H11.7z">
+</path>
+</svg>
+</a>
+</li>
+</ul>
+<div class="ecl-mega-menu__featured" data-ecl-mega-menu-featured="">
+<div class="ecl-mega-menu__featured-scrollable">
+<ul class="ecl-mega-menu__featured-list" aria-labelledby="ecl-mega-menu-item-demo-2">
+<li class="ecl-mega-menu__featured-list__item ecl-mega-menu__featured-list__item--image-only">
+<picture class="ecl-picture ecl-mega-menu__featured-picture">
+<img class="ecl-mega-menu__featured-image" src="https://inno-ecl.s3.amazonaws.com/media/examples/example-image.jpg" alt="Jean Monnet banner">
+</picture>
+</li>
+<li class="ecl-mega-menu__featured-list__item">
+<a href="/component-library/example#0j7rw" class="ecl-link ecl-link--standalone ecl-link--icon ecl-mega-menu__featured-link featrured-link-extra-class" an-extra-attribute-for-the-featured-link="" data-ecl-mega-menu-featured-link="">
+<span class="ecl-link__label">Featured link 1</span>
+<svg viewBox="0 0 48 48" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--2xs ecl-link__icon ecl-icon--external" width="48" height="48" title="this is an external link" role="img" aria-labelledby="title_2g55kvmj301" fill="currentColor">
+<title id="title_2g55kvmj301">this is an external link</title>
+<path fill-rule="evenodd" d="M30 6V3h15v15h-3V8.13L29.13 21 27 18.87 39.87 6z">
+</path>
+<path fill-rule="evenodd" d="M39 42V24h3v18c0 1.65-1.35 3-3 3H6c-1.65 0-3-1.35-3-3V9c0-1.65 1.35-3 3-3h18v3H6v33z">
+</path>
+</svg>
+</a>
+<div class="ecl-mega-menu__featured-list__item-description">Description text, lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="ecl-mega-menu__item ecl-mega-menu__item--has-children ecl-mega-menu__item--one-level-only" data-ecl-mega-menu-item="" data-ecl-has-children="" aria-haspopup="true" id="ecl-mega-menu-item-demo-3">
+<button class="ecl-button ecl-button--primary ecl-mega-menu__link" type="button" data-ecl-mega-menu-link="" id="ecl-mega-menu-item-demo-3-link" aria-expanded="false">
+<span class="ecl-button__container">
+<span class="ecl-button__label" data-ecl-label="true">About the EC</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--2xs ecl-icon--rotate-90 ecl-button__icon ecl-icon--corner-arrow" width="48" height="48" fill="currentColor">
+<path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z">
+</path>
+</svg>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--s ecl-icon--flip-horizontal ecl-button__icon ecl-icon--arrow-left" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M24.15 11.1 22.02 9 6 25.02 22.05 41.1l2.13-2.1-12.423-12.45H42v-3H11.7z">
+</path>
+</svg>
+</span>
+</button>
+<div class="ecl-mega-menu__wrapper">
+<div class="ecl-container">
+<div class="ecl-mega-menu__info ecl-mega-menu__info--has-link" data-ecl-mega-menu-mega="">
+<span class="ecl-mega-menu__info-title" id="ecl-mega-menu-item-demo-3-info-title">About the European Commission</span>
+<div class="ecl-mega-menu__info-scrollable">
+<div class="ecl-mega-menu__info-content">Description text, lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+</div>
+</div>
+<div class="ecl-mega-menu__mega" data-ecl-mega-menu-mega="">
+<ul class="ecl-mega-menu__sublist" aria-label="Pages in this section">
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#4cqc0" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.1</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#rilxt" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.2</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#jvghb" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.3</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#p276c" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.4</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#7rbjz" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.5</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#o4c9x" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.6</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#4hji5" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.7</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#z2eu9" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.8</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#t1zsg" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.9</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#3ccjk" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.10</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#pluh5" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.11</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#tmis8" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink ecl-mega-menu__sublink--last" data-ecl-mega-menu-sublink="">Item 3.12</a>
+</li>
+<li class="ecl-mega-menu__spacer" data-ecl-mega-menu-subitem="">&nbsp;</li>
+<li class="ecl-mega-menu__subitem ecl-mega-menu__see-all" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#4q1f7" class="ecl-link ecl-link--standalone ecl-link--brand ecl-link--icon  ecl-mega-menu__info-link" aria-describedby="ecl-mega-menu-item-demo-3-info-title">
+<span class="ecl-link__label">Discover more</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--xs ecl-icon--flip-horizontal ecl-link__icon ecl-icon--arrow-left" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M24.15 11.1 22.02 9 6 25.02 22.05 41.1l2.13-2.1-12.423-12.45H42v-3H11.7z">
+</path>
+</svg>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+<li class="ecl-mega-menu__item ecl-mega-menu__item--has-children ecl-mega-menu__item--one-level-only" data-ecl-mega-menu-item="" data-ecl-has-children="" aria-haspopup="true" id="ecl-mega-menu-item-demo-4">
+<button class="ecl-button ecl-button--primary ecl-mega-menu__link" type="button" data-ecl-mega-menu-link="" id="ecl-mega-menu-item-demo-4-link" aria-expanded="false">
+<span class="ecl-button__container">
+<span class="ecl-button__label" data-ecl-label="true">Topics</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--2xs ecl-icon--rotate-90 ecl-button__icon ecl-icon--corner-arrow" width="48" height="48" fill="currentColor">
+<path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z">
+</path>
+</svg>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--s ecl-icon--flip-horizontal ecl-button__icon ecl-icon--arrow-left" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M24.15 11.1 22.02 9 6 25.02 22.05 41.1l2.13-2.1-12.423-12.45H42v-3H11.7z">
+</path>
+</svg>
+</span>
+</button>
+<div class="ecl-mega-menu__wrapper">
+<div class="ecl-container">
+<div class="ecl-mega-menu__mega ecl-mega-menu__mega--no-info" data-ecl-mega-menu-mega="">
+<ul class="ecl-mega-menu__sublist" aria-label="Pages in this section">
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#7o533" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.1</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#kel37" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.2</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#3c9jr" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.3</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#9pqqs" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.4</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#b7qgn" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.5</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#6tfma" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.6</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#b0a5w" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.7</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#0kbgj" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.8</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#gy2c2" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.9</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#5vskd" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.10</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#8xmrx" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.11</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#mlv8y" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.12</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#704gl" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.13</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#43akk" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.14</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#lzut8" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.15</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#crdcs" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.16</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#j2i77" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.17</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#k976t" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.18</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#f4s5x" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.19</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#hkjvg" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.20</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#1x68y" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.21</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#tpvhx" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.22</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#jpjni" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Item 3.23</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#ghal5" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink ecl-mega-menu__sublink--last" data-ecl-mega-menu-sublink="">Item 3.24</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+<li class="ecl-mega-menu__item ecl-mega-menu__item--has-children" data-ecl-mega-menu-item="" data-ecl-has-children="" aria-haspopup="true" id="ecl-mega-menu-item-demo-5">
+<button class="ecl-button ecl-button--primary ecl-mega-menu__link" type="button" data-ecl-mega-menu-link="" id="ecl-mega-menu-item-demo-5-link" aria-expanded="false">
+<span class="ecl-button__container">
+<span class="ecl-button__label" data-ecl-label="true">Key priorities</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--2xs ecl-icon--rotate-90 ecl-button__icon ecl-icon--corner-arrow" width="48" height="48" fill="currentColor">
+<path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z">
+</path>
+</svg>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--s ecl-icon--flip-horizontal ecl-button__icon ecl-icon--arrow-left" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M24.15 11.1 22.02 9 6 25.02 22.05 41.1l2.13-2.1-12.423-12.45H42v-3H11.7z">
+</path>
+</svg>
+</span>
+</button>
+<div class="ecl-mega-menu__wrapper">
+<div class="ecl-container">
+<div class="ecl-mega-menu__info ecl-mega-menu__info--has-link" data-ecl-mega-menu-mega="">
+<span class="ecl-mega-menu__info-title" id="ecl-mega-menu-item-demo-5-info-title">About key priorities</span>
+<div class="ecl-mega-menu__info-scrollable">
+<div class="ecl-mega-menu__info-content">Description text, lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+</div>
+</div>
+<div class="ecl-mega-menu__mega ecl-mega-menu__mega--has-featured" data-ecl-mega-menu-mega="">
+<ul class="ecl-mega-menu__sublist" aria-label="Pages in this section">
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<button class="ecl-button ecl-button--primary ecl-mega-menu__sublink" type="button" data-ecl-mega-menu-sublink="" aria-expanded="false">
+<span class="ecl-button__container">
+<span class="ecl-button__label" data-ecl-label="true">Aid, Development cooperation, Fundamental rights</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--2xs ecl-icon--rotate-90 ecl-button__icon ecl-icon--corner-arrow" width="48" height="48" fill="currentColor">
+<path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z">
+</path>
+</svg>
+</span>
+</button>
+<div class="ecl-mega-menu__mega ecl-mega-menu__mega--no-info ecl-mega-menu__mega--level-2" data-ecl-mega-menu-mega="">
+<ul class="ecl-mega-menu__sublist" aria-label="Sub-pages in this section">
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#9c0s5" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink ecl-mega-menu__sublink--last" data-ecl-mega-menu-sublink="">A lonely item</a>
+</li>
+</ul>
+</div>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#ohdkc" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Energy, Climate change, Environment</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#cl44k" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Law</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#ofjbp" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">EU regional and urban development</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<button class="ecl-button ecl-button--primary ecl-mega-menu__sublink" type="button" data-ecl-mega-menu-sublink="" aria-expanded="false" id="research-and-innovation-id">
+<span class="ecl-button__container">
+<span class="ecl-button__label" data-ecl-label="true">Research and innovation</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--2xs ecl-icon--rotate-90 ecl-button__icon ecl-icon--corner-arrow" width="48" height="48" fill="currentColor">
+<path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z">
+</path>
+</svg>
+</span>
+</button>
+<div class="ecl-mega-menu__mega ecl-mega-menu__mega--no-info ecl-mega-menu__mega--level-2" data-ecl-mega-menu-mega="">
+<ul class="ecl-mega-menu__sublist" aria-label="Sub-pages in this section">
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#osfv5" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">How we provide aid</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#vfntg" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink" data-ecl-mega-menu-sublink="">Who we work with</a>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#018us" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink ecl-mega-menu__sublink--last" data-ecl-mega-menu-sublink="">Get involved in EU humanitarian aid</a>
+</li>
+<li class="ecl-mega-menu__spacer" data-ecl-mega-menu-subitem="">&nbsp;</li>
+<li class="ecl-mega-menu__subitem ecl-mega-menu__see-all" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#9o9mp" class="ecl-link ecl-link--standalone ecl-link--brand ecl-link--icon" aria-describedby="research-and-innovation-id">
+<span class="ecl-link__label">See all pages</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--xs ecl-icon--rotate-180 ecl-link__icon ecl-icon--arrow-left" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M24.15 11.1 22.02 9 6 25.02 22.05 41.1l2.13-2.1-12.423-12.45H42v-3H11.7z">
+</path>
+</svg>
+</a>
+</li>
+</ul>
+<div class="ecl-mega-menu__featured" data-ecl-mega-menu-featured="">
+<div class="ecl-mega-menu__featured-scrollable">
+<span class="ecl-mega-menu__featured-title" id="ecl-mega-menu-featured-title-research-and-innovation-id">Featured items</span>
+<ul class="ecl-mega-menu__featured-list" aria-labelledby="ecl-mega-menu-featured-title-research-and-innovation-id research-and-innovation-id">
+<li class="ecl-mega-menu__featured-list__item">
+<a class="ecl-link ecl-link--standalone ecl-mega-menu__featured-link" href="/component-library/example#p14b7" data-ecl-mega-menu-featured-link="">
+<picture class="ecl-picture ecl-mega-menu__featured-picture">
+<img class="ecl-mega-menu__featured-image" src="https://inno-ecl.s3.amazonaws.com/media/examples/example-image.jpg" alt="Jean Monnet banner">
+</picture>
+</a>
+</li>
+<li class="ecl-mega-menu__featured-list__item">
+<a href="/component-library/example#j233b" class="ecl-link ecl-link--standalone ecl-mega-menu__featured-link" data-ecl-mega-menu-featured-link="">Featured link 1</a>
+</li>
+<li class="ecl-mega-menu__featured-list__item">
+<a href="/component-library/example#v8quq" class="ecl-link ecl-link--standalone ecl-mega-menu__featured-link" data-ecl-mega-menu-featured-link="">Featured link 2</a>
+</li>
+<li class="ecl-mega-menu__featured-list__item">
+<a href="/component-library/example#rqoqp" class="ecl-link ecl-link--standalone ecl-mega-menu__featured-link" data-ecl-mega-menu-featured-link="">Featured link 3</a>
+</li>
+<li class="ecl-mega-menu__featured-list__item">
+<a href="/component-library/example#kcen0" class="ecl-link ecl-link--standalone ecl-mega-menu__featured-link" data-ecl-mega-menu-featured-link="">Featured link 4</a>
+</li>
+<li class="ecl-mega-menu__featured-list__item">
+<a href="/component-library/example#ait8m" class="ecl-link ecl-link--standalone ecl-mega-menu__featured-link" data-ecl-mega-menu-featured-link="">Featured link 5</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+<li class="ecl-mega-menu__subitem" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#r7nqr" class="ecl-link ecl-link--standalone ecl-mega-menu__sublink ecl-mega-menu__sublink--last" data-ecl-mega-menu-sublink="">Food, Farming, Fisheries</a>
+</li>
+<li class="ecl-mega-menu__spacer" data-ecl-mega-menu-subitem="">&nbsp;</li>
+<li class="ecl-mega-menu__subitem ecl-mega-menu__see-all" data-ecl-mega-menu-subitem="">
+<a href="/component-library/example#qrf7v" class="ecl-link ecl-link--standalone ecl-link--brand ecl-link--icon  ecl-mega-menu__info-link" aria-describedby="ecl-mega-menu-item-demo-5-info-title">
+<span class="ecl-link__label">Discover more</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--xs ecl-icon--flip-horizontal ecl-link__icon ecl-icon--arrow-left" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M24.15 11.1 22.02 9 6 25.02 22.05 41.1l2.13-2.1-12.423-12.45H42v-3H11.7z">
+</path>
+</svg>
+</a>
+</li>
+</ul>
+<div class="ecl-mega-menu__featured" data-ecl-mega-menu-featured="">
+<div class="ecl-mega-menu__featured-scrollable">
+<ul class="ecl-mega-menu__featured-list" aria-labelledby="ecl-mega-menu-item-demo-5">
+<li class="ecl-mega-menu__featured-list__item ecl-mega-menu__featured-list__item--combo">
+<a class="ecl-link ecl-link--standalone ecl-mega-menu__featured-link" href="/component-library/example#488z6" data-ecl-mega-menu-featured-link="" an-extra-attribute-for-the-featured-link="">
+<picture class="ecl-picture ecl-mega-menu__featured-picture">
+<img class="ecl-mega-menu__featured-image" src="https://inno-ecl.s3.amazonaws.com/media/examples/example-image6.jpg" alt="Jean Monnet banner">
+</picture>  I belong to key priorities</a>
+<div class="ecl-mega-menu__featured-list__item-description">Description text, lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="ecl-mega-menu__item ecl-mega-menu__item--has-container" data-ecl-mega-menu-item="" data-ecl-has-container="" aria-haspopup="true" id="ecl-mega-menu-item-demo-6">
+<button class="ecl-button ecl-button--primary ecl-mega-menu__link" type="button" data-ecl-mega-menu-link="" id="ecl-mega-menu-item-demo-6-link" aria-expanded="false">
+<span class="ecl-button__container">
+<span class="ecl-button__label" data-ecl-label="true">Engage</span>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--2xs ecl-icon--rotate-90 ecl-button__icon ecl-icon--corner-arrow" width="48" height="48" fill="currentColor">
+<path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z">
+</path>
+</svg>
+<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="ecl-icon ecl-icon--s ecl-icon--flip-horizontal ecl-button__icon ecl-icon--arrow-left" width="48" height="48" fill="currentColor">
+<path fill-rule="evenodd" d="M24.15 11.1 22.02 9 6 25.02 22.05 41.1l2.13-2.1-12.423-12.45H42v-3H11.7z">
+</path>
+</svg>
+</span>
+</button>
+<div class="ecl-mega-menu__mega ecl-mega-menu__mega--no-info ecl-mega-menu__mega-container" data-ecl-mega-menu-mega="">
+<div class="ecl-container">
+<div class="ecl-mega-menu__mega-container-scrollable">
+<div class="ecl">
+<h2 class="ecl-u-mt-none ecl-u-mt-l-l">Minimal demo content for the container option</h2>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer placerat magna quis ultricies hendrerit. Suspendisse fermentum elit id hendrerit suscipit.</p>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="ecl-mega-menu__item ecl-mega-menu__item--promotional" data-ecl-mega-menu-item="" id="ecl-mega-menu-item-demo-7">
+<a href="#anchor-link" class="ecl-link ecl-link--standalone ecl-mega-menu__link" data-ecl-mega-menu-link="" id="ecl-mega-menu-item-demo-7-link">SOTEU</a>
+</li>
+</ul>
+</section>
+</div>
+</nav>
+</header>

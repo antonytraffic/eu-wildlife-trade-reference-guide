@@ -90,133 +90,6 @@ a:focus-visible {
   border-radius: 1px;
 }
 
-/* -- Site header -------------------------------------- */
-.site-header { background: var(--white); }
-.site-header__top-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 32px var(--gutter) 24px;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  flex-wrap: wrap;
-}
-.site-header__logo-link { display: block; flex-shrink: 0; }
-.site-header__logo { height: 5rem; width: auto; display: block; }
-.site-header__banner {
-  background: var(--mid-grey);
-}
-.site-header__banner .container {
-  display: flex; align-items: center; height: 44px;
-  padding: 0 var(--gutter);
-  max-width: var(--max-width);
-  margin: 0 auto;
-}
-.site-header__site-name {
-  color: var(--black);
-  font-size: 1.25rem; font-weight: 400; letter-spacing: .01em;
-}
-
-/* -- Header search (standard EC Component Library search-form) ----- */
-.header-search {
-  display: flex; align-items: stretch; flex-shrink: 0;
-  border: 1px solid var(--secondary); border-radius: var(--radius) 0 0 var(--radius);
-  background: var(--white); overflow: hidden;
-}
-.header-search input[type="search"] {
-  border: none; padding: 12px 16px 12px 12px;
-  font: inherit; font-size: 1rem; line-height: 1.375; min-width: 360px; background: transparent;
-  color: var(--black);
-}
-.header-search input[type="search"]:focus { outline: 3px solid var(--focus); outline-offset: -3px; }
-.header-search button {
-  position: relative; border: none; background: transparent; color: var(--black);
-  padding: 0 14px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-}
-.header-search button::before {
-  content: ""; position: absolute; left: 0; top: 25%; bottom: 25%; width: 1px;
-  background: var(--border);
-}
-.header-search button svg { width: 20px; height: 20px; }
-.header-search button:hover { color: var(--green); }
-.header-search button:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; }
-
-/* -- Top navigation ----------------------------------- */
-.top-nav {
-  background: var(--black);
-  border-bottom: 1px solid #333;
-  position: relative;
-}
-.top-nav__list {
-  list-style: none; margin: 0 0 0 -20px; padding: 0;
-  display: flex; align-items: center; gap: 0; height: 55px;
-}
-.top-nav__list > li { display: flex; align-items: center; align-self: stretch; margin: 0; }
-.top-nav__list > li::after {
-  content: ""; display: block; flex-shrink: 0;
-  width: 1px; height: 40px;
-  background: rgba(209, 217, 241, .6);
-}
-.top-nav__link {
-  display: flex; align-items: center; padding: 8px 16px 8px 20px;
-  color: var(--white); text-decoration: none;
-  font-size: 1rem; font-weight: 400; line-height: 1.5;
-  transition: background-color .1s, color .1s;
-}
-.top-nav__link:hover {
-  background: var(--icon-bg); color: var(--black); text-decoration: none;
-}
-.top-nav__link:visited { color: var(--white); }
-
-/* -- Top navigation: "Reference Guide" mega-menu ------- */
-.top-nav__dropdown-toggle {
-  display: flex; align-items: center; gap: 6px;
-  appearance: none; background: none; border: none;
-  font-family: inherit; margin: 0; cursor: pointer;
-}
-.top-nav__caret { width: 10px; height: 7px; flex-shrink: 0; transition: transform .15s; }
-.top-nav__item--dropdown.is-open .top-nav__caret { transform: rotate(180deg); }
-.top-nav__item--dropdown.is-open .top-nav__dropdown-toggle {
-  background: var(--white); color: var(--black);
-}
-.top-nav__dropdown {
-  display: none;
-  position: absolute; top: 100%; left: 0; right: 0; z-index: 20;
-  background: var(--white); border-top: 1px solid #333;
-  box-shadow: 0 12px 20px rgba(0,0,0,.15);
-}
-.top-nav__item--dropdown.is-open .top-nav__dropdown { display: block; }
-.top-nav__dropdown-inner {
-  max-width: var(--max-width); margin: 0 auto; padding: 32px var(--gutter);
-  display: flex; gap: 48px;
-}
-.top-nav__dropdown-intro {
-  flex: 0 0 240px;
-  padding-right: 48px;
-  border-right: 1px solid var(--mid-grey);
-}
-.top-nav__dropdown-intro h2 {
-  margin: 0 0 8px; padding: 0; border: none;
-  font-size: 1.5rem;
-}
-.top-nav__dropdown-intro p {
-  margin: 0; color: var(--secondary); font-size: 1rem; line-height: 1.5;
-}
-.top-nav__dropdown-links {
-  flex: 1; list-style: none; margin: 0; padding: 0;
-}
-.top-nav__dropdown-link {
-  display: block; padding: 10px 0;
-  color: var(--black); font-size: 1.0625rem; text-decoration: none;
-  border-bottom: 1px solid var(--light-grey);
-}
-.top-nav__dropdown-links li:last-child .top-nav__dropdown-link { border-bottom: none; }
-.top-nav__dropdown-link:hover { color: var(--green); text-decoration: underline; }
-.top-nav__dropdown-link:visited { color: var(--black); }
-
 /* -- Breadcrumbs -------------------------------------- */
 .breadcrumbs {
   display: flex; align-items: center; height: 68px;
@@ -691,17 +564,10 @@ ol.lettered-list li { margin-bottom: 6px; }
 /* -- Responsive --------------------------------------- */
 @media screen and (max-width: 768px) {
   :root { --gutter: 20px; }
-  .site-header__top-inner { flex-wrap: wrap; gap: 12px; padding: 8px var(--gutter); }
-  .site-header__logo { height: 3.25rem; }
-  .site-header__site-name { font-size: 1.125rem; }
-  .header-search { width: 100%; }
-  .header-search input[type="search"] { flex: 1; min-width: 0; }
 
   .page-grid { flex-direction: column; }
   .sidebar { display: none; }
   .mobile-contents { display: block; }
-
-  .top-nav__list { height: auto; }
 
   h1 { font-size: 3.25rem; }
   h2 { font-size: 2.375rem; }
@@ -720,12 +586,6 @@ ol.lettered-list li { margin-bottom: 6px; }
   .hero .search-form input[type="search"] { width: auto; }
   .hero .search-form button { width: auto; border-top: none; }
   .hero { background-image: none; }
-
-  .top-nav__dropdown-inner { flex-direction: column; gap: 20px; padding: 20px; max-height: calc(100vh - 100px); overflow-y: auto; }
-  .top-nav__dropdown-intro {
-    flex: none; padding-right: 0; padding-bottom: 20px;
-    border-right: none; border-bottom: 1px solid var(--mid-grey);
-  }
 }
 @media screen and (min-width: 769px) {
   .mobile-contents { display: none; }
@@ -733,7 +593,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 
 /* -- Print -------------------------------------------- */
 @media print {
-  .site-header, .top-nav, .breadcrumbs, .sidebar,
+  .breadcrumbs, .sidebar,
   .mobile-contents, .chapter-nav, .back-to-top,
   .site-footer, .hero .search-form { display: none !important; }
   .page-grid { display: block; }
