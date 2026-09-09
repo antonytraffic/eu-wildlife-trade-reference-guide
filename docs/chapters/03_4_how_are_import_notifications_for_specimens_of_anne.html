@@ -178,7 +178,6 @@
       
       
         
-
 <article class="article-body">
   <p>For species listed in Annex C or D, <strong>import notifications</strong> are required for import into the EU<sup class="footnote-ref" id="fnref-1"><a href="#fn-1">1</a></sup> (see <strong><a href="03_4_how_are_import_notifications_for_specimens_of_anne.html#figure-4">Figure 4</a></strong> for procedure). </p>
 
@@ -325,6 +324,22 @@
   });
 </script>
 <script src="../assets/ecl/scripts/ecl-ec.js"></script>
+<script>
+  // Work around ECL InpageNavigation's document.querySelector(href) crashing
+  // on digit-leading heading ids (see ecl_scripts() docstring in build_site.py).
+  document.querySelectorAll('[data-ecl-inpage-navigation-link]').forEach(function (a, i) {
+    var href = a.getAttribute('href') || '';
+    var frag = href.slice(1);
+    if (!frag || !/^[0-9]/.test(frag)) return;
+    var target = document.getElementById(frag);
+    if (!target || !target.parentNode) return;
+    var safeId = 'inpage-nav-anchor-' + i;
+    var marker = document.createElement('span');
+    marker.id = safeId;
+    target.parentNode.insertBefore(marker, target);
+    a.setAttribute('href', '#' + safeId);
+  });
+</script>
 <script>ECL.autoInit();</script>
 <script defer src="https://webtools.europa.eu/load.js"></script>
 <script type="application/json">{"utility":"cck"}</script>

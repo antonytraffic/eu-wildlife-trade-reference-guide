@@ -178,7 +178,6 @@
       
       
         
-
 <article class="article-body">
   <p>Specimens of species listed in the Annexes that are in <strong>transit</strong> between two <strong>“third” countries</strong> (i.e. two non-EU countries) <strong>do not need an import permit or notification</strong> for entering the EU <strong>or a re-export certificate</strong> to leave the EU<sup class="footnote-ref" id="fnref-1"><a href="#fn-1">1</a></sup>. However, for those species listed in EU Wildlife Trade Regulations Annexes that are also listed in CITES <strong>Appendices I and II</strong>, a valid CITES <strong>export permit</strong> or <strong>re-export certificate,</strong> that clearly indicates the <strong>final destination</strong> of the shipment, must have been issued by the exporting country<sup class="footnote-ref" id="fnref-2"><a href="#fn-2">2</a></sup>. Without such a valid (re-)export document, or proof of its existence, <strong>specimens must be seized</strong> and may be confiscated, provided that a document is not issued retrospectively<sup class="footnote-ref" id="fnref-3"><a href="#fn-3">3</a></sup> (see also <strong><a href="08_what_happens_to_permits_and_certificates_after_issue.html#83-when-can-permits-and-certificates-be-issued-retrospectively">Section 8.3</a></strong>). </p>
 
@@ -262,6 +261,22 @@
   });
 </script>
 <script src="../assets/ecl/scripts/ecl-ec.js"></script>
+<script>
+  // Work around ECL InpageNavigation's document.querySelector(href) crashing
+  // on digit-leading heading ids (see ecl_scripts() docstring in build_site.py).
+  document.querySelectorAll('[data-ecl-inpage-navigation-link]').forEach(function (a, i) {
+    var href = a.getAttribute('href') || '';
+    var frag = href.slice(1);
+    if (!frag || !/^[0-9]/.test(frag)) return;
+    var target = document.getElementById(frag);
+    if (!target || !target.parentNode) return;
+    var safeId = 'inpage-nav-anchor-' + i;
+    var marker = document.createElement('span');
+    marker.id = safeId;
+    target.parentNode.insertBefore(marker, target);
+    a.setAttribute('href', '#' + safeId);
+  });
+</script>
 <script>ECL.autoInit();</script>
 <script defer src="https://webtools.europa.eu/load.js"></script>
 <script type="application/json">{"utility":"cck"}</script>

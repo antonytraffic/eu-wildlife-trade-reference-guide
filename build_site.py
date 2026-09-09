@@ -992,67 +992,8 @@ a:focus-visible {
 /* -- Main wrapper ------------------------------------- */
 .main-content { padding: 30px 0 70px; }
 
-/* -- Page grid ---------------------------------------- */
-.page-grid { display: flex; gap: 40px; align-items: flex-start; }
-
-/* -- Sidebar ------------------------------------------ */
-.sidebar {
-  flex: 0 0 300px; max-width: 300px;
-  position: sticky; top: 24px;
-  max-height: calc(100vh - 48px); overflow-y: auto;
-}
-.sidebar__label {
-  font-size: 1rem; font-weight: 600;
-  color: var(--black); margin: 0 0 16px;
-}
-.sidebar__nav { list-style: none; padding: 0; margin: 0; border-left: 3px solid var(--border); }
-.sidebar__nav li { margin: 0; }
-.sidebar__nav a {
-  display: block; padding: 8px 0 8px 16px; margin-left: -3px;
-  border-left: 3px solid transparent;
-  color: var(--text);
-  text-decoration: none; font-size: 1.125rem; line-height: 1.35;
-}
-.sidebar__nav a:hover { text-decoration: underline; }
-.sidebar__nav a.is-active {
-  color: var(--black);
-  background: var(--icon-bg);
-  border-left-color: var(--green);
-}
-.sidebar__nav .sidebar-h3 a { padding-left: 28px; color: var(--secondary); font-size: 1rem; }
-.sidebar__nav .sidebar-h3 a.is-active { color: var(--black); }
-
 /* -- Article area ------------------------------------- */
 .article { flex: 1 1 auto; min-width: 0; }
-
-/* -- Contents list (used by mobile contents dropdown) - */
-.contents-list { list-style: none; margin: 0; padding: 0; }
-.contents-list li {
-  margin: 6px 0; font-size: 1rem;
-  display: flex; align-items: baseline; gap: .5em;
-}
-.contents-ref {
-  color: var(--black); flex-shrink: 0;
-  font-variant-numeric: tabular-nums; min-width: 2.4em;
-}
-
-/* -- Mobile contents dropdown ------------------------- */
-.mobile-contents { display: none; margin-bottom: 20px; }
-.mobile-contents summary {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 16px; background: var(--light-grey); border: 1px solid var(--border);
-  border-radius: var(--radius);
-  cursor: pointer; font-weight: 700; font-size: .9375rem; list-style: none;
-}
-.mobile-contents summary::-webkit-details-marker { display: none; }
-.mobile-contents[open] summary { border-bottom: none; border-radius: var(--radius) var(--radius) 0 0; }
-.mobile-contents__body {
-  border: 1px solid var(--border); border-top: none;
-  border-radius: 0 0 var(--radius) var(--radius);
-  padding: 12px 16px 16px; background: var(--white);
-}
-.mobile-contents__body .contents-list { padding: 0; }
-.mobile-contents__body li { margin: 7px 0; font-size: .9375rem; }
 
 /* -- Small list (Table 12 footnotes) ------------------ */
 .small-list, .small-list li { font-size: 0.8rem; }
@@ -1423,10 +1364,6 @@ ol.lettered-list li { margin-bottom: 6px; }
 @media screen and (max-width: 768px) {
   :root { --gutter: 20px; }
 
-  .page-grid { flex-direction: column; }
-  .sidebar { display: none; }
-  .mobile-contents { display: block; }
-
   h1 { font-size: 3.25rem; }
   h2 { font-size: 2.375rem; }
   h3 { font-size: 1.5rem; }
@@ -1445,16 +1382,11 @@ ol.lettered-list li { margin-bottom: 6px; }
   .hero .search-form button { width: auto; border-top: none; }
   .hero { background-image: none; }
 }
-@media screen and (min-width: 769px) {
-  .mobile-contents { display: none; }
-}
 
 /* -- Print -------------------------------------------- */
 @media print {
-  .sidebar,
-  .mobile-contents, .chapter-nav, .back-to-top,
+  .chapter-nav, .back-to-top,
   .site-footer, .hero .search-form { display: none !important; }
-  .page-grid { display: block; }
   .article { width: 100%; }
   body { font-size: 11pt; line-height: 1.45; color: #000; }
   h1 { font-size: 18pt; } h2 { font-size: 14pt; } h3 { font-size: 12pt; }
@@ -1985,7 +1917,20 @@ def ecl_scripts(root: str) -> str:
     Task 5 adds the webtools loader. Deliberately excludes assets/main.js and {extra_js}
     itself -- both stay as separate lines in base_html()'s own template, in their
     original position, so search.html keeps loading assets/search.js. See Step 2's
-    note on extra_js."""
+    note on extra_js.
+
+    Task 8 adds the inline shim below, immediately before ECL.autoInit(). ECL's
+    InpageNavigation component (vendored v5.1.0) calls document.querySelector()
+    on each nav link's raw href fragment during init(); this site's section-
+    numbered heading ids (e.g. "321-standard-operating-procedures", from
+    markdown2's header-ids slugifier) start with a digit, which is not a valid
+    CSS identifier -- querySelector() throws, aborting init() before it reaches
+    the scroll-spy setup *or* the mobile trigger's click listener, so without
+    this shim the in-page nav is silently inert (no highlighting, no expand/
+    collapse) on every content page. The shim inserts an extra, CSS-safe empty
+    anchor immediately before each such heading and repoints the nav link at
+    it, leaving the heading's real id untouched for cross-references,
+    footnotes and the PDF."""
     if not ECL_CHROME:
         return ""
     return f"""<script src="{root}assets/chatbot.js"></script>
@@ -1997,6 +1942,22 @@ def ecl_scripts(root: str) -> str:
   }});
 </script>
 <script src="{root}assets/ecl/scripts/ecl-ec.js"></script>
+<script>
+  // Work around ECL InpageNavigation's document.querySelector(href) crashing
+  // on digit-leading heading ids (see ecl_scripts() docstring in build_site.py).
+  document.querySelectorAll('[data-ecl-inpage-navigation-link]').forEach(function (a, i) {{
+    var href = a.getAttribute('href') || '';
+    var frag = href.slice(1);
+    if (!frag || !/^[0-9]/.test(frag)) return;
+    var target = document.getElementById(frag);
+    if (!target || !target.parentNode) return;
+    var safeId = 'inpage-nav-anchor-' + i;
+    var marker = document.createElement('span');
+    marker.id = safeId;
+    target.parentNode.insertBefore(marker, target);
+    a.setAttribute('href', '#' + safeId);
+  }});
+</script>
 <script>ECL.autoInit();</script>
 <script defer src="https://webtools.europa.eu/load.js"></script>
 <script type="application/json">{{"utility":"cck"}}</script>"""
@@ -2016,10 +1977,10 @@ def base_html(
     page_title = f"{h(title)} -- EU Wildlife Trade Reference Guide"
 
     if sidebar_html:
-        grid_open     = '<div class="page-grid">'
-        sidebar_col   = f'<aside class="sidebar" aria-label="Page contents">{sidebar_html}</aside>'
-        grid_close    = '</div>'
-        article_open  = '<div class="article">'
+        grid_open     = '<div class="ecl-container"><div class="ecl-row" data-ecl-inpage-navigation-container>'
+        sidebar_col   = f'<div class="ecl-col-l-3">{sidebar_html}</div>'
+        grid_close    = '</div></div>'
+        article_open  = '<div class="ecl-col-l-9 article">'
         article_close = '</div>'
     else:
         grid_open = grid_close = sidebar_col = ""
@@ -2128,38 +2089,44 @@ def heading_items(headings: list[dict]) -> list[tuple[str, str, str]]:
     return [(*split_heading_ref(hd["text"]), f'#{hd["id"]}') for hd in h2s]
 
 
-def _contents_li(ref: str, title: str, href: str) -> str:
-    ref_html = f'<span class="contents-ref">{h(ref)}</span>' if ref else ""
-    return f'<li>{ref_html}<a href="{h(href)}">{h(title)}</a></li>\n'
-
-
-def make_mobile_contents(items: list[tuple[str, str, str]]) -> str:
+def make_sidebar(headings: list[dict], depth: int = 1) -> str:
+    """ECL in-page navigation (spec §6.5). Structure per brand/ecl/quick_example.html:
+    nav.ecl-inpage-navigation > __title, __body > __trigger-wrapper (trigger button
+    + icon) and __list of __item > ecl-link ecl-inpage-navigation__link. ECL's own
+    trigger provides the mobile affordance, so there is no separate mobile contents
+    box (make_mobile_contents() was removed -- see Task 8).
+    """
+    items = heading_items(headings)
     if not items:
         return ""
-    li_html = "".join(_contents_li(*item) for item in items)
-    return (
-        '<details class="mobile-contents">'
-        '<summary>Contents <span aria-hidden="true">&#9662;</span></summary>'
-        f'<div class="mobile-contents__body"><ul class="contents-list">{li_html}</ul></div>'
-        '</details>'
-    )
+    root  = "../" * depth
+    icons = f"{root}icons/icons.svg"
 
-
-def make_sidebar(headings: list[dict]) -> str:
-    if not headings:
-        return ""
-    nav_items = ""
-    for hd in headings:
-        level_class = "sidebar-h3" if hd["level"] >= 3 else ""
-        nav_items += (
-            f'<li class="{level_class}">'
-            f'<a href="#{h(hd["id"])}">{h(hd["text"])}</a>'
-            f'</li>\n'
+    list_items = ""
+    for ref, title, href in items:
+        label = f"{ref} {title}" if ref else title
+        list_items += (
+            '<li class="ecl-inpage-navigation__item">'
+            f'<a href="{h(href)}" class="ecl-link ecl-inpage-navigation__link" data-ecl-inpage-navigation-link>{h(label)}</a>'
+            '</li>\n'
         )
-    return (
-        '<p class="sidebar__label">Page contents</p>'
-        f'<ul class="sidebar__nav">{nav_items}</ul>'
-    )
+
+    return f"""<nav class="ecl-inpage-navigation" data-ecl-auto-init="InpageNavigation" data-ecl-inpage-navigation="true" aria-labelledby="inpage-navigation-title">
+  <div class="ecl-inpage-navigation__title" id="inpage-navigation-title">Page contents</div>
+  <div class="ecl-inpage-navigation__body">
+    <div class="ecl-inpage-navigation__trigger-wrapper">
+      <button type="button" class="ecl-inpage-navigation__trigger" id="inpage-navigation-trigger" data-ecl-inpage-navigation-trigger="true" aria-controls="inpage-navigation-list" aria-expanded="false" aria-label="Page contents trigger">
+        <span class="ecl-inpage-navigation__trigger-current" data-ecl-inpage-navigation-trigger-current="true"></span>
+        <svg class="ecl-icon ecl-icon--xs ecl-icon--rotate-180 ecl-inpage-navigation__trigger-icon" focusable="false" aria-hidden="true">
+          <use xlink:href="{icons}#corner-arrow"></use>
+        </svg>
+      </button>
+    </div>
+    <ul class="ecl-inpage-navigation__list" data-ecl-inpage-navigation-list="true" id="inpage-navigation-list">
+      {list_items}
+    </ul>
+  </div>
+</nav>"""
 
 
 def make_page_header(
@@ -2218,10 +2185,8 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
         depth=1,
     )
     headings = extract_headings(rendered)
-    items    = heading_items(headings)
 
-    mobile_contents = make_mobile_contents(items)
-    sidebar_html    = make_sidebar(headings)
+    sidebar_html = make_sidebar(headings, depth=1)
 
     idx  = next((i for i, s in enumerate(nav_sections) if s["slug"] == ch["slug"]), -1)
     prev = nav_sections[idx - 1] if idx > 0 else None
@@ -2235,7 +2200,6 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
         meta=[label_text] if label_text else None,
     )
     content = f"""
-{mobile_contents}
 <article class="article-body">
   {rendered}
 </article>
@@ -2336,10 +2300,8 @@ def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
         depth=1,
     )
     headings = extract_headings(rendered)
-    items    = heading_items(headings)
 
-    mobile_contents = make_mobile_contents(items)
-    sidebar_html = make_sidebar(headings)
+    sidebar_html = make_sidebar(headings, depth=1)
 
     idx  = next((i for i, s in enumerate(siblings) if s["slug"] == ch["slug"]), -1)
     prev = siblings[idx - 1] if idx > 0 else None
@@ -2357,7 +2319,6 @@ def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
         meta=[label_text] if label_text else None,
     )
     content = f"""
-{mobile_contents}
 <article class="article-body">
   {rendered}
 </article>
@@ -2381,15 +2342,13 @@ def build_about_page(ch: dict) -> str:
         depth=0,
     )
     headings = extract_headings(rendered)
-    items    = heading_items(headings)
-    sidebar_html = make_sidebar(headings)
+    sidebar_html = make_sidebar(headings, depth=0)
 
     page_header_html = make_page_header(
         title=ABOUT_TITLE,
         breadcrumbs=[("Home", "index.html"), (ABOUT_TITLE, None)],
     )
     content = f"""
-{make_mobile_contents(items)}
 <article class="article-body">
   {rendered}
 </article>

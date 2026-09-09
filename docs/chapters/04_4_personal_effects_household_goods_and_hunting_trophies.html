@@ -174,19 +174,29 @@
 
 <div class="main-content">
   <div class="container" id="main-content">
-    <div class="page-grid">
-      <aside class="sidebar" aria-label="Page contents"><p class="sidebar__label">Page contents</p><ul class="sidebar__nav"><li class=""><a href="#441-what-are-the-general-rules-regarding-personal-and-household-effects">4.4.1 What are the general rules regarding personal and household effects?</a></li>
-<li class=""><a href="#442-are-there-any-general-exemptions-for-certain-personal-and-household-effects">4.4.2 Are there any general exemptions for certain personal and household effects?</a></li>
-<li class=""><a href="#443-what-is-the-situation-for-the-import-of-hunting-trophies-into-the-eu">4.4.3 What is the situation for the import of hunting trophies into the EU?</a></li>
-<li class=""><a href="#444-are-the-eu-wildlife-trade-regulations-requirements-the-same-as-those-in-cites">4.4.4 Are the EU Wildlife Trade Regulations requirements the same as those in CITES?</a></li>
-</ul></aside>
-      <div class="article">
+    <div class="ecl-container"><div class="ecl-row" data-ecl-inpage-navigation-container>
+      <div class="ecl-col-l-3"><nav class="ecl-inpage-navigation" data-ecl-auto-init="InpageNavigation" data-ecl-inpage-navigation="true" aria-labelledby="inpage-navigation-title">
+  <div class="ecl-inpage-navigation__title" id="inpage-navigation-title">Page contents</div>
+  <div class="ecl-inpage-navigation__body">
+    <div class="ecl-inpage-navigation__trigger-wrapper">
+      <button type="button" class="ecl-inpage-navigation__trigger" id="inpage-navigation-trigger" data-ecl-inpage-navigation-trigger="true" aria-controls="inpage-navigation-list" aria-expanded="false" aria-label="Page contents trigger">
+        <span class="ecl-inpage-navigation__trigger-current" data-ecl-inpage-navigation-trigger-current="true"></span>
+        <svg class="ecl-icon ecl-icon--xs ecl-icon--rotate-180 ecl-inpage-navigation__trigger-icon" focusable="false" aria-hidden="true">
+          <use xlink:href="../icons/icons.svg#corner-arrow"></use>
+        </svg>
+      </button>
+    </div>
+    <ul class="ecl-inpage-navigation__list" data-ecl-inpage-navigation-list="true" id="inpage-navigation-list">
+      <li class="ecl-inpage-navigation__item"><a href="#441-what-are-the-general-rules-regarding-personal-and-household-effects" class="ecl-link ecl-inpage-navigation__link" data-ecl-inpage-navigation-link>4.4.1 What are the general rules regarding personal and household effects?</a></li>
+<li class="ecl-inpage-navigation__item"><a href="#442-are-there-any-general-exemptions-for-certain-personal-and-household-effects" class="ecl-link ecl-inpage-navigation__link" data-ecl-inpage-navigation-link>4.4.2 Are there any general exemptions for certain personal and household effects?</a></li>
+<li class="ecl-inpage-navigation__item"><a href="#443-what-is-the-situation-for-the-import-of-hunting-trophies-into-the-eu" class="ecl-link ecl-inpage-navigation__link" data-ecl-inpage-navigation-link>4.4.3 What is the situation for the import of hunting trophies into the EU?</a></li>
+<li class="ecl-inpage-navigation__item"><a href="#444-are-the-eu-wildlife-trade-regulations-requirements-the-same-as-those-in-cites" class="ecl-link ecl-inpage-navigation__link" data-ecl-inpage-navigation-link>4.4.4 Are the EU Wildlife Trade Regulations requirements the same as those in CITES?</a></li>
+
+    </ul>
+  </div>
+</nav></div>
+      <div class="ecl-col-l-9 article">
         
-<details class="mobile-contents"><summary>Contents <span aria-hidden="true">&#9662;</span></summary><div class="mobile-contents__body"><ul class="contents-list"><li><span class="contents-ref">4.4.1</span><a href="#441-what-are-the-general-rules-regarding-personal-and-household-effects">What are the general rules regarding personal and household effects?</a></li>
-<li><span class="contents-ref">4.4.2</span><a href="#442-are-there-any-general-exemptions-for-certain-personal-and-household-effects">Are there any general exemptions for certain personal and household effects?</a></li>
-<li><span class="contents-ref">4.4.3</span><a href="#443-what-is-the-situation-for-the-import-of-hunting-trophies-into-the-eu">What is the situation for the import of hunting trophies into the EU?</a></li>
-<li><span class="contents-ref">4.4.4</span><a href="#444-are-the-eu-wildlife-trade-regulations-requirements-the-same-as-those-in-cites">Are the EU Wildlife Trade Regulations requirements the same as those in CITES?</a></li>
-</ul></div></details>
 <article class="article-body">
   <h2 id="441-what-are-the-general-rules-regarding-personal-and-household-effects">4.4.1 What are the general rules regarding personal and household effects?</h2>
 
@@ -530,7 +540,7 @@
 <a href="#top" class="back-to-top">Back to top</a>
 
       </div>
-    </div>
+    </div></div>
   </div>
 </div>
 
@@ -582,6 +592,22 @@
   });
 </script>
 <script src="../assets/ecl/scripts/ecl-ec.js"></script>
+<script>
+  // Work around ECL InpageNavigation's document.querySelector(href) crashing
+  // on digit-leading heading ids (see ecl_scripts() docstring in build_site.py).
+  document.querySelectorAll('[data-ecl-inpage-navigation-link]').forEach(function (a, i) {
+    var href = a.getAttribute('href') || '';
+    var frag = href.slice(1);
+    if (!frag || !/^[0-9]/.test(frag)) return;
+    var target = document.getElementById(frag);
+    if (!target || !target.parentNode) return;
+    var safeId = 'inpage-nav-anchor-' + i;
+    var marker = document.createElement('span');
+    marker.id = safeId;
+    target.parentNode.insertBefore(marker, target);
+    a.setAttribute('href', '#' + safeId);
+  });
+</script>
 <script>ECL.autoInit();</script>
 <script defer src="https://webtools.europa.eu/load.js"></script>
 <script type="application/json">{"utility":"cck"}</script>

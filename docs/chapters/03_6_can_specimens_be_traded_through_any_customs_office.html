@@ -178,7 +178,6 @@
       
       
         
-
 <article class="article-body">
   <p>Member States are obliged to <strong>designate Customs offices</strong> for carrying out the checks and formalities required under the Regulation and to <strong>state which offices are specifically intended to deal with live specimens</strong><sup class="footnote-ref" id="fnref-1"><a href="#fn-1">1</a></sup>. The latter will necessarily have to be the same as those designated under EU veterinary legislation. The list of designated Customs offices must be communicated to and published by the Commission in the Official Journal. The list can also be obtained on the <a href="https://environment.ec.europa.eu/document/download/48f59731-eb47-4ea7-8285-9bf1439834b4_en?filename=Places%20of%20Intro%20and%20Export_updated_31%20Oct%202022%20rev%20%28002%29.pdf">EU CITES website</a><sup class="footnote-ref" id="fnref-2"><a href="#fn-2">2</a></sup>. </p>
 
@@ -280,6 +279,22 @@
   });
 </script>
 <script src="../assets/ecl/scripts/ecl-ec.js"></script>
+<script>
+  // Work around ECL InpageNavigation's document.querySelector(href) crashing
+  // on digit-leading heading ids (see ecl_scripts() docstring in build_site.py).
+  document.querySelectorAll('[data-ecl-inpage-navigation-link]').forEach(function (a, i) {
+    var href = a.getAttribute('href') || '';
+    var frag = href.slice(1);
+    if (!frag || !/^[0-9]/.test(frag)) return;
+    var target = document.getElementById(frag);
+    if (!target || !target.parentNode) return;
+    var safeId = 'inpage-nav-anchor-' + i;
+    var marker = document.createElement('span');
+    marker.id = safeId;
+    target.parentNode.insertBefore(marker, target);
+    a.setAttribute('href', '#' + safeId);
+  });
+</script>
 <script>ECL.autoInit();</script>
 <script defer src="https://webtools.europa.eu/load.js"></script>
 <script type="application/json">{"utility":"cck"}</script>

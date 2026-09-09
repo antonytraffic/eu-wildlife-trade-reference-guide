@@ -178,7 +178,6 @@
       
       
         
-
 <article class="article-body">
   <p>When considering trade involving a <strong>dependent or other territory</strong> of an EU Member State, it is important to note that the <strong>territory</strong> <strong>may or may not be treated as within the EU for the purposes of EU law, including the Wildlife Trade Regulations</strong>.  At the time of this Guide’s publication, a number of Member States have such territories, including Denmark, France, Italy, the Netherlands and Portugal.  The Treaty on the Functioning of the European Union<sup class="footnote-ref" id="fnref-1"><a href="#fn-1">1</a></sup> provides the framework governing the application of the EU Treaties to the EU dependent and other territories, and the relationship between such territories and the EU Member States.  </p>
 
@@ -256,6 +255,22 @@
   });
 </script>
 <script src="../assets/ecl/scripts/ecl-ec.js"></script>
+<script>
+  // Work around ECL InpageNavigation's document.querySelector(href) crashing
+  // on digit-leading heading ids (see ecl_scripts() docstring in build_site.py).
+  document.querySelectorAll('[data-ecl-inpage-navigation-link]').forEach(function (a, i) {
+    var href = a.getAttribute('href') || '';
+    var frag = href.slice(1);
+    if (!frag || !/^[0-9]/.test(frag)) return;
+    var target = document.getElementById(frag);
+    if (!target || !target.parentNode) return;
+    var safeId = 'inpage-nav-anchor-' + i;
+    var marker = document.createElement('span');
+    marker.id = safeId;
+    target.parentNode.insertBefore(marker, target);
+    a.setAttribute('href', '#' + safeId);
+  });
+</script>
 <script>ECL.autoInit();</script>
 <script defer src="https://webtools.europa.eu/load.js"></script>
 <script type="application/json">{"utility":"cck"}</script>

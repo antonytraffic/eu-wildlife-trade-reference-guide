@@ -174,13 +174,26 @@
 
 <div class="main-content">
   <div class="container" id="main-content">
-    <div class="page-grid">
-      <aside class="sidebar" aria-label="Page contents"><p class="sidebar__label">Page contents</p><ul class="sidebar__nav"><li class=""><a href="#species-and-populations-referred-to-in-article-573a-of-regulation-ec-no-8652006-as-inserted-by-regulation-eu-no-2015870">Species and populations referred to in Article 57(3a) of Regulation (EC) No 865/2006 as inserted by Regulation (EU) No 2015/870</a></li>
-</ul></aside>
-      <div class="article">
+    <div class="ecl-container"><div class="ecl-row" data-ecl-inpage-navigation-container>
+      <div class="ecl-col-l-3"><nav class="ecl-inpage-navigation" data-ecl-auto-init="InpageNavigation" data-ecl-inpage-navigation="true" aria-labelledby="inpage-navigation-title">
+  <div class="ecl-inpage-navigation__title" id="inpage-navigation-title">Page contents</div>
+  <div class="ecl-inpage-navigation__body">
+    <div class="ecl-inpage-navigation__trigger-wrapper">
+      <button type="button" class="ecl-inpage-navigation__trigger" id="inpage-navigation-trigger" data-ecl-inpage-navigation-trigger="true" aria-controls="inpage-navigation-list" aria-expanded="false" aria-label="Page contents trigger">
+        <span class="ecl-inpage-navigation__trigger-current" data-ecl-inpage-navigation-trigger-current="true"></span>
+        <svg class="ecl-icon ecl-icon--xs ecl-icon--rotate-180 ecl-inpage-navigation__trigger-icon" focusable="false" aria-hidden="true">
+          <use xlink:href="../icons/icons.svg#corner-arrow"></use>
+        </svg>
+      </button>
+    </div>
+    <ul class="ecl-inpage-navigation__list" data-ecl-inpage-navigation-list="true" id="inpage-navigation-list">
+      <li class="ecl-inpage-navigation__item"><a href="#species-and-populations-referred-to-in-article-573a-of-regulation-ec-no-8652006-as-inserted-by-regulation-eu-no-2015870" class="ecl-link ecl-inpage-navigation__link" data-ecl-inpage-navigation-link>Species and populations referred to in Article 57(3a) of Regulation (EC) No 865/2006 as inserted by Regulation (EU) No 2015/870</a></li>
+
+    </ul>
+  </div>
+</nav></div>
+      <div class="ecl-col-l-9 article">
         
-<details class="mobile-contents"><summary>Contents <span aria-hidden="true">&#9662;</span></summary><div class="mobile-contents__body"><ul class="contents-list"><li><a href="#species-and-populations-referred-to-in-article-573a-of-regulation-ec-no-8652006-as-inserted-by-regulation-eu-no-2015870">Species and populations referred to in Article 57(3a) of Regulation (EC) No 865/2006 as inserted by Regulation (EU) No 2015/870</a></li>
-</ul></div></details>
 <article class="article-body">
   <h2 id="species-and-populations-referred-to-in-article-573a-of-regulation-ec-no-8652006-as-inserted-by-regulation-eu-no-2015870">Species and populations referred to in Article 57(3a) of Regulation (EC) No 865/2006 as inserted by Regulation (EU) No 2015/870</h2>
 
@@ -198,7 +211,7 @@
 <a href="#top" class="back-to-top">Back to top</a>
 
       </div>
-    </div>
+    </div></div>
   </div>
 </div>
 
@@ -250,6 +263,22 @@
   });
 </script>
 <script src="../assets/ecl/scripts/ecl-ec.js"></script>
+<script>
+  // Work around ECL InpageNavigation's document.querySelector(href) crashing
+  // on digit-leading heading ids (see ecl_scripts() docstring in build_site.py).
+  document.querySelectorAll('[data-ecl-inpage-navigation-link]').forEach(function (a, i) {
+    var href = a.getAttribute('href') || '';
+    var frag = href.slice(1);
+    if (!frag || !/^[0-9]/.test(frag)) return;
+    var target = document.getElementById(frag);
+    if (!target || !target.parentNode) return;
+    var safeId = 'inpage-nav-anchor-' + i;
+    var marker = document.createElement('span');
+    marker.id = safeId;
+    target.parentNode.insertBefore(marker, target);
+    a.setAttribute('href', '#' + safeId);
+  });
+</script>
 <script>ECL.autoInit();</script>
 <script defer src="https://webtools.europa.eu/load.js"></script>
 <script type="application/json">{"utility":"cck"}</script>
