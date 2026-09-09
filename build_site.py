@@ -973,38 +973,13 @@ a:focus-visible {
   border-radius: 1px;
 }
 
-/* -- Breadcrumbs -------------------------------------- */
-.breadcrumbs {
-  display: flex; align-items: center; height: 68px;
-  border-bottom: 1px solid var(--mid-grey);
-  background: var(--white);
-}
-.breadcrumbs ol {
-  list-style: none; margin: 0 auto; padding: 0 var(--gutter);
-  display: flex; flex-wrap: wrap; gap: 0; font-size: .875rem;
-  max-width: var(--max-width);
-}
-.breadcrumbs li { display: flex; align-items: center; }
-.breadcrumbs li + li::before {
-  content: "";
-  display: inline-block; flex-shrink: 0;
-  width: 14px; height: 14px; margin: 0 8px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M5 3l4 4-4 4' stroke='%23696984' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
-}
-.breadcrumbs a   { color: var(--black); font-size: .875rem; }
-.breadcrumbs a:hover { color: var(--green); }
-.breadcrumbs [aria-current="page"] { color: var(--black); }
-
 /* -- Page header (ECL page-header component) ---------- */
 .page-header { background: var(--white); }
-.page-header .container { padding-bottom: 0; max-width: var(--max-width); margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); }
 .page-header + .main-content { padding-top: 28px; }
-.page-header .breadcrumbs { border-bottom: none; background: transparent; }
-.page-header .breadcrumbs ol { max-width: none; margin: 0; padding: 0; }
 .page-header__meta {
   list-style: none; margin: 8px 0 0; padding: 0;
 }
-.page-header__title { padding-top: 20px; margin: 0; }
+.ecl-page-header__title { padding-top: 20px; margin: 0; }
 .page-header__meta-item {
   display: inline;
   font-size: .8125rem; color: var(--secondary);
@@ -1476,7 +1451,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 
 /* -- Print -------------------------------------------- */
 @media print {
-  .breadcrumbs, .sidebar,
+  .sidebar,
   .mobile-contents, .chapter-nav, .back-to-top,
   .site-footer, .hero .search-form { display: none !important; }
   .page-grid { display: block; }
@@ -1911,10 +1886,54 @@ def ecl_site_header(root: str) -> str:
 </header>"""
 
 
-def ecl_breadcrumb(bc_items: str) -> str:
-    if not ECL_CHROME or not bc_items:
+def ecl_breadcrumb(segments: list[tuple[str, str | None]]) -> str:
+    """ECL breadcrumb component. Each segment is (label, href); href=None marks
+    the current page (always the last segment). The ellipsis <li> is emitted
+    right after the first (static) segment, but only when there's at least one
+    "expandable" (intermediate) segment behind it to collapse -- ECL's JS
+    shows/hides the ellipsis and the expandable segments based on available
+    width. With only 2 segments (Home + current page, no intermediates) there
+    is nothing to collapse, and omitting the ellipsis lets ECL's own
+    :first-of-type:nth-last-of-type(2) CSS rule apply, which is what renders
+    a usable "< Home"-style link at narrow viewports; keeping a pointless
+    ellipsis there instead defeats that rule and leaves the mobile breadcrumb
+    empty (verified against the vendored ECL v5.1.0 stylesheet and reproduced
+    in the unmodified brand/ecl/quick_example.html reference)."""
+    if not ECL_CHROME or not segments:
         return ""
-    return f'<nav class="breadcrumbs" aria-label="Breadcrumb"><ol>{bc_items}</ol></nav>'
+
+    n = len(segments)
+    items = ""
+    for i, (label, url) in enumerate(segments):
+        is_last = i == n - 1
+        if is_last:
+            items += (
+                f'<li class="ecl-breadcrumb__segment ecl-breadcrumb__current-page" '
+                f'data-ecl-breadcrumb-item="static" aria-current="page">{h(label)}</li>\n'
+            )
+        else:
+            item_type = "static" if i == 0 else "expandable"
+            items += (
+                f'<li class="ecl-breadcrumb__segment" data-ecl-breadcrumb-item="{item_type}">\n'
+                f'  <a href="{h(url)}" class="ecl-link ecl-link--standalone ecl-link--no-visited ecl-breadcrumb__link">{h(label)}</a>\n'
+                f'  <span class="wt-icon--corner-arrow ecl-icon ecl-icon--fluid ecl-breadcrumb__icon ecl-icon--corner-arrow" aria-hidden="true" role="presentation"></span>\n'
+                f'</li>\n'
+            )
+            if i == 0 and n > 2:
+                items += (
+                    '<li class="ecl-breadcrumb__segment ecl-breadcrumb__segment--ellipsis" data-ecl-breadcrumb-ellipsis aria-hidden="true">\n'
+                    '  <button class="ecl-button ecl-button--ghost ecl-breadcrumb__ellipsis" type="button" data-ecl-breadcrumb-ellipsis-button aria-label="Show more breadcrumb items">&hellip;</button>\n'
+                    '  <span class="wt-icon--corner-arrow ecl-icon ecl-icon--fluid ecl-breadcrumb__icon ecl-icon--corner-arrow" aria-hidden="true" role="presentation"></span>\n'
+                    '</li>\n'
+                )
+
+    return f"""<div class="ecl-container">
+  <nav class="ecl-breadcrumb ecl-page-header__breadcrumb" aria-label="You are here:" data-ecl-breadcrumb="true" data-ecl-auto-init="Breadcrumb">
+    <ol class="ecl-breadcrumb__container">
+      {items}
+    </ol>
+  </nav>
+</div>"""
 
 
 def ecl_site_footer(root: str) -> str:
@@ -1996,14 +2015,6 @@ def base_html(
     root       = "../" * depth
     page_title = f"{h(title)} -- EU Wildlife Trade Reference Guide"
 
-    bc_items = ""
-    for i, (label, url) in enumerate(breadcrumbs):
-        is_last = i == len(breadcrumbs) - 1
-        if is_last:
-            bc_items += f'<li><span aria-current="page">{h(label)}</span></li>\n'
-        else:
-            bc_items += f'<li><a href="{h(url)}">{h(label)}</a></li>\n'
-
     if sidebar_html:
         grid_open     = '<div class="page-grid">'
         sidebar_col   = f'<aside class="sidebar" aria-label="Page contents">{sidebar_html}</aside>'
@@ -2044,7 +2055,7 @@ def base_html(
 
 {ecl_site_header(root)}
 
-{page_header_html if page_header_html else ecl_breadcrumb(bc_items)}
+{page_header_html if page_header_html else ecl_breadcrumb(breadcrumbs)}
 
 <div class="main-content">
   <div class="container" id="main-content">
@@ -2158,17 +2169,7 @@ def make_page_header(
     meta: list[str] | None = None,
 ) -> str:
     """ECL page-header component: breadcrumb + h1 + meta, as one full-width block."""
-    bc_items = ""
-    for i, (label, url) in enumerate(breadcrumbs):
-        is_last = i == len(breadcrumbs) - 1
-        if is_last:
-            bc_items += f'<li><span aria-current="page">{h(label)}</span></li>\n'
-        else:
-            bc_items += f'<li><a href="{h(url)}">{h(label)}</a></li>\n'
-    breadcrumb_html = (
-        f'<nav class="breadcrumbs page-header__breadcrumb" aria-label="Breadcrumb"><ol>{bc_items}</ol></nav>'
-        if bc_items else ""
-    )
+    breadcrumb_html = ecl_breadcrumb(breadcrumbs)
 
     meta_html = ""
     if meta:
@@ -2177,10 +2178,10 @@ def make_page_header(
 
     return f"""
 <div class="page-header">
-  <div class="container">
-    {breadcrumb_html}
+  {breadcrumb_html}
+  <div class="ecl-container">
     {meta_html}
-    <h1 class="page-header__title">{h(title)}</h1>
+    <h1 class="ecl-page-header__title">{h(title)}</h1>
   </div>
 </div>
 """

@@ -90,38 +90,13 @@ a:focus-visible {
   border-radius: 1px;
 }
 
-/* -- Breadcrumbs -------------------------------------- */
-.breadcrumbs {
-  display: flex; align-items: center; height: 68px;
-  border-bottom: 1px solid var(--mid-grey);
-  background: var(--white);
-}
-.breadcrumbs ol {
-  list-style: none; margin: 0 auto; padding: 0 var(--gutter);
-  display: flex; flex-wrap: wrap; gap: 0; font-size: .875rem;
-  max-width: var(--max-width);
-}
-.breadcrumbs li { display: flex; align-items: center; }
-.breadcrumbs li + li::before {
-  content: "";
-  display: inline-block; flex-shrink: 0;
-  width: 14px; height: 14px; margin: 0 8px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M5 3l4 4-4 4' stroke='%23696984' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
-}
-.breadcrumbs a   { color: var(--black); font-size: .875rem; }
-.breadcrumbs a:hover { color: var(--green); }
-.breadcrumbs [aria-current="page"] { color: var(--black); }
-
 /* -- Page header (ECL page-header component) ---------- */
 .page-header { background: var(--white); }
-.page-header .container { padding-bottom: 0; max-width: var(--max-width); margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); }
 .page-header + .main-content { padding-top: 28px; }
-.page-header .breadcrumbs { border-bottom: none; background: transparent; }
-.page-header .breadcrumbs ol { max-width: none; margin: 0; padding: 0; }
 .page-header__meta {
   list-style: none; margin: 8px 0 0; padding: 0;
 }
-.page-header__title { padding-top: 20px; margin: 0; }
+.ecl-page-header__title { padding-top: 20px; margin: 0; }
 .page-header__meta-item {
   display: inline;
   font-size: .8125rem; color: var(--secondary);
@@ -593,7 +568,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 
 /* -- Print -------------------------------------------- */
 @media print {
-  .breadcrumbs, .sidebar,
+  .sidebar,
   .mobile-contents, .chapter-nav, .back-to-top,
   .site-footer, .hero .search-form { display: none !important; }
   .page-grid { display: block; }

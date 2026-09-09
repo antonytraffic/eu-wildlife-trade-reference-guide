@@ -143,9 +143,18 @@
   </nav>
 </header>
 
-<nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
-<li><span aria-current="page">Search</span></li>
-</ol></nav>
+<div class="ecl-container">
+  <nav class="ecl-breadcrumb ecl-page-header__breadcrumb" aria-label="You are here:" data-ecl-breadcrumb="true" data-ecl-auto-init="Breadcrumb">
+    <ol class="ecl-breadcrumb__container">
+      <li class="ecl-breadcrumb__segment" data-ecl-breadcrumb-item="static">
+  <a href="index.html" class="ecl-link ecl-link--standalone ecl-link--no-visited ecl-breadcrumb__link">Home</a>
+  <span class="wt-icon--corner-arrow ecl-icon ecl-icon--fluid ecl-breadcrumb__icon ecl-icon--corner-arrow" aria-hidden="true" role="presentation"></span>
+</li>
+<li class="ecl-breadcrumb__segment ecl-breadcrumb__current-page" data-ecl-breadcrumb-item="static" aria-current="page">Search</li>
+
+    </ol>
+  </nav>
+</div>
 
 <div class="main-content">
   <div class="container" id="main-content">
