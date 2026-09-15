@@ -39,7 +39,7 @@ ECL_CHROME  = True    # False: Drupal / oe_theme supplies globan, header, footer
                       # dependent fixes (chatbot, ECL.autoInit(), the digit-
                       # leading-heading-id shim), which are always emitted --
                       # see ecl_scripts() vs ecl_chrome_scripts().
-ECL_CARDS   = True    # False: revert to the bespoke chapter/subpage card design
+ECL_CARDS   = False   # False: revert to the bespoke chapter/subpage card design
 ECL_CONTENT = False   # True:  article body adopts ECL type/table classes
 
 # Header banner text. ECL convention is the PARENT site name, so if this lands
@@ -891,21 +891,13 @@ CSS = """\
    EC-branded stylesheet (Europa Component Library tokens)
    ================================================ */
 
-@font-face {
-  font-family: "Inter";
-  src: url("ecl/fonts/InterVariable.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("ecl/fonts/InterVariable-Italic.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: italic;
-  font-display: swap;
-}
+/* Inter @font-face is NOT re-declared here -- ecl-ec.css already declares it
+   (normal + italic, weight 100-900), with a local fallback at ../fonts/
+   pointing at the same physical files we vendor. A second, duplicate
+   declaration here created two independent FontFace objects for the exact
+   same family/weight/style; as each resolved at a slightly different time,
+   the browser would repaint using whichever one currently "won" the match,
+   producing a visible flash between the two on every page load. */
 
 :root {
   --green:        #0046ff;   /* EC primary-600 */
@@ -1158,8 +1150,12 @@ table caption {
 .hero .search-form button::before { display: none; }
 .hero .search-form button:hover { background: #fc8713; color: var(--black); }
 
-/* Legacy card design -- retained dormant so ECL_CARDS=False reverts cleanly.
-   See brand/ECL-Migration-Spec.md section 5.1.1. Do not delete. */
+/* Legacy card design -- the active design (ECL_CARDS=False, reverted per user
+   feedback: the ECL card's fonts/sizing/spacing didn't work as well as this
+   design). Kept switchable via ECL_CARDS -- see brand/ECL-Migration-Spec.md
+   section 5.1.1. The border-bottom below is the one detail kept from the
+   ECL card design at the user's request. Do not delete this block even if
+   ECL_CARDS is flipped back to True later. */
 /* -- Section card grid -------------------------------- */
 .chapter-grid {
   display: grid;
@@ -1169,7 +1165,8 @@ table caption {
 .chapter-card {
   display: flex; flex-direction: column;
   position: relative;
-  background: var(--white); border: none; border-radius: var(--radius); padding: 20px;
+  background: var(--white); border: none; border-bottom: 4px solid #5987ff; /* ECL primary-500, kept from the ECL card design */
+  border-radius: var(--radius); padding: 20px;
   box-shadow: var(--shadow-1);
   text-decoration: none; color: inherit;
   transition: box-shadow .15s;
@@ -1221,7 +1218,8 @@ table caption {
 }
 .subpage-card {
   display: flex; flex-direction: column;
-  background: var(--white); border: none; border-radius: var(--radius); padding: 20px;
+  background: var(--white); border: none; border-bottom: 4px solid #5987ff; /* ECL primary-500, kept from the ECL card design */
+  border-radius: var(--radius); padding: 20px;
   box-shadow: var(--shadow-1);
   text-decoration: none; color: inherit;
   transition: box-shadow .15s;
@@ -1328,6 +1326,7 @@ ol.lettered-list li { margin-bottom: 6px; }
   font-size: 0.875rem; color: #9eaee1;
   margin-bottom: 6px; line-height: 1.5;
 }
+.footer-smallprint-block { padding-top: 24px; }
 
 /* -- Homepage section dividers ------------------------ */
 .home-sections > hr { margin: 2rem 0; border: none; border-top: 1px solid var(--border); }
@@ -1363,6 +1362,19 @@ ol.lettered-list li { margin-bottom: 6px; }
   .ecl-inpage-navigation { display: block; }
   .ecl-inpage-navigation__trigger { display: flex; }
 }
+
+/* This site's own global "ul, ol { margin: 0 0 18px 1.5em; }" rule (for
+   article-body bullet lists) has no article-scope selector, and with
+   ecl-reset.css deliberately not loaded (spec section 5) that 1.5em
+   left margin leaks into every ECL chrome list too, including the
+   footer's legal-navigation row -- confirmed live via the CSSOM
+   (ul.ecl-site-footer__list--inline matched "ul, ol" with no other
+   rule resetting margin-left, putting it 24px right of the footer's
+   true left margin, out of line with the logo/description/smallprint
+   above and below it). Reset it back to ECL's own zero margin here
+   rather than re-scoping the original site-wide rule, which content
+   pages already render correctly against. */
+.ecl-site-footer ul, .ecl-site-footer ol { margin: 0; }
 
 /* -- Responsive --------------------------------------- */
 @media screen and (max-width: 768px) {
@@ -1819,7 +1831,13 @@ def ecl_site_header(root: str) -> str:
             </button>
             <div class="ecl-mega-menu__wrapper">
               <div class="ecl-container">
-                <div class="ecl-mega-menu__mega ecl-mega-menu__mega--no-info" data-ecl-mega-menu-mega>
+                <div class="ecl-mega-menu__info" data-ecl-mega-menu-mega>
+                  <span class="ecl-mega-menu__info-title">Reference Guide</span>
+                  <div class="ecl-mega-menu__info-scrollable">
+                    <div class="ecl-mega-menu__info-content">Browse the sections of the EU Wildlife Trade Regulations Reference Guide.</div>
+                  </div>
+                </div>
+                <div class="ecl-mega-menu__mega" data-ecl-mega-menu-mega>
                   <ul class="ecl-mega-menu__sublist" aria-label="Pages in this section">
                     {guide_sublist_items}
                   </ul>
@@ -1909,15 +1927,23 @@ def ecl_site_footer(root: str) -> str:
     topic portals, links *about this site's own material* rather than
     external destinations.
 
-    Existing FOOTER_TEXT smallprint (citation, disclaimer, revision note)
-    renders below the specific row, inside its own .ecl-container, exactly
-    as before this task.
+    Existing FOOTER_TEXT smallprint (citation, disclaimer, revision note):
+    the first paragraph ("Updated <month year>...") renders right under the
+    TRAFFIC line in __section--site-info per user feedback -- alone at the
+    very bottom of a long dark footer it read as disconnected from the
+    attribution it's actually revising. The remaining paragraphs (opinion
+    disclaimer, citation notice, contact-authorities line) stay below the
+    specific row, inside their own .ecl-container, as before.
     """
     if not ECL_CHROME:
         return ""
+    footer_update_note = ""
     footer_extra = ""
     if FOOTER_TEXT:
         paras = [p.strip() for p in FOOTER_TEXT.strip().split("\n\n") if p.strip()]
+        if paras:
+            footer_update_note = f'<p class="footer-smallprint">{h(paras[0])}</p>'
+            paras = paras[1:]
         footer_extra = "\n".join(
             f'<p class="footer-smallprint">{h(p)}</p>' for p in paras
         )
@@ -1935,6 +1961,7 @@ def ecl_site_footer(root: str) -> str:
             This site is managed by:<br />Directorate-General for Environment<br />
             A reference guide developed by the European Commission and TRAFFIC.
           </div>
+          {footer_update_note}
           <div class="ecl-social-media-follow ecl-social-media-follow--horizontal ecl-social-media-follow--left ecl-site-footer__social-media">
             <ul class="ecl-social-media-follow__list">
               <li class="ecl-social-media-follow__item">
@@ -2057,7 +2084,7 @@ def ecl_site_footer(root: str) -> str:
         </div>
       </div>
     </div>
-    <div class="ecl-container">
+    <div class="ecl-container footer-smallprint-block">
 {footer_extra}
     </div>
   </div>
