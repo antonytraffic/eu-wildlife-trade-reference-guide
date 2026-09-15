@@ -1018,7 +1018,7 @@ Copy the `<footer class="ecl-site-footer">` block out of `brand/ecl/quick_exampl
 </div>
 ```
 
-**`__row--common`** — copy in full: the `logo-ec--mute-negative.svg` link (repointed to `{root}assets/ecl/images/logo/logo-ec--mute-negative.svg`), the "Follow the European Commission" social row, and the legal navigation (Languages on our websites, Cookies, Privacy policy, Legal notice). **Do not reproduce the template's empty trailing `<a href="">`** — spec §1.1.
+**`__row--common`** — copy in full: the `logo-ec--mute-negative.svg` link (repointed to `{root}assets/ecl/images/logo/logo-ec--mute-negative.svg`), the "Follow the European Commission" social row, and the legal navigation — **five items**: Report an IT vulnerability, Languages on our websites, Cookies, Privacy policy, Legal notice (an earlier draft of this step omitted the first by oversight; the template genuinely has five). **Do not reproduce the template's empty trailing `<a href="">`** — spec §1.1.
 
 **Feedback link** — fold the old `.site-footer__cta` mailto into the "Contact us" list as an extra `<li>`; drop the standalone CTA bar.
 

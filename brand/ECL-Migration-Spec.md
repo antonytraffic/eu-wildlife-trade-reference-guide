@@ -225,7 +225,7 @@ Replace `.site-footer` with `.ecl-site-footer`:
 
 - **`__row--specific`** — copy DG ENV's structure and links from the template: site-info section, contact section ("Contact DG Environment"), about section ("Accessibility"), related links (Agriculture, Fisheries, Climate action, Energy, European Climate Pact), and the five DG ENV social accounts.
 - **TRAFFIC attribution** goes in `__section--site-info` `__description`, alongside "This site is managed by:".
-- **`__row--common`** — currently absent from the site entirely. Add in full: EC mute-negative logo, "Follow the European Commission" social row, and the legal navigation (Languages on our websites, Cookies, Privacy policy, Legal notice). The template's empty trailing `<a href="">` is not reproduced.
+- **`__row--common`** — currently absent from the site entirely. Add in full: EC mute-negative logo, "Follow the European Commission" social row, and the legal navigation (**Report an IT vulnerability**, Languages on our websites, Cookies, Privacy policy, Legal notice — five items; an earlier draft of this section omitted the first by oversight, not by design). The template's empty trailing `<a href="">` is not reproduced.
 - **`.site-footer__cta`** feedback bar is removed as standalone furniture; the feedback address folds into the contact section.
 - Existing smallprint (citation, disclaimer, revision note) is retained below the specific row.
 
