@@ -1354,6 +1354,17 @@ ol.lettered-list li { margin-bottom: 6px; }
 @media print {
   .chapter-nav, .back-to-top,
   .hero .search-form { display: none !important; }
+  /* Task 11: pre-migration this list hid .official-strip, .site-header,
+     .top-nav, .breadcrumbs, .sidebar, .mobile-contents and .site-footer by
+     their bespoke class names. The ECL migration (Tasks 1-9) renamed those
+     elements to ecl-* classes without updating this list, so browser print
+     (Ctrl-P) silently regressed to printing the full site chrome on every
+     page. Restore parity by hiding the ECL equivalents. The webtools-
+     injected globan/cookie-consent banner (formerly .official-strip) is
+     out of scope -- see spec section 8.1, it is not part of this build's
+     static markup. */
+  .ecl-site-header, .ecl-mega-menu, .ecl-breadcrumb,
+  .ecl-inpage-navigation, .ecl-site-footer { display: none !important; }
   .article { width: 100%; }
   body { font-size: 11pt; line-height: 1.45; color: #000; }
   h1 { font-size: 18pt; } h2 { font-size: 14pt; } h3 { font-size: 12pt; }
