@@ -270,6 +270,8 @@ table caption {
 .hero .search-form button::before { display: none; }
 .hero .search-form button:hover { background: #fc8713; color: var(--black); }
 
+/* Legacy card design -- retained dormant so ECL_CARDS=False reverts cleanly.
+   See brand/ECL-Migration-Spec.md section 5.1.1. Do not delete. */
 /* -- Section card grid -------------------------------- */
 .chapter-grid {
   display: grid;

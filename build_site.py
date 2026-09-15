@@ -1153,6 +1153,8 @@ table caption {
 .hero .search-form button::before { display: none; }
 .hero .search-form button:hover { background: #fc8713; color: var(--black); }
 
+/* Legacy card design -- retained dormant so ECL_CARDS=False reverts cleanly.
+   See brand/ECL-Migration-Spec.md section 5.1.1. Do not delete. */
 /* -- Section card grid -------------------------------- */
 .chapter-grid {
   display: grid;
@@ -2244,26 +2246,20 @@ def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[
 
     # Sub-page cards. Landing pages are a hub of cards, not "content" --
     # they don't get a contents box or sidebar.
-    cards = ""
+    cards = []
     for sub in sub_chapters:
         href = f'{sub["slug"]}.html'
         if is_annexes:
             heading     = sub["title"]          # "Annex I", "Annex II", …
             description = annex_first_heading(sub)
-            num_html    = ""
+            num_label   = None
         else:
             heading     = sub["title"]
             description = summaries.get(sub["slug"]) or first_sentences(strip_markdown(sub["body"]), 2)
             ss    = sub.get("sub_section", "")
             nm    = re.match(r"^(\d+(?:\.\d+)+)", ss) if ss else None
-            num_html = f'<div class="subpage-card__num">Section {h(nm.group(1))}</div>' if nm else ""
-        cards += (
-            f'<a class="subpage-card" href="{h(href)}">'
-            f'{num_html}'
-            f'<div class="subpage-card__title">{h(heading)}</div>'
-            f'<div class="subpage-card__excerpt">{h(description)}</div>'
-            f'</a>'
-        )
+            num_label = nm.group(1) if nm else None
+        cards.append(_make_subpage_card(href, heading, description, num_label))
 
     idx  = next((i for i, s in enumerate(nav_sections) if s["slug"] == ch["slug"]), -1)
     prev = nav_sections[idx - 1] if idx > 0 else None
@@ -2280,7 +2276,7 @@ def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[
 <article class="article-body">
   {intro_html}
 </article>
-<div class="subpage-grid">{cards}</div>
+{_make_cards_grid(cards, "subpage-grid")}
 {nav_html}
 <a href="#top" class="back-to-top">Back to top</a>
 """
@@ -2410,9 +2406,35 @@ def _make_card(ch: dict, summaries: dict, href: str | None = None) -> str:
     label = f"Section {h(snum)}" if snum and snum <= 10 else "Annexes"
     summary = summaries.get(ch["slug"]) or ""
     actual_href = href if href is not None else f"chapters/{h(ch['slug'])}.html"
-
     icon_path = _CARD_ICON_PATHS.get(snum)
     icon_color = _CARD_ICON_COLORS.get(snum, "var(--green)")
+
+    if not ECL_CARDS:
+        return _make_card_legacy(ch, label, summary, actual_href, icon_path, icon_color)
+
+    icon_html = (
+        f'<div class="chapter-card__icon" aria-hidden="true" style="color:{icon_color}">'
+        f'<svg viewBox="0 0 256 256" fill="currentColor"><path d="{icon_path}"/></svg>'
+        f'</div>'
+    ) if icon_path else ""
+
+    return (
+        f'<article class="ecl-card">'
+        f'<div class="ecl-card__body">'
+        f'{icon_html}'
+        f'<div class="ecl-card__meta">{label}</div>'
+        f'<div class="ecl-card__title">'
+        f'<a href="{actual_href}" class="ecl-link ecl-link--standalone">{h(ch["title"])}</a>'
+        f'</div>'
+        f'<p class="ecl-card__description">{h(summary)}</p>'
+        f'</div>'
+        f'</article>'
+    )
+
+
+def _make_card_legacy(ch: dict, label: str, summary: str, actual_href: str,
+                       icon_path: str | None, icon_color: str) -> str:
+    """ECL_CARDS = False body of _make_card(), kept verbatim for a clean revert."""
     icon_html = (
         f'<div class="chapter-card__icon" aria-hidden="true" style="color:{icon_color}">'
         f'<svg viewBox="0 0 256 256" fill="currentColor"><path d="{icon_path}"/></svg>'
@@ -2435,6 +2457,32 @@ def _make_card(ch: dict, summaries: dict, href: str | None = None) -> str:
 def _make_about_subcard(ref: str, title: str, href: str, summary: str,
                          icon_path: str, icon_color: str) -> str:
     """Homepage card for an About sub-section (1.1, 1.2, ...) anchored on about.html."""
+    if not ECL_CARDS:
+        return _make_about_subcard_legacy(ref, title, href, summary, icon_path, icon_color)
+
+    icon_html = (
+        f'<div class="chapter-card__icon" aria-hidden="true" style="color:{icon_color}">'
+        f'<svg viewBox="0 0 256 256" fill="currentColor"><path d="{icon_path}"/></svg>'
+        f'</div>'
+    ) if icon_path else ""
+
+    return (
+        f'<article class="ecl-card">'
+        f'<div class="ecl-card__body">'
+        f'{icon_html}'
+        f'<div class="ecl-card__meta">Section {h(ref)}</div>'
+        f'<div class="ecl-card__title">'
+        f'<a href="{h(href)}" class="ecl-link ecl-link--standalone">{h(title)}</a>'
+        f'</div>'
+        f'<p class="ecl-card__description">{h(summary)}</p>'
+        f'</div>'
+        f'</article>'
+    )
+
+
+def _make_about_subcard_legacy(ref: str, title: str, href: str, summary: str,
+                                icon_path: str, icon_color: str) -> str:
+    """ECL_CARDS = False body of _make_about_subcard(), kept verbatim for a clean revert."""
     icon_html = (
         f'<div class="chapter-card__icon" aria-hidden="true" style="color:{icon_color}">'
         f'<svg viewBox="0 0 256 256" fill="currentColor"><path d="{icon_path}"/></svg>'
@@ -2454,6 +2502,64 @@ def _make_about_subcard(ref: str, title: str, href: str, summary: str,
     )
 
 
+def _make_subpage_card(href: str, heading: str, description: str,
+                        num_label: str | None = None) -> str:
+    """Sub-page hub card used on parent landing pages (Section 3, 4, Annexes).
+
+    This is the second "card type" named by spec section 5.1.1
+    (`render_subpage_card()`) -- the single dispatch point for subpage-card
+    markup, mirroring `_make_card()` for chapter cards.
+    """
+    if not ECL_CARDS:
+        return _make_subpage_card_legacy(href, heading, description, num_label)
+
+    meta_html = f'<div class="ecl-card__meta">Section {h(num_label)}</div>' if num_label else ""
+
+    return (
+        f'<article class="ecl-card">'
+        f'<div class="ecl-card__body">'
+        f'{meta_html}'
+        f'<div class="ecl-card__title">'
+        f'<a href="{h(href)}" class="ecl-link ecl-link--standalone">{h(heading)}</a>'
+        f'</div>'
+        f'<p class="ecl-card__description">{h(description)}</p>'
+        f'</div>'
+        f'</article>'
+    )
+
+
+def _make_subpage_card_legacy(href: str, heading: str, description: str,
+                               num_label: str | None = None) -> str:
+    """ECL_CARDS = False body of _make_subpage_card(), kept verbatim for a clean revert."""
+    num_html = f'<div class="subpage-card__num">Section {h(num_label)}</div>' if num_label else ""
+
+    return (
+        f'<a class="subpage-card" href="{h(href)}">'
+        f'{num_html}'
+        f'<div class="subpage-card__title">{h(heading)}</div>'
+        f'<div class="subpage-card__excerpt">{h(description)}</div>'
+        f'</a>'
+    )
+
+
+def _make_cards_grid(card_items: list[str], legacy_grid_class: str) -> str:
+    """Wrap already-rendered card fragments in their grid container.
+
+    Single dispatch point for BOTH `.chapter-grid` and `.subpage-grid` ->
+    `.ecl-row` conversions (spec 5.1.1 / 6.5). Under ECL_CARDS=True each card
+    gets an `.ecl-col-s-6 .ecl-col-l-4` wrapper inside `.ecl-row`; under
+    ECL_CARDS=False cards are direct children of the legacy CSS-grid class,
+    unchanged.
+    """
+    if not ECL_CARDS:
+        return f'<div class="{legacy_grid_class}">{"".join(card_items)}</div>'
+
+    cols = "".join(
+        f'<div class="ecl-col-s-6 ecl-col-l-4">{card}</div>' for card in card_items
+    )
+    return f'<div class="ecl-row">{cols}</div>'
+
+
 def build_index_page(nav_sections: list[dict], summaries: dict,
                      about_ch: dict | None = None) -> str:
     """Homepage: hero + three grouped card sections (About / Reference Guide / Annexes)."""
@@ -2463,26 +2569,28 @@ def build_index_page(nav_sections: list[dict], summaries: dict,
     annex_sections = [c for c in nav_sections if c["section_number"] == 0 or c["section_number"] > 10]
 
     about_cards  = (
-        _make_about_subcard(
-            "1.1", "Overview", "about.html#11-overview",
-            "The EU's implementation of CITES, the Regulations currently in force, "
-            "and the EU action plan against wildlife trafficking.",
-            icon_path=_ICON_COMPASS_PATH, icon_color="#696984",  # grey-600 -- compass
-        )
-        + _make_about_subcard(
-            "1.2", "How do I use this guide?", "about.html#12-how-do-i-use-this-guide",
-            "Who this guide is for, how its sections and annexes are organised, "
-            "and tips for finding what you need.",
-            icon_path=_CARD_ICON_PATHS[1], icon_color=_CARD_ICON_COLORS[1],  # book-open
-        )
-    ) if about_ch else ""
-    guide_cards  = "".join(_make_card(c, summaries) for c in guide_sections)
-    annex_cards  = "".join(_make_card(c, summaries) for c in annex_sections)
+        [
+            _make_about_subcard(
+                "1.1", "Overview", "about.html#11-overview",
+                "The EU's implementation of CITES, the Regulations currently in force, "
+                "and the EU action plan against wildlife trafficking.",
+                icon_path=_ICON_COMPASS_PATH, icon_color="#696984",  # grey-600 -- compass
+            ),
+            _make_about_subcard(
+                "1.2", "How do I use this guide?", "about.html#12-how-do-i-use-this-guide",
+                "Who this guide is for, how its sections and annexes are organised, "
+                "and tips for finding what you need.",
+                icon_path=_CARD_ICON_PATHS[1], icon_color=_CARD_ICON_COLORS[1],  # book-open
+            ),
+        ]
+    ) if about_ch else []
+    guide_cards  = [_make_card(c, summaries) for c in guide_sections]
+    annex_cards  = [_make_card(c, summaries) for c in annex_sections]
 
-    def section_block(heading: str, cards: str) -> str:
+    def section_block(heading: str, cards: list[str]) -> str:
         return (
             f'<h2 style="margin-top:0;border-top:none;padding-top:0">{heading}</h2>'
-            f'<div class="chapter-grid">{cards}</div>'
+            f'{_make_cards_grid(cards, "chapter-grid")}'
         )
 
     content = f"""
