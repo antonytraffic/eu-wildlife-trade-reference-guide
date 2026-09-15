@@ -1095,8 +1095,10 @@ Expected: `0` for every one. Any non-zero means a page builder was missed — `b
 
 - [ ] **Step 3: Confirm the article body is unchanged apart from Task 2's attribute**
 
+`HEAD~9` assumed one commit per task; the actual history has more (controller documentation/ruling commits interspersed between task commits, plus a fix round). **Diff against the explicit pre-migration baseline commit instead** — the commit Task 0 established right before Task 1 began, `c212af5` (confirm this is still correct with `git log --oneline | tail -5` if the ledger's Task 0 entry doesn't match):
+
 ```bash
-git diff HEAD~9 -- docs/chapters/ | grep '^[+-]' | grep -v '^[+-][+-]' \
+git diff c212af58317c727c3cd0817db0b615d2cfaa61e0 -- docs/chapters/ | grep '^[+-]' | grep -v '^[+-][+-]' \
   | grep -vE 'data-ecl-table-header|ecl-|breadcrumb|inpage-navigation|col-l-|ecl-container' \
   | head -30
 ```
