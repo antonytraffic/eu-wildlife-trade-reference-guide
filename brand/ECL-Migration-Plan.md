@@ -879,14 +879,14 @@ git commit -m "feat: convert content grid and sidebar to ECL row and in-page nav
 
 ### Task 9: Convert cards behind the `ECL_CARDS` flag
 
-Spec §5.1.1. The two card helpers already exist, so this is genuinely a two-function change — the structural requirement is already satisfied.
+Spec §5.1.1 requires a single helper **per card type**, naming two: `render_chapter_card()` and `render_subpage_card()`. **Correction (found during Task 9's implementation, not caught during plan authoring):** the original text here claimed "the two card helpers already exist... the structural requirement is already satisfied" — that was wrong. `_make_card()` is the chapter-card helper, but `_make_about_subcard()` is a *different* thing entirely (the About page's own numbered subcards, e.g. 1.1/1.2) — it is not the spec's `render_subpage_card()`. The actual subpage-card markup (used by `build_parent_landing()` for Section 3/4/Annexes landing pages) was **inlined directly in a loop, not behind any helper at all**. Left as originally written, this task would have satisfied spec §5.1.1 for chapter cards only, while subpage cards on every parent landing page stayed permanently on ECL markup regardless of the `ECL_CARDS` flag — a real, silent violation of the reversibility requirement this whole task exists for.
 
 **Files:**
-- Modify: `build_site.py` — `_make_card()` (line 2414), `_make_about_subcard()` (line 2441), and the grid wrappers in `build_index_page()` (line 2463) / `build_parent_landing()` (line 2228)
+- Modify: `build_site.py` — `_make_card()` (line 2408), `_make_about_subcard()` (line 2435), the grid wrappers in `build_index_page()` / `build_parent_landing()`, **and `build_parent_landing()`'s inlined subpage-card loop itself**, which must be extracted into a new `_make_subpage_card()` helper (paired with `_make_subpage_card_legacy()`) before it can branch on `ECL_CARDS` — it cannot simply be wrapped in place.
 
 **Interfaces:**
 - Consumes: `ECL_CARDS` from Task 2; `_CARD_ICON_PATHS`, `_CARD_ICON_COLORS`.
-- Produces: `_make_card(ch, summaries, href=None) -> str` and `_make_about_subcard(ref, title, href, summary, icon_path, icon_color) -> str` — **signatures unchanged**, branching internally on `ECL_CARDS`.
+- Produces: `_make_card(ch, summaries, href=None) -> str` and `_make_about_subcard(ref, title, href, summary, icon_path, icon_color) -> str` — **signatures unchanged**, branching internally on `ECL_CARDS`. **Plus a new `_make_subpage_card(...) -> str`**, extracted from `build_parent_landing()`'s inline loop, with its own `ECL_CARDS`-branching body and a `_make_subpage_card_legacy()` counterpart — this is the spec's `render_subpage_card()`, not `_make_about_subcard()`.
 
 - [ ] **Step 1: Write the assertions, and confirm they currently fail**
 
