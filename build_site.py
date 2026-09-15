@@ -1376,6 +1376,69 @@ ol.lettered-list li { margin-bottom: 6px; }
    pages already render correctly against. */
 .ecl-site-footer ul, .ecl-site-footer ol { margin: 0; }
 
+/* ECL's mega-menu panel lays its "info" (heading+summary) and "mega" (link
+   list) panes out with position: absolute, sized and placed independently
+   of one another -- built for a hover-card effect where the two can be
+   different heights and visually float apart, not for a single attached
+   two-column panel. On our Reference Guide item this rendered as two
+   disconnected floating boxes instead of one panel. ECL also force-splits
+   a flat one-level link list into 3 CSS columns once it has an info pane
+   (.ecl-mega-menu__item--one-level-only ... .ecl-mega-menu__sublist,
+   column-count: 3, display: block) -- the legacy .top-nav__dropdown design
+   this replaced always used a single column. Both are overridden here,
+   scoped to this specific menu item only: switch the two panes to a
+   static flexbox row (ECL's own JS then measures and syncs their heights
+   to match, and the legacy border-right visually attaches them), and put
+   the list back into a single flex column -- setting column-count alone
+   is not enough to undo ECL's rule, since it also switches the list to
+   display: block, and under display: block a column-count of 1 still
+   rendered as multiple columns live (confirmed via getBoundingClientRect:
+   items landed in 3 groups ~1044px apart, off the edge of the panel);
+   forcing display back to flex bypasses the column layout entirely
+   instead of fighting it. Scoped to ECL's own min-width: 1140px
+   breakpoint -- below that, ECL drops the side-by-side info/mega layout
+   entirely for a full-width single-panel accordion (with its own "Back"
+   button), and this override applied there too, forcing a side-by-side
+   row onto a layout meant to stack, breaking the mobile/tablet menu. */
+@media (min-width: 1140px) {
+  #ecl-mega-menu-item-main-2 > .ecl-mega-menu__wrapper > .ecl-container {
+    display: flex;
+    align-items: stretch;
+    gap: var(--s-2xl);
+  }
+  #ecl-mega-menu-item-main-2 .ecl-mega-menu__info {
+    position: static;
+    flex: 0 0 260px;
+    width: 260px;
+    border-right: 1px solid var(--cm-border-low, #d4d4dc);
+  }
+  #ecl-mega-menu-item-main-2 .ecl-mega-menu__mega,
+  #ecl-mega-menu-item-main-2 .ecl-mega-menu__info {
+    /* ECL's own MegaMenu script measures both panels on open and keeps
+       re-measuring (confirmed live: it reacts to the layout change our
+       own fix below causes and stomps its own -- too small, one row
+       short -- value straight back over ours a moment later, an ongoing
+       fight a plain inline-style write can't win). Reading through a
+       custom property here sidesteps the fight entirely: ECL only ever
+       touches the plain `height` inline style, never this variable, so
+       this stylesheet !important rule permanently wins the cascade over
+       whatever ECL keeps re-writing inline, and main.js only has to keep
+       the variable itself up to date (see
+       initReferenceGuideMegaMenuHeight in main.js). */
+    height: var(--rg-mega-height, auto) !important;
+  }
+  #ecl-mega-menu-item-main-2 .ecl-mega-menu__mega {
+    position: static;
+    flex: 1 1 auto;
+    width: auto;
+  }
+  #ecl-mega-menu-item-main-2 .ecl-mega-menu__sublist {
+    display: flex;
+    flex-direction: column;
+    column-count: 1;
+  }
+}
+
 /* -- Responsive --------------------------------------- */
 @media screen and (max-width: 768px) {
   :root { --gutter: 20px; }
@@ -1543,11 +1606,62 @@ MAIN_JS = """\
     });
   }
 
+  function initReferenceGuideMegaMenuHeight() {
+    /* ECL's own MegaMenu script measures the "info" and "mega" panels on
+       open and keeps an inline height synced on both so they render as
+       one attached panel (see the CSS overrides scoped to
+       #ecl-mega-menu-item-main-2 near .ecl-mega-menu__wrapper in
+       style.css for why this item needs a single-column list instead of
+       ECL's default 3-column split). With the list forced into a single
+       column, that measurement comes out roughly one row short of the
+       list's real height, clipping the last link or two -- and ECL keeps
+       re-measuring and re-applying its own short value even after this
+       script corrects it (confirmed live: a plain element.style.height
+       write here was silently overwritten again moments later), so this
+       writes to the --rg-mega-height custom property instead of the
+       height style directly. The CSS above reads height from that
+       variable with !important, which permanently outranks whatever
+       plain (non-important) inline height ECL's script keeps re-writing,
+       so main.js only needs to keep the variable's value correct.
+       sublist.scrollHeight reliably reports the list's true full height
+       regardless of ECL's own miscalculation (confirmed live).
+       Listens on document (capture phase) rather than the link itself,
+       and re-queries the panel elements on every click rather than
+       capturing them once: ECL's own toggle handler calls
+       stopPropagation() on this same click (needed for its "click
+       outside closes the menu" behaviour), so a bubble-phase document
+       listener never even receives the event -- confirmed live, a bubble
+       listener saw zero clicks while a capture listener saw exactly one
+       per click. Capture fires on the way down, before that
+       stopPropagation() takes effect during bubbling. */
+    document.addEventListener('click', function (e) {
+      if (!(e.target.closest && e.target.closest('#ecl-mega-menu-item-main-2-link'))) return;
+      /* setTimeout, not requestAnimationFrame: rAF callbacks are
+         suspended while the tab/pane isn't actively being painted (e.g.
+         a backgrounded preview pane), and never ran there in testing --
+         a macrotask timeout runs regardless and still comes safely after
+         ECL's own synchronous click handling above. */
+      setTimeout(function () {
+        if (window.innerWidth < 1140) return; // matches the CSS override's own breakpoint
+        var link = document.getElementById('ecl-mega-menu-item-main-2-link');
+        var mega = document.querySelector('#ecl-mega-menu-item-main-2 .ecl-mega-menu__mega');
+        var info = document.querySelector('#ecl-mega-menu-item-main-2 .ecl-mega-menu__info');
+        var sublist = mega && mega.querySelector('.ecl-mega-menu__sublist');
+        if (!link || !mega || !info || !sublist) return;
+        if (link.getAttribute('aria-expanded') !== 'true') return;
+        var h = sublist.scrollHeight + 'px';
+        mega.style.setProperty('--rg-mega-height', h);
+        info.style.setProperty('--rg-mega-height', h);
+      }, 50);
+    }, true);
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initSidebarHighlight();
     initBackToTop();
     initFootnotesExpand();
     initTopNavDropdown();
+    initReferenceGuideMegaMenuHeight();
   });
 }());
 """
