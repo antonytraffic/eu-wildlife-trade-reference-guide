@@ -444,6 +444,38 @@ ol.lettered-list li { margin-bottom: 6px; }
 /* -- Homepage section dividers ------------------------ */
 .home-sections > hr { margin: 2rem 0; border: none; border-top: 1px solid var(--border); }
 
+/* -- ECL overrides -------------------------------------
+   Targeted fixes for gaps in vendored ECL v5.1.0 (spec section 5:
+   "add targeted overrides in a small ecl-overrides block only where
+   something demonstrably breaks").
+
+   Vendored ECL v5.1.0's own stylesheet sets .ecl-inpage-navigation to
+   display: none by default below 996px, only switching it to
+   display: block once ECL's own IntersectionObserver adds an
+   --visible class as the reader scrolls -- and that class never gets
+   a chance to fire from a cold load, so in practice the nav (and its
+   __trigger button inside it, which needs the same --visible class
+   plus display:flex to appear) is unreachable below 996px: not before
+   scrolling, not after, not ever. Confirmed directly against
+   docs/assets/ecl/styles/ecl-ec.css: .ecl-inpage-navigation{display:
+   none} with @media(min-width:996px){display:block}, and
+   .ecl-inpage-navigation__trigger{display:none} with only
+   .ecl-inpage-navigation--visible .ecl-inpage-navigation__trigger
+   {display:flex} turning it on (itself forced back to display:none at
+   min-width:996px, so the trigger is mobile/tablet-only even when
+   --visible does apply). There is no other mobile trigger, so without
+   this override there is no way to see a page's table of contents at
+   any viewport below 996px, on any content page, at any scroll
+   position -- a real functional regression on a long-form reference
+   guide. Re-show the nav and its trigger unconditionally below the
+   same 996px breakpoint ECL itself uses; this must not touch anything
+   at 996px and up, where the existing sticky scroll-spy behaviour
+   (verified in Task 8) must keep working unchanged. */
+@media screen and (max-width: 995px) {
+  .ecl-inpage-navigation { display: block; }
+  .ecl-inpage-navigation__trigger { display: flex; }
+}
+
 /* -- Responsive --------------------------------------- */
 @media screen and (max-width: 768px) {
   :root { --gutter: 20px; }

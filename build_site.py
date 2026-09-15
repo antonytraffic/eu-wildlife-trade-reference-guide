@@ -34,6 +34,11 @@ ABOUT_TITLE = "About"
 
 # -- Reversibility flags -- see brand/ECL-Migration-Spec.md section 5.1 --------
 ECL_CHROME  = True    # False: Drupal / oe_theme supplies globan, header, footer
+                      # markup and the webtools loader/cookie-consent JSON --
+                      # NOT the underlying ECL JS/CSS asset stack or content-
+                      # dependent fixes (chatbot, ECL.autoInit(), the digit-
+                      # leading-heading-id shim), which are always emitted --
+                      # see ecl_scripts() vs ecl_chrome_scripts().
 ECL_CARDS   = True    # False: revert to the bespoke chapter/subpage card design
 ECL_CONTENT = False   # True:  article body adopts ECL type/table classes
 
@@ -1327,6 +1332,38 @@ ol.lettered-list li { margin-bottom: 6px; }
 /* -- Homepage section dividers ------------------------ */
 .home-sections > hr { margin: 2rem 0; border: none; border-top: 1px solid var(--border); }
 
+/* -- ECL overrides -------------------------------------
+   Targeted fixes for gaps in vendored ECL v5.1.0 (spec section 5:
+   "add targeted overrides in a small ecl-overrides block only where
+   something demonstrably breaks").
+
+   Vendored ECL v5.1.0's own stylesheet sets .ecl-inpage-navigation to
+   display: none by default below 996px, only switching it to
+   display: block once ECL's own IntersectionObserver adds an
+   --visible class as the reader scrolls -- and that class never gets
+   a chance to fire from a cold load, so in practice the nav (and its
+   __trigger button inside it, which needs the same --visible class
+   plus display:flex to appear) is unreachable below 996px: not before
+   scrolling, not after, not ever. Confirmed directly against
+   docs/assets/ecl/styles/ecl-ec.css: .ecl-inpage-navigation{display:
+   none} with @media(min-width:996px){display:block}, and
+   .ecl-inpage-navigation__trigger{display:none} with only
+   .ecl-inpage-navigation--visible .ecl-inpage-navigation__trigger
+   {display:flex} turning it on (itself forced back to display:none at
+   min-width:996px, so the trigger is mobile/tablet-only even when
+   --visible does apply). There is no other mobile trigger, so without
+   this override there is no way to see a page's table of contents at
+   any viewport below 996px, on any content page, at any scroll
+   position -- a real functional regression on a long-form reference
+   guide. Re-show the nav and its trigger unconditionally below the
+   same 996px breakpoint ECL itself uses; this must not touch anything
+   at 996px and up, where the existing sticky scroll-spy behaviour
+   (verified in Task 8) must keep working unchanged. */
+@media screen and (max-width: 995px) {
+  .ecl-inpage-navigation { display: block; }
+  .ecl-inpage-navigation__trigger { display: flex; }
+}
+
 /* -- Responsive --------------------------------------- */
 @media screen and (max-width: 768px) {
   :root { --gutter: 20px; }
@@ -1629,8 +1666,12 @@ SEARCH_JS = """\
 
 # ==============================================================================
 # Site chrome -- see brand/ECL-Migration-Spec.md section 4.
-# Each function returns "" when ECL_CHROME is False, so a move into Drupal /
-# oe_theme (which supplies its own chrome) is one flag rather than a rewrite.
+# Most functions below return "" when ECL_CHROME is False, so a move into
+# Drupal / oe_theme (which supplies its own chrome) is one flag rather than a
+# rewrite. The exception is ecl_scripts(): it always emits (see its own
+# docstring for why) -- only ecl_chrome_scripts() at the end of this section
+# is gated, carrying just the genuinely chrome-specific webtools loader and
+# cookie-consent JSON.
 # ==============================================================================
 
 def ecl_head_links(root: str) -> str:
@@ -2024,11 +2065,22 @@ def ecl_site_footer(root: str) -> str:
 
 
 def ecl_scripts(root: str) -> str:
-    """Scripts after {extra_js}, before </body>. Task 4 adds ecl-ec.js + ECL.autoInit();
-    Task 5 adds the webtools loader. Deliberately excludes assets/main.js and {extra_js}
-    itself -- both stay as separate lines in base_html()'s own template, in their
-    original position, so search.html keeps loading assets/search.js. See Step 2's
-    note on extra_js.
+    """Scripts after {extra_js}, before </body> -- always emitted, regardless of
+    ECL_CHROME. Task 4 adds ecl-ec.js + ECL.autoInit(). Deliberately excludes
+    assets/main.js and {extra_js} itself -- both stay as separate lines in
+    base_html()'s own template, in their original position, so search.html
+    keeps loading assets/search.js. See Step 2's note on extra_js.
+
+    None of this is "chrome" in the ECL_CHROME sense (spec: "False -> Drupal /
+    oe_theme supplies the chrome"): the chatbot is a site feature, not chrome;
+    the ecl-ec.js bundle + ECL.autoInit() are needed because the page still
+    emits ECL-classed markup (mega menu, in-page nav, cards, etc.) even when
+    ECL_CHROME is False -- a Drupal/oe_theme host would still need ECL's JS to
+    initialize that markup; and the inline shim below exists purely because of
+    THIS SITE'S OWN CONTENT, so a Drupal host would still need it too (Drupal
+    would not know about this site's specific heading-id scheme). Only the
+    genuinely EC/chrome-specific webtools loader and cookie-consent JSON are
+    gated -- see ecl_chrome_scripts() below.
 
     Task 8 adds the inline shim below, immediately before ECL.autoInit(). ECL's
     InpageNavigation component (vendored v5.1.0) calls document.querySelector()
@@ -2042,8 +2094,6 @@ def ecl_scripts(root: str) -> str:
     anchor immediately before each such heading and repoints the nav link at
     it, leaving the heading's real id untouched for cross-references,
     footnotes and the PDF."""
-    if not ECL_CHROME:
-        return ""
     return f"""<script src="{root}assets/chatbot.js"></script>
 <script>
   ChatbotWidget.init({{
@@ -2069,9 +2119,19 @@ def ecl_scripts(root: str) -> str:
     a.setAttribute('href', '#' + safeId);
   }});
 </script>
-<script>ECL.autoInit();</script>
-<script defer src="https://webtools.europa.eu/load.js"></script>
-<script type="application/json">{{"utility":"cck"}}</script>"""
+<script>ECL.autoInit();</script>"""
+
+
+def ecl_chrome_scripts() -> str:
+    """Scripts after ecl_scripts(), before </body> -- gated on ECL_CHROME. Task 5
+    adds the webtools loader. Both the loader and the cookie-consent JSON are
+    genuinely EC/chrome-specific (spec: "False -> Drupal / oe_theme supplies
+    the chrome") -- a Drupal/oe_theme host supplies its own equivalent, so
+    these (and only these) return "" when ECL_CHROME is False."""
+    if not ECL_CHROME:
+        return ""
+    return """<script defer src="https://webtools.europa.eu/load.js"></script>
+<script type="application/json">{"utility":"cck"}</script>"""
 
 
 def base_html(
@@ -2145,6 +2205,7 @@ def base_html(
 <script src="{root}assets/main.js"></script>
 {extra_js}
 {ecl_scripts(root)}
+{ecl_chrome_scripts()}
 </body>
 </html>"""
 
@@ -2206,12 +2267,21 @@ def make_sidebar(headings: list[dict], depth: int = 1) -> str:
     + icon) and __list of __item > ecl-link ecl-inpage-navigation__link. ECL's own
     trigger provides the mobile affordance, so there is no separate mobile contents
     box (make_mobile_contents() was removed -- see Task 8).
+
+    The trigger's [data-ecl-inpage-navigation-trigger-current] label was left
+    empty pre-fix -- cosmetically harmless while the trigger was hidden below
+    996px (see Task 8's report), but the final-review CSS override below now
+    makes the trigger visible (and clickable) at those widths, so an empty
+    label would show as a blank button. Seed it with the nav's own title
+    ("Page contents") as a simple static fallback; ECL's own JS updates it to
+    the active section's heading once InpageNavigation's scroll-spy runs.
     """
     items = heading_items(headings)
     if not items:
         return ""
     root  = "../" * depth
     icons = f"{root}icons/icons.svg"
+    nav_title = "Page contents"
 
     list_items = ""
     for ref, title, href in items:
@@ -2223,11 +2293,11 @@ def make_sidebar(headings: list[dict], depth: int = 1) -> str:
         )
 
     return f"""<nav class="ecl-inpage-navigation" data-ecl-auto-init="InpageNavigation" data-ecl-inpage-navigation="true" aria-labelledby="inpage-navigation-title">
-  <div class="ecl-inpage-navigation__title" id="inpage-navigation-title">Page contents</div>
+  <div class="ecl-inpage-navigation__title" id="inpage-navigation-title">{nav_title}</div>
   <div class="ecl-inpage-navigation__body">
     <div class="ecl-inpage-navigation__trigger-wrapper">
       <button type="button" class="ecl-inpage-navigation__trigger" id="inpage-navigation-trigger" data-ecl-inpage-navigation-trigger="true" aria-controls="inpage-navigation-list" aria-expanded="false" aria-label="Page contents trigger">
-        <span class="ecl-inpage-navigation__trigger-current" data-ecl-inpage-navigation-trigger-current="true"></span>
+        <span class="ecl-inpage-navigation__trigger-current" data-ecl-inpage-navigation-trigger-current="true">{nav_title}</span>
         <svg class="ecl-icon ecl-icon--xs ecl-icon--rotate-180 ecl-inpage-navigation__trigger-icon" focusable="false" aria-hidden="true">
           <use xlink:href="{icons}#corner-arrow"></use>
         </svg>
