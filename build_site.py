@@ -1319,45 +1319,10 @@ ol.lettered-list {
 ol.lettered-list li { margin-bottom: 6px; }
 
 /* -- Footer ------------------------------------------- */
-.site-footer {
-  background: var(--black); color: #fff;
-  padding: 0 0 40px; margin-top: 70px;
-}
-.site-footer p { font-size: 1rem; color: #c1ccec; margin-bottom: 6px; }
-.site-footer a { color: #fff; font-size: 1rem; }
-.site-footer a:hover { color: #b0c6ff; }
-.site-footer p.footer-smallprint {
+.footer-smallprint {
   font-size: 0.875rem; color: #9eaee1;
   margin-bottom: 6px; line-height: 1.5;
 }
-.site-footer__cta { padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,.15); margin-bottom: 32px; }
-.site-footer__cta-inner {
-  display: flex; align-items: center; justify-content: flex-start;
-  flex-wrap: wrap; gap: 24px;
-}
-.site-footer__cta-inner span { font-size: 1.125rem; }
-.site-footer__cta-btn {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: #fea439; color: var(--black) !important;
-  font-weight: 700; font-size: 1rem;
-  padding: 12px 22px; border-radius: var(--radius); text-decoration: none !important;
-}
-.site-footer__cta-btn:hover { background: #fc8713; }
-.site-footer__columns {
-  display: flex; flex-wrap: wrap; gap: 32px;
-  padding-bottom: 24px;
-}
-.site-footer__col { flex: 1 1 180px; min-width: 160px; }
-.site-footer__col--brand { flex: 1 1 220px; max-width: 260px; }
-.site-footer__tagline { font-size: .9375rem; margin-top: 12px; }
-.site-footer .site-footer__heading {
-  font-size: .8125rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .06em; color: #fff; margin-bottom: 10px;
-}
-.site-footer__links { list-style: none; margin: 0; padding: 0; }
-.site-footer__links li { margin-bottom: 6px; }
-.site-footer__logo { height: 4.5rem; width: auto; }
-.site-footer__divider { border: none; border-top: 1px solid rgba(255,255,255,.15); margin: 0 0 16px; }
 
 /* -- Homepage section dividers ------------------------ */
 .home-sections > hr { margin: 2rem 0; border: none; border-top: 1px solid var(--border); }
@@ -1388,7 +1353,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 /* -- Print -------------------------------------------- */
 @media print {
   .chapter-nav, .back-to-top,
-  .site-footer, .hero .search-form { display: none !important; }
+  .hero .search-form { display: none !important; }
   .article { width: 100%; }
   body { font-size: 11pt; line-height: 1.45; color: #000; }
   h1 { font-size: 18pt; } h2 { font-size: 14pt; } h3 { font-size: 12pt; }
@@ -1871,6 +1836,31 @@ def ecl_breadcrumb(segments: list[tuple[str, str | None]]) -> str:
 
 
 def ecl_site_footer(root: str) -> str:
+    """DG ENV's real ECL footer, copied from brand/ecl/quick_example.html (see
+    ECL-Migration-Spec.md section 6.6). `__row--specific` keeps DG ENV's own
+    structure and links verbatim (site-info, contact, about, related links,
+    social accounts) per the approved decision; TRAFFIC co-branding is added
+    to the site-info description alongside DG ENV's own text, and the old
+    `.site-footer__cta` feedback mailto folds into the contact list as an
+    extra item rather than staying a standalone CTA bar.
+
+    `__row--common` is mandatory EC furniture the site never had: the
+    mute-negative EC logo, the "Follow the European Commission" social row,
+    and the legal navigation -- copied in full, minus the template's empty
+    trailing `<a href="">` (spec section 1.1).
+
+    "Download PDF" has no DG-ENV counterpart to copy, but it's the only way
+    a visitor gets the offline whole-guide PDF and doesn't duplicate any
+    link already in the header mega menu (unlike Home/About/Search, which
+    do and are dropped). It's added as a second item in `__section--about`,
+    next to Accessibility -- both are, unlike Related links' outbound EU
+    topic portals, links *about this site's own material* rather than
+    external destinations.
+
+    Existing FOOTER_TEXT smallprint (citation, disclaimer, revision note)
+    renders below the specific row, inside its own .ecl-container, exactly
+    as before this task.
+    """
     if not ECL_CHROME:
         return ""
     footer_extra = ""
@@ -1879,37 +1869,142 @@ def ecl_site_footer(root: str) -> str:
         footer_extra = "\n".join(
             f'<p class="footer-smallprint">{h(p)}</p>' for p in paras
         )
-    return f"""<footer class="site-footer" role="contentinfo">
-  <div class="site-footer__cta">
-    <div class="container site-footer__cta-inner">
-      <span>Help us improve this guide</span>
-      <a class="site-footer__cta-btn" href="mailto:antony.bagott@traffic.org">Send feedback <span aria-hidden="true">&#8599;</span></a>
+    logo = f"{root}assets/ecl/images/logo/logo-ec--mute-negative.svg"
+    pdf_href = f"{root}{PDF_FILENAME}"
+    return f"""<footer class="ecl-site-footer" data-logo-area-label-en="Home&#x20;-&#x20;European&#x20;Commission">
+  <div class="ecl-site-footer__main">
+    <div class="ecl-container ecl-site-footer__container">
+      <div class="ecl-site-footer__row ecl-site-footer__row--specific">
+        <div class="ecl-site-footer__section ecl-site-footer__section--site-info">
+          <div class="ecl-site-footer__title">
+            <a href="https://environment.ec.europa.eu/index_en" class="ecl-link ecl-link--inverted ecl-link--icon ecl-site-footer__title-link"><span class="ecl-link__label">Environment</span><span class="wt-icon--arrow-left wt-icon--inverted ecl-icon ecl-icon--xs ecl-icon--flip-horizontal ecl-link__icon ecl-icon--arrow-left" aria-hidden="true"></span></a>
+          </div>
+          <div class="ecl-site-footer__description">
+            This site is managed by:<br />Directorate-General for Environment<br />
+            A reference guide developed by the European Commission and TRAFFIC.
+          </div>
+          <div class="ecl-social-media-follow ecl-social-media-follow--horizontal ecl-social-media-follow--left ecl-site-footer__social-media">
+            <ul class="ecl-social-media-follow__list">
+              <li class="ecl-social-media-follow__item">
+                <a href="https://www.facebook.com/EUEnvironment/" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="Facebook"><span class="wt-icon-networks--facebook wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--facebook" aria-hidden="true"></span><span class="ecl-link__label">Facebook</span></a>
+              </li>
+              <li class="ecl-social-media-follow__item">
+                <a href="https://www.instagram.com/ourplanet_eu/" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="Instagram"><span class="wt-icon-networks--instagram wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--instagram" aria-hidden="true"></span><span class="ecl-link__label">Instagram</span></a>
+              </li>
+              <li class="ecl-social-media-follow__item">
+                <a href="https://twitter.com/EU_ENV" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="X"><span class="wt-icon-networks--x wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--x" aria-hidden="true"></span><span class="ecl-link__label">X</span></a>
+              </li>
+              <li class="ecl-social-media-follow__item">
+                <a href="https://www.youtube.com/user/EUEnvironment" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="YouTube"><span class="wt-icon-networks--youtube wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--youtube" aria-hidden="true"></span><span class="ecl-link__label">YouTube</span></a>
+              </li>
+              <li class="ecl-social-media-follow__item">
+                <a href="https://www.linkedin.com/showcase/eu-environment-climate/" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="LinkedIn"><span class="wt-icon-networks--linkedin wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--linkedin" aria-hidden="true"></span><span class="ecl-link__label">LinkedIn</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="ecl-site-footer__section ecl-site-footer__section--links">
+          <div class="ecl-site-footer__row">
+            <div class="ecl-site-footer__section ecl-site-footer__section--contact">
+              <div class="ecl-site-footer__title">Contact us</div>
+              <ul class="ecl-site-footer__list">
+                <li class="ecl-site-footer__list-item">
+                  <a href="https://ec.europa.eu/info/departments/environment_en#contact" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="Contact&#x20;us" data-footer-link-label="Contact&#x20;DG&#x20;Environment">Contact DG Environment</a>
+                </li>
+                <li class="ecl-site-footer__list-item">
+                  <a href="mailto:antony.bagott@traffic.org" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link">Send feedback</a>
+                </li>
+              </ul>
+            </div>
+            <div class="ecl-site-footer__section ecl-site-footer__section--about">
+              <div class="ecl-site-footer__title">About us</div>
+              <ul class="ecl-site-footer__list">
+                <li class="ecl-site-footer__list-item">
+                  <a href="/accessibility-statement_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="About&#x20;us" data-footer-link-label="Accessibility">Accessibility</a>
+                </li>
+                <li class="ecl-site-footer__list-item">
+                  <a href="{pdf_href}" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link">Download PDF</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="ecl-site-footer__row">
+            <div class="ecl-site-footer__section ecl-site-footer__section--related">
+              <div class="ecl-site-footer__title">Related links</div>
+              <ul class="ecl-site-footer__list">
+                <li class="ecl-site-footer__list-item">
+                  <a href="https://commission.europa.eu/food-farming-fisheries_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="Related&#x20;links" data-footer-link-label="Agriculture">Agriculture</a>
+                </li>
+                <li class="ecl-site-footer__list-item">
+                  <a href="https://oceans-and-fisheries.ec.europa.eu/index_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="Related&#x20;links" data-footer-link-label="Fisheries">Fisheries</a>
+                </li>
+                <li class="ecl-site-footer__list-item">
+                  <a href="https://climate.ec.europa.eu/index_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="Related&#x20;links" data-footer-link-label="Climate&#x20;action">Climate action</a>
+                </li>
+                <li class="ecl-site-footer__list-item">
+                  <a href="https://energy.ec.europa.eu/index_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="Related&#x20;links" data-footer-link-label="Energy">Energy</a>
+                </li>
+                <li class="ecl-site-footer__list-item">
+                  <a href="https://climate-pact.europa.eu/index_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="Related&#x20;links" data-footer-link-label="European&#x20;Climate&#x20;Pact">European Climate Pact</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ecl-site-footer__row ecl-site-footer__row--common">
+        <div class="ecl-site-footer__section ecl-site-footer__section--common">
+          <a href="https://commission.europa.eu/index_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__logo-link"><picture class="ecl-picture ecl-site-footer__picture"><img class="ecl-site-footer__logo-image" src="{logo}" alt="European Commission"></picture></a>
+          <div class="ecl-site-footer__extra-links-container">
+            <div class="ecl-social-media-follow ecl-social-media-follow--left ecl-social-media-follow--description_inline ecl-site-footer__social-media">
+              <p class="ecl-social-media-follow__description">Follow the European Commission</p>
+              <ul class="ecl-social-media-follow__list">
+                <li class="ecl-social-media-follow__item">
+                  <a href="https://ec.social-network.europa.eu/@EUCommission" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Mastodon"><span class="wt-icon-networks--mastodon wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--mastodon" aria-hidden="true"></span><span class="ecl-link__label">Mastodon</span></a>
+                </li>
+                <li class="ecl-social-media-follow__item">
+                  <a href="http://www.linkedin.com/company/european-commission" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="LinkedIn"><span class="wt-icon-networks--linkedin wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--linkedin" aria-hidden="true"></span><span class="ecl-link__label">LinkedIn</span></a>
+                </li>
+                <li class="ecl-social-media-follow__item">
+                  <a href="https://bsky.app/profile/ec.europa.eu" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Bluesky"><span class="wt-icon-networks--bluesky wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--bluesky" aria-hidden="true"></span><span class="ecl-link__label">Bluesky</span></a>
+                </li>
+                <li class="ecl-social-media-follow__item">
+                  <a href="https://www.facebook.com/EuropeanCommission" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Facebook"><span class="wt-icon-networks--facebook wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--facebook" aria-hidden="true"></span><span class="ecl-link__label">Facebook</span></a>
+                </li>
+                <li class="ecl-social-media-follow__item">
+                  <a href="https://www.youtube.com/user/eutube" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Youtube"><span class="wt-icon-networks--youtube wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--youtube" aria-hidden="true"></span><span class="ecl-link__label">Youtube</span></a>
+                </li>
+                <li class="ecl-social-media-follow__item">
+                  <a href="https://european-union.europa.eu/contact-eu/social-media-channels_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Other"><span class="wt-icon-networks--chain wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--chain" aria-hidden="true"></span><span class="ecl-link__label">Other</span></a>
+                </li>
+              </ul>
+            </div>
+            <ul class="ecl-site-footer__list ecl-site-footer__list--inline">
+              <li class="ecl-site-footer__list-item">
+                <a href="https://commission.europa.eu/about/contact_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="extra_links" data-footer-link-label="Contact&#x20;us">Contact us</a>
+              </li>
+            </ul>
+          </div>
+          <ul class="ecl-site-footer__list ecl-site-footer__list--inline">
+            <li class="ecl-site-footer__list-item">
+              <a href="https://commission.europa.eu/languages-our-websites_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="legal_navigation" data-footer-link-label="Languages&#x20;on&#x20;our&#x20;websites">Languages on our websites</a>
+            </li>
+            <li class="ecl-site-footer__list-item">
+              <a href="https://commission.europa.eu/cookies-policy_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="legal_navigation" data-footer-link-label="Cookies">Cookies</a>
+            </li>
+            <li class="ecl-site-footer__list-item">
+              <a href="https://commission.europa.eu/privacy-policy-websites-managed-european-commission_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="legal_navigation" data-footer-link-label="Privacy&#x20;policy">Privacy policy</a>
+            </li>
+            <li class="ecl-site-footer__list-item">
+              <a href="https://commission.europa.eu/legal-notice_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="legal_navigation" data-footer-link-label="Legal&#x20;notice">Legal notice</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="container">
-    <div class="site-footer__columns">
-      <div class="site-footer__col site-footer__col--brand">
-        <img class="site-footer__logo" src="{root}assets/images/logo-ec.svg" alt="European Commission">
-        <p class="site-footer__tagline">A reference guide developed by the European Commission and TRAFFIC.</p>
-      </div>
-      <div class="site-footer__col">
-        <p class="site-footer__heading">Reference Guide</p>
-        <ul class="site-footer__links">
-          <li><a href="{root}index.html">Home</a></li>
-          <li><a href="{root}about.html">{h(ABOUT_TITLE)}</a></li>
-          <li><a href="{root}search.html">Search</a></li>
-          <li><a href="{root}{PDF_FILENAME}">Download PDF</a></li>
-        </ul>
-      </div>
-      <div class="site-footer__col">
-        <p class="site-footer__heading">Contact</p>
-        <ul class="site-footer__links">
-          <li><a href="mailto:antony.bagott@traffic.org">Send feedback</a></li>
-        </ul>
-      </div>
+    <div class="ecl-container">
+{footer_extra}
     </div>
-    <hr class="site-footer__divider">
-    {footer_extra}
   </div>
 </footer>"""
 

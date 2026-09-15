@@ -436,45 +436,10 @@ ol.lettered-list {
 ol.lettered-list li { margin-bottom: 6px; }
 
 /* -- Footer ------------------------------------------- */
-.site-footer {
-  background: var(--black); color: #fff;
-  padding: 0 0 40px; margin-top: 70px;
-}
-.site-footer p { font-size: 1rem; color: #c1ccec; margin-bottom: 6px; }
-.site-footer a { color: #fff; font-size: 1rem; }
-.site-footer a:hover { color: #b0c6ff; }
-.site-footer p.footer-smallprint {
+.footer-smallprint {
   font-size: 0.875rem; color: #9eaee1;
   margin-bottom: 6px; line-height: 1.5;
 }
-.site-footer__cta { padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,.15); margin-bottom: 32px; }
-.site-footer__cta-inner {
-  display: flex; align-items: center; justify-content: flex-start;
-  flex-wrap: wrap; gap: 24px;
-}
-.site-footer__cta-inner span { font-size: 1.125rem; }
-.site-footer__cta-btn {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: #fea439; color: var(--black) !important;
-  font-weight: 700; font-size: 1rem;
-  padding: 12px 22px; border-radius: var(--radius); text-decoration: none !important;
-}
-.site-footer__cta-btn:hover { background: #fc8713; }
-.site-footer__columns {
-  display: flex; flex-wrap: wrap; gap: 32px;
-  padding-bottom: 24px;
-}
-.site-footer__col { flex: 1 1 180px; min-width: 160px; }
-.site-footer__col--brand { flex: 1 1 220px; max-width: 260px; }
-.site-footer__tagline { font-size: .9375rem; margin-top: 12px; }
-.site-footer .site-footer__heading {
-  font-size: .8125rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .06em; color: #fff; margin-bottom: 10px;
-}
-.site-footer__links { list-style: none; margin: 0; padding: 0; }
-.site-footer__links li { margin-bottom: 6px; }
-.site-footer__logo { height: 4.5rem; width: auto; }
-.site-footer__divider { border: none; border-top: 1px solid rgba(255,255,255,.15); margin: 0 0 16px; }
 
 /* -- Homepage section dividers ------------------------ */
 .home-sections > hr { margin: 2rem 0; border: none; border-top: 1px solid var(--border); }
@@ -505,7 +470,7 @@ ol.lettered-list li { margin-bottom: 6px; }
 /* -- Print -------------------------------------------- */
 @media print {
   .chapter-nav, .back-to-top,
-  .site-footer, .hero .search-form { display: none !important; }
+  .hero .search-form { display: none !important; }
   .article { width: 100%; }
   body { font-size: 11pt; line-height: 1.45; color: #000; }
   h1 { font-size: 18pt; } h2 { font-size: 14pt; } h3 { font-size: 12pt; }
