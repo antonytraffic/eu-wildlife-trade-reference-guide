@@ -1469,9 +1469,8 @@ ol.lettered-list li { margin-bottom: 6px; }
 /* -- Footer ------------------------------------------- */
 .footer-smallprint {
   font-size: 0.875rem; color: #9eaee1;
-  margin-bottom: 6px; line-height: 1.5;
+  margin: 16px 0 0; line-height: 1.5;
 }
-.footer-smallprint-block { padding-top: 24px; }
 
 /* -- Homepage section dividers ------------------------ */
 .home-sections > hr { margin: 2rem 0; border: none; border-top: 1px solid var(--border); }
@@ -1518,8 +1517,19 @@ ol.lettered-list li { margin-bottom: 6px; }
    true left margin, out of line with the logo/description/smallprint
    above and below it). Reset it back to ECL's own zero margin here
    rather than re-scoping the original site-wide rule, which content
-   pages already render correctly against. */
-.ecl-site-footer ul, .ecl-site-footer ol { margin: 0; }
+   pages already render correctly against.
+   Only margin-left and the global li margin-bottom are reset: an earlier
+   blanket "margin: 0" here also wiped ECL's own margin-block-start on
+   .ecl-site-footer__list (16px), jamming every link list up against its
+   "Contact us"/"About us"/"Related links" heading. */
+.ecl-site-footer ul, .ecl-site-footer ol { margin-left: 0; }
+.ecl-site-footer li { margin-bottom: 0; }
+
+/* Inline social icons (see _NETWORK_ICONS): white on the footer's brand
+   background, with the knocked-out glyph filled to match that background,
+   as the live DG ENV footer renders them. */
+.ecl-site-footer .ecl-social-media-follow__icon { color: var(--cm-on-surface-inverted); }
+.ecl-site-footer .ecl-social-media-follow__icon .cutout { fill: var(--cm-surface-brand); }
 
 /* ECL's mega-menu panel lays its "info" (heading+summary) and "mega" (link
    list) panes out with position: absolute, sized and placed independently
@@ -2459,6 +2469,41 @@ def _ecl_icon(name: str, classes: str) -> str:
     )
 
 
+# Social network icons, copied verbatim from the live DG ENV footer
+# (environment.ec.europa.eu/topics/nature-and-biodiversity/wildlife-trade_en).
+# There, Webtools swaps each `<span class="wt-icon-networks--*">` for an
+# inline SVG at runtime; Webtools isn't loaded here, so those spans rendered
+# blank and the SVGs are inlined instead. Paths with class "cutout" are the
+# glyph knocked out of a solid shape (Facebook "f", LinkedIn "in", Mastodon
+# "m") and are filled with the footer background colour in CSS.
+_NETWORK_ICONS = {
+    "facebook": ("0 0 48 48", '<path fill="currentColor" d="M46 24.134C46 11.911 36.15 2 24 2S2 11.91 2 24.134C2 35.182 10.045 44.34 20.563 46V30.532h-5.586v-6.398h5.585v-4.876c0-5.548 3.285-8.612 8.31-8.612 2.407 0 4.925.432 4.925.432v5.448h-2.775c-2.732 0-3.584 1.705-3.584 3.457v4.151h6.1l-.973 6.398h-5.127V46C37.954 44.339 46 35.182 46 24.134"/><path class="cutout" d="m32.756 30.539.984-6.287h-6.16v-4.079c0-1.72.862-3.396 3.62-3.396H34v-5.353S31.458 11 29.028 11c-5.073 0-8.39 3.01-8.39 8.461v4.791H15v6.287h5.639v15.197c1.131.174 2.29.264 3.47.264 1.182 0 2.34-.09 3.47-.264V30.54h5.177Z"/>'),
+    "instagram": ("0 0 48 48", '<path fill="currentColor" d="M46 23.96c-.01-5.97-.04-6.72-.15-9.07s-.48-3.94-1.03-5.34c-.57-1.45-1.32-2.67-2.54-3.89s-2.45-1.97-3.9-2.53c-1.4-.54-3-.91-5.34-1.01s-3.1-.13-9.07-.12-6.72.04-9.07.15c-2.34.11-3.94.48-5.34 1.03-1.45.56-2.67 1.32-3.89 2.54S3.7 8.17 3.14 9.62c-.54 1.4-.91 3-1.01 5.34s-.13 3.09-.11 9.07c.01 5.97.04 6.72.15 9.07.11 2.34.48 3.94 1.03 5.34.56 1.45 1.32 2.67 2.54 3.89s2.45 1.97 3.9 2.53c1.4.54 3 .91 5.34 1.01s3.1.13 9.07.11c5.97-.01 6.72-.04 9.07-.15s3.94-.49 5.33-1.03c1.45-.57 2.67-1.32 3.89-2.54s1.97-2.45 2.53-3.9c.54-1.4.91-3 1.01-5.34.1-2.35.13-3.1.12-9.07Zm-4.07 8.9c-.09 2.14-.45 3.31-.75 4.09-.4 1.03-.87 1.76-1.64 2.53s-1.5 1.25-2.53 1.65c-.77.3-1.94.66-4.08.77-2.32.11-3.02.13-8.89.14s-6.57-.01-8.89-.11c-2.15-.09-3.31-.45-4.09-.75-1.03-.4-1.76-.87-2.53-1.64s-1.25-1.5-1.65-2.53c-.3-.78-.66-1.94-.76-4.08-.11-2.32-.13-3.01-.14-8.89-.01-5.87 0-6.57.11-8.89.09-2.14.45-3.31.75-4.08.4-1.03.87-1.76 1.64-2.53s1.5-1.25 2.53-1.65c.78-.3 1.94-.66 4.08-.76 2.32-.11 3.02-.13 8.89-.14s6.57 0 8.89.11c2.14.09 3.31.45 4.08.75 1.03.4 1.76.87 2.53 1.64s1.25 1.5 1.65 2.53c.3.77.66 1.94.76 4.08.11 2.32.14 3.02.15 8.89s-.01 6.57-.11 8.89Z"/><path fill="currentColor" d="M23.98 12.7c-6.24.01-11.29 5.08-11.27 11.32.01 6.24 5.08 11.29 11.32 11.27 6.24-.01 11.29-5.08 11.28-11.32S30.23 12.68 23.99 12.7Zm6.8 14.09a7.36 7.36 0 0 1-2.69 3.3c-1.2.81-2.62 1.24-4.07 1.24-.96 0-1.92-.19-2.81-.55s-1.7-.91-2.38-1.58a7.36 7.36 0 0 1-2.15-5.19c0-1.45.42-2.87 1.23-4.08.8-1.21 1.95-2.15 3.29-2.71a7.325 7.325 0 0 1 8 1.57 7.26 7.26 0 0 1 2.01 3.75c.29 1.42.14 2.9-.41 4.24ZM37.18 10.04c-.43-.29-.95-.44-1.47-.44-.7 0-1.37.28-1.86.78s-.77 1.17-.77 1.87a2.636 2.636 0 0 0 1.64 2.44c.48.2 1.01.25 1.53.15.51-.1.98-.36 1.35-.73s.62-.84.72-1.35.05-1.04-.15-1.53c-.2-.48-.54-.89-.97-1.18Z"/>'),
+    "x": ("0 0 24 24", '<path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>'),
+    "youtube": ("0 0 461 461", '<path fill="currentColor" d="M365.257,67.393H95.744C42.866,67.393,0,110.259,0,163.137v134.728 c0,52.878,42.866,95.744,95.744,95.744h269.513c52.878,0,95.744-42.866,95.744-95.744V163.137 C461.001,110.259,418.135,67.393,365.257,67.393z M300.506,237.056l-126.06,60.123c-3.359,1.602-7.239-0.847-7.239-4.568V168.607 c0-3.774,3.982-6.22,7.348-4.514l126.06,63.881C304.363,229.873,304.298,235.248,300.506,237.056z"/>'),
+    "linkedin": ("0 0 48 48", '<path fill="currentColor" d="M42.74 2.003H5.247A3.21 3.21 0 0 0 2 5.175v37.65A3.213 3.213 0 0 0 5.247 46H42.74A3.22 3.22 0 0 0 46 42.825V5.172A3.218 3.218 0 0 0 42.74 2"/><path class="cutout" d="M31.295 17.778c6.506 0 7.705 4.286 7.705 9.863L38.997 39H32.58V28.6c-.01-2.345-.193-5.161-3.338-5.161-3.266 0-3.83 2.496-3.854 5.129v10.431h-6.42V18.293h6.162v2.83h.087a6.75 6.75 0 0 1 6.08-3.345Zm-16.36.515V39H8.509V18.293h6.426ZM11.725 8a3.728 3.728 0 0 1 3.724 3.73c0 .99-.392 1.94-1.09 2.64a3.721 3.721 0 0 1-2.634 1.093A3.728 3.728 0 0 1 8 11.732 3.728 3.728 0 0 1 11.724 8Z"/>'),
+    "mastodon": ("0 0 40 40", '<path fill="currentColor" d="M36.364 23.647C35.8703 26.2341 31.8613 29.0581 27.2599 29.6111C24.8703 29.8876 22.5005 30.1641 19.9924 30.0456C15.8846 29.8481 12.6261 29.0581 12.6261 29.0581C12.6261 29.4531 12.6459 29.8481 12.7051 30.2036C13.2383 34.252 16.7338 34.5088 20.0319 34.6273C23.3694 34.7458 26.3317 33.7978 26.3317 33.7978L26.4699 36.8194C26.4699 36.8194 24.1396 38.0635 19.9726 38.3005C17.6818 38.419 14.838 38.2413 11.5202 37.3723C4.37117 35.4567 3.12701 27.7745 2.94927 20.0133C2.89003 17.7027 2.92952 15.5303 2.92952 13.7134C2.92952 5.75472 8.14317 3.42438 8.14317 3.42438C10.75 2.21971 15.2724 1.70625 19.9529 1.66675H20.0714C24.7518 1.70625 29.2742 2.21971 31.9008 3.42438C31.9008 3.42438 37.1145 5.75472 37.1145 13.7134C37.0947 13.6937 37.1737 19.559 36.364 23.647Z"/><path class="cutout" d="M30.9679 14.3255V23.9629H27.1564V14.602C27.1564 12.6271 26.327 11.6397 24.6681 11.6397C22.8315 11.6397 21.923 12.8246 21.923 15.1747V20.2896H18.1313V15.155C18.1313 12.8049 17.2031 11.6199 15.3862 11.6199C13.7273 11.6199 12.8979 12.6271 12.8979 14.5822V23.9234H9.06665V14.3255C9.06665 12.3506 9.56037 10.7905 10.5675 9.64508C11.6142 8.47991 12.9571 7.88745 14.6555 7.88745C16.6106 7.88745 18.0918 8.6379 19.0595 10.1388L20.0074 11.7384L20.9553 10.1388C21.923 8.6379 23.4042 7.88745 25.3593 7.88745C27.0379 7.88745 28.4006 8.47991 29.4473 9.64508C30.4742 10.7905 30.9679 12.3506 30.9679 14.3255Z"/>'),
+    "bluesky": ("0 0 48 48", '<path fill="currentColor" fill-rule="evenodd" d="M12.1 8.473c4.818 3.59 9.99 10.865 11.893 14.78v10.324c0-.216-.082.027-.273.57-1 2.899-4.872 14.198-13.727 5.161-4.667-4.755-2.504-9.51 5.994-10.947-4.858.827-10.318-.542-11.824-5.852C3.725 20.978 3 11.549 3 10.275c0-6.395 5.625-4.403 9.1-1.802m23.8 0c-4.818 3.59-9.99 10.865-11.893 14.78v10.324c0-.216.082.027.273.57 1 2.899 4.872 14.198 13.727 5.161 4.666-4.755 2.504-9.51-5.994-10.947 4.858.827 10.318-.542 11.824-5.852C44.275 20.978 45 11.549 45 10.275c0-6.395-5.625-4.403-9.1-1.802"/>'),
+    "chain": ("0 0 48 48", '<path fill="currentColor" d="M23.55 30.75a6.56 6.56 0 0 0 4.68 1.95c1.77 0 3.42-.69 4.68-1.95l10.56-10.56a6.627 6.627 0 0 0 0-9.36l-2.1-2.1a6.627 6.627 0 0 0-9.36 0l-5.28 5.28 2.97 2.97 5.28-5.28c.93-.93 2.49-.93 3.42 0l2.1 2.1c.93.93.93 2.49 0 3.42L29.94 27.78c-.93.9-2.52.9-3.42 0l-3.15-3.15-2.97 2.97z"/><path fill="currentColor" d="M6.6 39.27c1.29 1.29 3 1.92 4.68 1.92 1.71 0 3.39-.63 4.68-1.92l5.31-5.31-2.97-2.97-5.31 5.31c-.96.96-2.49.93-3.42 0l-2.1-2.1c-.93-.96-.93-2.49 0-3.42l10.56-10.56c.96-.96 2.49-.93 3.42 0l3.18 3.18 2.97-2.97-3.18-3.18a6.627 6.627 0 0 0-9.36 0L4.5 27.81a6.627 6.627 0 0 0 0 9.36z"/>'),
+}
+
+
+def _social_links(links: list[tuple[str, str, str]], section: str) -> str:
+    """`<li>` items for an ecl-social-media-follow list: (href, network, label)."""
+    items = []
+    for href, network, label in links:
+        view_box, paths = _NETWORK_ICONS[network]
+        items.append(
+            f'<li class="ecl-social-media-follow__item">'
+            f'<a href="{href}" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" '
+            f'data-section-label-untranslated="{section}" data-footer-link-label="{label}">'
+            f'<svg class="ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--{network}" '
+            f'viewBox="{view_box}" focusable="false" aria-hidden="true">{paths}</svg>'
+            f'<span class="ecl-link__label">{label}</span></a></li>'
+        )
+    return "\n".join(items)
+
+
 def ecl_site_header(root: str) -> str:
     """<header class="ecl-site-header ..."> with an embedded ECL mega menu + search form.
 
@@ -2673,27 +2718,37 @@ def ecl_site_footer(root: str) -> str:
     topic portals, links *about this site's own material* rather than
     external destinations.
 
-    Existing FOOTER_TEXT smallprint (citation, disclaimer, revision note):
-    the first paragraph ("Updated <month year>...") renders right under the
-    TRAFFIC line in __section--site-info per user feedback -- alone at the
-    very bottom of a long dark footer it read as disconnected from the
-    attribution it's actually revising. The remaining paragraphs (opinion
-    disclaimer, citation notice, contact-authorities line) stay below the
-    specific row, inside their own .ecl-container, as before.
+    Below DG ENV's description sits a single smallprint line in ECL's light
+    blue: the EC/TRAFFIC attribution plus "Updated <Month YYYY>", taken from
+    the build date so it moves on whenever the guide is rebuilt. The longer
+    _footer_content.md paragraphs (revision history, opinion disclaimer,
+    citation notice) used to follow it but took up too much of the footer and
+    were dropped at the user's request.
+
+    Social icons in both rows are inline SVGs (_social_links) -- the live
+    site's Webtools `wt-icon-networks--*` spans render blank without
+    Webtools. The common-row logo is the full negative "European Commission"
+    wordmark, matching the live footer, not the mute (emblem-only) variant.
     """
     if not ECL_CHROME:
         return ""
-    footer_update_note = ""
-    footer_extra = ""
-    if FOOTER_TEXT:
-        paras = [p.strip() for p in FOOTER_TEXT.strip().split("\n\n") if p.strip()]
-        if paras:
-            footer_update_note = f'<p class="footer-smallprint">{h(paras[0])}</p>'
-            paras = paras[1:]
-        footer_extra = "\n".join(
-            f'<p class="footer-smallprint">{h(p)}</p>' for p in paras
-        )
-    logo = f"{root}assets/ecl/images/logo/logo-ec--mute-negative.svg"
+    updated = date.today().strftime("%B %Y")
+    logo = f"{root}assets/ecl/images/logo/negative/logo-ec--en.svg"
+    dg_env_social = _social_links([
+        ("https://www.facebook.com/EUEnvironment/", "facebook", "Facebook"),
+        ("https://www.instagram.com/ourplanet_eu/", "instagram", "Instagram"),
+        ("https://twitter.com/EU_ENV", "x", "X"),
+        ("https://www.youtube.com/user/EUEnvironment", "youtube", "YouTube"),
+        ("https://www.linkedin.com/showcase/eu-environment-climate/", "linkedin", "LinkedIn"),
+    ], "Follow&#x20;us")
+    ec_social = _social_links([
+        ("https://ec.social-network.europa.eu/@EUCommission", "mastodon", "Mastodon"),
+        ("http://www.linkedin.com/company/european-commission", "linkedin", "LinkedIn"),
+        ("https://bsky.app/profile/ec.europa.eu", "bluesky", "Bluesky"),
+        ("https://www.facebook.com/EuropeanCommission", "facebook", "Facebook"),
+        ("https://www.youtube.com/user/eutube", "youtube", "Youtube"),
+        ("https://european-union.europa.eu/contact-eu/social-media-channels_en", "chain", "Other"),
+    ], "social_media_common_links")
     pdf_href = f"{root}{PDF_FILENAME}"
     return f"""<footer class="ecl-site-footer" data-logo-area-label-en="Home&#x20;-&#x20;European&#x20;Commission">
   <div class="ecl-site-footer__main">
@@ -2704,27 +2759,12 @@ def ecl_site_footer(root: str) -> str:
             <a href="https://environment.ec.europa.eu/index_en" class="ecl-link ecl-link--inverted ecl-link--icon ecl-site-footer__title-link"><span class="ecl-link__label">Environment</span>{_ecl_icon("arrow-left", "ecl-icon--xs ecl-icon--flip-horizontal ecl-link__icon")}</a>
           </div>
           <div class="ecl-site-footer__description">
-            This site is managed by:<br />Directorate-General for Environment<br />
-            A reference guide developed by the European Commission and TRAFFIC.
+            This site is managed by:<br />Directorate-General for Environment
           </div>
-          {footer_update_note}
+          <p class="footer-smallprint">A reference guide developed by the European Commission and TRAFFIC. Updated {updated}.</p>
           <div class="ecl-social-media-follow ecl-social-media-follow--horizontal ecl-social-media-follow--left ecl-site-footer__social-media">
             <ul class="ecl-social-media-follow__list">
-              <li class="ecl-social-media-follow__item">
-                <a href="https://www.facebook.com/EUEnvironment/" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="Facebook"><span class="wt-icon-networks--facebook wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--facebook" aria-hidden="true"></span><span class="ecl-link__label">Facebook</span></a>
-              </li>
-              <li class="ecl-social-media-follow__item">
-                <a href="https://www.instagram.com/ourplanet_eu/" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="Instagram"><span class="wt-icon-networks--instagram wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--instagram" aria-hidden="true"></span><span class="ecl-link__label">Instagram</span></a>
-              </li>
-              <li class="ecl-social-media-follow__item">
-                <a href="https://twitter.com/EU_ENV" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="X"><span class="wt-icon-networks--x wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--x" aria-hidden="true"></span><span class="ecl-link__label">X</span></a>
-              </li>
-              <li class="ecl-social-media-follow__item">
-                <a href="https://www.youtube.com/user/EUEnvironment" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="YouTube"><span class="wt-icon-networks--youtube wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--youtube" aria-hidden="true"></span><span class="ecl-link__label">YouTube</span></a>
-              </li>
-              <li class="ecl-social-media-follow__item">
-                <a href="https://www.linkedin.com/showcase/eu-environment-climate/" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="LinkedIn"><span class="wt-icon-networks--linkedin wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--linkedin" aria-hidden="true"></span><span class="ecl-link__label">LinkedIn</span></a>
-              </li>
+              {dg_env_social}
             </ul>
           </div>
         </div>
@@ -2784,24 +2824,7 @@ def ecl_site_footer(root: str) -> str:
             <div class="ecl-social-media-follow ecl-social-media-follow--left ecl-social-media-follow--description_inline ecl-site-footer__social-media">
               <p class="ecl-social-media-follow__description">Follow the European Commission</p>
               <ul class="ecl-social-media-follow__list">
-                <li class="ecl-social-media-follow__item">
-                  <a href="https://ec.social-network.europa.eu/@EUCommission" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Mastodon"><span class="wt-icon-networks--mastodon wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--mastodon" aria-hidden="true"></span><span class="ecl-link__label">Mastodon</span></a>
-                </li>
-                <li class="ecl-social-media-follow__item">
-                  <a href="http://www.linkedin.com/company/european-commission" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="LinkedIn"><span class="wt-icon-networks--linkedin wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--linkedin" aria-hidden="true"></span><span class="ecl-link__label">LinkedIn</span></a>
-                </li>
-                <li class="ecl-social-media-follow__item">
-                  <a href="https://bsky.app/profile/ec.europa.eu" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Bluesky"><span class="wt-icon-networks--bluesky wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--bluesky" aria-hidden="true"></span><span class="ecl-link__label">Bluesky</span></a>
-                </li>
-                <li class="ecl-social-media-follow__item">
-                  <a href="https://www.facebook.com/EuropeanCommission" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Facebook"><span class="wt-icon-networks--facebook wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--facebook" aria-hidden="true"></span><span class="ecl-link__label">Facebook</span></a>
-                </li>
-                <li class="ecl-social-media-follow__item">
-                  <a href="https://www.youtube.com/user/eutube" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Youtube"><span class="wt-icon-networks--youtube wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--youtube" aria-hidden="true"></span><span class="ecl-link__label">Youtube</span></a>
-                </li>
-                <li class="ecl-social-media-follow__item">
-                  <a href="https://european-union.europa.eu/contact-eu/social-media-channels_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Other"><span class="wt-icon-networks--chain wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--chain" aria-hidden="true"></span><span class="ecl-link__label">Other</span></a>
-                </li>
+                {ec_social}
               </ul>
             </div>
             <ul class="ecl-site-footer__list ecl-site-footer__list--inline">
@@ -2829,9 +2852,6 @@ def ecl_site_footer(root: str) -> str:
           </ul>
         </div>
       </div>
-    </div>
-    <div class="ecl-container footer-smallprint-block">
-{footer_extra}
     </div>
   </div>
 </footer>"""
@@ -4518,7 +4538,7 @@ def copy_ecl_assets(dst: Path) -> int:
 
 
 def build_site() -> tuple[list[dict], list[dict], dict]:
-    global FOOTER_TEXT, _GUIDE_NAV_ITEMS, _ANNEXES_SLUG
+    global _GUIDE_NAV_ITEMS, _ANNEXES_SLUG
     console.rule("[bold blue]Building site[/bold blue]")
 
     # -- Read all markdown files --------------------------------------------------
@@ -4528,12 +4548,6 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
         sys.exit(1)
 
     all_parsed = [parse_md_file(p) for p in md_files]
-
-    # -- Load footer text ---------------------------------------------------------
-    footer_path = INPUT_DIR / "_footer_content.md"
-    if footer_path.exists():
-        FOOTER_TEXT = footer_path.read_text(encoding="utf-8").strip()
-        console.print("  [green]+[/green] Loaded _footer_content.md")
 
     # -- Categorise pages ---------------------------------------------------------
     by_slug: dict[str, dict] = {ch["slug"]: ch for ch in all_parsed}
