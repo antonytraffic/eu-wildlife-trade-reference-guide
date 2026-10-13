@@ -46,7 +46,7 @@
     document.querySelectorAll('a[href="#top"]').forEach(function (a) {
       a.addEventListener('click', function (e) {
         e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo(0, 0);
         var el = document.getElementById('top');
         if (el) el.focus({ preventScroll: true });
       });
@@ -100,61 +100,111 @@
     });
   }
 
-  function initReferenceGuideMegaMenuHeight() {
-    /* ECL's own MegaMenu script measures the "info" and "mega" panels on
-       open and keeps an inline height synced on both so they render as
-       one attached panel (see the CSS overrides scoped to
-       #ecl-mega-menu-item-main-2 near .ecl-mega-menu__wrapper in
-       style.css for why this item needs a single-column list instead of
-       ECL's default 3-column split). With the list forced into a single
-       column, that measurement comes out roughly one row short of the
-       list's real height, clipping the last link or two -- and ECL keeps
-       re-measuring and re-applying its own short value even after this
-       script corrects it (confirmed live: a plain element.style.height
-       write here was silently overwritten again moments later), so this
-       writes to the --rg-mega-height custom property instead of the
-       height style directly. The CSS above reads height from that
-       variable with !important, which permanently outranks whatever
-       plain (non-important) inline height ECL's script keeps re-writing,
-       so main.js only needs to keep the variable's value correct.
-       sublist.scrollHeight reliably reports the list's true full height
-       regardless of ECL's own miscalculation (confirmed live).
-       Listens on document (capture phase) rather than the link itself,
-       and re-queries the panel elements on every click rather than
-       capturing them once: ECL's own toggle handler calls
-       stopPropagation() on this same click (needed for its "click
-       outside closes the menu" behaviour), so a bubble-phase document
-       listener never even receives the event -- confirmed live, a bubble
-       listener saw zero clicks while a capture listener saw exactly one
-       per click. Capture fires on the way down, before that
-       stopPropagation() takes effect during bubbling. */
-    document.addEventListener('click', function (e) {
-      if (!(e.target.closest && e.target.closest('#ecl-mega-menu-item-main-2-link'))) return;
-      /* setTimeout, not requestAnimationFrame: rAF callbacks are
-         suspended while the tab/pane isn't actively being painted (e.g.
-         a backgrounded preview pane), and never ran there in testing --
-         a macrotask timeout runs regardless and still comes safely after
-         ECL's own synchronous click handling above. */
-      setTimeout(function () {
-        if (window.innerWidth < 1140) return; // matches the CSS override's own breakpoint
-        var link = document.getElementById('ecl-mega-menu-item-main-2-link');
-        var mega = document.querySelector('#ecl-mega-menu-item-main-2 .ecl-mega-menu__mega');
-        var info = document.querySelector('#ecl-mega-menu-item-main-2 .ecl-mega-menu__info');
-        var sublist = mega && mega.querySelector('.ecl-mega-menu__sublist');
-        if (!link || !mega || !info || !sublist) return;
-        if (link.getAttribute('aria-expanded') !== 'true') return;
-        var h = sublist.scrollHeight + 'px';
-        mega.style.setProperty('--rg-mega-height', h);
-        info.style.setProperty('--rg-mega-height', h);
-      }, 50);
-    }, true);
+  /* Arriving from a search result (?hl=word word ...): highlight those words
+     in the article, with a floating bar to step through the matches or clear
+     them. search.js supplies every form of each search word that occurs in
+     the guide ("permit permits permitted"), so no matching rules live here --
+     just whole-word, case-insensitive matches. */
+  function initSearchHighlight() {
+    var params = new URLSearchParams(location.search);
+    var article = document.querySelector('.article-body');
+    if (!params.get('hl') || !article) return;
+    var words = params.get('hl').split(/\s+/).filter(Boolean).slice(0, 40)
+      .sort(function (a, b) { return b.length - a.length; })
+      .map(function (w) { return w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); });
+    if (!words.length) return;
+    var re = new RegExp('(^|[^\\p{L}\\p{N}])(' + words.join('|') + ')(?=[^\\p{L}\\p{N}]|$)', 'giu');
+
+    var walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        return n.parentNode.closest('script, style, svg, mark') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+
+    var marks = [];
+    nodes.forEach(function (node) {
+      var text = node.nodeValue, last = 0, frag = null, m;
+      re.lastIndex = 0;
+      while ((m = re.exec(text))) {
+        var start = m.index + m[1].length, end = start + m[2].length;
+        frag = frag || document.createDocumentFragment();
+        frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement('mark');
+        mark.className = 'search-hl';
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        marks.push(mark);
+        last = end;
+      }
+      if (frag) {
+        frag.appendChild(document.createTextNode(text.slice(last)));
+        node.parentNode.replaceChild(frag, node);
+      }
+    });
+    if (!marks.length) return;
+
+    var bar = document.createElement('div');
+    bar.className = 'search-hl-bar';
+    bar.setAttribute('role', 'region');
+    bar.setAttribute('aria-label', 'Search highlights');
+    bar.innerHTML =
+      '<span class="search-hl-bar__count" aria-live="polite"></span>' +
+      '<button type="button" class="search-hl-bar__step" data-step="-1" aria-label="Previous match">&lsaquo;</button>' +
+      '<button type="button" class="search-hl-bar__step" data-step="1" aria-label="Next match">&rsaquo;</button>' +
+      '<button type="button" class="search-hl-bar__clear">Clear highlights</button>';
+    var count = bar.querySelector('.search-hl-bar__count');
+    count.textContent = marks.length + (marks.length === 1 ? ' match' : ' matches');
+    var current = null;
+
+    function step(dir) {
+      // Matches inside collapsed content (e.g. hidden footnotes) are skipped.
+      var shown = marks.filter(function (m) { return m.getClientRects().length; });
+      if (!shown.length) return;
+      var i = shown.indexOf(current);
+      if (i === -1) {
+        // First press: the first match at or below the top of the screen.
+        i = 0;
+        while (i < shown.length && shown[i].getBoundingClientRect().top < 0) i++;
+        if (dir < 0) i--;
+        i = (i + shown.length) % shown.length;
+      } else {
+        i = (i + dir + shown.length) % shown.length;
+      }
+      if (current) current.classList.remove('search-hl--current');
+      current = shown[i];
+      current.classList.add('search-hl--current');
+      current.scrollIntoView({ block: 'center' });
+      count.textContent = 'Match ' + (i + 1) + ' of ' + shown.length;
+    }
+
+    function clear() {
+      marks.forEach(function (m) {
+        var parent = m.parentNode;
+        parent.replaceChild(document.createTextNode(m.textContent), m);
+        parent.normalize();
+      });
+      bar.parentNode.removeChild(bar);
+      params.delete('hl');
+      var qs = params.toString();
+      history.replaceState(history.state, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+    }
+
+    bar.addEventListener('click', function (e) {
+      var btn = e.target.closest('button');
+      if (!btn) return;
+      if (btn.classList.contains('search-hl-bar__clear')) clear();
+      else step(Number(btn.getAttribute('data-step')));
+    });
+    document.body.appendChild(bar);
   }
 
   document.addEventListener('DOMContentLoaded', function () {
+    initSearchHighlight();
     initSidebarHighlight();
     initBackToTop();
     initFootnotesExpand();
     initTopNavDropdown();
-    initReferenceGuideMegaMenuHeight();
   });
 }());

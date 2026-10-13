@@ -6,6 +6,15 @@
     cl.remove('no-js');
     cl.add('has-js');
   </script>
+  <script>
+    if (location.hash === "#1-establishment-and-mandate") {
+      var topHash = location.hash, bare = location.pathname + location.search;
+      history.replaceState(history.state, '', bare);
+      addEventListener('load', function () {
+        history.replaceState(history.state, '', bare + topHash);
+      });
+    }
+  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Annex XII -- EU Wildlife Trade Reference Guide</title>
@@ -63,7 +72,7 @@
                 <button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-site-header__search-toggle ecl-button--icon-only" type="button" data-ecl-search-toggle aria-controls="header-search-form" aria-expanded="false">
                   <span class="ecl-button__container">
                     <span class="ecl-button__label" data-ecl-label="true">Search</span>
-                    <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-site-header__icon ecl-icon--search" focusable="false" aria-hidden="true"><use xlink:href="../icons/icons.svg#search"></use></svg>
+                    <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-site-header__icon ecl-icon--search" viewBox="0 0 48 48" fill="currentColor" focusable="false" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M3 21c0-9.93 8.07-18 18-18s18 8.07 18 18c0 4.416-1.596 8.465-4.242 11.599l11.309 11.31-2.121 2.12L32.64 34.723A17.92 17.92 0 0 1 21 39c-9.93 0-18-8.07-18-18m33 0c0-8.28-6.72-15-15-15S6 12.72 6 21s6.72 15 15 15 15-6.72 15-15"/></svg>
                   </span>
                 </button>
                 <form class="ecl-search-form ecl-site-header__search" action="../search.html" method="get" data-ecl-search-form id="header-search-form">
@@ -75,7 +84,7 @@
                   </div>
                   <button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-search-form__button ecl-button--icon-only" type="submit">
                     <span class="ecl-button__container">
-                      <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--search" focusable="false" aria-hidden="true"><use xlink:href="../icons/icons.svg#search"></use></svg>
+                      <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--search" viewBox="0 0 48 48" fill="currentColor" focusable="false" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M3 21c0-9.93 8.07-18 18-18s18 8.07 18 18c0 4.416-1.596 8.465-4.242 11.599l11.309 11.31-2.121 2.12L32.64 34.723A17.92 17.92 0 0 1 21 39c-9.93 0-18-8.07-18-18m33 0c0-8.28-6.72-15-15-15S6 12.72 6 21s6.72 15 15 15 15-6.72 15-15"/></svg>
                       <span class="ecl-button__label" data-ecl-label="true">Search</span>
                     </span>
                   </button>
@@ -97,8 +106,8 @@
     <div class="ecl-container ecl-mega-menu__container">
       <button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-mega-menu__open ecl-button--icon-only" type="button" data-ecl-mega-menu-open aria-expanded="false">
         <span class="ecl-button__container">
-          <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--hamburger" focusable="false" aria-hidden="true"><use xlink:href="../icons/icons.svg#hamburger"></use></svg>
-          <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--close" focusable="false" aria-hidden="true"><use xlink:href="../icons/icons.svg#close"></use></svg>
+          <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--hamburger" viewBox="0 0 48 48" fill="currentColor" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M42 12H6v3h36zM42 33H6v3h36zM6 22.5h36v3H6z"/></svg>
+          <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--close" viewBox="0 0 48 48" fill="currentColor" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M42 8.01 39.99 6 24 21.99 8.01 6 6 8.01 21.99 24 6 39.99 8.01 42 24 26.01 39.99 42 42 39.99 26.01 24z"/></svg>
           <span class="ecl-button__label" data-ecl-label="true">Menu</span>
         </span>
       </button>
@@ -106,7 +115,7 @@
         <header class="ecl-mega-menu__inner-header">
           <button class="ecl-button ecl-button--tertiary ecl-mega-menu__back" type="submit" data-ecl-mega-menu-back>
             <span class="ecl-button__container">
-              <svg class="ecl-icon ecl-icon--xs ecl-icon--rotate-270 ecl-button__icon ecl-icon--corner-arrow" focusable="false" aria-hidden="true"><use xlink:href="../icons/icons.svg#corner-arrow"></use></svg>
+              <svg class="ecl-icon ecl-icon--xs ecl-icon--rotate-270 ecl-button__icon ecl-icon--corner-arrow" viewBox="0 0 48 48" fill="currentColor" focusable="false" aria-hidden="true"><path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z"/></svg>
               <span class="ecl-button__label" data-ecl-label="true">Back</span>
             </span>
           </button>
@@ -122,8 +131,8 @@
             <button class="ecl-button ecl-button--primary ecl-mega-menu__link" type="button" data-ecl-mega-menu-link id="ecl-mega-menu-item-main-2-link" aria-expanded="false">
               <span class="ecl-button__container">
                 <span class="ecl-button__label" data-ecl-label="true">Reference Guide</span>
-                <svg class="ecl-icon ecl-icon--2xs ecl-icon--rotate-90 ecl-button__icon ecl-icon--corner-arrow" focusable="false" aria-hidden="true"><use xlink:href="../icons/icons.svg#corner-arrow"></use></svg>
-                <svg class="ecl-icon ecl-icon--s ecl-icon--flip-horizontal ecl-button__icon ecl-icon--arrow-left" focusable="false" aria-hidden="true"><use xlink:href="../icons/icons.svg#arrow-left"></use></svg>
+                <svg class="ecl-icon ecl-icon--2xs ecl-icon--rotate-90 ecl-button__icon ecl-icon--corner-arrow" viewBox="0 0 48 48" fill="currentColor" focusable="false" aria-hidden="true"><path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z"/></svg>
+                <svg class="ecl-icon ecl-icon--s ecl-icon--flip-horizontal ecl-button__icon ecl-icon--arrow-left" viewBox="0 0 48 48" fill="currentColor" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M24.15 11.1 22.02 9 6 25.02 22.05 41.1l2.13-2.1-12.423-12.45H42v-3H11.7z"/></svg>
               </span>
             </button>
             <div class="ecl-mega-menu__wrapper">
@@ -158,15 +167,15 @@
     <ol class="ecl-breadcrumb__container">
       <li class="ecl-breadcrumb__segment" data-ecl-breadcrumb-item="static">
   <a href="../index.html" class="ecl-link ecl-link--standalone ecl-link--no-visited ecl-breadcrumb__link">Home</a>
-  <span class="wt-icon--corner-arrow ecl-icon ecl-icon--fluid ecl-breadcrumb__icon ecl-icon--corner-arrow" aria-hidden="true" role="presentation"></span>
+  <svg class="ecl-icon ecl-icon--fluid ecl-breadcrumb__icon ecl-icon--corner-arrow" viewBox="0 0 48 48" fill="currentColor" focusable="false" aria-hidden="true"><path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z"/></svg>
 </li>
 <li class="ecl-breadcrumb__segment ecl-breadcrumb__segment--ellipsis" data-ecl-breadcrumb-ellipsis aria-hidden="true">
   <button class="ecl-button ecl-button--ghost ecl-breadcrumb__ellipsis" type="button" data-ecl-breadcrumb-ellipsis-button aria-label="Show more breadcrumb items">&hellip;</button>
-  <span class="wt-icon--corner-arrow ecl-icon ecl-icon--fluid ecl-breadcrumb__icon ecl-icon--corner-arrow" aria-hidden="true" role="presentation"></span>
+  <svg class="ecl-icon ecl-icon--fluid ecl-breadcrumb__icon ecl-icon--corner-arrow" viewBox="0 0 48 48" fill="currentColor" focusable="false" aria-hidden="true"><path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z"/></svg>
 </li>
 <li class="ecl-breadcrumb__segment" data-ecl-breadcrumb-item="expandable">
   <a href="annexes.html" class="ecl-link ecl-link--standalone ecl-link--no-visited ecl-breadcrumb__link">Annexes</a>
-  <span class="wt-icon--corner-arrow ecl-icon ecl-icon--fluid ecl-breadcrumb__icon ecl-icon--corner-arrow" aria-hidden="true" role="presentation"></span>
+  <svg class="ecl-icon ecl-icon--fluid ecl-breadcrumb__icon ecl-icon--corner-arrow" viewBox="0 0 48 48" fill="currentColor" focusable="false" aria-hidden="true"><path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z"/></svg>
 </li>
 <li class="ecl-breadcrumb__segment ecl-breadcrumb__current-page" data-ecl-breadcrumb-item="static" aria-current="page">Annex XII</li>
 
@@ -180,18 +189,17 @@
 </div>
 
 
-<div class="main-content">
-  <div class="container" id="main-content">
-    <div class="ecl-container"><div class="ecl-row" data-ecl-inpage-navigation-container>
+<div class="main-content" id="main-content">
+  
+  <div class="container">
+    <div class="ecl-row" data-ecl-inpage-navigation-container>
       <div class="ecl-col-l-3"><nav class="ecl-inpage-navigation" data-ecl-auto-init="InpageNavigation" data-ecl-inpage-navigation="true" aria-labelledby="inpage-navigation-title">
   <div class="ecl-inpage-navigation__title" id="inpage-navigation-title">Page contents</div>
   <div class="ecl-inpage-navigation__body">
     <div class="ecl-inpage-navigation__trigger-wrapper">
       <button type="button" class="ecl-inpage-navigation__trigger" id="inpage-navigation-trigger" data-ecl-inpage-navigation-trigger="true" aria-controls="inpage-navigation-list" aria-expanded="false" aria-label="Page contents trigger">
         <span class="ecl-inpage-navigation__trigger-current" data-ecl-inpage-navigation-trigger-current="true">Page contents</span>
-        <svg class="ecl-icon ecl-icon--xs ecl-icon--rotate-180 ecl-inpage-navigation__trigger-icon" focusable="false" aria-hidden="true">
-          <use xlink:href="../icons/icons.svg#corner-arrow"></use>
-        </svg>
+        <svg class="ecl-icon ecl-icon--xs ecl-icon--rotate-180 ecl-inpage-navigation__trigger-icon ecl-icon--corner-arrow" viewBox="0 0 48 48" fill="currentColor" focusable="false" aria-hidden="true"><path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z"/></svg>
       </button>
     </div>
     <ul class="ecl-inpage-navigation__list" data-ecl-inpage-navigation-list="true" id="inpage-navigation-list">
@@ -223,271 +231,136 @@
 
 <h2 id="1-establishment-and-mandate">1. Establishment and mandate</h2>
 
-<div class="table-wrap"><table><colgroup><col style="width:11.0%"><col style="width:89.0%"></colgroup>
-<thead><tr><th colspan="2"><strong>REGULATION (EC) No 338/97</strong></th></tr></thead>
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:18%"><col style="width:82%"></colgroup>
+<thead>
+<tr><th colspan="2">REGULATION (EC) No 338/97</th></tr>
+</thead>
 <tbody>
-<tr><td data-ecl-table-header="" colspan="2" class="table-subheader"><strong>ESTABLISHMENT</strong></td></tr>
-<tr>
-  <td data-ecl-table-header=""><strong>Article</strong></td>
-  <td data-ecl-table-header=""><strong>Duty</strong></td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 13.2</td>
-  <td data-ecl-table-header="">Each Member State shall designate of one or more SA with appropriate qualifications whose duties are separate from those of any designated management authority.</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 17.1</td>
-  <td data-ecl-table-header="">SRG established consisting of representatives of each Member State&#8217;s scientific authority or authorities and chaired by the Commission.</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 17.2 (a)</td>
-  <td data-ecl-table-header="">SRG shall examine any scientific question relating to the application of the Regulation - in particular Arts 4.1(a), 4.2(a) and 4.6 - raised by the chairman either on his own initiative or at the request of the members of the SRG or the Committee.</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 17.2(b)</td>
-  <td data-ecl-table-header="">Commission to convey the opinions of the SRG to the Committee.</td>
-</tr>
+<tr><td data-ecl-table-header="" colspan="2" class="table-subheader">ESTABLISHMENT</td></tr>
+<tr><th class="table-subheader">Article</th><th class="table-subheader">Duty</th></tr>
+<tr><td data-ecl-table-header="">Article 13.2</td><td data-ecl-table-header="">Each Member State shall designate of one or more SA with appropriate qualifications whose duties are separate from those of any designated management authority.</td></tr>
+<tr><td data-ecl-table-header="">Article 17.1</td><td data-ecl-table-header="">SRG established consisting of representatives of each Member State's scientific authority or authorities and chaired by the Commission.</td></tr>
+<tr><td data-ecl-table-header="">Article 17.2 (a)</td><td data-ecl-table-header="">SRG shall examine any scientific question relating to the application of the Regulation - in particular Arts 4.1(a), 4.2(a) and 4.6 - raised by the chairman either on his own initiative or at the request of the members of the SRG or the Committee.</td></tr>
+<tr><td data-ecl-table-header="">Article 17.2(b)</td><td data-ecl-table-header="">Commission to convey the opinions of the SRG to the Committee.</td></tr>
 </tbody>
-</table></div>
+</table>
+</div>
 
 <h2 id="2-import-and-export-permit-criteria">2. Import and export permit criteria</h2>
 
-<div class="table-wrap"><table><colgroup><col style="width:14.5%"><col style="width:66.4%"><col style="width:19.1%"></colgroup>
-<thead><tr><th colspan="3"><strong>IMPORT/EXPORT PERMITS</strong></th></tr></thead>
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:18%"><col style="width:62%"><col style="width:20%"></colgroup>
+<thead>
+<tr><th colspan="3">IMPORT/EXPORT PERMITS</th></tr>
+<tr><th class="table-subheader">Article</th><th class="table-subheader">Duty</th><th class="table-subheader">Relevant considerations</th></tr>
+</thead>
 <tbody>
-<tr>
-  <td data-ecl-table-header=""><strong>Article</strong></td>
-  <td data-ecl-table-header=""><strong>Duty</strong></td>
-  <td data-ecl-table-header=""><strong>Relevant considerations</strong></td>
-</tr>
 <tr><td data-ecl-table-header="" colspan="3" class="table-subheader">ANNEX A-IMPORTS</td></tr>
-<tr>
-  <td data-ecl-table-header="">Article 4.1(a)(i)</td>
-  <td data-ecl-table-header="">The competent SA, after considering any opinion by the SRG, has advised that the introduction into the Community would not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.</td>
-  <td data-ecl-table-header="">Attachment A</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 4.1(a)(ii)</td>
-  <td data-ecl-table-header="">The competent SA, after considering any opinion of the SRG, has advised that the introduction into the EU is taking place for: - the advancement of science, where the species proves to be the only one suitable and where no captive-bred specimens are available. - breeding or propagation purposes from which conservation benefits will accrue to the species. - research or education aimed at the preservation or conservation of the species. - other purposes which are not detrimental to the conservation of the species.</td>
-  <td data-ecl-table-header="">Attachment B</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 4.1(c)</td>
-  <td data-ecl-table-header="">The competent SA is satisfied that the intended accommodation for a live specimen at the place of destination is adequately equipped to conserve and care for it properly.</td>
-  <td data-ecl-table-header="">Attachment C</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 4.1(e)</td>
-  <td data-ecl-table-header="">The management authority (MA) is satisfied, following consultation with the competent SA, that there are no other factors relating to the conservation of the species which militate against issuance of the import permit.</td>
-  <td data-ecl-table-header="">Attachment D</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 6</td>
-  <td data-ecl-table-header="">When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it.</td>
-  <td data-ecl-table-header="">Attachment A</td>
-</tr>
+<tr><td data-ecl-table-header="">Article 4.1(a)(i)</td><td data-ecl-table-header="">The competent SA, after considering any opinion by the SRG, has advised that the introduction into the Community would not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.</td><td data-ecl-table-header="">Attachment A</td></tr>
+<tr><td data-ecl-table-header="">Article 4.1(a)(ii)</td><td data-ecl-table-header=""><p>The competent SA, after considering any opinion of the SRG, has advised that the introduction into the EU is taking place for:</p><ul><li>the advancement of science, where the species proves to be the only one suitable and where no captive-bred specimens are available.</li><li>breeding or propagation purposes from which conservation benefits will accrue to the species.</li><li>research or education aimed at the preservation or conservation of the species.</li><li>other purposes which are not detrimental to the conservation of the species.</li></ul></td><td data-ecl-table-header="">Attachment B</td></tr>
+<tr><td data-ecl-table-header="">Article 4.1(c)</td><td data-ecl-table-header="">The competent SA is satisfied that the intended accommodation for a live specimen at the place of destination is adequately equipped to conserve and care for it properly.</td><td data-ecl-table-header="">Attachment C</td></tr>
+<tr><td data-ecl-table-header="">Article 4.1(e)</td><td data-ecl-table-header="">The management authority (MA) is satisfied, following consultation with the competent SA, that there are no other factors relating to the conservation of the species which militate against issuance of the import permit.</td><td data-ecl-table-header="">Attachment D</td></tr>
+<tr><td data-ecl-table-header="">Article 6</td><td data-ecl-table-header="">When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it.</td><td data-ecl-table-header="">Attachment A</td></tr>
 <tr><td data-ecl-table-header="" colspan="3" class="table-subheader">ANNEX B-IMPORTS</td></tr>
-<tr>
-  <td data-ecl-table-header="">Article 4.2(a)</td>
-  <td data-ecl-table-header="">The competent SA, after examining available data and considering any opinions from the SRG, is of the opinion that the introduction into the EU would not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species, taking account of current or expected levels of trade.</td>
-  <td data-ecl-table-header="">Attachment A</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 4.2 (c)</td>
-  <td data-ecl-table-header="">The competent SA is satisfied that there are no other factors relating to the conservation of the species which militate against issuance of the import permit.</td>
-  <td data-ecl-table-header="">Attachment D</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 6</td>
-  <td data-ecl-table-header="">When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it.</td>
-  <td data-ecl-table-header="">Attachment A</td>
-</tr>
+<tr><td data-ecl-table-header="">Article 4.2(a)</td><td data-ecl-table-header="">The competent SA, after examining available data and considering any opinions from the SRG, is of the opinion that the introduction into the EU would not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species, taking account of current or expected levels of trade.</td><td data-ecl-table-header="">Attachment A</td></tr>
+<tr><td data-ecl-table-header="">Article 4.2 (c)</td><td data-ecl-table-header="">The competent SA is satisfied that there are no other factors relating to the conservation of the species which militate against issuance of the import permit.</td><td data-ecl-table-header="">Attachment D</td></tr>
+<tr><td data-ecl-table-header="">Article 6</td><td data-ecl-table-header="">When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it.</td><td data-ecl-table-header="">Attachment A</td></tr>
 <tr><td data-ecl-table-header="" colspan="3" class="table-subheader">ANNEX A-EXPORTS</td></tr>
-<tr>
-  <td data-ecl-table-header="">Article 5.2 (a)</td>
-  <td data-ecl-table-header="">The competent SA has advised, in writing, that the capture or collection of the specimens in the wild or their export will not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.</td>
-  <td data-ecl-table-header="">Attachment A</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 5.2 (d)</td>
-  <td data-ecl-table-header="">The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export permit.</td>
-  <td data-ecl-table-header="">Attachment D</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 6</td>
-  <td data-ecl-table-header="">When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it.</td>
-  <td data-ecl-table-header="">Attachment A</td>
-</tr>
+<tr><td data-ecl-table-header="">Article 5.2 (a)</td><td data-ecl-table-header="">The competent SA has advised, in writing, that the capture or collection of the specimens in the wild or their export will not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.</td><td data-ecl-table-header="">Attachment A</td></tr>
+<tr><td data-ecl-table-header="">Article 5.2 (d)</td><td data-ecl-table-header="">The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export permit.</td><td data-ecl-table-header="">Attachment D</td></tr>
+<tr><td data-ecl-table-header="">Article 6</td><td data-ecl-table-header="">When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it.</td><td data-ecl-table-header="">Attachment A</td></tr>
 <tr><td data-ecl-table-header="" colspan="3" class="table-subheader">ANNEX B-EXPORTS</td></tr>
-<tr>
-  <td data-ecl-table-header="">Article 5.4</td>
-  <td data-ecl-table-header="">The competent SA has advised, in writing, that the capture or collection of the specimens in the wild or their export will not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.</td>
-  <td data-ecl-table-header="">Attachment A</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 5.3</td>
-  <td data-ecl-table-header="">The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export permit.</td>
-  <td data-ecl-table-header="">Attachment D</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 6</td>
-  <td data-ecl-table-header="">When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it.</td>
-  <td data-ecl-table-header="">Attachment A</td>
-</tr>
+<tr><td data-ecl-table-header="">Article 5.4</td><td data-ecl-table-header="">The competent SA has advised, in writing, that the capture or collection of the specimens in the wild or their export will not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.</td><td data-ecl-table-header="">Attachment A</td></tr>
+<tr><td data-ecl-table-header="">Article 5.3</td><td data-ecl-table-header="">The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export permit.</td><td data-ecl-table-header="">Attachment D</td></tr>
+<tr><td data-ecl-table-header="">Article 6</td><td data-ecl-table-header="">When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it.</td><td data-ecl-table-header="">Attachment A</td></tr>
 <tr><td data-ecl-table-header="" colspan="3" class="table-subheader">ANNEX C-EXPORTS</td></tr>
-<tr>
-  <td data-ecl-table-header="">Article 5.4</td>
-  <td data-ecl-table-header="">The MA is satisfied, following consultation with the competent SA, that the capture or collection of the specimens in the wild or their export will not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.</td>
-  <td data-ecl-table-header="">Attachment A</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 5.3</td>
-  <td data-ecl-table-header="">The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export permit.</td>
-  <td data-ecl-table-header="">Attachment D</td>
-</tr>
+<tr><td data-ecl-table-header="">Article 5.4</td><td data-ecl-table-header="">The MA is satisfied, following consultation with the competent SA, that the capture or collection of the specimens in the wild or their export will not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.</td><td data-ecl-table-header="">Attachment A</td></tr>
+<tr><td data-ecl-table-header="">Article 5.3</td><td data-ecl-table-header="">The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export permit.</td><td data-ecl-table-header="">Attachment D</td></tr>
 <tr><td data-ecl-table-header="" colspan="3" class="table-subheader">ANNEX A-RE-EXPORT</td></tr>
-<tr>
-  <td data-ecl-table-header="">Article 5.3</td>
-  <td data-ecl-table-header="">The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export certificate.</td>
-  <td data-ecl-table-header="">Attachment D</td>
-</tr>
+<tr><td data-ecl-table-header="">Article 5.3</td><td data-ecl-table-header="">The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export certificate.</td><td data-ecl-table-header="">Attachment D</td></tr>
 <tr><td data-ecl-table-header="" colspan="3" class="table-subheader">ANNEX B-RE-EXPORT</td></tr>
-<tr>
-  <td data-ecl-table-header="">Article 5.4</td>
-  <td data-ecl-table-header="">The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export certificate.</td>
-  <td data-ecl-table-header="">Attachment D</td>
-</tr>
+<tr><td data-ecl-table-header="">Article 5.4</td><td data-ecl-table-header="">The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export certificate.</td><td data-ecl-table-header="">Attachment D</td></tr>
 <tr><td data-ecl-table-header="" colspan="3" class="table-subheader">ANNEX C-RE-EXPORT</td></tr>
-<tr>
-  <td data-ecl-table-header="">Article 5.4</td>
-  <td data-ecl-table-header="">The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export certificate.</td>
-  <td data-ecl-table-header="">Attachment D</td>
-</tr>
+<tr><td data-ecl-table-header="">Article 5.4</td><td data-ecl-table-header="">The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export certificate.</td><td data-ecl-table-header="">Attachment D</td></tr>
 </tbody>
-</table></div>
+</table>
+</div>
 
-<div class="table-wrap"><table><colgroup><col style="width:11.0%"><col style="width:73.7%"><col style="width:15.3%"></colgroup>
-<thead><tr><th colspan="3">INTRA-EU MOVEMENT OF ANNEX A LIVE SPECIMENS</th></tr></thead>
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:18%"><col style="width:62%"><col style="width:20%"></colgroup>
+<thead>
+<tr><th colspan="3">INTRA-EU MOVEMENT OF ANNEX A LIVE SPECIMENS</th></tr>
+<tr><th class="table-subheader">Article</th><th class="table-subheader">Duty</th><th class="table-subheader">Relevant considerations</th></tr>
+</thead>
 <tbody>
-<tr>
-  <td data-ecl-table-header="">Article 9.2 (b)</td>
-  <td data-ecl-table-header="">The competent SA at the place of destination shall be satisfied that the intended accommodation for a live specimen (of animal or plant) of: - a species listed in Annex A - source other than A, C, or D - moved within the Community from the location indicated in the import permit or in any certificate issued in compliance with this Regulation. is adequately equipped to conserve and care for it properly. An opinion is given to the Management Authority of the Member State in which the specimen is located before the movement (i.e. the authority that received the application for issuing a certificate for movement of live specimen).</td>
-  <td data-ecl-table-header="">Derogation of article 7.1 (a) of Regulation 338/97; Criteria in Article 54 and 56 of Regulation 865/2006; Attachment C</td>
-</tr>
+<tr><td data-ecl-table-header="">Article 9.2 (b)</td><td data-ecl-table-header=""><p>The competent SA at the place of destination shall be satisfied that the intended accommodation for a live specimen (of animal or plant) of:</p><ul><li>a species listed in Annex A</li><li>source other than A, C, or D</li><li>moved within the Community from the location indicated in the import permit or in any certificate issued in compliance with this Regulation.</li></ul><p>is adequately equipped to conserve and care for it properly.</p><p>An opinion is given to the Management Authority of the Member State in which the specimen is located before the movement (i.e. the authority that received the application for issuing a certificate for movement of live specimen).</p></td><td data-ecl-table-header=""><p>Derogation of article 7.1 (a) of Regulation 338/97;</p><p>Criteria in Article 54 and 56 of Regulation 865/2006;</p><p>Attachment C</p></td></tr>
 </tbody>
-</table></div>
+</table>
+</div>
 
 <h2 id="3-confiscations">3. Confiscations</h2>
 
-<div class="table-wrap"><table><colgroup><col style="width:11.0%"><col style="width:69.9%"><col style="width:19.1%"></colgroup>
-<thead><tr><th colspan="3"><strong>CONFISCATIONS</strong></th></tr></thead>
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:18%"><col style="width:62%"><col style="width:20%"></colgroup>
+<thead>
+<tr><th colspan="3">CONFISCATIONS</th></tr>
+<tr><th class="table-subheader">Article</th><th class="table-subheader">Duty</th><th class="table-subheader">Relevant considerations</th></tr>
+</thead>
 <tbody>
-<tr>
-  <td data-ecl-table-header=""><strong>Article</strong></td>
-  <td data-ecl-table-header=""><strong>Duty</strong></td>
-  <td data-ecl-table-header=""><strong>Relevant considerations</strong></td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 16.3 (a)</td>
-  <td data-ecl-table-header="">The competent authority of the Member state of confiscation, following consultation with a SA shall place or otherwise dispose of the specimen under conditions which it deems to be appropriate and consistent with the purposes and provisions of the Convention and this Regulation</td>
-  <td data-ecl-table-header="">Attachment J</td>
-</tr>
+<tr><td data-ecl-table-header="">Article 16.3 (a)</td><td data-ecl-table-header="">The competent authority of the Member state of confiscation, following consultation with a SA shall place or otherwise dispose of the specimen under conditions which it deems to be appropriate and consistent with the purposes and provisions of the Convention and this Regulation</td><td data-ecl-table-header="">Attachment J</td></tr>
 </tbody>
-</table></div>
+</table>
+</div>
 
 <h2 id="4-commission-import-restrictions-article-46">4. Commission import restrictions (Article 4.6)</h2>
 
-<div class="table-wrap"><table><colgroup><col style="width:11.0%"><col style="width:74.5%"><col style="width:14.5%"></colgroup>
-<thead><tr><th colspan="3"><strong>SRG VIEW ON PROPOSED COMMISSION IMPORT RESTRICTIONS</strong></th></tr></thead>
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:18%"><col style="width:62%"><col style="width:20%"></colgroup>
+<thead>
+<tr><th colspan="3">SRG VIEW ON PROPOSED COMMISSION IMPORT RESTRICTIONS</th></tr>
+<tr><th class="table-subheader">Article</th><th class="table-subheader">Duty</th><th class="table-subheader">Relevant considerations</th></tr>
+</thead>
 <tbody>
 <tr><td data-ecl-table-header="" colspan="3" class="table-subheader">ANNEX A-IMPORTS</td></tr>
-<tr>
-  <td data-ecl-table-header="">Article 4.6 (a)</td>
-  <td data-ecl-table-header="">In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, because the introduction into the EU would have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.</td>
-  <td data-ecl-table-header="">Attachment A</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 4.6 (a)</td>
-  <td data-ecl-table-header="">In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, because there are other factors relating to the conservation of the species which militate against issuance of the import permit.</td>
-  <td data-ecl-table-header="">Attachment D</td>
-</tr>
+<tr><td data-ecl-table-header="">Article 4.6 (a)</td><td data-ecl-table-header="">In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, because the introduction into the EU would have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.</td><td data-ecl-table-header="">Attachment A</td></tr>
+<tr><td data-ecl-table-header="">Article 4.6 (a)</td><td data-ecl-table-header="">In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, because there are other factors relating to the conservation of the species which militate against issuance of the import permit.</td><td data-ecl-table-header="">Attachment D</td></tr>
 <tr><td data-ecl-table-header="" colspan="3" class="table-subheader">ANNEX B-IMPORTS</td></tr>
-<tr>
-  <td data-ecl-table-header="">Article 4.6 (b)</td>
-  <td data-ecl-table-header="">In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, because the introduction into the EU would have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species, taking account of current or expected levels of trade.</td>
-  <td data-ecl-table-header="">Attachment A</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 4.6 (b)</td>
-  <td data-ecl-table-header="">In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, because there are other factors relating to the conservation of the species which militate against issuance of the import permit.</td>
-  <td data-ecl-table-header="">Attachment D</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 4.6 (c)</td>
-  <td data-ecl-table-header="">In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, on live specimens because the species concerned has a high mortality rate during shipment or for which it has been established that they are unlikely to survive in captivity for a considerable proportion of their potential life span.</td>
-  <td data-ecl-table-header="">Attachment E</td>
-</tr>
+<tr><td data-ecl-table-header="">Article 4.6 (b)</td><td data-ecl-table-header="">In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, because the introduction into the EU would have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species, taking account of current or expected levels of trade.</td><td data-ecl-table-header="">Attachment A</td></tr>
+<tr><td data-ecl-table-header="">Article 4.6 (b)</td><td data-ecl-table-header="">In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, because there are other factors relating to the conservation of the species which militate against issuance of the import permit.</td><td data-ecl-table-header="">Attachment D</td></tr>
+<tr><td data-ecl-table-header="">Article 4.6 (c)</td><td data-ecl-table-header="">In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, on live specimens because the species concerned has a high mortality rate during shipment or for which it has been established that they are unlikely to survive in captivity for a considerable proportion of their potential life span.</td><td data-ecl-table-header="">Attachment E</td></tr>
 <tr><td data-ecl-table-header="" colspan="3" class="table-subheader">ANY SPECIES-IMPORTS</td></tr>
-<tr>
-  <td data-ecl-table-header="">Article 4.6 (d)</td>
-  <td data-ecl-table-header="">In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, on live specimens because it has been established that their introduction into the EU presents an ecological threat to wild species of fauna and flora.</td>
-  <td data-ecl-table-header="">Attachment F</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 6</td>
-  <td data-ecl-table-header="">When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it.</td>
-  <td data-ecl-table-header="">Attachment A</td>
-</tr>
+<tr><td data-ecl-table-header="">Article 4.6 (d)</td><td data-ecl-table-header="">In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, on live specimens because it has been established that their introduction into the EU presents an ecological threat to wild species of fauna and flora.</td><td data-ecl-table-header="">Attachment F</td></tr>
+<tr><td data-ecl-table-header="">Article 6</td><td data-ecl-table-header="">When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it.</td><td data-ecl-table-header="">Attachment A</td></tr>
 </tbody>
-</table></div>
+</table>
+</div>
 
 <h2 id="5-other-provisions-under-regulation-ec-no-8652006">5. Other provisions under Regulation (EC) No 865/2006</h2>
 
-<div class="table-wrap"><table><colgroup><col style="width:11.0%"><col style="width:69.8%"><col style="width:19.1%"></colgroup>
-<thead><tr><th colspan="3"><strong>Provisions under Commission Regulation (EC) No 865/2006</strong></th></tr></thead>
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:18%"><col style="width:62%"><col style="width:20%"></colgroup>
+<thead>
+<tr><th colspan="3">Provisions under Commission Regulation (EC) No 865/2006</th></tr>
+<tr><th class="table-subheader">Article</th><th class="table-subheader">Duty</th><th class="table-subheader">Relevant considerations</th></tr>
+</thead>
 <tbody>
-<tr>
-  <td data-ecl-table-header=""><strong>Article</strong></td>
-  <td data-ecl-table-header=""><strong>Duty</strong></td>
-  <td data-ecl-table-header=""><strong>Relevant considerations</strong></td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 11.3</td>
-  <td data-ecl-table-header="">The MA of the Member State in which a specimen is located may, in consultation with the relevant SA, decide to issue transaction-specific certificates where it is considered that there are other factors relating to the conservation of the species that militate against the issuance of a specimen-specific certificate., specifically in relation to: - Certificates provided for in Article 8.3 of Regulation 338/97</td>
-  <td data-ecl-table-header="">Attachment I</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 54</td>
-  <td data-ecl-table-header="">The SA should advise the MA that a specimen of an animal species is born and bred in captivity, specifically in relation to: - import of Annex A and B specimens (Article 4.1(a)(i) and (e), Art. 4.2(a) and (c), Art. 7.1 of Regulation 338/97). - export of Annex A and B specimens (Article 5.2(d) and Art. 5.4) - certificates (Art. 8.3 (d) of Regulation 338/97, Art. 48.1 (c)(d) and 59.2 of Regulation 865/2006).</td>
-  <td data-ecl-table-header="">Criteria in Article 54 of Regulation 865/2006. Attachment G</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 56</td>
-  <td data-ecl-table-header="">The SA should advise the MA that a given specimen is artificially propagated, specifically in relation to: - import of Annex A species (Art. 7.1 of Regulation 338/97).</td>
-  <td data-ecl-table-header="">Criteria in Article 56 of Regulation 865/2006</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 59.2</td>
-  <td data-ecl-table-header="">The exemption for specimens referred to in Article 8(3)(d) of Regulation (EC) No 338/97 shall be granted only if the applicant has satisfied the competent MA, the latter having consulted a competent SA, specifically in relation to: - exemption certificates issued to captive-bred and artificially propagated specimens (Article 54, 55 and 56 of EC Regulation 865/2006)</td>
-  <td data-ecl-table-header="">Criteria in Articles 54, 55 and 56 of Regulation 865/2006</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 59.3</td>
-  <td data-ecl-table-header="">The exemption for specimens referred to in Article 8(3)(e), (f) and (g) of Regulation (EC) No 338/97 shall be granted only if the applicant has satisfied the competent MA, the latter having consulted with a competent SA, specifically in relation to: - imports of Annex A specimens (Article 4.1(a)(ii) - certificates issued to Annex A specimens under Article 10 of Council Regulation 338/97 to allow commercial use imports of Annex B specimens subject to an Article 4(6) import restriction (Article 71.4(b) EC Regulation 865/2006</td>
-  <td data-ecl-table-header="">Attachment B</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 60</td>
-  <td data-ecl-table-header="">A derogation from the prohibition laid down in Article 8(1) thereof may be granted to scientific institutions, approved by a MA in consultation with a SA, by the issue of a certificate covering all specimens in their collection of species listed in Annex A to that Regulation, that are intended for captive breeding or artificial propagation from which conservation benefits will accrue to the species, or for research or education aimed at the preservation or conservation of the species.</td>
-  <td data-ecl-table-header="">Attachment H</td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Article 70</td>
-  <td data-ecl-table-header="">Any draft amendments to Annexes B or D to Regulation (EC) No 338/97 pursuant to Article 3(2)(c) or (d), or Article 3(4)(a) of that Regulation shall be submitted by the Commission to the SRG, referred to in Article 17 of that Regulation, for advice before they are submitted to the Committee.</td>
-  <td data-ecl-table-header="">Criteria in Article 3 of Regulation 338/97</td>
-</tr>
+<tr><td data-ecl-table-header="">Article 11.3</td><td data-ecl-table-header=""><p>The MA of the Member State in which a specimen is located may, in consultation with the relevant SA, decide to issue transaction-specific certificates where it is considered that there are other factors relating to the conservation of the species that militate against the issuance of a specimen-specific certificate., specifically in relation to:</p><ul><li>Certificates provided for in Article 8.3 of Regulation 338/97</li></ul></td><td data-ecl-table-header="">Attachment I</td></tr>
+<tr><td data-ecl-table-header="">Article 54</td><td data-ecl-table-header=""><p>The SA should advise the MA that a specimen of an animal species is born and bred in captivity, specifically in relation to:</p><ul><li>import of Annex A and B specimens (Article 4.1(a)(i) and (e), Art. 4.2(a) and (c), Art. 7.1 of Regulation 338/97).</li><li>export of Annex A and B specimens (Article 5.2(d) and Art. 5.4)</li><li>certificates (Art. 8.3 (d) of Regulation 338/97, Art. 48.1 (c)(d) and 59.2 of Regulation 865/2006).</li></ul></td><td data-ecl-table-header=""><p>Criteria in Article 54 of Regulation 865/2006.</p><p>Attachment G</p></td></tr>
+<tr><td data-ecl-table-header="">Article 56</td><td data-ecl-table-header=""><p>The SA should advise the MA that a given specimen is artificially propagated, specifically in relation to:</p><ul><li>import of Annex A species (Art. 7.1 of Regulation 338/97).</li></ul></td><td data-ecl-table-header="">Criteria in Article 56 of Regulation 865/2006</td></tr>
+<tr><td data-ecl-table-header="">Article 59.2</td><td data-ecl-table-header=""><p>The exemption for specimens referred to in Article 8(3)(d) of Regulation (EC) No 338/97 shall be granted only if the applicant has satisfied the competent MA, the latter having consulted a competent SA, specifically in relation to:</p><ul><li>exemption certificates issued to captive-bred and artificially propagated specimens (Article 54, 55 and 56 of EC Regulation 865/2006)</li></ul></td><td data-ecl-table-header="">Criteria in Articles 54, 55 and 56 of Regulation 865/2006</td></tr>
+<tr><td data-ecl-table-header="">Article 59.3</td><td data-ecl-table-header=""><p>The exemption for specimens referred to in Article 8(3)(e), (f) and (g) of Regulation (EC) No 338/97 shall be granted only if the applicant has satisfied the competent MA, the latter having consulted with a competent SA, specifically in relation to:</p><ul><li>imports of Annex A specimens (Article 4.1(a)(ii)</li><li>certificates issued to Annex A specimens under Article 10 of Council Regulation 338/97 to allow commercial use</li></ul><p>imports of Annex B specimens subject to an Article 4(6) import restriction (Article 71.4(b) EC Regulation 865/2006</p></td><td data-ecl-table-header="">Attachment B</td></tr>
+<tr><td data-ecl-table-header="">Article 60</td><td data-ecl-table-header="">A derogation from the prohibition laid down in Article 8(1) thereof may be granted to scientific institutions, approved by a MA in consultation with a SA, by the issue of a certificate covering all specimens in their collection of species listed in Annex A to that Regulation, that are intended for captive breeding or artificial propagation from which conservation benefits will accrue to the species, or for research or education aimed at the preservation or conservation of the species.</td><td data-ecl-table-header="">Attachment H</td></tr>
+<tr><td data-ecl-table-header="">Article 70</td><td data-ecl-table-header="">Any draft amendments to Annexes B or D to Regulation (EC) No 338/97 pursuant to Article 3(2)(c) or (d), or Article 3(4)(a) of that Regulation shall be submitted by the Commission to the SRG, referred to in Article 17 of that Regulation, for advice before they are submitted to the Committee.</td><td data-ecl-table-header="">Criteria in Article 3 of Regulation 338/97</td></tr>
 </tbody>
-</table></div>
+</table>
+</div>
 
 <h2 id="6-attachment-a-non-detriment-findings-srg-opinions">6. Attachment A — Non-detriment findings / SRG opinions</h2>
 
@@ -525,27 +398,21 @@
 <li><p>present/past distribution</p></li>
 <li><p>population structure, status and trend (in harvest area, nationally and internationally)</p></li>
 <li><p>conservation status (in harvest area, nationally and internationally)</p></li>
+<li><p>quality of data</p></li>
+<li><p>genetic status/diversity</p></li>
 </ul>
-
-<p>quality of data</p>
-
-<p>genetic status/diversity</p>
 
 <p><em><strong>Harvest characteristics</strong></em> </p>
 
-<p>types</p>
-
-<p>volumes</p>
-
-<p>segment of population (e.g. age, sex)</p>
-
-<p>trends (historical and current levels and patterns)</p>
-
-<p>data quality</p>
-
-<p>conversion characteristics</p>
-
-<p>(irreversible) effects of the harvest on the habitat </p>
+<ul>
+<li><p>types</p></li>
+<li><p>volumes</p></li>
+<li><p>segment of population (e.g. age, sex)</p></li>
+<li><p>trends (historical and current levels and patterns)</p></li>
+<li><p>data quality</p></li>
+<li><p>conversion characteristics</p></li>
+<li><p>(irreversible) effects of the harvest on the habitat</p></li>
+</ul>
 
 <p><em><strong>Management regime</strong></em> </p>
 
@@ -570,7 +437,9 @@
 
 <p><em><strong>Threats</strong></em> </p>
 
-<p>intrinsic and extrinsic factors </p>
+<ul>
+<li>intrinsic and extrinsic factors</li>
+</ul>
 
 <p><em><strong>Monitoring programmes</strong></em> </p>
 
@@ -598,18 +467,15 @@
 <p>Further reference material is available, but is not limited to: </p>
 
 <ul>
-<li><p>Scientific Authorities are recommended to consider the information included in the Annex to document AC26/PC20 Doc. 8.4 and any subsequent updates available on the <a href="http://www.cites.org/eng/prog/ndf/index.php">CITES website</a>as reference material when making NDF&#8217;s.</p></li>
-<li><p><a href="http://www.conabio.gob.mx/institucion/cooperacion_internacional/TallerNDF/taller_ndf.html">International Expert Workshop on CITES Non</a><a href="http://www.conabio.gob.mx/institucion/cooperacion_internacional/TallerNDF/taller_ndf.html">-</a><a href="http://www.conabio.gob.mx/institucion/cooperacion_internacional/TallerNDF/taller_ndf.html">Detriment Findings, Cancun, Mexico,</a><a href="http://www.conabio.gob.mx/institucion/cooperacion_internacional/TallerNDF/taller_ndf.html">November 2008</a></p></li>
-<li><p><a href="https://cites.org/eng/node/138336">Workshop on Non</a><a href="https://cites.org/eng/node/138336">-</a><a href="https://cites.org/eng/node/138336">Detriment Findings (NDFs)</a><a href="https://cites.org/eng/node/138336">,</a> 04-08 December 2023, Nairobi, Kenia</p></li>
-<li><p><a href="https://circabc.europa.eu/ui/group/3f466d71-92a7-49eb-9c63-6cb0fadf29dc/library/007dddf2-dca9-4c1b-be1c-95e43d67ba8a/details?download=true">Reference</a><a href="https://circabc.europa.eu/ui/group/3f466d71-92a7-49eb-9c63-6cb0fadf29dc/library/007dddf2-dca9-4c1b-be1c-95e43d67ba8a/details?download=true">guide</a>produced by the European Commission and TRAFFIC to the <em>Wildlife Trade Regulations.</em></p></li>
+<li><p>Scientific Authorities are recommended to consider the information included in the Annex to document AC26/PC20 Doc. 8.4 and any subsequent updates available on the <a href="http://www.cites.org/eng/prog/ndf/index.php">CITES website</a> as reference material when making NDF&#8217;s.</p></li>
+<li><p><a href="http://www.conabio.gob.mx/institucion/cooperacion_internacional/TallerNDF/taller_ndf.html">International Expert Workshop on CITES Non-Detriment Findings, Cancun, Mexico, November 2008</a></p></li>
+<li><p><a href="https://cites.org/eng/node/138336">Workshop on Non-Detriment Findings (NDFs)</a>, 04-08 December 2023, Nairobi, Kenia</p></li>
+<li><p><a href="https://circabc.europa.eu/ui/group/3f466d71-92a7-49eb-9c63-6cb0fadf29dc/library/007dddf2-dca9-4c1b-be1c-95e43d67ba8a/details?download=true">Reference guide</a> produced by the European Commission and TRAFFIC to the <em>Wildlife Trade Regulations.</em></p></li>
 <li><p>Resolution Conf 16.7 encourages Parties to share their non-detriment findings and the methodology that they use. Member States already share documentation to support their opinions and may wish to consider whether they have further material that could be provided to non-EU Parties in support of capacity development.</p></li>
-<li><p>Wolf, Daniel; Oldfield, Thomasina E.E.; McGough, Noel (2024): A nine-step process to support CITES Scientific Authorities making science-based non-detriment findings (NDFs) for timber/tree species listed in CITES Appendix II: Version 4.0. BfN-Schriften 706. <a href="https://doi.org/10.19217/skr706">https://doi.org/10.19217/skr706</a><a href="https://doi.org/10.19217/skr706">.</a></p></li>
-<li><p>Wolf, Daniel; Oldfield, Thomasina E.E.; Schippmann, Uwe; McGough, Noel; Leamann, Danna J. (2025): A nine-step process to support CITES Scientific Authorities making science-based non-detriment findings (NDFs) for species listed</p></li>
+<li><p>Wolf, Daniel; Oldfield, Thomasina E.E.; McGough, Noel (2024): A nine-step process to support CITES Scientific Authorities making science-based non-detriment findings (NDFs) for timber/tree species listed in CITES Appendix II: Version 4.0. BfN-Schriften 706. <a href="https://doi.org/10.19217/skr706">https://doi.org/10.19217/skr706</a>.</p></li>
+<li><p>Wolf, Daniel; Oldfield, Thomasina E.E.; Schippmann, Uwe; McGough, Noel; Leamann, Danna J. (2025): A nine-step process to support CITES Scientific Authorities making science-based non-detriment findings (NDFs) for species listed in CITES Appendix II: Version 4.0. BfN-Schriften 716. <a href="https://doi.org/10.19217/skr716">https://doi.org/10.19217/skr716</a>.</p></li>
+<li><p>CITES electronic Non-Detriment finding portals for sharks and rays (<a href="https://user.cites-endf.org/">e-NDF</a>) and for sea cucumbers (<a href="https://spc.int/endf">e-NDF</a>).</p></li>
 </ul>
-
-<p>in  CITES  Appendix  II:  Version  4.0.  BfN-Schriften  716. <a href="https://doi.org/10.19217/skr716">https://doi.org/10.19217/skr716</a><a href="https://doi.org/10.19217/skr716">.</a>   </p>
-
-<p>CITES electronic Non-Detriment finding portals for sharks and rays (<a href="https://user.cites-endf.org/">e</a><a href="https://user.cites-endf.org/">-</a><a href="https://user.cites-endf.org/">NDF</a><a href="https://user.cites-endf.org/">)</a> and for sea cucumbers (<a href="https://spc.int/endf">e</a><a href="https://spc.int/endf">-</a><a href="https://spc.int/endf">NDF</a><a href="https://spc.int/endf">)</a>. </p>
 
 <h3 id="srg-opinions-and-consultation-process">SRG opinions and consultation process</h3>
 
@@ -623,8 +489,11 @@
 
 <p><em>— for one of the purposes referred to in Article 8(3)</em> </p>
 
-<ol class="lettered-list"><li><em>are required under exceptional circumstances for the advancement of science or for essential biomedical purposes),</em></li><li><em>are intended for breeding or propagation purposes from which conservation benefits will accrue to the species concerned and</em></li><li><em>are intended for research or education aimed at the preservation or conservation of the species, or</em></li></ol>
+<p>(e) <em>are required under exceptional circumstances for the advancement of science or for essential biomedical purposes),</em></p>
 
+<p>(f) <em>are intended for breeding or propagation purposes from which conservation benefits will accrue to the species concerned and</em></p>
+
+<p>(g) <em>are intended for research or education aimed at the preservation or conservation of the species, or</em></p>
 
 <p><em>— for other purposes which are not detrimental to the survival of the species concerned</em>.” </p>
 
@@ -632,7 +501,7 @@
 
 <p>During regular monitoring of species/country combinations or when advising on a particular application, it is the task of the respective SA to decide whether these aspects have significantly changed or not. </p>
 
-<p>There are <strong>three</strong> <strong>formalised types of SRG opinions</strong>: </p>
+<p>There are <strong>three formalised types of SRG opinions</strong>: </p>
 
 <p><strong>Positive:</strong> Based on the available information and given current or anticipated levels of trade, introduction into the EU <strong>would not have a harmful effect</strong> on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.</p>
 
@@ -668,11 +537,11 @@
 <ol class="lettered-list"><li>there is a published quota (source code F, C or R),</li><li>details of all the breeding operations contributing to that quota have been provided,</li><li>the off-take level of wild specimens that are introduced into breeding facilities are determined not to be detrimental,</li><li>production levels overall are biologically feasible,</li><li>the founder stock for the facilities concerned were acquired without detriment to the wild population.</li></ol>
 
 
-<p>The SRG can also issue opinions based on the <strong>review of</strong> <strong>its own</strong> <strong>opinions</strong> (for instance, long standing import suspensions or cases in consultation) or based on CITES recommendations, such as results from <em>Review of Significant Trade in Specimens of Appendix-II species,</em> Resolution Conf. 12.8 (Rev. CoP18). Opinions formed, confirmed, or removed by the SRG are indicated in the <strong>short summary of conclusions (SoC) of the SRG</strong>.  </p>
+<p>The SRG can also issue opinions based on the <strong>review of its own opinions</strong> (for instance, long standing import suspensions or cases in consultation) or based on CITES recommendations, such as results from <em>Review of Significant Trade in Specimens of Appendix-II species,</em> Resolution Conf. 12.8 (Rev. CoP18). Opinions formed, confirmed, or removed by the SRG are indicated in the <strong>short summary of conclusions (SoC) of the SRG</strong>.  </p>
 
 <h3 id="tracking">Tracking</h3>
 
-<p>For species/country combinations that are of particular conservation concern but for which there is insufficient information for the SRG to be able to form a positive or negative opinion and where the SRG referral is not feasible due to a high volume of trade, the SRG can decide to track the advices issued by individual Scientific Authorities in support of its role in developing opinions to ensure that the trade level does not have a harmful effect on the conservation of the species or on the extent of the territory occupied by the relevant population of the species. The SAs will include relevant details of the applications and the advice given in a central database/file that is accessible to SRG Members. Such cases are referred to as “<strong>Under tracking”</strong> in the short summary of conclusions (SoC) of the SRG and in Species +. The information included in the central database/file will be periodically reviewed by the SRG to assess whether any other SRG decision may be appropriate.  </p>
+<p>For species/country combinations that are of particular conservation concern but for which there is insufficient information for the SRG to be able to form a positive or negative opinion and where the SRG referral is not feasible due to a high volume of trade, the SRG can decide to track the advices issued by individual Scientific Authorities in support of its role in developing opinions to ensure that the trade level does not have a harmful effect on the conservation of the species or on the extent of the territory occupied by the relevant population of the species. The SAs will include relevant details of the applications and the advice given in a central database/file that is accessible to SRG Members. Such cases are referred to as “<strong>Under tracking</strong>” in the short summary of conclusions (SoC) of the SRG and in Species +. The information included in the central database/file will be periodically reviewed by the SRG to assess whether any other SRG decision may be appropriate.  </p>
 
 <h3 id="consultations-with-range-states">Consultations with range States</h3>
 
@@ -694,7 +563,7 @@
 
 <p>General opinions formed through written procedures are initially communicated by the Commission to the MAs and SAs of all Member States. They are also included in the list of opinions formed at the following SRG meetings and circulated in summary of conclusions after each meeting.  </p>
 
-<p>These documents are also available on <a href="https://circabc.europa.eu/faces/jsp/extension/wai/navigation/container.jsp">CIRCABC</a>and in the database maintained by UNEPWCMC: <a href="http://www.speciesplus.net/">www.speciesplus.net</a><a href="http://www.speciesplus.net/">.</a>  </p>
+<p>These documents are also available on <a href="https://circabc.europa.eu/faces/jsp/extension/wai/navigation/container.jsp">CIRCABC</a> and in the database maintained by UNEP-WCMC: <a href="http://www.speciesplus.net/">www.speciesplus.net</a>.  </p>
 
 <h3 id="applicability-of-opinions">Applicability of opinions</h3>
 
@@ -787,7 +656,7 @@
 
 <p><strong>b) Re-introductions (purpose code N)</strong></p>
 
-<p>The translocation of ‘surplus’ specimens from one wild population to re-stock a population in another country or to restore a species, by re-introduction, to a part of its range from which it has been extirpated. Such programmes should be assessed against the IUCN re-introduction guidelines <a href="http://www.iucnsscrsg.org/images/English.pdf">(http://www.iucnsscrsg.org/images/English.pdf).</a>)</p>
+<p>The translocation of ‘surplus’ specimens from one wild population to re-stock a population in another country or to restore a species, by re-introduction, to a part of its range from which it has been extirpated. Such programmes should be assessed against the IUCN re-introduction guidelines (<a href="http://www.iucnsscrsg.org/images/English.pdf">http://www.iucnsscrsg.org/images/English.pdf</a>).</p>
 
 <p><strong>c) Educational (purpose code E)</strong></p>
 
@@ -805,77 +674,28 @@
 
 <p class="table-label" id="table-17">Table 17: Treatment of purposes of Annex A import applications (except of captive-bred and artificially propagated specimens)</p>
 
-<div class="table-wrap"><table><colgroup><col style="width:10.0%"><col style="width:30.0%"><col style="width:60.0%"></colgroup>
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:8%"><col style="width:42%"><col style="width:50%"></colgroup>
 <thead>
-<tr>
-  <th><strong>Purpose</strong></th>
-  <th><strong>Treatment</strong></th>
-  <th><strong>Justification</strong></th>
-</tr>
+<tr><th colspan="2">Purpose</th><th>Treatment</th></tr>
 </thead>
 <tbody>
-<tr>
-  <td data-ecl-table-header=""><strong>B</strong></td>
-  <td data-ecl-table-header="">Breeding in captivity or artificial propagation</td>
-  <td data-ecl-table-header="">Yes, under 1st indent – 8.3.f (conservation benefit required)</td>
-</tr>
-<tr>
-  <td data-ecl-table-header=""><strong>E</strong></td>
-  <td data-ecl-table-header="">Educational</td>
-  <td data-ecl-table-header="">Yes, under 1st indent – 8.3.g (conservation benefit required) OR under 2nd indent in exceptional circumstances</td>
-</tr>
-<tr>
-  <td data-ecl-table-header=""><strong>G</strong></td>
-  <td data-ecl-table-header="">Botanical gardens</td>
-  <td data-ecl-table-header="">Yes, under 1st indent –  8.3.f  or  8.3.g   (conservation  benefit required)</td>
-</tr>
-<tr>
-  <td data-ecl-table-header=""><strong>H</strong></td>
-  <td data-ecl-table-header="">Hunting trophies</td>
-  <td data-ecl-table-header="">Yes, under 2nd indent - if conservation benefit</td>
-</tr>
-<tr>
-  <td data-ecl-table-header=""><strong>L</strong></td>
-  <td data-ecl-table-header="">Law enforcement/judicial/forensic</td>
-  <td data-ecl-table-header="">Yes, under 2nd indent - if conservation benefit OR in exceptional circumstances</td>
-</tr>
-<tr>
-  <td data-ecl-table-header=""><strong>M</strong></td>
-  <td data-ecl-table-header="">Medical (including bio-medical research)</td>
-  <td data-ecl-table-header="">Yes, under 1st indent – 8.3.e (exceptional circumstances etc)</td>
-</tr>
-<tr>
-  <td data-ecl-table-header=""><strong>N</strong></td>
-  <td data-ecl-table-header="">Reintroduction or introduction into the wild</td>
-  <td data-ecl-table-header="">Yes, under 2nd indent - if conservation benefit</td>
-</tr>
-<tr>
-  <td data-ecl-table-header=""><strong>P</strong></td>
-  <td data-ecl-table-header="">Personal</td>
-  <td data-ecl-table-header="">No, unless under 2nd indent OR in exceptional circumstances where household effects imported under change of residence</td>
-</tr>
-<tr>
-  <td data-ecl-table-header=""><strong>Q</strong></td>
-  <td data-ecl-table-header="">Circuses and travelling exhibitions</td>
-  <td data-ecl-table-header="">No (Art. 4.1.(d))</td>
-</tr>
-<tr>
-  <td data-ecl-table-header=""><strong>S</strong></td>
-  <td data-ecl-table-header="">Scientific</td>
-  <td data-ecl-table-header="">Yes, under 1st indent - 8.3.e (exceptional circumstances etc.), or 8.3.g (conservation benefit required)</td>
-</tr>
-<tr>
-  <td data-ecl-table-header=""><strong>T</strong></td>
-  <td data-ecl-table-header="">Commercial</td>
-  <td data-ecl-table-header="">No (Art. 4.1.(d))</td>
-</tr>
-<tr>
-  <td data-ecl-table-header=""><strong>Z</strong></td>
-  <td data-ecl-table-header="">Zoos</td>
-  <td data-ecl-table-header="">Yes, under 1st indent  –  8.3.f  or  8.3.g (conservation  benefit required)</td>
-</tr>
+<tr><td data-ecl-table-header=""><strong>B</strong></td><td data-ecl-table-header="">Breeding in captivity or artificial propagation</td><td data-ecl-table-header="">Yes, under 1<sup>st</sup> indent – 8.3.f (conservation benefit required)</td></tr>
+<tr><td data-ecl-table-header=""><strong>E</strong></td><td data-ecl-table-header="">Educational</td><td data-ecl-table-header="">Yes, under 1<sup>st</sup> indent – 8.3.g (conservation benefit required) OR under 2<sup>nd</sup> indent in exceptional circumstances</td></tr>
+<tr><td data-ecl-table-header=""><strong>G</strong></td><td data-ecl-table-header="">Botanical gardens</td><td data-ecl-table-header="">Yes, under 1<sup>st</sup> indent – 8.3.f or 8.3.g (conservation benefit required)</td></tr>
+<tr><td data-ecl-table-header=""><strong>H</strong></td><td data-ecl-table-header="">Hunting trophies</td><td data-ecl-table-header="">Yes, under 2<sup>nd</sup> indent - if conservation benefit</td></tr>
+<tr><td data-ecl-table-header=""><strong>L</strong></td><td data-ecl-table-header="">Law enforcement/judicial/forensic</td><td data-ecl-table-header="">Yes, under 2<sup>nd</sup> indent - if conservation benefit OR in exceptional circumstances</td></tr>
+<tr><td data-ecl-table-header=""><strong>M</strong></td><td data-ecl-table-header="">Medical (including bio-medical research)</td><td data-ecl-table-header="">Yes, under 1<sup>st</sup> indent – 8.3.e (exceptional circumstances etc)</td></tr>
+<tr><td data-ecl-table-header=""><strong>N</strong></td><td data-ecl-table-header="">Reintroduction or introduction into the wild</td><td data-ecl-table-header="">Yes, under 2<sup>nd</sup> indent - if conservation benefit</td></tr>
+<tr><td data-ecl-table-header=""><strong>P</strong></td><td data-ecl-table-header="">Personal</td><td data-ecl-table-header="">No, unless under 2<sup>nd</sup> indent OR in exceptional circumstances where household effects imported under change of residence</td></tr>
+<tr><td data-ecl-table-header=""><strong>Q</strong></td><td data-ecl-table-header="">Circuses and travelling exhibitions</td><td data-ecl-table-header="">No (Art. 4.1.(d))</td></tr>
+<tr><td data-ecl-table-header=""><strong>S</strong></td><td data-ecl-table-header="">Scientific</td><td data-ecl-table-header="">Yes, under 1<sup>st</sup> indent - 8.3.e (exceptional circumstances etc.), or 8.3.g (conservation benefit required)</td></tr>
+<tr><td data-ecl-table-header=""><strong>T</strong></td><td data-ecl-table-header="">Commercial</td><td data-ecl-table-header="">No (Art. 4.1.(d))</td></tr>
+<tr><td data-ecl-table-header=""><strong>Z</strong></td><td data-ecl-table-header="">Zoos</td><td data-ecl-table-header="">Yes, under 1<sup>st</sup> indent – 8.3.f or 8.3.g (conservation benefit required)</td></tr>
 </tbody>
-</table></div>
+</table>
+</div>
 
 <h2 id="8-attachment-c-accommodation-for-a-live-specimen">8. Attachment C — Accommodation for a live specimen</h2>
 
@@ -950,16 +770,15 @@
 <ol>
 <li><p>It is, or is derived from, the offspring, born or otherwise produced in a controlled either of parents that mated or had gametes otherwise transferred in a environment controlled environment<sup class="footnote-ref" id="fnref-5"><a href="#fn-5">5</a></sup>, if reproduction is sexual, or of parents that were in a controlled environment when development of the offspring began, if reproduction is asexual.</p></li>
 <li><p>The breeding stock<sup class="footnote-ref" id="fnref-6"><a href="#fn-6">6</a></sup> was established in accordance with the legal provisions applicable to it at the time of acquisition and in a manner not detrimental to the survival of the species concerned in the wild.</p></li>
-<li><p>The breeding stock is maintained without the introduction of specimens from the wild, except for the occasional addition of animals, eggs, or gametes in accordance with the legal provisions applicable and in a manner not detrimental to the survival of the species concerned in the wild, for the following purpose<sup class="footnote-ref" id="fnref-7"><a href="#fn-7">7</a></sup> only:</p></li>
+<li><p>The breeding stock is maintained without the introduction of specimens from the wild, except for the occasional addition of animals, eggs, or gametes in accordance with the legal provisions applicable and in a manner not detrimental to the survival of the species concerned in the wild, for the following purpose<sup class="footnote-ref" id="fnref-7"><a href="#fn-7">7</a></sup> only:</p>
+
+<ol>
+<li>to prevent or alleviate deleterious inbreeding, the magnitude of such addition being determined by the need for new genetic material.</li>
+<li>to dispose of confiscated animals in accordance with Article 16(3) of Regulation (EC) No. 338/97; or</li>
+<li>exceptionally, for use as breeding stock.</li>
+</ol></li>
+<li><p>The breeding stock has itself produced second (F2) or subsequent generation offspring in a controlled environment or is managed in a manner<sup class="footnote-ref" id="fnref-4-2"><a href="#fn-4">4</a></sup> that has been demonstrated to be capable of reliably producing second generation offspring in a controlled environment.</p></li>
 </ol>
-
-<p>to prevent or alleviate deleterious inbreeding, the magnitude of such addition being determined by the need for new genetic material.</p>
-
-<p>to dispose of confiscated animals in accordance with Article 16(3) of Regulation (EC) No. 338/97; or</p>
-
-<p>exceptionally, for use as breeding stock.</p>
-
-<p>The breeding stock has itself produced second (F2) or subsequent generation offspring in a controlled environment or is managed in a manner<sup class="footnote-ref" id="fnref-4"><a href="#fn-4">7</a></sup> that has been demonstrated to be capable of reliably producing second generation offspring in a controlled environment.</p>
 
 <p>Captive breeding can have considerable negative impact on the conservation of natural populations in cases where founder breeding stocks have been acquired in an unsustainable, uncontrolled way, or where wild specimens are laundered as captive-bred (and breeding claims are not genuine). Where there are concerns relating to captive breeding, the SRG scrutinizes such claims, and takes appropriate action. Consultations with the Management/Scientific Authority of the country of export relating to captive breeding claims are conducted on two levels: </p>
 
@@ -980,9 +799,8 @@
 <li><p>Details of specimens traded in the previous five years listed by year of birth.</p></li>
 <li><p>Photographs showing aspects of the stock, facility, and reproduction.</p></li>
 <li><p>Details of mortality rates.</p></li>
+<li><p>Details of any recent inspections by CITES Authorities (including the date and outcomes)</p></li>
 </ol>
-
-<p>Details of any recent inspections by CITES Authorities (including the date and outcomes)</p>
 
 <h2 id="13-attachment-h-scientific-institutions">13. Attachment H — Scientific institutions</h2>
 
@@ -1014,13 +832,12 @@
 
 <p>The following factors should be taken into consideration in determining which species are likely to benefit from the stricter regulation that a TSC provides:</p>
 
-<p>abundance of a species in captivity. [One interpretation of the above is that a species might not require a TSC if it is so readily available in captivity, due to captive breeding, that the likelihood of specimens being taken illegally from the wild are very small.] </p>
-
-<p><em>Market demand/value:</em> the level of demand for specimens for a particular species by falconers, breeders, zoological institutions or private keepers and others – some rare species command high prices which may drive illegal trade. </p>
-
-<p><em>Take from the wild/Trade status (illegal):</em> levels of actual or potential illegal take and/or trade and whether it is having a detrimental impact on the conservation status of the species. [If there is no evidence to suggest that a species has been, or is likely to be, affected by illegal take and/or trade, or there is no evidence to demonstrate that the EU or Member State has been involved (directly or indirectly) in illegal take/trade then there is no obvious benefit from restricting to a TSC. Equally, some level of illegal take may occur which may be inconsequential when set against the size of the population.] </p>
-
-<p>Other domestic controls: e.g., whether the species is a registerable species. </p>
+<ul>
+<li><p>abundance of a species in captivity. [One interpretation of the above is that a species might not require a TSC if it is so readily available in captivity, due to captive breeding, that the likelihood of specimens being taken illegally from the wild are very small.] </p></li>
+<li><p><em>Market demand/value:</em> the level of demand for specimens for a particular species by falconers, breeders, zoological institutions or private keepers and others – some rare species command high prices which may drive illegal trade. </p></li>
+<li><p><em>Take from the wild/Trade status (illegal):</em> levels of actual or potential illegal take and/or trade and whether it is having a detrimental impact on the conservation status of the species. [If there is no evidence to suggest that a species has been, or is likely to be, affected by illegal take and/or trade, or there is no evidence to demonstrate that the EU or Member State has been involved (directly or indirectly) in illegal take/trade then there is no obvious benefit from restricting to a TSC. Equally, some level of illegal take may occur which may be inconsequential when set against the size of the population.] </p></li>
+<li><p>Other domestic controls: e.g., whether the species is a registerable species. </p></li>
+</ul>
 
 <h2 id="15-attachment-j-placement-or-disposal-of-specimens">15. Attachment J — Placement or disposal of specimens</h2>
 
@@ -1028,9 +845,9 @@
 
 <p>Confiscated specimens shall be placed or otherwise disposed of under conditions which are deemed to be appropriate and consistent with the purposes and provisions of the CITES Convention and Regulation (EC) No 338/97.  </p>
 
-<p>Section 7 of the Commission Guidance document on live animals bred in captivity under the EU Wildlife Trade Regulations (2022/C 306/02) provides guidance on handling confiscated specimens and on whether such specimens can be used in a captive-breeding facility<sup class="footnote-ref" id="fnref-2"><a href="#fn-2">8</a></sup>. </p>
+<p>Section 7 of the Commission Guidance document on live animals bred in captivity under the EU Wildlife Trade Regulations (2022/C 306/02) provides guidance on handling confiscated specimens and on whether such specimens can be used in a captive-breeding facility<sup class="footnote-ref" id="fnref-2-2"><a href="#fn-2">2</a></sup>. </p>
 
-<p>The MA is to consult with the competent SA and the decision must achieve the following (based on Resolution Res. Conf. 17.8 (Rev. CoP19)) <a href="https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-17-08-R19.pdf">Disposal of illegally traded and confiscated</a><a href="https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-17-08-R19.pdf">specimens of CITES</a><a href="https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-17-08-R19.pdf">-</a><a href="https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-17-08-R19.pdf">listed species</a><sup class="footnote-ref" id="fnref-9"><a href="#fn-9">9</a></sup> to: </p>
+<p>The MA is to consult with the competent SA and the decision must achieve the following (based on Resolution Res. Conf. 17.8 (Rev. CoP19)) <a href="https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-17-08-R19.pdf"><em>Disposal of illegally traded and confiscated specimens of CITES-listed species</em></a><sup class="footnote-ref" id="fnref-9"><a href="#fn-9">9</a></sup> to: </p>
 
 <ol>
 <li><p>maximize conservation value of the specimens without in any way endangering the health, behavioural repertoire, or conservation status of wild or captive populations of the species.</p></li>
@@ -1062,19 +879,18 @@
 <li><p>Sale (Annex B, C and D only): parties involved in commercial activities can help offset the costs of confiscation. However, sale should only be considered in certain circumstances, such as where such trade in the species in question does not threaten wild populations of the species and not subject to a legal prohibition on trade and there is no risk of stimulating further illegal trade. Sale to commercial captive breeders may contribute to reducing the demand for wild-caught individuals.</p></li>
 </ul>
 
-<div class="table-wrap"><table>
-<thead><tr><th colspan="2"><strong>Maintenance of the individuals in captivity</strong><sup class="footnote-ref" id="fnref-11"><a href="#fn-11">10</a></sup></th></tr></thead>
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead>
+<tr><th colspan="2">Maintenance of the individuals in captivity<sup class="footnote-ref" id="fnref-11"><a href="#fn-11">10</a></sup></th></tr>
+<tr><th class="table-subheader">Benefits</th><th class="table-subheader">Disadvantages</th></tr>
+</thead>
 <tbody>
-<tr>
-  <td data-ecl-table-header=""><em><strong>Benefits</strong></em></td>
-  <td data-ecl-table-header=""><strong>Disadvantages</strong></td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">educational value potential for captive breeding for eventual reintroduction and/ or for establishment of reserve population possibility for the confiscating authority to recover, from sale, the costs of confiscation. genetic variability contribution to knowledge on species biology/ ecology</td>
-  <td data-ecl-table-header="">Potential to stimulate further illegal and unsustainable trade12. Cost of placement transmission of diseases to native fauna or within captive population</td>
-</tr>
+<tr><td data-ecl-table-header=""><ul><li>educational value</li><li>potential for captive breeding for eventual reintroduction and/ or for establishment of reserve population</li><li>possibility for the confiscating authority to recover, from sale, the costs of confiscation.</li><li>genetic variability</li><li>contribution to knowledge on species biology/ ecology</li></ul></td><td data-ecl-table-header=""><ul><li>Potential to stimulate further illegal and unsustainable trade.</li><li>Cost of placement</li><li>transmission of diseases to native fauna or within captive population</li></ul></td></tr>
 </tbody>
-</table></div>
+</table>
+</div>
 
 <h3 id="b-returning-the-individuals-in-question-to-some-form-of-life-in-the-wild">B. Returning the individuals in question to some form of life in the wild</h3>
 
@@ -1085,19 +901,18 @@
 
 <p>Reinforcement can be a powerful conservation tool when natural populations are diminished by a process which, at least in theory, can be reversed and cannot / will unlikely recover on their own. Such activities are common in many western countries, and specific programmes exist. Reinforcement carries with it the very grave risk that individuals held in captivity, even temporarily, are potential vectors for disease back into a wild population. Reintroduction of specimens for reinforcement purposes also have varying degrees of success and survival of released specimens depending on the locality, species concerned and quality of the programme, which should be taken into consideration before making a decision. Reinforcement should therefore only be employed in instances where there is a direct and measurable conservation benefit (demographically or genetically), as when reinforcement is critical for the viability of the wild population into which an individual is being placed and there is a reasonable likelihood that the released specimens will survive in the wild. </p>
 
-<div class="table-wrap"><table>
-<thead><tr><th colspan="2"><strong>Returning the individuals in question to some form of life in the wild</strong><sup class="footnote-ref" id="fnref-11"><a href="#fn-11">10</a></sup></th></tr></thead>
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead>
+<tr><th colspan="2">Returning the individuals in question to some form of life in the wild<sup class="footnote-ref" id="fnref-11-2"><a href="#fn-11">10</a></sup></th></tr>
+<tr><th class="table-subheader">Benefits</th><th class="table-subheader">Concerns</th></tr>
+</thead>
 <tbody>
-<tr>
-  <td data-ecl-table-header=""><strong>Benefits</strong></td>
-  <td data-ecl-table-header=""><strong>Concerns</strong></td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">Reinforcement of an existing population or reintroduction in parts of the range where the species became extinct may promote conservation of the species. strong political/educational statement - promote local conservation values. tracking rereleased wildlife monitoring human wildlife interactions</td>
-  <td data-ecl-table-header="">survivability conservation value and cost source of individuals needs to be carefully assessed (risk of genetic pollution) risk of disease transfer risk of recapture animal welfare risk of human-wildlife conflicts</td>
-</tr>
+<tr><td data-ecl-table-header=""><ul><li>Reinforcement of an existing population or reintroduction in parts of the range where the species became extinct may promote conservation of the species.</li><li>strong political/educational statement - promote local conservation values.</li><li>tracking rereleased wildlife</li><li>monitoring human wildlife interactions</li></ul></td><td data-ecl-table-header=""><ul><li>survivability</li><li>conservation value and cost</li><li>source of individuals needs to be carefully assessed (risk of genetic pollution)</li><li>risk of disease transfer</li><li>risk of recapture</li><li>animal welfare</li><li>risk of human-wildlife conflicts</li></ul></td></tr>
 </tbody>
-</table></div>
+</table>
+</div>
 
 <p>Any reintroduction or reinforcement activities should be undertaken in line with the relevant IUCN guidelines.</p>
 
@@ -1113,25 +928,24 @@
 <li><p>During transport, or while held in captivity, the animals have contracted a chronic disease that is incurable and, therefore, a risk to any captive or wild population.</p></li>
 </ul>
 
-<div class="table-wrap"><table>
-<thead><tr><th colspan="2"><strong>Euthanasia</strong><sup class="footnote-ref" id="fnref-11"><a href="#fn-11">10</a></sup></th></tr></thead>
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead>
+<tr><th colspan="2">Euthanasia<sup class="footnote-ref" id="fnref-11-3"><a href="#fn-11">10</a></sup></th></tr>
+<tr><th class="table-subheader">Benefits</th><th class="table-subheader">Concerns</th></tr>
+</thead>
 <tbody>
-<tr>
-  <td data-ecl-table-header=""><strong>Benefits</strong></td>
-  <td data-ecl-table-header=""><strong>Concerns</strong></td>
-</tr>
-<tr>
-  <td data-ecl-table-header="">- Carries fewer risk to wild and captive populations in terms of disease transfer</td>
-  <td data-ecl-table-header="">Potential loss of genetic variability Specimens lost for conservation and/ or research activities</td>
-</tr>
+<tr><td data-ecl-table-header=""><ul><li>Carries fewer risk to wild and captive populations in terms of disease transfer</li></ul></td><td data-ecl-table-header=""><ul><li>Potential loss of genetic variability</li><li>Specimens lost for conservation and/ or research activities</li></ul></td></tr>
 </tbody>
-</table></div>
+</table>
+</div>
 
 <p>Further information is available through: </p>
 
 <ul>
 <li><p><a href="https://iucn.org/our-union/commissions/iucn-species-survival-commission-2021-2025">IUCN-Species Survival Commission Specialist Groups</a></p></li>
-<li><p><a href="http://ec.europa.eu/environment/cites/pdf/studies/enforcement_trade.pdf%20">http://ec.europa.eu/environment/cites/pdf/studies/enforcement_trade.pdf</a><a href="http://ec.europa.eu/environment/cites/pdf/studies/enforcement_trade.pdf">(</a>Managing confiscated specimens)</p></li>
+<li><p><a href="http://ec.europa.eu/environment/cites/pdf/studies/enforcement_trade.pdf">http://ec.europa.eu/environment/cites/pdf/studies/enforcement_trade.pdf</a> (Managing confiscated specimens)</p></li>
 </ul>
 
 <div class="footnotes">
@@ -1142,15 +956,15 @@
 </li>
 
 <li id="fn-2">
-<p>Commission Notice - Guidance document on live animals bred in captivity under the EU Wildlife Trade Regulations 2022/C 306/02: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:52022XC0811(01)&#160;<a href="#fnref-2" class="footnoteBackLink" title="Jump back to footnote 2 in the text.">&#8617;</a></p>
+<p>Commission Notice - Guidance document on live animals bred in captivity under the EU Wildlife Trade Regulations 2022/C 306/02: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:52022XC0811(01)&#160;<a href="#fnref-2" class="footnoteBackLink" title="Jump back to footnote 2 in the text.">&#8617;</a> <a href="#fnref-2-2" class="footnoteBackLink" title="Jump back to footnote 2 in the text (citation 2).">&#8617;<sup>2</sup></a></p>
 </li>
 
 <li id="fn-3">
-<p><a href="http://www.speciesplus.net/">https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-12-10-R15.pdf</a>&#160;<a href="#fnref-3" class="footnoteBackLink" title="Jump back to footnote 3 in the text.">&#8617;</a></p>
+<p><a href="https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-12-10-R15.pdf">https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-12-10-R15.pdf</a>&#160;<a href="#fnref-3" class="footnoteBackLink" title="Jump back to footnote 3 in the text.">&#8617;</a></p>
 </li>
 
 <li id="fn-4">
-<p>It is not necessary for a breeder to actually produce second-generation offspring himself but must demonstrate that they are using a breeding method that is known to lead to the production of second-generation offspring. Each application needs to be assessed on its own merits on a case-by-case basis, taking into account the number of individuals in the breeding stock, access to unrelated F1 specimens, genetic management, previous breeding success, sex ratio, age at sexual maturity, species rarity in captivity, etc.&#160;<a href="#fnref-4" class="footnoteBackLink" title="Jump back to footnote 4 in the text.">&#8617;</a></p>
+<p>It is not necessary for a breeder to actually produce second-generation offspring himself but must demonstrate that they are using a breeding method that is known to lead to the production of second-generation offspring. Each application needs to be assessed on its own merits on a case-by-case basis, taking into account the number of individuals in the breeding stock, access to unrelated F1 specimens, genetic management, previous breeding success, sex ratio, age at sexual maturity, species rarity in captivity, etc.&#160;<a href="#fnref-4" class="footnoteBackLink" title="Jump back to footnote 4 in the text.">&#8617;</a> <a href="#fnref-4-2" class="footnoteBackLink" title="Jump back to footnote 4 in the text (citation 2).">&#8617;<sup>2</sup></a></p>
 </li>
 
 <li id="fn-5">
@@ -1166,7 +980,7 @@
 </li>
 
 <li id="fn-8">
-<p>Guidance for the inspection of captive-breeding and ranching facilities as submitted by the CITES Secretariat can be found in <a href="http://www.speciesplus.net/">AC30 Inf. 25</a>&#160;<a href="#fnref-8" class="footnoteBackLink" title="Jump back to footnote 8 in the text.">&#8617;</a></p>
+<p>Guidance for the inspection of captive-breeding and ranching facilities as submitted by the CITES Secretariat can be found in <a href="https://cites.org/sites/default/files/eng/com/ac/30/Inf/E-AC30-Inf-25.pdf">AC30 Inf. 25</a>&#160;<a href="#fnref-8" class="footnoteBackLink" title="Jump back to footnote 8 in the text.">&#8617;</a></p>
 </li>
 
 <li id="fn-9">
@@ -1174,7 +988,7 @@
 </li>
 
 <li id="fn-11">
-<p>&#8220;Non-exhaustive list of potential factors to be considered depending on the individual case.&#8221;&#160;<a href="#fnref-11" class="footnoteBackLink" title="Jump back to footnote 10 in the text.">&#8617;</a></p>
+<p>&#8220;Non-exhaustive list of potential factors to be considered depending on the individual case.&#8221;&#160;<a href="#fnref-11" class="footnoteBackLink" title="Jump back to footnote 10 in the text.">&#8617;</a> <a href="#fnref-11-2" class="footnoteBackLink" title="Jump back to footnote 10 in the text (citation 2).">&#8617;<sup>2</sup></a> <a href="#fnref-11-3" class="footnoteBackLink" title="Jump back to footnote 10 in the text (citation 3).">&#8617;<sup>3</sup></a></p>
 </li>
 </ol>
 </div>
@@ -1184,7 +998,7 @@
 <a href="#top" class="back-to-top">Back to top</a>
 
       </div>
-    </div></div>
+    </div>
   </div>
 </div>
 
@@ -1194,30 +1008,19 @@
       <div class="ecl-site-footer__row ecl-site-footer__row--specific">
         <div class="ecl-site-footer__section ecl-site-footer__section--site-info">
           <div class="ecl-site-footer__title">
-            <a href="https://environment.ec.europa.eu/index_en" class="ecl-link ecl-link--inverted ecl-link--icon ecl-site-footer__title-link"><span class="ecl-link__label">Environment</span><span class="wt-icon--arrow-left wt-icon--inverted ecl-icon ecl-icon--xs ecl-icon--flip-horizontal ecl-link__icon ecl-icon--arrow-left" aria-hidden="true"></span></a>
+            <a href="https://environment.ec.europa.eu/index_en" class="ecl-link ecl-link--inverted ecl-link--icon ecl-site-footer__title-link"><span class="ecl-link__label">Environment</span><svg class="ecl-icon ecl-icon--xs ecl-icon--flip-horizontal ecl-link__icon ecl-icon--arrow-left" viewBox="0 0 48 48" fill="currentColor" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M24.15 11.1 22.02 9 6 25.02 22.05 41.1l2.13-2.1-12.423-12.45H42v-3H11.7z"/></svg></a>
           </div>
           <div class="ecl-site-footer__description">
-            This site is managed by:<br />Directorate-General for Environment<br />
-            A reference guide developed by the European Commission and TRAFFIC.
+            This site is managed by:<br />Directorate-General for Environment
           </div>
-          <p class="footer-smallprint">Updated August 2026. This guide is a revised and updated version of the Reference Guide to the European Union Wildlife Trade Regulations, originally produced in 1998 by the European Commission, TRAFFIC Europe and WWF.</p>
+          <p class="footer-smallprint">A reference guide developed by the European Commission and TRAFFIC. Updated October 2026.</p>
           <div class="ecl-social-media-follow ecl-social-media-follow--horizontal ecl-social-media-follow--left ecl-site-footer__social-media">
             <ul class="ecl-social-media-follow__list">
-              <li class="ecl-social-media-follow__item">
-                <a href="https://www.facebook.com/EUEnvironment/" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="Facebook"><span class="wt-icon-networks--facebook wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--facebook" aria-hidden="true"></span><span class="ecl-link__label">Facebook</span></a>
-              </li>
-              <li class="ecl-social-media-follow__item">
-                <a href="https://www.instagram.com/ourplanet_eu/" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="Instagram"><span class="wt-icon-networks--instagram wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--instagram" aria-hidden="true"></span><span class="ecl-link__label">Instagram</span></a>
-              </li>
-              <li class="ecl-social-media-follow__item">
-                <a href="https://twitter.com/EU_ENV" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="X"><span class="wt-icon-networks--x wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--x" aria-hidden="true"></span><span class="ecl-link__label">X</span></a>
-              </li>
-              <li class="ecl-social-media-follow__item">
-                <a href="https://www.youtube.com/user/EUEnvironment" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="YouTube"><span class="wt-icon-networks--youtube wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--youtube" aria-hidden="true"></span><span class="ecl-link__label">YouTube</span></a>
-              </li>
-              <li class="ecl-social-media-follow__item">
-                <a href="https://www.linkedin.com/showcase/eu-environment-climate/" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="LinkedIn"><span class="wt-icon-networks--linkedin wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--linkedin" aria-hidden="true"></span><span class="ecl-link__label">LinkedIn</span></a>
-              </li>
+              <li class="ecl-social-media-follow__item"><a href="https://www.facebook.com/EUEnvironment/" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="Facebook"><svg class="ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--facebook" viewBox="0 0 48 48" focusable="false" aria-hidden="true"><path fill="currentColor" d="M46 24.134C46 11.911 36.15 2 24 2S2 11.91 2 24.134C2 35.182 10.045 44.34 20.563 46V30.532h-5.586v-6.398h5.585v-4.876c0-5.548 3.285-8.612 8.31-8.612 2.407 0 4.925.432 4.925.432v5.448h-2.775c-2.732 0-3.584 1.705-3.584 3.457v4.151h6.1l-.973 6.398h-5.127V46C37.954 44.339 46 35.182 46 24.134"/><path class="cutout" d="m32.756 30.539.984-6.287h-6.16v-4.079c0-1.72.862-3.396 3.62-3.396H34v-5.353S31.458 11 29.028 11c-5.073 0-8.39 3.01-8.39 8.461v4.791H15v6.287h5.639v15.197c1.131.174 2.29.264 3.47.264 1.182 0 2.34-.09 3.47-.264V30.54h5.177Z"/></svg><span class="ecl-link__label">Facebook</span></a></li>
+<li class="ecl-social-media-follow__item"><a href="https://www.instagram.com/ourplanet_eu/" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="Instagram"><svg class="ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--instagram" viewBox="0 0 48 48" focusable="false" aria-hidden="true"><path fill="currentColor" d="M46 23.96c-.01-5.97-.04-6.72-.15-9.07s-.48-3.94-1.03-5.34c-.57-1.45-1.32-2.67-2.54-3.89s-2.45-1.97-3.9-2.53c-1.4-.54-3-.91-5.34-1.01s-3.1-.13-9.07-.12-6.72.04-9.07.15c-2.34.11-3.94.48-5.34 1.03-1.45.56-2.67 1.32-3.89 2.54S3.7 8.17 3.14 9.62c-.54 1.4-.91 3-1.01 5.34s-.13 3.09-.11 9.07c.01 5.97.04 6.72.15 9.07.11 2.34.48 3.94 1.03 5.34.56 1.45 1.32 2.67 2.54 3.89s2.45 1.97 3.9 2.53c1.4.54 3 .91 5.34 1.01s3.1.13 9.07.11c5.97-.01 6.72-.04 9.07-.15s3.94-.49 5.33-1.03c1.45-.57 2.67-1.32 3.89-2.54s1.97-2.45 2.53-3.9c.54-1.4.91-3 1.01-5.34.1-2.35.13-3.1.12-9.07Zm-4.07 8.9c-.09 2.14-.45 3.31-.75 4.09-.4 1.03-.87 1.76-1.64 2.53s-1.5 1.25-2.53 1.65c-.77.3-1.94.66-4.08.77-2.32.11-3.02.13-8.89.14s-6.57-.01-8.89-.11c-2.15-.09-3.31-.45-4.09-.75-1.03-.4-1.76-.87-2.53-1.64s-1.25-1.5-1.65-2.53c-.3-.78-.66-1.94-.76-4.08-.11-2.32-.13-3.01-.14-8.89-.01-5.87 0-6.57.11-8.89.09-2.14.45-3.31.75-4.08.4-1.03.87-1.76 1.64-2.53s1.5-1.25 2.53-1.65c.78-.3 1.94-.66 4.08-.76 2.32-.11 3.02-.13 8.89-.14s6.57 0 8.89.11c2.14.09 3.31.45 4.08.75 1.03.4 1.76.87 2.53 1.64s1.25 1.5 1.65 2.53c.3.77.66 1.94.76 4.08.11 2.32.14 3.02.15 8.89s-.01 6.57-.11 8.89Z"/><path fill="currentColor" d="M23.98 12.7c-6.24.01-11.29 5.08-11.27 11.32.01 6.24 5.08 11.29 11.32 11.27 6.24-.01 11.29-5.08 11.28-11.32S30.23 12.68 23.99 12.7Zm6.8 14.09a7.36 7.36 0 0 1-2.69 3.3c-1.2.81-2.62 1.24-4.07 1.24-.96 0-1.92-.19-2.81-.55s-1.7-.91-2.38-1.58a7.36 7.36 0 0 1-2.15-5.19c0-1.45.42-2.87 1.23-4.08.8-1.21 1.95-2.15 3.29-2.71a7.325 7.325 0 0 1 8 1.57 7.26 7.26 0 0 1 2.01 3.75c.29 1.42.14 2.9-.41 4.24ZM37.18 10.04c-.43-.29-.95-.44-1.47-.44-.7 0-1.37.28-1.86.78s-.77 1.17-.77 1.87a2.636 2.636 0 0 0 1.64 2.44c.48.2 1.01.25 1.53.15.51-.1.98-.36 1.35-.73s.62-.84.72-1.35.05-1.04-.15-1.53c-.2-.48-.54-.89-.97-1.18Z"/></svg><span class="ecl-link__label">Instagram</span></a></li>
+<li class="ecl-social-media-follow__item"><a href="https://twitter.com/EU_ENV" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="X"><svg class="ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--x" viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span class="ecl-link__label">X</span></a></li>
+<li class="ecl-social-media-follow__item"><a href="https://www.youtube.com/user/EUEnvironment" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="YouTube"><svg class="ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--youtube" viewBox="0 0 461 461" focusable="false" aria-hidden="true"><path fill="currentColor" d="M365.257,67.393H95.744C42.866,67.393,0,110.259,0,163.137v134.728 c0,52.878,42.866,95.744,95.744,95.744h269.513c52.878,0,95.744-42.866,95.744-95.744V163.137 C461.001,110.259,418.135,67.393,365.257,67.393z M300.506,237.056l-126.06,60.123c-3.359,1.602-7.239-0.847-7.239-4.568V168.607 c0-3.774,3.982-6.22,7.348-4.514l126.06,63.881C304.363,229.873,304.298,235.248,300.506,237.056z"/></svg><span class="ecl-link__label">YouTube</span></a></li>
+<li class="ecl-social-media-follow__item"><a href="https://www.linkedin.com/showcase/eu-environment-climate/" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="Follow&#x20;us" data-footer-link-label="LinkedIn"><svg class="ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--linkedin" viewBox="0 0 48 48" focusable="false" aria-hidden="true"><path fill="currentColor" d="M42.74 2.003H5.247A3.21 3.21 0 0 0 2 5.175v37.65A3.213 3.213 0 0 0 5.247 46H42.74A3.22 3.22 0 0 0 46 42.825V5.172A3.218 3.218 0 0 0 42.74 2"/><path class="cutout" d="M31.295 17.778c6.506 0 7.705 4.286 7.705 9.863L38.997 39H32.58V28.6c-.01-2.345-.193-5.161-3.338-5.161-3.266 0-3.83 2.496-3.854 5.129v10.431h-6.42V18.293h6.162v2.83h.087a6.75 6.75 0 0 1 6.08-3.345Zm-16.36.515V39H8.509V18.293h6.426ZM11.725 8a3.728 3.728 0 0 1 3.724 3.73c0 .99-.392 1.94-1.09 2.64a3.721 3.721 0 0 1-2.634 1.093A3.728 3.728 0 0 1 8 11.732 3.728 3.728 0 0 1 11.724 8Z"/></svg><span class="ecl-link__label">LinkedIn</span></a></li>
             </ul>
           </div>
         </div>
@@ -1238,7 +1041,7 @@
               <div class="ecl-site-footer__title">About us</div>
               <ul class="ecl-site-footer__list">
                 <li class="ecl-site-footer__list-item">
-                  <a href="/accessibility-statement_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="About&#x20;us" data-footer-link-label="Accessibility">Accessibility</a>
+                  <a href="https://commission.europa.eu/accessibility-statement_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="About&#x20;us" data-footer-link-label="Accessibility">Accessibility</a>
                 </li>
                 <li class="ecl-site-footer__list-item">
                   <a href="../EU-Wildlife-Trade-Reference-Guide.pdf" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link">Download PDF</a>
@@ -1272,29 +1075,17 @@
       </div>
       <div class="ecl-site-footer__row ecl-site-footer__row--common">
         <div class="ecl-site-footer__section ecl-site-footer__section--common">
-          <a href="https://commission.europa.eu/index_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__logo-link"><picture class="ecl-picture ecl-site-footer__picture"><img class="ecl-site-footer__logo-image" src="../assets/ecl/images/logo/logo-ec--mute-negative.svg" alt="European Commission"></picture></a>
+          <a href="https://commission.europa.eu/index_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__logo-link"><picture class="ecl-picture ecl-site-footer__picture"><img class="ecl-site-footer__logo-image" src="../assets/ecl/images/logo/negative/logo-ec--en.svg" alt="European Commission"></picture></a>
           <div class="ecl-site-footer__extra-links-container">
             <div class="ecl-social-media-follow ecl-social-media-follow--left ecl-social-media-follow--description_inline ecl-site-footer__social-media">
               <p class="ecl-social-media-follow__description">Follow the European Commission</p>
               <ul class="ecl-social-media-follow__list">
-                <li class="ecl-social-media-follow__item">
-                  <a href="https://ec.social-network.europa.eu/@EUCommission" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Mastodon"><span class="wt-icon-networks--mastodon wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--mastodon" aria-hidden="true"></span><span class="ecl-link__label">Mastodon</span></a>
-                </li>
-                <li class="ecl-social-media-follow__item">
-                  <a href="http://www.linkedin.com/company/european-commission" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="LinkedIn"><span class="wt-icon-networks--linkedin wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--linkedin" aria-hidden="true"></span><span class="ecl-link__label">LinkedIn</span></a>
-                </li>
-                <li class="ecl-social-media-follow__item">
-                  <a href="https://bsky.app/profile/ec.europa.eu" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Bluesky"><span class="wt-icon-networks--bluesky wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--bluesky" aria-hidden="true"></span><span class="ecl-link__label">Bluesky</span></a>
-                </li>
-                <li class="ecl-social-media-follow__item">
-                  <a href="https://www.facebook.com/EuropeanCommission" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Facebook"><span class="wt-icon-networks--facebook wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--facebook" aria-hidden="true"></span><span class="ecl-link__label">Facebook</span></a>
-                </li>
-                <li class="ecl-social-media-follow__item">
-                  <a href="https://www.youtube.com/user/eutube" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Youtube"><span class="wt-icon-networks--youtube wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--youtube" aria-hidden="true"></span><span class="ecl-link__label">Youtube</span></a>
-                </li>
-                <li class="ecl-social-media-follow__item">
-                  <a href="https://european-union.europa.eu/contact-eu/social-media-channels_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Other"><span class="wt-icon-networks--chain wt-icon--inverted ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--chain" aria-hidden="true"></span><span class="ecl-link__label">Other</span></a>
-                </li>
+                <li class="ecl-social-media-follow__item"><a href="https://ec.social-network.europa.eu/@EUCommission" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Mastodon"><svg class="ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--mastodon" viewBox="0 0 40 40" focusable="false" aria-hidden="true"><path fill="currentColor" d="M36.364 23.647C35.8703 26.2341 31.8613 29.0581 27.2599 29.6111C24.8703 29.8876 22.5005 30.1641 19.9924 30.0456C15.8846 29.8481 12.6261 29.0581 12.6261 29.0581C12.6261 29.4531 12.6459 29.8481 12.7051 30.2036C13.2383 34.252 16.7338 34.5088 20.0319 34.6273C23.3694 34.7458 26.3317 33.7978 26.3317 33.7978L26.4699 36.8194C26.4699 36.8194 24.1396 38.0635 19.9726 38.3005C17.6818 38.419 14.838 38.2413 11.5202 37.3723C4.37117 35.4567 3.12701 27.7745 2.94927 20.0133C2.89003 17.7027 2.92952 15.5303 2.92952 13.7134C2.92952 5.75472 8.14317 3.42438 8.14317 3.42438C10.75 2.21971 15.2724 1.70625 19.9529 1.66675H20.0714C24.7518 1.70625 29.2742 2.21971 31.9008 3.42438C31.9008 3.42438 37.1145 5.75472 37.1145 13.7134C37.0947 13.6937 37.1737 19.559 36.364 23.647Z"/><path class="cutout" d="M30.9679 14.3255V23.9629H27.1564V14.602C27.1564 12.6271 26.327 11.6397 24.6681 11.6397C22.8315 11.6397 21.923 12.8246 21.923 15.1747V20.2896H18.1313V15.155C18.1313 12.8049 17.2031 11.6199 15.3862 11.6199C13.7273 11.6199 12.8979 12.6271 12.8979 14.5822V23.9234H9.06665V14.3255C9.06665 12.3506 9.56037 10.7905 10.5675 9.64508C11.6142 8.47991 12.9571 7.88745 14.6555 7.88745C16.6106 7.88745 18.0918 8.6379 19.0595 10.1388L20.0074 11.7384L20.9553 10.1388C21.923 8.6379 23.4042 7.88745 25.3593 7.88745C27.0379 7.88745 28.4006 8.47991 29.4473 9.64508C30.4742 10.7905 30.9679 12.3506 30.9679 14.3255Z"/></svg><span class="ecl-link__label">Mastodon</span></a></li>
+<li class="ecl-social-media-follow__item"><a href="http://www.linkedin.com/company/european-commission" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="LinkedIn"><svg class="ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--linkedin" viewBox="0 0 48 48" focusable="false" aria-hidden="true"><path fill="currentColor" d="M42.74 2.003H5.247A3.21 3.21 0 0 0 2 5.175v37.65A3.213 3.213 0 0 0 5.247 46H42.74A3.22 3.22 0 0 0 46 42.825V5.172A3.218 3.218 0 0 0 42.74 2"/><path class="cutout" d="M31.295 17.778c6.506 0 7.705 4.286 7.705 9.863L38.997 39H32.58V28.6c-.01-2.345-.193-5.161-3.338-5.161-3.266 0-3.83 2.496-3.854 5.129v10.431h-6.42V18.293h6.162v2.83h.087a6.75 6.75 0 0 1 6.08-3.345Zm-16.36.515V39H8.509V18.293h6.426ZM11.725 8a3.728 3.728 0 0 1 3.724 3.73c0 .99-.392 1.94-1.09 2.64a3.721 3.721 0 0 1-2.634 1.093A3.728 3.728 0 0 1 8 11.732 3.728 3.728 0 0 1 11.724 8Z"/></svg><span class="ecl-link__label">LinkedIn</span></a></li>
+<li class="ecl-social-media-follow__item"><a href="https://bsky.app/profile/ec.europa.eu" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Bluesky"><svg class="ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--bluesky" viewBox="0 0 48 48" focusable="false" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12.1 8.473c4.818 3.59 9.99 10.865 11.893 14.78v10.324c0-.216-.082.027-.273.57-1 2.899-4.872 14.198-13.727 5.161-4.667-4.755-2.504-9.51 5.994-10.947-4.858.827-10.318-.542-11.824-5.852C3.725 20.978 3 11.549 3 10.275c0-6.395 5.625-4.403 9.1-1.802m23.8 0c-4.818 3.59-9.99 10.865-11.893 14.78v10.324c0-.216.082.027.273.57 1 2.899 4.872 14.198 13.727 5.161 4.666-4.755 2.504-9.51-5.994-10.947 4.858.827 10.318-.542 11.824-5.852C44.275 20.978 45 11.549 45 10.275c0-6.395-5.625-4.403-9.1-1.802"/></svg><span class="ecl-link__label">Bluesky</span></a></li>
+<li class="ecl-social-media-follow__item"><a href="https://www.facebook.com/EuropeanCommission" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Facebook"><svg class="ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--facebook" viewBox="0 0 48 48" focusable="false" aria-hidden="true"><path fill="currentColor" d="M46 24.134C46 11.911 36.15 2 24 2S2 11.91 2 24.134C2 35.182 10.045 44.34 20.563 46V30.532h-5.586v-6.398h5.585v-4.876c0-5.548 3.285-8.612 8.31-8.612 2.407 0 4.925.432 4.925.432v5.448h-2.775c-2.732 0-3.584 1.705-3.584 3.457v4.151h6.1l-.973 6.398h-5.127V46C37.954 44.339 46 35.182 46 24.134"/><path class="cutout" d="m32.756 30.539.984-6.287h-6.16v-4.079c0-1.72.862-3.396 3.62-3.396H34v-5.353S31.458 11 29.028 11c-5.073 0-8.39 3.01-8.39 8.461v4.791H15v6.287h5.639v15.197c1.131.174 2.29.264 3.47.264 1.182 0 2.34-.09 3.47-.264V30.54h5.177Z"/></svg><span class="ecl-link__label">Facebook</span></a></li>
+<li class="ecl-social-media-follow__item"><a href="https://www.youtube.com/user/eutube" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Youtube"><svg class="ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--youtube" viewBox="0 0 461 461" focusable="false" aria-hidden="true"><path fill="currentColor" d="M365.257,67.393H95.744C42.866,67.393,0,110.259,0,163.137v134.728 c0,52.878,42.866,95.744,95.744,95.744h269.513c52.878,0,95.744-42.866,95.744-95.744V163.137 C461.001,110.259,418.135,67.393,365.257,67.393z M300.506,237.056l-126.06,60.123c-3.359,1.602-7.239-0.847-7.239-4.568V168.607 c0-3.774,3.982-6.22,7.348-4.514l126.06,63.881C304.363,229.873,304.298,235.248,300.506,237.056z"/></svg><span class="ecl-link__label">Youtube</span></a></li>
+<li class="ecl-social-media-follow__item"><a href="https://european-union.europa.eu/contact-eu/social-media-channels_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-link--icon ecl-social-media-follow__link ecl-link--icon-only" data-section-label-untranslated="social_media_common_links" data-footer-link-label="Other"><svg class="ecl-icon ecl-icon--s ecl-link__icon ecl-social-media-follow__icon ecl-icon-networks--chain" viewBox="0 0 48 48" focusable="false" aria-hidden="true"><path fill="currentColor" d="M23.55 30.75a6.56 6.56 0 0 0 4.68 1.95c1.77 0 3.42-.69 4.68-1.95l10.56-10.56a6.627 6.627 0 0 0 0-9.36l-2.1-2.1a6.627 6.627 0 0 0-9.36 0l-5.28 5.28 2.97 2.97 5.28-5.28c.93-.93 2.49-.93 3.42 0l2.1 2.1c.93.93.93 2.49 0 3.42L29.94 27.78c-.93.9-2.52.9-3.42 0l-3.15-3.15-2.97 2.97z"/><path fill="currentColor" d="M6.6 39.27c1.29 1.29 3 1.92 4.68 1.92 1.71 0 3.39-.63 4.68-1.92l5.31-5.31-2.97-2.97-5.31 5.31c-.96.96-2.49.93-3.42 0l-2.1-2.1c-.93-.96-.93-2.49 0-3.42l10.56-10.56c.96-.96 2.49-.93 3.42 0l3.18 3.18 2.97-2.97-3.18-3.18a6.627 6.627 0 0 0-9.36 0L4.5 27.81a6.627 6.627 0 0 0 0 9.36z"/></svg><span class="ecl-link__label">Other</span></a></li>
               </ul>
             </div>
             <ul class="ecl-site-footer__list ecl-site-footer__list--inline">
@@ -1322,11 +1113,6 @@
           </ul>
         </div>
       </div>
-    </div>
-    <div class="ecl-container footer-smallprint-block">
-<p class="footer-smallprint">This website does not necessarily represent the opinion of the European Commission and is not a legal interpretation of European Union legislation.</p>
-<p class="footer-smallprint">The contents of this website may be freely reproduced provided that the source is adequately recorded: European Commission and TRAFFIC (2025). Reference Guide to the European Union Wildlife Trade Regulations. Brussels, Belgium.</p>
-<p class="footer-smallprint">For more details on the implementation and enforcement of CITES and the EU Wildlife Trade Regulations, visit the website of the European Commission or contact the relevant authorities in EU Member States.</p>
     </div>
   </div>
 </footer>
