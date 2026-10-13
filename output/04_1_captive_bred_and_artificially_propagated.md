@@ -97,7 +97,7 @@ As explained in **Section 3.5** above, a permit is required for the export of ar
 
 “*Permit valid only for artificially propagated plants as defined by CITES* Resolution Conf. 11.11 (Rev. CoP18)*. Valid only for the following taxa:…”*
 
-[^1]: Article 7(1)(a) *Regulation (EC) No 338/97. *This does not apply to ranched specimens and so-called source “F” specimens – i.e. specimens born in captivity but not meeting the formal definition of captive-bred/artificially-propagated.
+[^1]: Article 7(1)(a) *Regulation (EC) No 338/97.* This does not apply to ranched specimens and so-called source “F” specimens – i.e. specimens born in captivity but not meeting the formal definition of captive-bred/artificially-propagated.
 [^2]: Article 71(4) *Regulation (EC) No 865/2006.*
 [^3]: Article 54 *Regulation (EC) No 865/2006.*
 [^4]: Article 56 *Regulation (EC) No 865/2006.*
@@ -106,7 +106,7 @@ As explained in **Section 3.5** above, a permit is required for the export of ar
 [^7]: Article 56(3) *Regulation (EC) No 865/2006.*
 [^8]: Article 55 *Regulation (EC) No 865/2006.*
 [^9]: See **Section 2.2.6**.
-[^10]: Article 7(1)(b)(i) *Regulation (EC) No 338/97 *and Article 17(1) *Regulation (EC) No 865/2006.*
+[^10]: Article 7(1)(b)(i) *Regulation (EC) No 338/97* and Article 17(1) *Regulation (EC) No 865/2006.*
 [^11]: Article 17(2) *Regulation (EC) No 865/2006*
 [^12]: *As above.*
 [^13]: *Guidelines for the registration of nurseries exporting artificially-propagated specimens of Appendix I-listed species.*

@@ -60,7 +60,7 @@ Before the Management Authority can issue an export permit/re-export certificate
 
 - for **re-exports,** shows that the specimens were **imported** into the EU in accordance with the **relevant regulations**, or if the import occurred **before 1984**, in accordance with **CITES**, or **before the Convention became applicable** **to them**[^8] (see **Section 4.3.2**).
 
-It is noted that for the **(re-)export** of CITES **Appendix-I-**listed species, **prior checking** of the **import permit** issued by the country of destination is **not required** for such specimens[^9].
+It is noted that for the **(re-)export** of CITES **Appendix I**-listed species, **prior checking** of the **import permit** issued by the country of destination is **not required** for such specimens[^9].
 
 For **internal trade** in worked specimens, see **Section 5.2.**
 
@@ -74,7 +74,7 @@ Article VII(2) of CITES establishes an exemption from the rules applying to spec
 
   *"2. Where a Management Authority of the State of export or re-export is satisfied that a specimen was acquired before the provisions of the present Convention applied to that specimen, the provisions of Articles III, IV and V shall not apply to that specimen where the Management Authority issues a certificate to that effect".* 
 
-This exemption has been transposed (with a slightly different wording) into *Regulation (EC) No 338/97* through Article 5(6)(ii) of *Regulation 338/97*, which states that export permits or re-expert certificates can be issued without the production of a Non-detriment finding and for commercial purposes for*:*
+This exemption has been transposed (with a slightly different wording) into *Regulation (EC) No 338/97* through Article 5(6)(ii) of *Regulation 338/97*, which states that export permits or re-expert certificates can be issued without the production of a Non-detriment finding and for commercial purposes for:
 
   *"dead specimens and parts and derivatives thereof for which the applicant provides documentary evidence that they were legally acquired before the provisions of this Regulation, or of Regulation (EEC) No 3626/82 or of the Convention became applicable to them".*  
 
@@ -106,8 +106,8 @@ Although not subject to a prohibition on commercial exports, the derogation stil
 
 It is noted that the same derogation **does not apply** for **imports** into the EU. Consequently, import permits are required for specimens acquired before CITES or the EU Wildlife Trade Regulations became applicable to them, and the full range of conditions for issuance will need to be satisfied. However, where such specimens are being reintroduced into the EU, or where the specimens are considered worked specimens acquired before 3 March 1947 (see **Section 4.3.1**), certain conditions for issuance of the import permit will not apply[^15].
 
-[^1]: The relevant date for application of the “worked specimens” derogation has been changed from 1 June 1947 to 3 March 1947 (see Summary Record of COM 59, Point 14).  Article 2(w) of *Regulation (EC) No 338/97* defines a “worked specimen” as one which was “acquired more than 50 years before the entry into force of this Regulation”.  Previously, 1 June 1947 was used as the relevant date based on Article 22 of *Regulation (EC) No 338/97 *which states that the Regulation shall apply from 1 June 1997.  However, Article 22 also states that “this Regulation shall enter into force on the date of its publication in the Official Journal” (i.e. 1 March 1997).  In light of this, the European Commission has confirmed that the correct date which should be used is 3 March 1947 (i.e. 50 years before the Official Journal publication date of 3 March 1997).
-[^2]: Articles 4(5) and 5(6) *Regulation (EC) No 338/97* and Article 62(3) *Regulation (EC) No 865/2006.  *
+[^1]: The relevant date for application of the “worked specimens” derogation has been changed from 1 June 1947 to 3 March 1947 (see Summary Record of COM 59, Point 14).  Article 2(w) of *Regulation (EC) No 338/97* defines a “worked specimen” as one which was “acquired more than 50 years before the entry into force of this Regulation”.  Previously, 1 June 1947 was used as the relevant date based on Article 22 of *Regulation (EC) No 338/97* which states that the Regulation shall apply from 1 June 1997.  However, Article 22 also states that “this Regulation shall enter into force on the date of its publication in the Official Journal” (i.e. 1 March 1997).  In light of this, the European Commission has confirmed that the correct date which should be used is 3 March 1947 (i.e. 50 years before the Official Journal publication date of 3 March 1997).
+[^2]: Articles 4(5) and 5(6) *Regulation (EC) No 338/97* and Article 62(3) *Regulation (EC) No 865/2006.*  
 [^3]: Article 2(w) *Regulation (EC) No 338/97.*
 [^4]: Art. 62(3) Regulation (EC) No. 865/2006
 [^5]: Articles 4(1) and 4(5) *Regulation (EC) No 338/97.*
@@ -116,8 +116,8 @@ It is noted that the same derogation **does not apply** for **imports** into the
 [^8]: Article 5(3) *Regulation (EC) No 338/97.*
 [^9]: Articles 5(6)(i) and 5(2)(c)(ii) *Regulation (EC) No 338/97*
 [^10]: Including *Regulation (EEC) 3626/82* that entered into force in 1984 - see Article 5(6) *Regulation (EC) No 338/97.*
-[^11]: Article 5(6)(ii) *Regulation (EC) No 338/97.  *Note: if the specimen is considered a “worked” specimen and has been acquired before 3 March 1947, the conditions outlined in **Section 3.****6****.3 **may apply.
+[^11]: Article 5(6)(ii) *Regulation (EC) No 338/97.*  Note: if the specimen is considered a “worked” specimen and has been acquired before 3 March 1947, the conditions outlined in **Section 4.3.1** may apply.
 [^12]: Article 5(2)(d) *Regulation (EC) No 338/97*
-[^13]: Article 5(6)(ii) *Regulation (EC) No 338/97.  *
+[^13]: Article 5(6)(ii) *Regulation (EC) No 338/97.*  
 [^14]: Article 5(6) *Regulation (EC) No 338/97*
 [^15]: Article 4(5) *Regulation (EC) No 338/97*

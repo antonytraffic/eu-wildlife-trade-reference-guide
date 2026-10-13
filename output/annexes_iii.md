@@ -14,13 +14,13 @@ parent: annexes
 
 Article 2 of *Regulation (EC) No 338/97* contains the following definitions:
 
-(a)  *‘****Committee’*** shall mean the Committee on Trade in Wild Fauna and Flora, established under Article 18;
+(a)  ***‘Committee’*** shall mean the Committee on Trade in Wild Fauna and Flora, established under Article 18;
 
 (b)  ***‘Convention’*** shall mean the Convention on International Trade in Endangered Species of Wild Fauna and Flora (CITES);
 
 (c)  ***‘country of origin’*** shall mean the country in which a specimen was taken from the wild, captive-bred or artificially propagated;
 
-(d)  *‘****import notification’*** shall mean the notification given by the importer or his agent or representative, at the time of the introduction into the EU of a specimen of a species included in Annex C or D, on a form prescribed by the Commission in accordance with the procedure laid down in Article 18;
+(d)  ***‘import notification’*** shall mean the notification given by the importer or his agent or representative, at the time of the introduction into the EU of a specimen of a species included in Annex C or D, on a form prescribed by the Commission in accordance with the procedure laid down in Article 18;
 
 (e)  ***‘introduction from the sea’*** shall mean the introduction into the EU of any specimen which was taken in, and is being introduced directly from, the marine environment not under the jurisdiction of any State, including the airspace above the sea and the sea-bed and subsoil beneath the sea;
 
@@ -90,4 +90,4 @@ k. ***‘transaction-specific certificates’*** means certificates issued in ac
 
 l. ***‘specimen-specific certificates’*** means certificates other than transaction-specific certificates that are issued in accordance with Article 48.
 
-[^1]: [http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:52017XC0517(02)&from=EN](http://www.speciesplus.net/)
+[^1]: [http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:52017XC0517(02)&from=EN](http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:52017XC0517(02)&from=EN)

@@ -24,7 +24,7 @@ Article 10 of *Regulation (EC) No 865/2006* lays down rules with regard to the *
 
 - **Internal trade certificates** generally do not have a time validity. They remain valid as long as the information contained in the document still corresponds to reality, unless a specific time restriction is mentioned on the certificate (for example a certificate issued for a live specimen that could not be marked at that time, but which can be marked in future: in box 20 a condition will stipulate when the marking should take place and/or at which point in time the certificate will cease to be valid (see also further down this chapter). 
 
-After their **expiration**, these documents will be considered as **void**[^6] and can no longer be used to authorize trade in the specimens covered by these documents.
+After their **expiration**, these documents will be considered as **void** and can no longer be used to authorize trade in the specimens covered by these documents.
 
 However, in the case of **caviar** of **sturgeon** **and paddlefish** species (Acipenseriformes spp.) that originated from **shared stocks** subject to **export quotas**, import and export permits cease to be valid on **the last day of the quota year** to which the quota applies (quotas run from 1 March to the last day of February of the following year for Acipenseriformes spp.), if this is earlier than the normal maximum period[^7].  Special time limits also apply to certificates for the re-export of caviar from such stocks: re-export certificates cease to be valid on the last day of the period of 18 months after the date of issuance of the relevant original export permit, if this is earlier than the normal maximum period[^8].
 
@@ -49,7 +49,7 @@ Permits and certificates **will also cease to be valid** in the following cases 
 
 The holder will **return** the original and all copies of expired or unused documents, or those which are no longer valid, to the issuing Management Authority without undue delay[^14]. The issuing Management Authority may then, if appropriate and after an application was made to that respect, issue a new certificate reflecting any changes that may be required[^15].
 
-Annex XVIII outlines **guidance on the handover of EU certificates** in the case of transfer of ownership of the certified specimen(s). In general, original EU certificates, especially specimen specific certificates, are handed over to the purchaser/acquirer/new owner of the certified specimen and must stay with the certified specimen. This enables the new owner to provide evidence for legal acquisition by an original document. However, in view of Article 11(5) of *Regulation (EC) No 865/2006,* it is possible that misunderstanding could arise when a certificate ceases to be valid after the transfer of ownership. Annex XVIII deals with the interpretation of Article 11(5) of *Regulation (EC) No 865/2006* and how the holder of a certificate, the owner of certified specimens and relevant authorities should proceed, especially when a certificate ceases to be valid. 
+**Annex XVIII** outlines **guidance on the handover of EU certificates** in the case of transfer of ownership of the certified specimen(s). In general, original EU certificates, especially specimen specific certificates, are handed over to the purchaser/acquirer/new owner of the certified specimen and must stay with the certified specimen. This enables the new owner to provide evidence for legal acquisition by an original document. However, in view of Article 11(5) of *Regulation (EC) No 865/2006,* it is possible that misunderstanding could arise when a certificate ceases to be valid after the transfer of ownership. **Annex XVIII** deals with the interpretation of Article 11(5) of *Regulation (EC) No 865/2006* and how the holder of a certificate, the owner of certified specimens and relevant authorities should proceed, especially when a certificate ceases to be valid. 
 
 Note that permits and certificates will be deemed **void** if it is established (by a competent authority or the Commission, in consultation with the issuing authority) that they were issued on the **false premise** that the **conditions for their issue were met**. The specimens covered by such a document will be **seized** and may subsequently be confiscated[^16].  It is important to note, however, that in relation to Article 11 of *Regulation (EC) No 338/97*, the European Court of Justice has ruled that an import permit which does not comply with the conditions laid down in *Regulation (EC) No 338/97* **must be considered void** **only in respect of the specimens affected by the ground of invalidity** of that import permit. Accordingly, the competent authority of the Member State where the specimens concerned are situated **may seize and confiscate only the specimens actually affected by the ground of invalidity** of the import permit (i.e. the other specimens travelling legally in the same consignment cannot be confiscated).[^17]
 
@@ -97,11 +97,10 @@ It is noted elsewhere in this Guide that permits and certificates may stipulate 
 
 [^1]: Article 11(1) *Regulation (EC) No 338/97*
 [^2]: Article 10(1) *Regulation (EC) No 865/2006*
-[^3]: Article 10(2)* Regulation (EC) No 865/2006*
+[^3]: Article 10(2) *Regulation (EC) No 865/2006*
 [^4]: Article 10(3) *Regulation (EC) No 865/2006*
 [^5]: Article 10(3a) *Regulation (EC) No 865/2006*
-[^6]: 
-[^7]: Article 10(1) and (2)* Regulation (EC)No 865/2006*
+[^7]: Article 10(1) and (2) *Regulation (EC)No 865/2006*
 [^8]: *As above.*
 [^9]: Article 11(1) and (2) *Regulation (EC) No 865/2006*
 [^10]: Article 10(5) *Regulation (EC) No 865/2006*
@@ -115,13 +114,13 @@ It is noted elsewhere in this Guide that permits and certificates may stipulate 
 [^18]: Article 15(1) *Regulation (EC) No 865/2006*
 [^19]: Article 15(2) *Regulation (EC) No 865/2006*
 [^20]: Article 13(1) *Regulation (EC) No 865/2006*
-[^21]: Article 15(3a) *Regulation (EC) No 865/2006 *
+[^21]: Article 15(3a) *Regulation (EC) No 865/2006* 
 [^22]: Article 15(3) *Regulation (EC) No 865/2006*
 [^23]: Article 12(1) *Regulation (EC) No 865/2006*
 [^24]: Article 12(2) *Regulation (EC) No 865/2006*
 [^25]: Article 51(3) *Regulation (EC) No 865/2006*
-[^26]: Article 26* Regulation (EC) No 865/2006*
-[^27]: Article 46* Regulation (EC) No 865/2006*
+[^26]: Article 26 *Regulation (EC) No 865/2006*
+[^27]: Article 46 *Regulation (EC) No 865/2006*
 [^28]: Article 51(2) *Regulation (EC) No 865/2006*
 [^29]: Article 51(1) *Regulation (EC) No 865/2006*
 [^30]: Article 4(2) *Regulation (EC) No 865/2006*

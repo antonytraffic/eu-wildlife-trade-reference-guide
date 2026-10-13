@@ -81,4 +81,4 @@ Customs then completes **box 14** of the **original** and the **copy for the imp
 [^6]: Article 24(1) *Regulation (EC) No 865/2006*
 [^7]: Article 7(5) *Regulation (EC) No 865/2006*
 [^8]: Annex I, Chapter II (paragraph 4.1)
-[^9]: Article 25 *Regulation (EC) No 865/2006 *and Article 45(1) *Regulation (EC) No 865/2006*
+[^9]: Article 25 *Regulation (EC) No 865/2006* and Article 45(1) *Regulation (EC) No 865/2006*

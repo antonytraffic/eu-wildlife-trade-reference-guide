@@ -16,4 +16,4 @@ When considering trade involving a **dependent or other territory** of an EU Mem
 In light of these complexities, it is advised that the **Management Authority of the relevant EU Member State be contacted in the first instance** when contemplating trade in an Annex-listed species **to, from or within an EU dependent or other territory**.  Contact details of the relevant Management Authority for the territory in question can be found on the National Contacts and Information page of the CITES website[^2].  The Management Authority should be able to advise on any trade restrictions that may apply, as well as relevant documentation requirements.
 
 [^1]: OJ No. C 83 of 30.3.2010, p.47.
-[^2]: [https://cites.org/eng/parties/country-profiles/national-authorities](https://eur-lex.europa.eu/legal-content/EN/TXT/?qid=1591263988986&uri=CELEX:32006R0865)
+[^2]: [https://cites.org/eng/parties/country-profiles/national-authorities](https://cites.org/eng/parties/country-profiles/national-authorities)

@@ -35,7 +35,7 @@ parent: annexes
 <tr><td>caviar</td><td>CAV</td><td>kg</td><td></td><td>unfertilized dead processed eggs from all species of Acipenseriformes; also known as roe.</td></tr>
 <tr><td>chips (woodchips)</td><td>CHP</td><td>kg</td><td></td><td>chips of timber, especially <em>Aquilaria</em> spp., <em>Gyrinops</em> spp. and <em>Pterocarpus santalinus</em></td></tr>
 <tr><td>claw</td><td>CLA</td><td>no.</td><td>kg</td><td>claws – e.g. of Felidae, Ursidae or Crocodylia (NB: 'turtle claws' are usually scales and not real claws)</td></tr>
-<tr><td>cloth</td><td>CLO</td><td>m2</td><td>kg</td><td>cloth – if the cloth is not made entirely from the hair of a CITES species, the weight of hair of the species concerned should instead, if possible, be recorded under ‘HAI’</td></tr>
+<tr><td>cloth</td><td>CLO</td><td>m<sup>2</sup></td><td>kg</td><td>cloth – if the cloth is not made entirely from the hair of a CITES species, the weight of hair of the species concerned should instead, if possible, be recorded under ‘HAI’</td></tr>
 <tr><td>coral (raw)</td><td>COR</td><td>no.</td><td>kg</td><td><p>raw or unworked coral and coral rock (also live rock and substrate) [as defined in Resolution Conf. 11.10 (Rev. CoP15)]. Coral rock should be recorded as ‘<em>Scleractinia</em> spp.’</p><p>NB: the trade should be recorded by number of pieces only if the coral specimens are transported in water.</p><p>Live rock (transported moist in boxes) should be reported in kg; coral substrate should be reported as number of pieces (since these are transported in water as the substrate to which non-CITES corals are attached).</p></td></tr>
 <tr><td>cosmetics</td><td>COS</td><td>g</td><td>ml</td><td><p><em>Any product or mixture of products which is applied to an external part of the body only (e.g. skin, hair, nails, genitals, lips or teeth or the mucous membranes of the oral cavity) with the intent to clean, odorise, change the appearance or protect. Cosmetics may include the following: make-up, perfume, skin cream, nail polish, hair colourants, soap, shampoo, shaving cream, deodorant, sunscreens, toothpaste.</em></p><p>Cosmetics which include extracts of CITES-listed species. The quantity should reflect the amount of CITES-listed species present.</p></td></tr>
 <tr><td>culture</td><td>CUL</td><td>no. of flasks, etc.</td><td></td><td>cultures of artificially propagated plants</td></tr>
@@ -74,7 +74,7 @@ parent: annexes
 <tr><td>leather product (small)</td><td>LPS</td><td>no.</td><td></td><td>small manufactured products of leather – e.g. belts, braces, bicycle saddles, cheque book or credit card holders, handbags, key fobs, notebooks, purses, shoes, tobacco pouches, wallets, watch-straps and trim</td></tr>
 <tr><td>live</td><td>LIV</td><td>no.</td><td>kg</td><td>live animals and plants, excluding live fingerling fish – see FIG</td></tr>
 <tr><td>leaf</td><td>LVS</td><td>kg</td><td>no.</td><td>leaves</td></tr>
-<tr><td>logs</td><td>LOG</td><td>m3</td><td></td><td>all wood in the rough, whether or not stripped of bark or sapwood, or roughly squared, for processing notably into sawn wood, pulpwood or veneer sheets. NB: trade in logs of special purpose timbers traded by weight (e.g. lignum vitae, <em>Guaiacum</em> spp.) should be recorded in kg</td></tr>
+<tr><td>logs</td><td>LOG</td><td>m<sup>3</sup></td><td></td><td>all wood in the rough, whether or not stripped of bark or sapwood, or roughly squared, for processing notably into sawn wood, pulpwood or veneer sheets. NB: trade in logs of special purpose timbers traded by weight (e.g. lignum vitae, <em>Guaiacum</em> spp.) should be recorded in kg</td></tr>
 <tr><td>meat</td><td>MEA</td><td>kg</td><td></td><td><p>meat, including flesh of fish if not whole (see ‘body’), fresh or unprocessed meat as well as processed meat (e.g. smoked, raw, dried, frozen or tinned)</p><p>The code for meat (MEA) should be used in preference for trade in eels for human consumption.</p></td></tr>
 <tr><td>medicine</td><td>MED</td><td>kg/l</td><td></td><td>medicine</td></tr>
 <tr><td>musk</td><td>MUS</td><td>g</td><td></td><td>musk</td></tr>
@@ -84,14 +84,14 @@ parent: annexes
 <tr><td>piece – bone</td><td>BOP</td><td>kg</td><td></td><td>pieces of bone, not manufactured</td></tr>
 <tr><td>piece – horn</td><td>HOP</td><td>kg</td><td></td><td>pieces of horn, not manufactured – includes scrap</td></tr>
 <tr><td>piece – ivory (raw ivory)</td><td>IVP</td><td>kg</td><td></td><td>ivory pieces, not manufactured – includes scrap</td></tr>
-<tr><td>plate</td><td>PLA</td><td>m2</td><td></td><td>plates of multiple skins – includes rugs if made of several skins</td></tr>
-<tr><td>plywood</td><td>PLY</td><td>m2</td><td>m3</td><td>material consisting of three or more sheets of wood glued and pressed one on the other and generally disposed so that the grains of successive layers are at an angle</td></tr>
+<tr><td>plate</td><td>PLA</td><td>m<sup>2</sup></td><td></td><td>plates of multiple skins – includes rugs if made of several skins</td></tr>
+<tr><td>plywood</td><td>PLY</td><td>m<sup>2</sup></td><td>m<sup>3</sup></td><td>material consisting of three or more sheets of wood glued and pressed one on the other and generally disposed so that the grains of successive layers are at an angle</td></tr>
 <tr><td>powder</td><td>POW</td><td>kg</td><td></td><td>a dry, solid substance in the form of fine or coarse particles</td></tr>
 <tr><td>pupae</td><td>PUP</td><td>no.</td><td></td><td>butterfly pupae</td></tr>
 <tr><td>root</td><td>ROO</td><td>no.</td><td>kg</td><td><p>roots, bulbs, corms or tubers</p><p>NB: For the agarwood-producing taxa <em>Aquilaria</em> spp. and <em>Gyrinops</em> spp., the preferred unit is 'kilograms'. The alternative unit is 'number'.</p></td></tr>
 <tr><td>rug</td><td>RUG</td><td>no.</td><td></td><td>rugs</td></tr>
 <tr><td>sawfish rostrum</td><td>ROS</td><td>no.</td><td>kg</td><td>sawfish rostrum</td></tr>
-<tr><td>sawn wood</td><td>SAW</td><td>m3</td><td></td><td>wood simply sawn lengthwise or produced by a profile-chipping process; normally exceeds 6mm in thickness. NB: trade in sawn wood of special purpose timbers traded by weight (e.g. lignum vitae, <em>Guaiacum</em> spp.) should be recorded in kg</td></tr>
+<tr><td>sawn wood</td><td>SAW</td><td>m<sup>3</sup></td><td></td><td>wood simply sawn lengthwise or produced by a profile-chipping process; normally exceeds 6mm in thickness. NB: trade in sawn wood of special purpose timbers traded by weight (e.g. lignum vitae, <em>Guaiacum</em> spp.) should be recorded in kg</td></tr>
 <tr><td>scale</td><td>SCA</td><td>kg</td><td></td><td>scales – e.g. of turtle, other reptiles, fish, pangolin</td></tr>
 <tr><td>seed</td><td>SEE</td><td>kg</td><td></td><td>seeds</td></tr>
 <tr><td>shell</td><td>SHE</td><td>no.</td><td>kg</td><td>raw or unworked shell of molluscs</td></tr>
@@ -107,13 +107,13 @@ parent: annexes
 <tr><td>tail</td><td>TAI</td><td>no.</td><td>kg</td><td>tails – e.g. of caiman (for leather) or fox (for garment trimming, collars, boas, etc.), also includes flukes of cetaceans.</td></tr>
 <tr><td>thread</td><td>THD</td><td>kg</td><td></td><td>thread – a processed long strand of multiple hairs or fibres of natural (e.g. plant or animal) origin, e.g. vicuna, guanaco</td></tr>
 <tr><td>tooth</td><td>TEE</td><td>no.</td><td>kg</td><td>teeth – e.g. of whale, lion, hippopotamus, crocodile, etc.</td></tr>
-<tr><td>timber</td><td>TIM</td><td>m3</td><td>kg</td><td>raw timber except saw-logs, sawn wood and transformed wood</td></tr>
-<tr><td>transformed wood</td><td>TRW</td><td>m3</td><td>kg</td><td>defined by Harmonized System code 44.09: Wood (including strips, friezes for parquet flooring, not assembled), continuously shaped (tongued, grooved, v-jointed, beaded or the like) along any edges, ends or faces, whether or not planed, sanded or end-jointed.</td></tr>
+<tr><td>timber</td><td>TIM</td><td>m<sup>3</sup></td><td>kg</td><td>raw timber except saw-logs, sawn wood and transformed wood</td></tr>
+<tr><td>transformed wood</td><td>TRW</td><td>m<sup>3</sup></td><td>kg</td><td>defined by Harmonized System code 44.09: Wood (including strips, friezes for parquet flooring, not assembled), continuously shaped (tongued, grooved, v-jointed, beaded or the like) along any edges, ends or faces, whether or not planed, sanded or end-jointed.</td></tr>
 <tr><td>trophy</td><td>TRO</td><td>no.</td><td></td><td><p>trophy – all the trophy parts of one animal if they are exported together: e.g. horns (2), skull, cape, backskin, tail and feet (i.e. ten specimens) constitute one trophy. But if, for example, the skull and horns are the only specimens of an animal that are exported, then these items together should be recorded as one trophy.</p><p>Otherwise the items should be recorded separately. A whole stuffed body is recorded under ‘BOD’. A skin alone is recorded under ‘SKI’. Trade in ‘full mount’, ‘shoulder mount’ and ‘half mount’, along with any corresponding parts of the same animal exported together on the same permit, should be reported as ‘1 TRO’</p></td></tr>
 <tr><td>trunk</td><td>TRU</td><td>no.</td><td>kg</td><td>elephant trunk. N.B.: An elephant trunk exported with other trophy items from the same animal on the same permit as part of a hunting trophy should be reported as ‘TRO’.</td></tr>
 <tr><td>tusk (raw ivory)</td><td>TUS</td><td>no.</td><td>kg</td><td>substantially whole tusks, not worked. Includes tusks of elephant, hippopotamus, walrus, narwhal, but not other teeth - N.B. Whole carved tusks should be reported as carving – ivory (see ‘IVC’ above).</td></tr>
-<tr><td>veneer sheets — rotary veneer</td><td>VEN</td><td>m3</td><td>kg</td><td rowspan="2">thin layers or sheets of wood of uniform thickness, usually 6mm or less in thickness, usually peeled (rotary veneer) or sliced (sliced veneer), for use in making plywood, for veneering furniture, veneer containers, etc.</td></tr>
-<tr><td>veneer sheets — sliced veneer</td><td>VEN</td><td>m2</td><td>kg</td></tr>
+<tr><td>veneer sheets — rotary veneer</td><td>VEN</td><td>m<sup>3</sup></td><td>kg</td><td rowspan="2">thin layers or sheets of wood of uniform thickness, usually 6mm or less in thickness, usually peeled (rotary veneer) or sliced (sliced veneer), for use in making plywood, for veneering furniture, veneer containers, etc.</td></tr>
+<tr><td>veneer sheets — sliced veneer</td><td>VEN</td><td>m<sup>2</sup></td><td>kg</td></tr>
 <tr><td>wax</td><td>WAX</td><td>kg</td><td></td><td>wax</td></tr>
 <tr><td>wood product</td><td>WPR</td><td>no.</td><td>kg</td><td>manufactured wood products, including finished wood products such as furniture and musical instruments.</td></tr>
 </tbody>

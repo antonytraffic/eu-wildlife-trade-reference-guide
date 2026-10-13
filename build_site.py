@@ -84,7 +84,6 @@ def cc_attr(key: str) -> str:
 # the flag is enabled. Do not delete it as dead code.
 
 console = Console()
-FOOTER_TEXT: str = ""   # set at build time from _footer_content.md
 _GUIDE_NAV_ITEMS: list[tuple[str, str]] = []  # (title, slug) for Reference Guide dropdown, set at build time
 _ANNEXES_SLUG: str | None = None               # slug of the Annexes landing page, set at build time
 
@@ -182,7 +181,8 @@ _SOURCE_FULL_RE = re.compile(
 )
 # Matches table/figure label paragraphs: <p><em>Table N: ...</em></p>
 _LABEL_RE = re.compile(
-    r"<p><em>((Table|Figure)\s+(\d+)[^<]*)</em></p>",
+    # A caption may carry a footnote marker (<sup>…</sup>), e.g. Tables 14-15.
+    r"<p><em>((Table|Figure)\s+(\d+)(?:[^<]|<sup\b[^>]*>.*?</sup>)*)</em></p>",
     re.IGNORECASE,
 )
 
@@ -409,6 +409,46 @@ _FOOTNOTES_RE = re.compile(
 )
 
 
+_FN_REF_RE = re.compile(
+    r'<sup class="footnote-ref" id="fnref-([^"]+)"><a href="#fn-([^"]+)">(\d+)</a></sup>'
+)
+_FN_LI_ID_RE = re.compile(r'<li id="fn-([^"]+)">')
+_FN_BACKLINK_RE = re.compile(r'(<a href="#fnref-([^"]+)" class="footnoteBackLink"[^>]*>&#8617;</a>)')
+
+
+def _postprocess_footnote_refs(html: str) -> str:
+    """markdown2 gives a footnote cited twice a fresh display number (the second
+    [^2] shows as "7") but the same id="fnref-2" and a link to note 2. Show every
+    marker as its note's position in the list, give repeat citations their own
+    id, and add a back-link per citation so each one can be jumped back to."""
+    position = {label: i for i, label in enumerate(_FN_LI_ID_RE.findall(html), 1)}
+    if not position:
+        return html
+    seen: dict[str, int] = {}
+
+    def _ref(m: re.Match) -> str:
+        label = m.group(2)
+        n = seen[label] = seen.get(label, 0) + 1
+        ref_id = f"fnref-{label}" if n == 1 else f"fnref-{label}-{n}"
+        shown = position.get(label, m.group(3))
+        return (f'<sup class="footnote-ref" id="{ref_id}">'
+                f'<a href="#fn-{label}">{shown}</a></sup>')
+
+    html = _FN_REF_RE.sub(_ref, html)
+
+    def _backlinks(m: re.Match) -> str:
+        label = m.group(2)
+        extra = "".join(
+            f' <a href="#fnref-{label}-{n}" class="footnoteBackLink" '
+            f'title="Jump back to footnote {position.get(label, label)} in the text (citation {n}).">'
+            f'&#8617;<sup>{n}</sup></a>'
+            for n in range(2, seen.get(label, 1) + 1)
+        )
+        return m.group(1) + extra
+
+    return _FN_BACKLINK_RE.sub(_backlinks, html)
+
+
 def _postprocess_footnotes(html: str, threshold: int = 10) -> str:
     """When a footnotes block has more than `threshold` items, collapse the extras."""
     def _replace(m: re.Match) -> str:
@@ -611,6 +651,7 @@ def render_markdown(content: str) -> str:
     html = _postprocess_lettered_lists(html)
     html = _postprocess_tables(html)
     html = _postprocess_table_labels(html)
+    html = _postprocess_footnote_refs(html)
     html = _postprocess_footnotes(html)
     html = _postprocess_summary_sections(html)
     html = _postprocess_context_boxes(html)
@@ -744,8 +785,11 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
             return text
         if re.search(r'^\s*(?:to|of)\s+(?:<[^>]+>\s*)*Regulation\b', after_ctx, re.IGNORECASE):
             return text
-        ann_ms = list(re.finditer(r'(Annex(?:es)?\s+)([IVXLivxl]+)', text, re.IGNORECASE))
-        bare_ms = list(re.finditer(r'(\s+and\s+|,\s*)([IVXLivxl]+)', text, re.IGNORECASE))
+        # Bare numerals ("Annexes III and IV") must be upper-case whole words,
+        # or "… and its attachments" links the "i" of "its" to Annex I.
+        bare_re = r'(\s+and\s+|,\s*)([IVXL]+)\b'
+        ann_ms = list(re.finditer(r'(Annex(?:es)?\s+)([IVXLivxl]+)\b', text, re.IGNORECASE))
+        bare_ms = list(re.finditer(bare_re, text))
         # Only count bare roman numeral groups that are valid annexes
         valid_bare = [mm for mm in bare_ms if _XREF_LOOKUP.get(f"annex_{mm.group(2).upper()}")]
         multiple = len(ann_ms) + len(valid_bare) > 1
@@ -760,7 +804,7 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
                 return f'{mm.group(1)}<a href="{href}">{mm.group(2)}</a>'
             return f'<a href="{href}">{mm.group(1)}{mm.group(2)}</a>'
 
-        result = re.sub(r'(Annex(?:es)?\s+)([IVXLivxl]+)', _link_ann, text, flags=re.IGNORECASE)
+        result = re.sub(r'(Annex(?:es)?\s+)([IVXLivxl]+)\b', _link_ann, text, flags=re.IGNORECASE)
 
         def _link_bare_ann(mm: re.Match) -> str:
             sep, rom = mm.group(1), mm.group(2)
@@ -769,7 +813,7 @@ def autolink_xrefs(html: str, depth: int = 1) -> str:
                 return mm.group(0)
             return f'{sep}<a href="{_xref_url(u, depth)}">{rom}</a>'
 
-        return re.sub(r'(\s+and\s+|,\s*)([IVXLivxl]+)', _link_bare_ann, result, flags=re.IGNORECASE)
+        return re.sub(bare_re, _link_bare_ann, result)
 
     def _sub_section(m: re.Match) -> str:
         return f'({_linkify_sections(m.group(1))})'
@@ -2701,7 +2745,7 @@ def ecl_site_footer(root: str) -> str:
               <div class="ecl-site-footer__title">About us</div>
               <ul class="ecl-site-footer__list">
                 <li class="ecl-site-footer__list-item">
-                  <a href="/accessibility-statement_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="About&#x20;us" data-footer-link-label="Accessibility">Accessibility</a>
+                  <a href="https://commission.europa.eu/accessibility-statement_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="About&#x20;us" data-footer-link-label="Accessibility">Accessibility</a>
                 </li>
                 <li class="ecl-site-footer__list-item">
                   <a href="{pdf_href}" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link">Download PDF</a>
@@ -3613,12 +3657,30 @@ def build_404_page() -> str:
   <p><a href="index.html">Go to the homepage</a> or <a href="search.html">search the guide</a>.</p>
 </div>
 """
-    return base_html(
+    page = base_html(
         title="Page not found",
         content=content,
         breadcrumbs=[("Home", "index.html"), ("Page not found", None)],
         depth=0,
     )
+    # GitHub Pages serves 404.html at whatever URL missed (e.g. /<repo>/chapters/
+    # old.html), so the page's root-relative-to-itself links and assets would
+    # resolve one folder too deep. Pin a <base> at the site root before anything
+    # loads, and keep in-page "#…" links pointing at this page, not the root.
+    base_script = """<script>
+    (function () {
+      var seg = location.pathname.split('/');
+      var root = /\\.github\\.io$/.test(location.hostname) && seg.length > 2 ? '/' + seg[1] + '/' : '/';
+      document.write('<base href="' + root + '">');
+      document.addEventListener('DOMContentLoaded', function () {
+        var here = location.href.split('#')[0];
+        document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+          a.setAttribute('href', here + a.getAttribute('href'));
+        });
+      });
+    })();
+  </script>"""
+    return page.replace("<head>", "<head>\n  " + base_script, 1)
 
 
 # ==============================================================================
@@ -3947,7 +4009,8 @@ _PDF_HREF_CHAPTER_RE = re.compile(r'href="chapters/([a-zA-Z0-9_\-]+)\.html(#[^"]
 _PDF_HREF_FRAG_RE    = re.compile(r'href="#([^"]*)"')
 _PDF_ID_RE           = re.compile(r'\bid="([^"]*)"')
 
-_PDF_FN_REF_RE     = re.compile(r'<sup class="footnote-ref" id="fnref-(\d+)"><a href="#fn-\d+">\d+</a></sup>')
+# A repeat citation's id carries a "-<n>" suffix (see _postprocess_footnote_refs).
+_PDF_FN_REF_RE     = re.compile(r'<sup class="footnote-ref" id="fnref-(\d+)(?:-\d+)?"><a href="#fn-\d+">\d+</a></sup>')
 _PDF_FN_BLOCK_RE   = re.compile(r'<div class="footnotes">.*?</div>\s*', re.DOTALL)
 _PDF_FN_LI_RE      = re.compile(r'<li id="fn-(\d+)">(.*?)</li>', re.DOTALL)
 _PDF_FN_BACKLINK_RE = re.compile(r'\s*(?:&#160;|&nbsp;)?\s*<a[^>]*class="footnoteBackLink"[^>]*>.*?</a>\s*')

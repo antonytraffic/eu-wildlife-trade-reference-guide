@@ -30,7 +30,7 @@ The **introduction into the EU**[^1] of specimens of species listed in **Annex A
 | --- | --- | --- |
 | **Original** | Form number **1** | White with grey guilloche |
 | Copy for the **holder** | Form number **2** | Yellow |
-| Copy for the **exporting or re-exporting country** (only in the case of specimens of CITES Appendix I-listed species)[^1] | Form number **3** | Pale green |
+| Copy for the **exporting or re-exporting country** (only in the case of specimens of CITES Appendix I-listed species)[^11] | Form number **3** | Pale green |
 | Copy for the **issuing authority** | Form number **4** | Pink |
 | **Application form** | Form number **5** | White |
 
@@ -99,3 +99,4 @@ The **re-export** from the EU of specimens of species listed in **Annex A, B or 
 [^8]: As of January 2015.
 [^9]: Article 27 *Regulation (EC) No 865/2006*
 [^10]: Articles 28 and 45 *Regulation (EC) No 865/2006*
+[^11]: Article 21 *Regulation (EC) No 865/2006*. This copy may be replaced by a written statement by the Management Authority that an import permit will be issued, and on which conditions.

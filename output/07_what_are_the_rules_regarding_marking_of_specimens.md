@@ -45,7 +45,7 @@ In some cases, certain live animals are exempt from the marking requirement of A
 
 - ***Certain commonly-bred species:*** These are captive-born and bred species (and hybrids thereof) that are listed in Annex X of *Regulation (EC) No 865/2006* (at present they are all birds), unless they are annotated in Annex X[^17]. At present none of the Annex X listed species are annotated, so marking of these species is not required. These species are bred in such numbers that it is felt unnecessary for them to be uniquely marked unless annotated. The bird species listed in Annex X (reproduced as **Annex X** of this Guide) are also covered by a general exemption and no specific trade certificate is needed for the commercial use of these specimens[^18] (see **Section 5.2** above).
 
-- ***For animal welfare reasons***[^19]: An exception may also be made in cases where the physical properties of the animal do not allow the safe application of the required marking method. This may for example be the case for juvenile specimens. In such cases, the Management Authority may apply an alternative appropriate marking technique. It should be noted that animal welfare regulations and deduced marking conditions are not harmonised within the EU[^20].  In some cases the Management Authority will exempt the animal from the marking requirement and will record this on the transaction specific certificate or, where marking can be carried out at a later date, a special condition may be included, for example, specifying when the animal has to be marked**.  Specimen-specific certificates, travelling exhibition certificates and personal ownership certificates cannot be issued for such live specimens**[^21].
+- ***For animal welfare reasons***[^19]: An exception may also be made in cases where the physical properties of the animal do not allow the safe application of the required marking method. This may for example be the case for juvenile specimens. In such cases, the Management Authority may apply an alternative appropriate marking technique. It should be noted that animal welfare regulations and deduced marking conditions are not harmonised within the EU[^20].  In some cases the Management Authority will exempt the animal from the marking requirement and will record this on the transaction specific certificate or, where marking can be carried out at a later date, a special condition may be included, for example, specifying when the animal has to be marked.  **Specimen-specific certificates, travelling exhibition certificates and personal ownership certificates cannot be issued for such live specimens**[^21].
 
 ## 7.2 What are the prescribed marking methods?
 
@@ -67,7 +67,7 @@ In cases where the required marking method (i.e. closed ring for birds and micro
 
 [^1]: Article 59(5) *Regulation (EC) No 865/2006*
 [^2]: Article 64(1)(e) and (g) *Regulation (EC) No 865/2006*
-[^3]: Article 11(3) *Regulation (EC) No 865/2006 *
+[^3]: Article 11(3) *Regulation (EC) No 865/2006* 
 [^4]: Article 33(1)(c) *Regulation (EC) No 865/2006*
 [^5]: Article 40(1)(d) *Regulation (EC) No 865/2006*
 [^6]: Article 8(3) *Regulation (EC) No 388/97*
@@ -75,13 +75,13 @@ In cases where the required marking method (i.e. closed ring for birds and micro
 [^8]: Article 68(2) *Regulation (EC) No 865/2006*
 [^9]: There are only vague recommendations on the use of a uniform marking system by registered commercial breeding operations for Appendix I-listed species (*Resolution Conf. 12.10 (Rev. CoP15)*)
 [^10]: Marking requirements currently contained in *Resolution Conf. 11.16 (Rev. CoP15).*
-[^11]: Universal tagging system for crocodilian skins currently in *Resolution Conf. **11.12 (Rev. CoP15)*. The marking requirements for leopard skins *Panthera pardus *(hunting trophies and skins for personal use) are currently in *Resolution Conf. 10.14* *(Rev.** CoP1**9**)**,* and for hunting trophies of Markhor *Capra falconeri* from Pakistan, in CITES *Res**olution** Conf. 10.15 **(**Rev.** CoP14**)*. There is no recommended marking methods for cheetah *Acinonyx jubatus *hunting trophies.
-[^12]: In *Resolution Conf.* *10.10** (Rev. CoP1**8**).*
-[^13]: In *Resolution Conf. 11.12 (Rev. CoP15)**.*
+[^11]: Universal tagging system for crocodilian skins currently in *Resolution Conf. 11.12 (Rev. CoP15)*. The marking requirements for leopard skins *Panthera pardus* (hunting trophies and skins for personal use) are currently in *Resolution Conf. 10.14 (Rev. CoP19)*, and for hunting trophies of Markhor *Capra falconeri* from Pakistan, in CITES *Resolution Conf. 10.15 (Rev. CoP14)*. There is no recommended marking methods for cheetah *Acinonyx jubatus* hunting trophies.
+[^12]: In *Resolution Conf. 10.10 (Rev. CoP18)*.
+[^13]: In *Resolution Conf. 11.12 (Rev. CoP15)*.
 [^14]: Article 66(6) *Regulation (EC) No 865/2006*
 [^15]: For the purpose of proving that the caviar was legally acquired and, if relevant, introduced into the EU, as required for commercial activities involving specimens of species listed in Annex B under Article 8(5) *Regulation (EC) No 338/97.*
-[^16]: In *Resolution Conf. 12.7 (Rev. CoP1**7**).*
-[^17]: Article 65(4) *Regulation (EC) No 865/2006 *
+[^16]: In *Resolution Conf. 12.7 (Rev. CoP17)*.
+[^17]: Article 65(4) *Regulation (EC) No 865/2006* 
 [^18]: Article 62(1) *Regulation (EC) No 865/2006*
 [^19]: See also Article 67 *Regulation (EC) No 865/2006*
 [^20]: Therefore, invasive marking methods in particular (such as microchip transponders) may be differently applied by Member States depending on the size or weight of the live animal concerned.

@@ -231,7 +231,7 @@ Should there be a problem with the shipment (e.g. lack of documentation), the Cu
 
 ## 3.3.8 Use of import documents as proof of legal importation
 
-After the necessary Customs checks at the point of entry have been completed and the shipment has been cleared for import, the importer will receive from the Customs office the “**copy for the holder**” of the import document (yellow document). This document can be used for **later proof of legal importation** into the EU, which **may be required for internal trade or subsequent re-exports** from the EU (see **Section 3.5** and **4.5**). 
+After the necessary Customs checks at the point of entry have been completed and the shipment has been cleared for import, the importer will receive from the Customs office the “**copy for the holder**” of the import document (yellow document). This document can be used for **later proof of legal importation** into the EU, which **may be required for internal trade or subsequent re-exports** from the EU (see **Section 3.5** and **5.5**). 
 
 The copy for the holder will cease to be valid as proof of legal importation when[^54]: 
 
@@ -289,13 +289,13 @@ Regarding the import of **Annex A** specimens, the Management Authority must als
 
 The usual procedures for the establishment of a Negative Opinion and, where necessary, a subsequent import prohibition for species listed in Annex A or B is described in the following paragraphs (see also **Figure 3**).
 
-#### Step 1: Making a non-detriment finding at the national level
+#### Step 1: Making a non-detriment finding at the national level[^61]
 
 If a Scientific Authority of a Member State advises its Management Authority under Article 4(1) or (2) of *Regulation (EC) No 338/97* not to authorise imports of certain specimens on the basis that to allow such imports would be **detrimental to the conservation of the species**[^62], it must be immediately ensured that no import permits are issued on the basis of Article 4(1) or (2) by any of the other Management Authorities in the EU. The Commission must therefore be informed immediately of any decision taken by a Management Authority not to authorise a particular import on this basis (**Letter** **A** in **Figure 3**) and, in turn, must instruct all other Member States to refrain from issuing import permits under Article 4(1) or (2) until the advice of the other Scientific Authorities can be sought, for example, by a written procedure or in a meeting of the SRG (**Letter** **B** in **Figure 3**). 
 
 **In other cases** where a Management Authority has decided to refuse the import of certain specimens under Article 4(1) or (2) (i.e. for reasons other than detriment to the conservation status of the species), the Management Authority must immediately inform the Commission of the rejection and the reasons for the rejection **in cases of significance in respect of the objectives of the EU Wildlife Trade Regulations**[^63] (see also **Section 3.3.4** above).  The Management Authority has the discretion to decide what is “significant” for these purposes.
 
-#### Step 2: Uniform application at the EU level
+#### Step 2: Uniform application at the EU level[^64]
 
 Once EU Member States have been advised by the Commission to refrain from issuing import permits for a particular species/country combination - for example in response to the negative advice of a Scientific Authority of an EU Member State - the advice of the other Scientific Authorities in the EU (e.g. by a written procedure and/or in a meeting of the SRG) is sought (**Letter C** in **Figure 3**).   
 
@@ -319,13 +319,13 @@ A **Negative Opinion may be transformed** into a Positive Opinion where the cond
 
 Definitions of the three types of SRG Opinions, along with further details on when and how they are applied in practice, are included in **Annex IV of this Guide.**
 
-**In some cases, it may be necessary to set size limits for the import of certain species from specific countries and for specific source codes as tool to ensure the sustainability of harvesting and trade. To ease the enforcement, it is recommended to follow these scientifically standardized measurements, as described in Annex XVII.**
+**In some cases, it may be necessary to set size limits for the import of certain species from specific countries and for specific source codes as tool to ensure the sustainability of harvesting and trade. To ease the enforcement, it is recommended to follow these scientifically standardized measurements,** as described in **Annex XVII**.
 
-#### Step 3: Range State consultation
+#### Step 3: Range State consultation[^66]
 
 When the SRG has formed a **Negative Opinion**, the **Commission then consults with the affected range State** to ask for additional biological, trade, or management information on the species of concern. If the range State then responds and provides this information, the SRG reconsiders its decision on the basis of the information received and, if this leads to a positive non-detriment finding, the Negative Opinion is transformed into a Positive Opinion and imports can be resumed (**Letter E** in **Figure 3**). 
 
-#### Step 4: Establishment of an official import restriction
+#### Step 4: Establishment of an official import restriction[^66]
 
 If **no new information** is provided by the range State or other sources, or if **the information received is not sufficient** to make a non-detriment finding, the Negative Opinion will be **confirmed** and may, after consultation with the SRG, be transformed by the Commission into an **official import prohibition** through publication in the Official Journal of the European Union (**Letter F** in **Figure 3**). It is important to note that published import prohibitions are also reversible if new information is received. The official import prohibition will then enter into force once the updated “Suspensions Regulation” has been published. The Suspensions Regulation currently in force is [Commission Implementing Regulation (EU) 2025/6](https://eur-lex.europa.eu/legal-content/en/TXT/?uri=CELEX%3A32025R0006) prohibiting the introduction into the Union of specimens of certain species of wild fauna and flora. **Where an official import restriction is established by the Commission, all Member States must reject all permit applications for as long as that restriction is in place**[^67].
 
@@ -333,11 +333,11 @@ Note that in the case of import prohibitions established in respect of Annex B s
 
 *Figure 3: Overview of procedures to establish Positive and Negative Opinions and import restrictions for species listed in Annex A or B of the EU Wildlife Trade Regulations*
 
-*Letters in bold to the right of the diagram highlight stages explained in more detail above.
-
-**At national level:**
+*Letters in bold to the right of the diagram highlight stages explained in more detail above.*
 
 [Insert Figure 3]
+
+### 3.3.9.4 Can certain imports be exempt from import prohibitions established by the Commission under Article 4(6) of Regulation (EC) No 338/97?
 
 Unless specifically decided otherwise, restrictions in accordance with Article 4(6) of *Regulation (EC) No 338/97* **do not apply to**[^68]: 
 
@@ -367,7 +367,7 @@ Import restrictions under Article 4(6) are published by the Commission in the Su
 <thead>
 <tr>
   <th colspan="2" style="width:16%">Annex</th>
-  <th>Conditions<sup>1</sup></th>
+  <th>Conditions[^70]</th>
 </tr>
 </thead>
 <tbody>
@@ -389,7 +389,7 @@ Import restrictions under Article 4(6) are published by the Commission in the Su
 <tr>
   <td>A*</td>
   <td></td>
-  <td>The <strong>Scientific Authority</strong> must have advised the Management Authority of its finding (taking into account any possible Opinion of the Scientific Review Group) that: the specimens are required under <strong>exceptional circumstances for the advancement of science</strong> or for essential biomedical purposes where the species is the only one which is suitable for those purposes and there are no specimens of the species which have been born and bred in captivity (Article 4(1)(a)(ii) (first indent) <em>Regulation (EC) No 338/97</em>); or the specimens are <strong>intended for captive-breeding (animals) or propagation (plants)</strong> from which conservation benefits will accrue to the species concerned (Article 4(1)(a)(ii) (first indent) <em>Regulation (EC) No 338/97</em>); or the specimens are <strong>intended for research or education</strong> aimed at the preservation or conservation of the species (Article 4(1)(a)(ii) (first indent) <em>Regulation (EC) No 338/97</em>); or the import is taking place <strong>for other purposes that are not detrimental to the survival of the species</strong> concerned (Article 4(1)(a)(ii) (second indent) <em>Regulation (EC) No 338/97</em>)<sup>1</sup>.</td>
+  <td>The <strong>Scientific Authority</strong> must have advised the Management Authority of its finding (taking into account any possible Opinion of the Scientific Review Group) that: the specimens are required under <strong>exceptional circumstances for the advancement of science</strong> or for essential biomedical purposes where the species is the only one which is suitable for those purposes and there are no specimens of the species which have been born and bred in captivity (Article 4(1)(a)(ii) (first indent) <em>Regulation (EC) No 338/97</em>); or the specimens are <strong>intended for captive-breeding (animals) or propagation (plants)</strong> from which conservation benefits will accrue to the species concerned (Article 4(1)(a)(ii) (first indent) <em>Regulation (EC) No 338/97</em>); or the specimens are <strong>intended for research or education</strong> aimed at the preservation or conservation of the species (Article 4(1)(a)(ii) (first indent) <em>Regulation (EC) No 338/97</em>); or the import is taking place <strong>for other purposes that are not detrimental to the survival of the species</strong> concerned (Article 4(1)(a)(ii) (second indent) <em>Regulation (EC) No 338/97</em>)[^71].</td>
 </tr>
 <tr>
   <td>A</td>
@@ -427,13 +427,13 @@ Note: A* and B*: Does not apply to re-imports and worked specimens acquired more
 [^9]: Article 9 *Regulation (EC) No 865/2006*
 [^10]: Article 6(2) *Regulation (EC) No 865/2006*
 [^11]: Articles 9 and 20(1) *Regulation (EC) No 865/2006*
-[^12]: Article 5* Regulation (EC) No 865/2006*
+[^12]: Article 5 *Regulation (EC) No 865/2006*
 [^13]: Article 20(2) *Regulation (EC) No 865/2006*
 [^14]: Article 6(1) *Regulation (EC) No 865/2006*
 [^15]: Article 4(1)(b) *Regulation (EC) No 338/97*
 [^16]: Article 8(1) *Regulation (EC) No 865/2006*
-[^17]: Article 22* Regulation (EC) No 865/2006*
-[^18]: Article 23* Regulation (EC) No 865/2006*
+[^17]: Article 22 *Regulation (EC) No 865/2006*
+[^18]: Article 23 *Regulation (EC) No 865/2006*
 [^19]: Article 45 *Regulation (EC) No 865/2006*
 [^20]: Article 4(1)(b)(ii) *Regulation (EC) No 338/97*
 [^21]: Article 21 *Regulation (EC) No 865/2006*
@@ -441,20 +441,20 @@ Note: A* and B*: Does not apply to re-imports and worked specimens acquired more
 [^23]: Article 7(5) *Regulation (EC) No 865/2006*
 [^24]: Article 4(3)(a) *Regulation (EC) No  338/97*
 [^25]: Article 4(3)(b) *Regulation (EC) No 338/97*
-[^26]: *As above.  *For Appendix III-listed species also included in Annex A or  B, a (re-)export permit is required.
+[^26]: *As above.*  For Appendix III-listed species also included in Annex A or  B, a (re-)export permit is required.
 [^27]: Article 7(6) *Regulation (EC) No 865/2006*
 [^28]: *Regulation (EU) No 995/2010* of the European Parliament and of the Council of 20 October 2010.
 [^29]: Third country documentation requirements apply equally to CITES Parties and to non-Parties. This is based on Article X of the Convention, which requires that trade with non-Parties must take place on the basis of comparable documentation, which substantially conforms with the requirements of the Convention.
 [^30]: Article 7(3) *Regulation (EC) No 865/2006*
 [^31]: Article 4(1)(d) *Regulation (EC) No 338/97*. This includes ranched specimens and so-called source “F” specimens – i.e. specimens born in captivity but not meeting the formal definition of captive-bred/artificially-propagated.
 [^32]: Articles 4(1)(a)(i) and 4(2)(c) *Regulation (EC) No 338/97*
-[^33]: Paragraph (3) of Recitals to *Regulation (EU) No 2015/870 *and Article 7(6) *Regulation (EC) No 865/2006*
+[^33]: Paragraph (3) of Recitals to *Regulation (EU) No 2015/870* and Article 7(6) *Regulation (EC) No 865/2006*
 [^34]: Articles 20(4) and 64(1)  *Regulation (EC) No 865/2006*
 [^35]: Ranched specimens and so-called source “F” specimens – i.e. specimens born in captivity but not meeting the formal definition of captive-bred/artificially-propagated are not exempted from this requirement.
 [^36]: Articles 4(1)(c)  and 4(2)(b) *Regulation (EC) No 338/ 97*
 [^37]: OJ No. L 3 of 5.1.2005, p.1
 [^38]: International Air Transport Association (IATA)
-[^39]: [https://cites.org/sites/default/files/eng/resources/transport/E-FINAL_CITES_Non-air_transport_Guidelines.pdf](http://www.cites.org/eng/cms/index.php/component/cp)
+[^39]: [https://cites.org/sites/default/files/eng/resources/transport/E-FINAL_CITES_Non-air_transport_Guidelines.pdf](https://cites.org/sites/default/files/eng/resources/transport/E-FINAL_CITES_Non-air_transport_Guidelines.pdf)
 [^40]: Annex I, Chapter II (paragraph 4.1)
 [^41]: Article 6(1) and (2) *Regulation (EC) No 338/97*
 [^42]: Article 20a *Regulation (EC) No 865/2006*
@@ -474,14 +474,16 @@ Note: A* and B*: Does not apply to re-imports and worked specimens acquired more
 [^56]: Article 4(6)(a) and (b) *Regulation (EC) No 338/97*
 [^57]: Article 4(6)(c) *Regulation (EC) No 338/97*
 [^58]: Article 4(6)(d) *Regulation (EC) No 338/97*
-[^59]: Commission Implementing Regulation (EU) 2025/6 *prohibiting the introduction** into the Union of specimens of **certain species of wild fauna and flora *(the** Suspensions Regulation**)*.*
-[^60]: Article 4(1)(a)(ii)* Regulation (EC) No 338/97.*
+[^59]: Commission Implementing Regulation (EU) 2025/6 *prohibiting the introduction into the Union of specimens of certain species of wild fauna and flora* (the **Suspensions Regulation**).
+[^60]: Article 4(1)(a)(ii) *Regulation (EC) No 338/97.*
 [^61]: Article 4(1)(a)(i) and Article 4(2)(a) *Regulation (EC) No 338/97*.
 [^62]: Article 4(1)(a)(i) *Regulation (EC) No 338/97.*
 [^63]: Article 6(1) *Regulation (EC) No 338/97.*
 [^64]: Article 4(1)(a)(i) and Article 4(2)(a) *Regulation (EC) No 338/97*; Article 17(2) *Regulation (EC) No 338/97*.
-[^65]: For definitions of SRG opinions, see **Annex** **IV to this Guide.**
+[^65]: For definitions of SRG opinions, see **Annex IV** to this Guide.
 [^66]: Article 4(6) *Regulation (EC) No* *338/97.*
 [^67]: Article 71(1) *Regulation (EC) No 865/2006*.
 [^68]: Article 71(4) *Regulation (EC) No 865/2006.*
 [^69]: Commission Implementing Regulation (EU) 2025/6- OJ L, 2025/6 (7.1.2025) (at the time of the Guide’s publication – check the Official Journal or the Commission website for more recent versions).
+[^70]: For marking requirements, see **Section 7**.
+[^71]: An example of such a non-detrimental purpose is the import of hunting trophies obtained under an approved management plan for the species which is beneficial to its conservation (see **Section 4.4**). For a number of species, hunting trophy quotas are established by the CITES Conference of the Parties.

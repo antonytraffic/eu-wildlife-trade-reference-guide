@@ -19,4 +19,4 @@ If the shipment in transit is not accompanied by valid CITES documents (or the c
 
 [^1]: Article 7(2)(a) *Regulation (EC) No 338/97*
 [^2]: Article 7(2)(b) *Regulation (EC) No 338/97*
-[^3]: Article 7(2)(c) *Regulation (EC) No 338/97**.*
+[^3]: Article 7(2)(c) *Regulation (EC) No 338/97*.

@@ -29,7 +29,7 @@ The derogation **does not apply** to:
 
 It is also noted that the derogation for personal and household effects **only applies to certain imports, exports and (re-)exports** of specimens of species listed in the Annexes.  For example, the derogation **does not apply to exports of specimens of Annex A or B-listed species**[^4], to **the first import of** **specimens of** **Annex A-listed species by EU residents**[^5] or to the **first import of hunting trophies of certain** **Annex B-listed species/populations by EU residents**[^6] (see **Section 4.4.3**). Therefore normal documentation requirements will apply in these cases. 
 
-In addition, specific requirements apply to the re-export of **rhino horn and elephant ivory** contained in personal and household effects. Further explanation is provided under ***(b) (Re)exports*** below.
+In addition, specific requirements apply to the re-export of **rhino horn and elephant ivory** contained in personal and household effects. Further explanation is provided under ***(b) (Re-)exports*** below.
 
 The “personal and household effects” derogation **does not normally apply** to dead specimens or parts and derivatives that are to be given away as a **gift,** or used for **commercial purposes** (this includes use for commercial gain, sale, display for commercial purposes, keeping for sale, offering for sale or transport for sale)[^7]. The exception to this is for caviar derived from sturgeon species (Acipenseriformes spp.) when such specimens brought into the customs territory of the Union are considered as a “personal and household effect” if they are intended to be offered as a gift to a third party, provided that there is no evidence of a commercial purpose[^8]. Furthermore, specimens of Annex B-listed species that are introduced into EU under the personal and household effects derogation may be authorised for commercial use at a later date by a Member State Management Authority provided that:
 
@@ -45,17 +45,17 @@ There are **differences** in the treatment of **persons normally residing in the
 
 **Table 13** provides an overview of the documents needed by **EU and non-EU residents**, for trade into and from the EU in specimens considered as personal effects and household goods under CITES and the EU Wildlife Trade Regulations.  It is also noted that, for the import and export to/from the EU of certain specimens of Annex B-listed species, general exemptions may apply (see **Section 4.4.2**)[^12].
 
-**Imports** 
+**(a) Imports**
 
 ***EU residents:***
 
 **EU residents** introducing into the EU for the **first time** personal or household effects:
 
-- which are specimens of species listed in **Annex A**, are required to have both an **export permit and an import permit**[^13] (in other words, the “personal and household effects” derogation does not apply in such cases);
+- (i) which are specimens of species listed in **Annex A**, are required to have both an **export permit and an import permit**[^13] (in other words, the “personal and household effects” derogation does not apply in such cases);
 
-- which are hunting trophies of specimens of **Annex B-listed species/populations** which are **also listed in** **Annex XIII** to *Regulation (EC) No 865/2006*, are required to have both an **export permit and an import permit**[^6] (again, in other words, the “personal and household effects” derogation does not apply in such cases); or
+- (ii) which are hunting trophies of specimens of **Annex B-listed species/populations** which are **also listed in** **Annex XIII** to *Regulation (EC) No 865/2006*, are required to have both an **export permit and an import permit**[^6] (again, in other words, the “personal and household effects” derogation does not apply in such cases); or
 
-- which involve specimens of **Annex B**-listed species (including hunting trophies – with the **exception** of those specimens to which **point (ii)** above applies), are required to present to Customs **either**: (i) an **export permit** issued by a third country; **or** (ii) in case such an export permit is not issued by the third country[^14], an **import permit**[^15].
+- (iii) which involve specimens of **Annex B**-listed species (including hunting trophies – with the **exception** of those specimens to which **point (ii)** above applies), are required to present to Customs **either**: (i) an **export permit** issued by a third country; **or** (ii) in case such an export permit is not issued by the third country[^14], an **import permit**[^15].
 
 The **reintroduction** into the EU by an **EU resident** of personal or household effects (including hunting trophies) that are specimens of species listed in **Annex A or B** does not require presentation of an import permit to Customs.  However, one of the following must be presented[^16]:
 
@@ -73,7 +73,7 @@ Persons that are **not** **normally residing in the EU** do **not** require an *
 
 **No documentation is required** for the **import** of dead specimens of **Annex C or D-listed species** as personal or household effects to the EU, provided the conditions outlined above are satisfied.
 
-**(Re-)exports**
+**(b) (Re-)exports**
 
 The derogation for personal and household effects **does not apply** to the **export** from the EU of specimens of species listed in **Annexes A or B**, regardless of **whether being carried out by an EU or non-EU resident**[^18].  Therefore, an **export permit** will be required (unless the export falls within the more general exemption outlined at **Section 4.4.2**) and the full set of conditions for issuance of the permit detailed in **Table 11** will need to be fulfilled.
 
@@ -179,7 +179,7 @@ It should be noted that the provisions of CITES governing personal and household
   <td>58(3)</td>
   <td><strong>Re-export</strong> (previously introduced into the EU)</td>
   <td>“<strong>Copy for the holder</strong>” of an EU export/import permit (presented at first exit from or entry in the EU) OR <strong>Evidence of purchase</strong> in the EU (when applicable), e.g. invoice / receipt, OR <strong>Stamped copy of a (re-) export document</strong> (presented at first entry in the EU) OR <strong>Re-export certificate</strong> (issued by country of re-export) (c)</td>
-  <td>Re-export certificate <strong>(only for specimens of Annex A-listed species which were acquired outside of the non-EU resident’s state of usual residence, i.e. bought whilst in the EU but previously imported from a third country, or acquired outside of the EU)</strong><sup>1</sup> <strong>Import permit (issued by country of destination) (b)</strong></td>
+  <td>Re-export certificate <strong>(only for specimens of Annex A-listed species which were acquired outside of the non-EU resident’s state of usual residence, i.e. bought whilst in the EU but previously imported from a third country, or acquired outside of the EU)</strong>[^29] <strong>Import permit (issued by country of destination) (b)</strong></td>
 </tr>
 <tr>
   <td>B</td>
@@ -258,15 +258,16 @@ It should be noted that the provisions of CITES governing personal and household
 [^14]: For example, due to the fact that country is not a Party to CITES.
 [^15]: Article 57(3) *Regulation (EC) No 865/2006*
 [^16]: Article 57(4) *Regulation (EC) No 865/2006*
-[^17]: Res. Conf. 13.7 (Rev. CoP17)* – *[Control of trade in personal and household effects](https://eur-lex.europa.eu/legal-content/EN/TXT/?qid=1591264571873&uri=CELEX:31997R0338)
+[^17]: Res. Conf. 13.7 (Rev. CoP17) – [Control of trade in personal and household effects](https://cites.org/sites/default/files/document/E-Res-13-07-R17_0.pdf)
 [^18]: Article 58(2) *Regulation (EC) No 865/2006.*
 [^19]: Article 58(3) *Regulation (EC) No 865/2006*.
 [^20]: Article 58(3) *Regulation (EC) No 865/2006*
 [^21]: i.e. acquired outside the EU, or bought in the EU but which were previously imported into the EU from a third country, e.g. rhino horn bought in the EU by a Vietnamese national who wants to take the rhino horn back home with them as a personal and household effect: Article 58(3a) *Regulation (EC) No 865/2006*
 [^22]: Article 58(3a) *Regulation (EC) No 865/2006*
-[^23]: [CURIA - C-87/20 - Ruling ECJ on caviar](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=uriserv%3AOJ.L_.2023.133.01.0001.01.ENG&toc=OJ%3AL%3A2023%3A133%3ATOC)
+[^23]: [CURIA - C-87/20 - Ruling ECJ on caviar](https://curia.europa.eu/juris/liste.jsf?language=en&jur=C%2CT%2CF&num=c-87/20&parties=&dates=error&docnodecision=docnodecision&allcommjo=allcommjo&affint=affint&affclose=affclose&alldocrec=alldocrec&docdecision=docdecision&docor=docor&docav=docav&docsom=docsom&docinf=docinf&alldocnorec=alldocnorec&docnoor=docnoor&docppoag=docppoag&radtypeord=on&newform=newform&docj=docj&docop=docop&docnoj=docnoj&typeord=ALL&domaine=&mots=&resmax=100&Submit=Rechercher)
 [^24]: For definition, see **Annex III of this Guide**.
 [^25]: Article 57(1)(c) of *Regulation (EC) No 865/2006*
 [^26]: Article 57(3a) *Regulation (EC) No 865/2006.*
 [^27]: Paragraph (3) of Recitals to *Regulation (EU) 2015/870*
-[^28]: *Regulation (EC) No 1069/2009 of the European Parliament and of the Council of 21 October 2009 laying down health rules as regards animal by-products not intended for human consumption with animal by-products *and *Regulation (EC) No 142/2011 of the Commission of 25 February 2011 implementing Regulation (EC) No 1069/2009 of the European Parliament and of the Council laying down health rules as regards animal by-products and derived products not intended for human consumption and implementing Council Directive 97/78/EC as regards certain samples and items exempt from veterinary checks at the border under that Directive.*
+[^28]: *Regulation (EC) No 1069/2009 of the European Parliament and of the Council of 21 October 2009 laying down health rules as regards animal by-products not intended for human consumption with animal by-products* and *Regulation (EC) No 142/2011 of the Commission of 25 February 2011 implementing Regulation (EC) No 1069/2009 of the European Parliament and of the Council laying down health rules as regards animal by-products and derived products not intended for human consumption and implementing Council Directive 97/78/EC as regards certain samples and items exempt from veterinary checks at the border under that Directive.*
+[^29]: Article 58(3a) *Regulation (EC) No 865/2006*.

@@ -305,11 +305,11 @@ For **Annex A** species, *the import permit may be issued only when the competen
 
 *— for one of the purposes referred to in Article 8(3)* 
 
-a. *are required under exceptional circumstances for the advancement of science or for essential biomedical purposes),*
+(e) *are required under exceptional circumstances for the advancement of science or for essential biomedical purposes),*
 
-b. *are intended for breeding or propagation purposes from which conservation benefits will accrue to the species concerned and*
+(f) *are intended for breeding or propagation purposes from which conservation benefits will accrue to the species concerned and*
 
-c. *are intended for research or education aimed at the preservation or conservation of the species, or*
+(g) *are intended for research or education aimed at the preservation or conservation of the species, or*
 
 *— for other purposes which are not detrimental to the survival of the species concerned*.” 
 
@@ -365,7 +365,7 @@ The SRG can also issue opinions based on the **review of its own opinions** (for
 
 ### Tracking
 
-For species/country combinations that are of particular conservation concern but for which there is insufficient information for the SRG to be able to form a positive or negative opinion and where the SRG referral is not feasible due to a high volume of trade, the SRG can decide to track the advices issued by individual Scientific Authorities in support of its role in developing opinions to ensure that the trade level does not have a harmful effect on the conservation of the species or on the extent of the territory occupied by the relevant population of the species. The SAs will include relevant details of the applications and the advice given in a central database/file that is accessible to SRG Members. Such cases are referred to as “**Under tracking”** in the short summary of conclusions (SoC) of the SRG and in Species +. The information included in the central database/file will be periodically reviewed by the SRG to assess whether any other SRG decision may be appropriate.  
+For species/country combinations that are of particular conservation concern but for which there is insufficient information for the SRG to be able to form a positive or negative opinion and where the SRG referral is not feasible due to a high volume of trade, the SRG can decide to track the advices issued by individual Scientific Authorities in support of its role in developing opinions to ensure that the trade level does not have a harmful effect on the conservation of the species or on the extent of the territory occupied by the relevant population of the species. The SAs will include relevant details of the applications and the advice given in a central database/file that is accessible to SRG Members. Such cases are referred to as “**Under tracking**” in the short summary of conclusions (SoC) of the SRG and in Species +. The information included in the central database/file will be periodically reviewed by the SRG to assess whether any other SRG decision may be appropriate.  
 
 ### Consultations with range States
 
@@ -833,6 +833,6 @@ Further information is available through:
 [^5]: “A controlled environment” is an environment that is manipulated for the purpose of producing animals of a particular species, that has boundaries designed to prevent animals, eggs or gametes of the species from entering or leaving the controlled environment, and the general characteristics of which may include but are not limited to: artificial housing; waste removal; health care; protection from predators; and artificially supplied food (Res. 10.16)
 [^6]: “breeding stock” means all the animals in a breeding operation that are used for reproduction.
 [^7]: It should not be possible for a commercial captive breeding operation to import wild-taken specimens of Annex A species as these cannot be imported for primarily commercial purposes.
-[^8]: Guidance for the inspection of captive-breeding and ranching facilities as submitted by the CITES Secretariat can be found in [AC30 Inf. 25](http://www.speciesplus.net/)
+[^8]: Guidance for the inspection of captive-breeding and ranching facilities as submitted by the CITES Secretariat can be found in [AC30 Inf. 25](https://cites.org/sites/default/files/eng/com/ac/30/Inf/E-AC30-Inf-25.pdf)
 [^9]: CITES Resolution Conf. 17.8: Disposal of illegally traded and confiscated specimens of CITES-listed species Resolutions (cites.org)
 [^11]: "Non-exhaustive list of potential factors to be considered depending on the individual case."

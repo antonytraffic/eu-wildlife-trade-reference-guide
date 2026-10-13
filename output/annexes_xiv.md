@@ -58,7 +58,7 @@ For the purposes of facilitating the marking requirements for caviar, the Manage
 ***Description of label to be affixed in the country of origin on all primary caviar containers***
 
 
-HUS:  Standard species code, here “*Huso huso”*
+HUS:  Standard species code, here “*Huso huso*”
 
 W:   Source code of the caviar, here “wild”
 
@@ -82,7 +82,7 @@ All containers in which caviar is **repackaged** must also be affixed with a new
 ***Description of label to be affixed in the country of re-packing on all secondary containers***
 
 
-PER:  Standard species code, here “*Acipenser persicus”*
+PER:  Standard species code, here “*Acipenser persicus*”
 
 W:  Source code of the caviar, here “wild”
 
@@ -93,6 +93,8 @@ IR:  ISO code of the country of origin, here “Islamic Republic of Iran”
 IT-wwww:  The official registration code of the repackaging plant, which incorporates the two-letter ISO code of the country of repackaging if different from the country of origin 
 
 zzzz:  Lot identification number, or CITES export permit number, or re-export certificate number
+
+*Example: PER/W/IR/2001/IT-wwww/zzzz*
 
 [^1]: See Annex 3 of *Resolution Conf. 12.7 (Rev. CoP17)* (https://cites.org/sites/default/files/document/E-Res-12-07-R17.pdf)
 [^2]: Article 66(6) *Regulation (EC) No 865/2006*

@@ -198,7 +198,7 @@ In order for an export permit or re-export certificate to be issued by an EU Man
 <thead>
 <tr>
   <th colspan="3" style="width:18%">Annex</th>
-  <th>Conditions<sup>1</sup></th>
+  <th>Conditions[^32]</th>
 </tr>
 </thead>
 <tbody>
@@ -206,7 +206,7 @@ In order for an export permit or re-export certificate to be issued by an EU Man
   <td>A*</td>
   <td>B*</td>
   <td>C*</td>
-  <td>The Scientific Authority has advised its Management Authority in writing that the capture or collection of the specimens in the wild and their <strong>export will not have a harmful effect on the conservation status of the species</strong>, or extent of the territory occupied by the relevant population of the species (Articles 5(2)(a) and 5(4) <em>Regulation (EC) No 338/97</em>)<sup>1</sup>.</td>
+  <td>The Scientific Authority has advised its Management Authority in writing that the capture or collection of the specimens in the wild and their <strong>export will not have a harmful effect on the conservation status of the species</strong>, or extent of the territory occupied by the relevant population of the species (Articles 5(2)(a) and 5(4) <em>Regulation (EC) No 338/97</em>)[^33].</td>
 </tr>
 <tr>
   <td>A</td>
@@ -244,7 +244,7 @@ In order for an export permit or re-export certificate to be issued by an EU Man
 <thead>
 <tr>
   <th colspan="3" style="width:18%">Annex</th>
-  <th>Conditions<sup>1</sup></th>
+  <th>Conditions[^32]</th>
 </tr>
 </thead>
 <tbody>
@@ -289,18 +289,18 @@ In order for an export permit or re-export certificate to be issued by an EU Man
 [^10]: Article 6(2) *Regulation (EC) No 865/2006*
 [^11]: Article 6(1) *Regulation (EC) No 865/2006*
 [^12]: Article 26(2) *Regulation (EC) No 865/2006*
-[^13]: Article 27* Regulation (EC) No 865/2006*
-[^14]: Article 28* Regulation (EC) No 865/2006*
+[^13]: Article 27 *Regulation (EC) No 865/2006*
+[^14]: Article 28 *Regulation (EC) No 865/2006*
 [^15]: Article 45 *Regulation (EC) No 865/2006*
 [^16]: Article 5(2)(b) *Regulation (EC) No 338/97*
-[^17]: Article 5(3) *Regulation (EC) No 338/97.  *Note also the requirement for the Management Authority receiving the application to consult the Management Authority, which issued the import permit originally (Article 5(5) *Regulation (EC) No 338/97*).
+[^17]: Article 5(3) *Regulation (EC) No 338/97.*  Note also the requirement for the Management Authority receiving the application to consult the Management Authority, which issued the import permit originally (Article 5(5) *Regulation (EC) No 338/97*).
 [^18]: Article 5(2)(c)(ii) *Regulation (EC) No 338/97*
 [^19]: Articles 5(2)(a) and 5(4) *Regulation (EC) No 338/97*
 [^20]: Article 26(4) and Article 65 *Regulation (EC) No 865/2006*
 [^21]: Annex I, Chapter II (paragraph 4.1)
 [^22]: Article 26a of *Regulation (EC) No 865/2006*
 [^23]: Article 26(3) of *Regulation (EC) No 865/2006*
-[^24]: Article 8(1)* Regulation (EC) No 865/2006*
+[^24]: Article 8(1) *Regulation (EC) No 865/2006*
 [^25]: Article 8(2) *Regulation (EC) No 865/2006*
 [^26]: Article 10(2) *Regulation (EC) No 865/2006*
 [^27]: Article 10(6) *Regulation (EC) No 865/2006*
@@ -308,3 +308,5 @@ In order for an export permit or re-export certificate to be issued by an EU Man
 [^29]: Articles 27 *Regulation (EC) No 865/2006*
 [^30]: Articles 28 and 45 *Regulation (EC) No 865/2006*
 [^31]: Article 45(1) *Regulation (EC) No 865/2006*
+[^32]: For marking requirements, see **Section 7**.
+[^33]: The Scientific Authority is required to monitor exports of Annex B-listed species, and if it is of the opinion that export should be limited, advise its Management Authority in writing of suitable measures. The Management Authority is then to inform the Commission, which may recommend export restrictions (Article 5(7) *Regulation (EC) No 338/97*).

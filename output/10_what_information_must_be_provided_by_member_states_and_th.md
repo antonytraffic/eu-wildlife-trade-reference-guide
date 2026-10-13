@@ -60,7 +60,7 @@ The Commission established the **format** for the Illegal Annual Trade Reports, 
 Each Member State is required to submit an annual illegal trade report on all seizures for violations involving CITES-listed species, irrespective of whether the seizure was made at an international border, or at domestic level for example during the search of a private or business property or during inspections at domestic markets.
 
 [^1]: Article 69(2) *Regulation (EC) No 865/2006*
-[^2]: Article 69(3) *Regulation (EC) No 338/97 *
+[^2]: Article 69(3) *Regulation (EC) No 338/97* 
 [^3]: Article 69(4) *Regulation (EC) No 338.97*
 [^4]: Article 15(4)(c) *Regulation (EC) No 338/97*
-[^5]: [Notification 2023/132: Guidelines for the preparation and submission of annual reports and of annual illegal trade reports](http://www.speciesplus.net/)
+[^5]: [Notification 2023/132: Guidelines for the preparation and submission of annual reports and of annual illegal trade reports](https://cites.org/sites/default/files/notifications/E-Notif-2023-132.pdf)

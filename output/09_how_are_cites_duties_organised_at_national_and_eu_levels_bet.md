@@ -127,11 +127,11 @@ Article 16(4) of *Regulation (EC) No 338/97* provides that **live specimens of A
 
 The CITES Conference of the Parties devoted a lot of attention to the confiscation and disposal of confiscated specimens and adopted comprehensive recommendations on the issue which can currently be found in *Resolution Conf. 17.8 (Rev. CoP19)*. This also contains CITES Guidelines for the disposal of confiscated live specimens (see [https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-17-08-R19.pdf](https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-17-08-R19.pdf)).
 
-[^1]: Article 13(1) *Regulation** (EC) No 338/97. *A similar requirement exists under CITES, and concerns communication with the CITES Secretariat and the Parties to the Convention.
+[^1]: Article 13(1) *Regulation (EC) No 338/97.* A similar requirement exists under CITES, and concerns communication with the CITES Secretariat and the Parties to the Convention.
 [^2]: Article 13(1)(b) *Regulation (EC) No 338/97*
 [^3]: Article 13(2) *Regulation (EC) No 338/97*
 [^4]: Article 17 *Regulation (EC) No 338/97*
 [^5]: Article 14(1) *Regulation (EC) No 338/97*
-[^6]: [Register of Commission expert groups and other similar entities (europa.eu)](https://ec.europa.eu/environment/cites/legis_refguide_en.htm)
+[^6]: [Register of Commission expert groups and other similar entities (europa.eu)](https://ec.europa.eu/transparency/expert-groups-register/screen/expert-groups/consult?lang=en&groupID=3346)
 [^7]: And in accordance with the procedure laid down in Article 18 of *Regulation (EC) No 338/97* (Article 4(6) *Regulation (EC) No 338/97*)
 [^8]: Article 16(3) *Regulation (EC) No 338/97*

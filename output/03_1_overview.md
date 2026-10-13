@@ -21,9 +21,9 @@ There are different types of **documents required** under the Wildlife Trade Reg
 
 - an **export permit** for the export of specimens of Annex A-, B- or C-listed species[^3] [^4];
 
-- a **re-export certificate** for the re-export of specimens of Annex A, B- or C-listed species[^5], 37, and
+- a **re-export certificate** for the re-export of specimens of Annex A, B- or C-listed species[^5] [^4], and
 
-- an **import notification** form for the import of Annex C37 or D-listed species, which is to be completed by the importer[^6].
+- an **import notification** form for the import of Annex C[^4] or D-listed species, which is to be completed by the importer[^6].
 
 In certain cases, special certificates may be used instead of import or export permits and re-export certificates – for example, **travelling exhibition certificates, personal ownership certificates** and **musical instrument certificates** (see **Section 4.6**). 
 
@@ -70,7 +70,7 @@ It is important to note that the Commission has, in cooperation with the compete
 
 - EU regime governing **trade in ivory**;[^10]
 - the export, re-export and intra-EU trade of **captive-born and bred live tigers and their parts and derivatives**[^11]**;**
-- trade in **“worked” specimens** (see also section 3.6.3)[^12];
+- trade in **“worked” specimens** (see also **Section 4.3.1**)[^12];
 
 - the **verification of legality** in **timber** trade[^13];
 
@@ -78,7 +78,7 @@ It is important to note that the Commission has, in cooperation with the compete
 - live animals **bred in captivity** under the EU Wildlife Trade Regulations[^15];
 - handover of EU certificates in case of transfer of ownership of the certified specimen(s) (see Annex XVIII).
 
-Further guidance documents by the Commission are published on the website (see fn. 2 above) as they become available.
+Further guidance documents by the Commission are published on the [Commission website](https://environment.ec.europa.eu/topics/nature-and-biodiversity/wildlife-trade_en) as they become available.
 
 Following the UK’s withdrawal from the EU certificates for intra-EU trade (according to Article 8(3) of Regulation (EC) No 338/97) issued by the United Kingdom are no longer valid for such transactions. This may lead to the need for a management authority of an EU Member State to re-issue an Article 8(3) certificate previously issued by the management authority of the United Kingdom.
 
@@ -87,7 +87,7 @@ Following the UK’s withdrawal from the EU certificates for intra-EU trade (acc
 [^3]: Article 5(1), (2) and (4) *Regulation (EC) No 338/97.*
 [^4]: See section 2.2.3 for exemptions related to Annex C.
 [^5]: Article 5(1), (3) and (4) *Regulation (EC) No 338/97.*
-[^6]: Article 4(3) and (4) *Regulation (EC) No 338/97.  *For specimens of species listed in Annex D an import notification is required for imports into the Community, but no documents are required for (re-)export unless the species is listed in Appendix III of CITES (see **Table 6**).
+[^6]: Article 4(3) and (4) *Regulation (EC) No 338/97.*  For specimens of species listed in Annex D an import notification is required for imports into the Community, but no documents are required for (re-)export unless the species is listed in Appendix III of CITES (see **Table 6**).
 [^7]: Note that for the import of Annex A and B-listed species that are not also listed in the CITES Appendices, documentary evidence of legal acquisition will still be required from the country of origin or re- export but in a different form.
 [^8]: Article 5(2)(c)(ii) *Regulation (EC) No 338/97.*
 [^9]: https://eur-lex.europa.eu/legal-content/EN/TXT/?qid=1573810877916&uri=CELEX:52019XC1114(01)
@@ -96,4 +96,4 @@ Following the UK’s withdrawal from the EU certificates for intra-EU trade (acc
 [^12]: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=uriserv:OJ.C_.2017.154.01.0015.01.ENG&toc=OJ:C:2017:154:TOC
 [^13]: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:C:2018:376:TOC
 [^14]: https://eur-lex.europa.eu/legal-content/EN/TXT/?qid=1553248802870&uri=CELEX:52019XC0321(01)
-[^15]: [https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52022XC0811%2801%29&qid=1661181823099](https://ec.europa.eu/environment/cites/index_en.htm)
+[^15]: [https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52022XC0811%2801%29&qid=1661181823099](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52022XC0811%2801%29&qid=1661181823099)

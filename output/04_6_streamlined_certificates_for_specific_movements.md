@@ -130,14 +130,14 @@ In **box 23** of the musical instrument certificate, or in an **appropriate anne
 A specimen which is covered by a musical instrument certificate **must be**[^20]**:**
 
 - **registered** by the certificate-issuing Management Authority;  
-- **returned** to the Member State in which it is registered **prior to the expiry** of the certificate**;** and
+- **returned** to the Member State in which it is registered **prior to the expiry** of the certificate; and
 - **appropriately identified.**
 
 A specimen covered by a musical instrument certificate may not be sold or possession of it transferred whilst outside the applicant’s State of usual residence[^21].  If an owner wishes to **sell** the specimen covered by a musical instrument certificate, they must first **surrender** the certificate to the issuing management authority. In order to keep/offer a specimen listed in Annex A for sale in the EU, the owner must apply to the relevant authority for a certificate in accordance with Article 8(3) of *Regulation (EC) No 338/97*[^22] (see **Section 5**). For sale outside of the EU, the provisions of *Regulation (EC) No 338/97* on exports (and associated documentation) will apply – for further information see **Section 3.5** above.
 
 The forms on which musical instrument certificates should be drawn up must conform to the model set out in Annex I and, for the continuation sheet, to the model set out in Annex IV of *Regulation (EU) No 792/2012* (see also **Figures 2** and **11**).
 
-### 4.6.2.4 How does the EU treat musical instrument certificates issued by third (non-EU) countries?***
+### 4.6.2.4 How does the EU treat musical instrument certificates issued by third (non-EU) countries?
 
 An instrument covered by a musical instrument certificate issued by a third country may be introduced into the EU, or re-exported from the EU, without requiring the presentation of a (re)export document or an import permit, **provided that** the musical instrument certificate was issued by the third country under similar conditions to those described in Articles 44h and 44j of *Regulation (EC) No 865/2006* (see above).
 
@@ -175,7 +175,7 @@ In **box 23** of the personal ownership certificate, or in an **appropriate anne
 
 > *Valid for multiple cross-border movements where the specimen is accompanied by its owner.  Legal owner to retain original form.*  
 >
-> *The specimen covered by this certificate may not be sold or otherwise transferred except in accordance with Article 43 of *Commission Regulation (EC) No. 865/2006*.  This certificate is non-transferable.  If the specimen dies, is stolen, destroyed, or lost, or if it is sold or ownership of the specimen is otherwise transferred, this certificate must be immediately returned to the issuing Management Authority.*  
+> *The specimen covered by this certificate may not be sold or otherwise transferred except in accordance with Article 43 of Commission Regulation (EC) No. 865/2006.  This certificate is non-transferable.  If the specimen dies, is stolen, destroyed, or lost, or if it is sold or ownership of the specimen is otherwise transferred, this certificate must be immediately returned to the issuing Management Authority.*  
 >
 > *This certificate is not valid unless accompanied by a continuation sheet, which must be stamped and signed by a Customs official at each border crossing.* 
 >
@@ -252,23 +252,23 @@ A sample collection covered by a sample collection certificate must be **re-impo
 [^5]: Article 30(2) *Regulation (EC) No 865/2006*
 [^6]: Article 31 *Regulation (EC) No 865/2006*
 [^7]: Article 32(1) *Regulation (EC) No 865/2006*
-[^8]: Article 32(2)* Regulation (EC) No 865/2006*
+[^8]: Article 32(2) *Regulation (EC) No 865/2006*
 [^9]: Article 32(3) *Regulation (EC) No 865/2006*
 [^10]: Article 33(1) *Regulation (EC) No 865/2006*
 [^11]: Article 33(2) *Regulation (EC) No 865/2006*
 [^12]: Article 10(3) *Regulation (EC) No 865/2006*
-[^13]: Articles 44h to 44p *Regulation (EC) No 865/2006 *
+[^13]: Articles 44h to 44p *Regulation (EC) No 865/2006* 
 [^14]: Article 44h(1) *Regulation (EC) No 865/2006*
 [^15]: Article 44i *Regulation (EC) No 865/2006*
 [^16]: Article 44j(1) *Regulation (EC) No 865/2006*
 [^17]: Paragraph 8 of the Instructions and explanations to Annex I *Regulation (EU) No 792/2012*
-[^18]: Article 44h(2) *Regulation (EC) No 865/2006 *and Annex IV *Regulation (EU) No 792/2012*
+[^18]: Article 44h(2) *Regulation (EC) No 865/2006* and Annex IV *Regulation (EU) No 792/2012*
 [^19]: Article 44j(2) *Regulation (EC) No 865/2006*
 [^20]: Article 44k *Regulation (EC) No 865/2006*
 [^21]: Article 44k(c) *Regulation (EC) No 865/2006*
 [^22]: Article 44n *Regulation (EC) No 865/2006*
 [^23]: Articles 37 to 44 *Regulation (EC) No 865/2006.*
-[^24]: Article 37(1) *Regulation (EC) No 865/2006 *
+[^24]: Article 37(1) *Regulation (EC) No 865/2006* 
 [^25]: Article 37(2) *Regulation (EC) No 865/2006*
 [^26]: Article 38 *Regulation (EC) No 865/2006*
 [^27]: Annex IV *Regulation (EU) No 792/2012*

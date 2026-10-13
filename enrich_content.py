@@ -65,19 +65,20 @@ class DocxData:
             rels_xml = z.read("word/_rels/document.xml.rels")
             num_xml  = z.read("word/numbering.xml") if "word/numbering.xml" in z.namelist() else None
             fn_xml   = z.read("word/footnotes.xml") if "word/footnotes.xml" in z.namelist() else None
+            fn_rels_xml = (z.read("word/_rels/footnotes.xml.rels")
+                           if "word/_rels/footnotes.xml.rels" in z.namelist() else None)
 
         doc_tree  = etree.fromstring(doc_xml)
-        rels_tree = etree.fromstring(rels_xml)
 
         body = doc_tree.find(wn("body"))
         # All direct children of body: p, tbl, bookmarkStart, bookmarkEnd, sectPr
         self.body: list = list(body)
 
-        # External hyperlink rels: rid -> url
-        self.rels: dict[str, str] = {}
-        for rel in rels_tree:
-            if "hyperlink" in rel.get("Type", "").lower():
-                self.rels[rel.get("Id", "")] = rel.get("Target", "")
+        # External hyperlink rels: rid -> url. Each XML part has its own rels
+        # file and rIds collide between them, so footnote hyperlinks must be
+        # resolved against footnotes.xml.rels, never document.xml.rels.
+        self.rels = _hyperlink_rels(rels_xml)
+        self.fn_rels = _hyperlink_rels(fn_rels_xml) if fn_rels_xml else {}
 
         # Numbering: numId -> {ilvl_str: numFmt_str}
         self.numbering: dict[str, dict[str, str]] = {}
@@ -140,20 +141,13 @@ class DocxData:
                             rpr = child.find(wn("rPr"))
                             is_bold = _run_is_bold(rpr)
                             is_italic = _run_is_italic(rpr)
-                            text = raw
-                            if is_bold and is_italic:
-                                text = f"***{text}***" if text.strip() else text
-                            elif is_bold:
-                                text = f"**{text}**" if text.strip() else text
-                            elif is_italic:
-                                text = f"*{text}*" if text.strip() else text
-                            parts.append(text)
+                            parts.append(_emphasise(raw, is_bold, is_italic))
                         # check for tab
                         if child.find(wn("tab")) is not None and not parts:
                             pass  # leading tab – skip
                     elif tag == "hyperlink":
                         rid = child.get(rn("id"), "")
-                        url = self.rels.get(rid, "")
+                        url = self.fn_rels.get(rid, "")
                         inner_texts = []
                         for r in child.findall(wn("r")):
                             for t in r.findall(wn("t")):
@@ -284,6 +278,27 @@ def _run_is_italic(rpr) -> bool:
     if i is not None:
         return i.get(wn("val"), "true") not in ("false", "0", "off")
     return False
+
+
+def _hyperlink_rels(rels_xml: bytes) -> dict[str, str]:
+    """rId -> URL for the hyperlink relationships in one .rels part."""
+    return {
+        rel.get("Id", ""): rel.get("Target", "")
+        for rel in etree.fromstring(rels_xml)
+        if "hyperlink" in rel.get("Type", "").lower()
+    }
+
+
+def _emphasise(text: str, bold: bool, italic: bool) -> str:
+    """Wrap text in markdown emphasis, keeping edge whitespace outside the
+    markers -- '*Regulation *' is not valid emphasis and renders literally."""
+    core = text.strip()
+    if not core or not (bold or italic):
+        return text
+    mark = "***" if bold and italic else "**" if bold else "*"
+    lead = text[: len(text) - len(text.lstrip())]
+    trail = text[len(text.rstrip()):]
+    return f"{lead}{mark}{core}{mark}{trail}"
 
 
 def _norm(text: str) -> str:

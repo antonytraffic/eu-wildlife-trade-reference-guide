@@ -93,7 +93,7 @@ parent: annexes
 <tr><td colspan="2" class="table-subheader">CHAPTER VI — Export permits and re-export certificates</td></tr>
 <tr><td>Article 26</td><td>Applications for export permits and re-export certificates</td></tr>
 <tr><td>Article 26a</td><td>Applications for export permits and re-export certificates</td></tr>
-<tr><td>Article 27</td><td>Documents to be surrendered by the (re-) exporter to the Customs office</td></tr>
+<tr><td>Article 27</td><td>Documents to be surrendered by the (re-)exporter to the Customs office</td></tr>
 <tr><td>Article 28</td><td>Handling by the Customs office</td></tr>
 <tr><td>Article 29</td><td>Pre-issued permits for nurseries</td></tr>
 <tr><td colspan="2" class="table-subheader">CHAPTER VII — Travelling exhibition certificates</td></tr>

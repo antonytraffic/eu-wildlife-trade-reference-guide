@@ -30,4 +30,4 @@ It should be noted that the rules governing internal EU trade in Annex-listed sp
 [^1]: Article 8(1) *Regulation (EC) No 338/97*
 [^2]: Article 8(5) *Regulation (EC) No 338/97*
 [^3]: Article 8(2) *Regulation (EC) No 338/97*
-[^4]: [https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:52019XC0321(01)&from=EN](https://eur-lex.europa.eu/eli/reg_impl/2025/6/oj/eng)
+[^4]: [https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:52019XC0321(01)&from=EN](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:52019XC0321(01)&from=EN)

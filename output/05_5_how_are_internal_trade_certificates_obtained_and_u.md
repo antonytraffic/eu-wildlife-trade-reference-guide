@@ -106,7 +106,7 @@ When an internal trade certificate is issued, it may contain **stipulations, con
 [^5]: Article 49 *Regulation (EC) No 865/2006*
 [^6]: Article 8(3) *Regulation (EC) No 865/2006*
 [^7]: Articles 50(1) and 4(1) *Regulation (EC) No 865/2006*
-[^8]: Article 4(2)* Regulation (EC) No 865/2006*
+[^8]: Article 4(2) *Regulation (EC) No 865/2006*
 [^9]: Article 50(1) *Regulation (EC) No 865/2006*
 [^10]: Article 4(1) *Regulation (EC) No 865/2006*
 [^11]: Article 6(1) *Regulation (EC) No 865/2006*

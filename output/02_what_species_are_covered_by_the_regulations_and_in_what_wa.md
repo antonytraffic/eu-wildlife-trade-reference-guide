@@ -33,7 +33,7 @@ Under CITES, animal and plant species[^1] are subject to different degrees of re
 | **Sub-total Plants** | **411** | **33 846** | **134** | **34 391** |
 | **Total** | **1124** | **39 306** | **528** | **40 958** |
 
-***Source:*** *adapted from* [http://www.speciesplus.net/](http://www.speciesplus.net/) *- data downloaded on 10 July 2025****.*** *****The total number of plant species listed in the CITES Appendices, in particular Appendix II, are approximate due to taxonomic uncertainties surrounding certain families/genera, in particular Orchidaceae (orchid family). *In some cases species listings are for certain populations only, or some populations are in one Appendix and others in another. In the latter cases, the species are included in the totals for the higher listing only to avoid double counting. 
+***Source:*** *adapted from* [http://www.speciesplus.net/](http://www.speciesplus.net/) *- data downloaded on 10 July 2025.* \*The total number of plant species listed in the CITES Appendices, in particular Appendix II, are approximate due to taxonomic uncertainties surrounding certain families/genera, in particular Orchidaceae (orchid family). \*In some cases species listings are for certain populations only, or some populations are in one Appendix and others in another. In the latter cases, the species are included in the totals for the higher listing only to avoid double counting. 
 
 ## 2.2 The Annexes to Regulation (EC) No 338/97
 
@@ -182,17 +182,17 @@ CITES Resolution Conf. 9.25 (Rev. COP18)[^23] on the implementation of the Conve
 
 If trade occurs in specimens of a species where only a national population is included in Appendix III and Annex C, documents are only required if it concerns export or re-export from the Party which has included its population in Appendix III. No documents are required for export, re-export or import of specimens by any Party of which their population is not included in Appendix III.
 
-[^1]: According to the glossary of key terms on the CITES website, species may be defined as any species, subspecies, or geographically separate population thereof.
+[^1]: According to the [glossary](http://www.cites.org/eng/resources/terms/glossary.php) of key terms on the CITES website, species may be defined as any species, subspecies, or geographically separate population thereof.
 [^2]: As per amendments to the CITES Appendices agreed in Geneva in August 2019, at the meeting of the 18th CITES Conference of the Parties, and that came into force on 26/11/2019 with the exception of  the genus listing for *Cedrela* which came into force on 28/08/2020.
 [^3]: For definition of “trade”, see **Annex III to this Guide**.
 [^4]: For definition of “specimen”, see **Annex III to this Guide**.
 [^5]: Meaning that, unlike for EU Directives, Member States do not need to take action to transpose the EU legislation into national law.
-[^6]: See definition of “specimen” in **Annex III to this Guide**.  It is noted that for items such as medicinal products, if the label or packaging states that the ingredients include a listed species, the product shall be taken as containing that particular species (Article 2(t) *Regulation (EC) No **338/97*).
+[^6]: See definition of “specimen” in **Annex III to this Guide**.  It is noted that for items such as medicinal products, if the label or packaging states that the ingredients include a listed species, the product shall be taken as containing that particular species (Article 2(t) *Regulation (EC) No 338/97*).
 [^7]: For CITES species in general the list of standard nomenclature is laid down in Resolution Conf 12.11 (Rev. CoP19)which is updated almost each CoP. This information is also available in the Checklist of CITES Species tool.
 [^8]: Article 3(1) *Regulation (EC) No 338/97*.
 [^9]: For CITES Appendix III-listed species in Annex A, all populations of the species are subject to the corresponding provisions of the Regulations and not just the populations of the countries that listed them in Appendix III.
-[^10]: *Directive 2009/147/EC of the European Parliament and of the Council of 30 November 2009 on the conservation of wild birds* (OJ No. L 20 of 26.01.2010 p.7) (codified version of *Council Directive 79/409/EEC of 2 April 1979 on the conservation of wild birds, *as amended).
-[^11]: *Council Directive 92/43/EEC of 21 May 1992 on the conservation of natural habitats and of wild fauna and flora *(OJ No. L 206 of 22.7.92 p.7)*.*
+[^10]: *Directive 2009/147/EC of the European Parliament and of the Council of 30 November 2009 on the conservation of wild birds* (OJ No. L 20 of 26.01.2010 p.7) (codified version of *Council Directive 79/409/EEC of 2 April 1979 on the conservation of wild birds,* as amended).
+[^11]: *Council Directive 92/43/EEC of 21 May 1992 on the conservation of natural habitats and of wild fauna and flora* (OJ No. L 206 of 22.7.92 p.7)*.*
 [^12]: Captive-bred specimens of species listed in Annex A are exempted from this prohibition and can be traded for commercial purposes (see **Section 4.1**).
 [^13]: Article 3(2) *Regulation (EC) No 338/97*.
 [^14]: Once again, for Appendix III-listed species listed in Annex B, all populations of the species are subject to the corresponding provisions of the Regulations, and not just the populations of the countries that listed them in Appendix III.
@@ -202,6 +202,6 @@ If trade occurs in specimens of a species where only a national population is in
 [^18]: As of February 2017.
 [^19]: Annotations are listed under point 12 in the *Notes on interpretation of Annexes A, B, C and D* which precedes the Annexes in Regulation (EC) No 338/97.
 [^20]: Article 2(t) *Regulation (EC) No 338/97*.
-[^21]: Point 13, Annex to *Regulation (EC) No 338/97 *(*Notes on interpretation of Annexes A, B, C and D*).
-[^22]: Point 11, Annex to *Regulation (EC) No 338/97 *(*Notes on interpretation of Annexes A, B, C and D*).
+[^21]: Point 13, Annex to *Regulation (EC) No 338/97* (*Notes on interpretation of Annexes A, B, C and D*).
+[^22]: Point 11, Annex to *Regulation (EC) No 338/97* (*Notes on interpretation of Annexes A, B, C and D*).
 [^23]: https://cites.org/sites/default/files/document/E-Res-09-25-R18.pdf

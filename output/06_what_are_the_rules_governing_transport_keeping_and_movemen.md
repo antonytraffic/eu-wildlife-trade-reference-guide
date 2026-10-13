@@ -30,7 +30,7 @@ All **live specimens of animal species** listed in the Annexes must be transport
 **Live plants** listed in the Annexes must be transported in compliance with the ***IATA Perishable Cargo Regulations*** for air transport and the CITES Guidelines for the non-air transport of live wild animals and plants for other modes of transport. 
 
 
-The CITES Parties have adopted several CITES Resolutions and Decisions dealing with the transport of live animal and plant species. Among these, the most relevant is **CITES** ***Resolution Conf. 10.21*** ***(Rev. CoP19) on the Transport of Live Specimens***. This resolution recommends that the IATA *Live Animals Regulations (for live animals)*, the *IATA Perishable Cargo Regulations (for live plants)* and the CITES Guidelines for the non-air transport of live wild animals and plants be deemed to meet CITES transport requirements*,* and should be followed by all CITES Parties as well as (relevant sections) incorporated into national legislation.
+The CITES Parties have adopted several CITES Resolutions and Decisions dealing with the transport of live animal and plant species. Among these, the most relevant is **CITES** ***Resolution Conf. 10.21*** ***(Rev. CoP19) on the Transport of Live Specimens***. This resolution recommends that the IATA *Live Animals Regulations (for live animals)*, the *IATA Perishable Cargo Regulations (for live plants)* and the CITES Guidelines for the non-air transport of live wild animals and plants be deemed to meet CITES transport requirements, and should be followed by all CITES Parties as well as (relevant sections) incorporated into national legislation.
 
 
 ## 6.2 What about the keeping of live specimens?
@@ -79,17 +79,17 @@ These provisions apply only to live specimens of species listed in Annex A. Live
 
 The Commission may establish restrictions on the holding and movement of live specimens of species under Article 4(6)(d) of *Regulation (EC) No 338/97*, which are known to pose an ecological threat to species that are indigenous to the EU[^13] (see **Section 3.3.9**). While the Commission has not exercised this power to date, Regulation (EU) No 1143/2014 on Invasive Alien Species[^14] includes measures aimed at preventing the intentional or unintentional introduction of certain species into the EU.
 
-[^1]: [https://cites.org/sites/default/files/eng/resources/transport/E-FINAL_CITES_Non-air_transport_Guidelines.pdf](http://eur-lex.europa.eu/collection/eu-law/consleg.html)
+[^1]: [https://cites.org/sites/default/files/eng/resources/transport/E-FINAL_CITES_Non-air_transport_Guidelines.pdf](https://cites.org/sites/default/files/eng/resources/transport/E-FINAL_CITES_Non-air_transport_Guidelines.pdf)
 [^2]: Article 4(1)(c) and 4(2)(b) *Regulation (EC) No 338/97*
 [^3]: Article 7(1) *Regulation (EC) No 338/97*
 [^4]: Articles 9(1) and 9(2)(a) *Regulation (EC) No 338/97*
 [^5]: Article 4(6)(c) *Regulation (EC) No 338/97*
 [^6]: Commission Implementing Regulation (EU) 2025/6 of 6 January 2025
-[^7]: Article 9(1) *Regulation** (EC) No 338/97*
+[^7]: Article 9(1) *Regulation (EC) No 338/97*
 [^8]: Article 7(1)(a) *Regulation (EC) No 338/97*
 [^9]: Article 9(2) *Regulation (EC) No 338/97*
 [^10]: Article 9(2)(a) *Regulation (EC) No 338/97*
 [^11]: Article 9(3) *Regulation (EC) No 338/97*
 [^12]: Article 9(4) *Regulation (EC) No 338/97*
 [^13]: Article 9(6) *Regulation (EC) No 338/97*
-[^14]: [Official Journal L 317/35 (04/11/2014)](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=COM%3A2022%3A581%3AFIN&qid=1667989438184)
+[^14]: [Official Journal L 317/35 (04/11/2014)](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R1143)

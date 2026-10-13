@@ -82,7 +82,7 @@ More specifically, this means *inter alia* the following:
 - The movement of specimens of protected species from Great Britain or from a third country to Northern Ireland is an import for the purposes of Regulation (EC) No 338/97. 
 - The movement of specimens of protected species from Northern Ireland to a third country is an export for the purposes of Regulation (EC) No 338/97.
 
-*Table 16: Summary table of procedures and applicable rules for the Northern Ireland protocol.*
+*Table 18: Summary table of procedures and applicable rules for the Northern Ireland protocol.*
 
 | **EU to NI / NI to EU (e.g. Brussels to Belfast or vice versa)** | **GB to NI (e.g. London to Belfast)** | **EU to GB (e.g. Brussels to London)** | **GB to EU(e.g. London to Brussels)** |
 | --- | --- | --- | --- |

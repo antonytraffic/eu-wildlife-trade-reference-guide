@@ -28,7 +28,7 @@ It is important for checks on shipments introduced into the EU to take place at 
 Shipments are frequently dispatched from a first Customs office at the outside border to another Customs office where the scope for physical checks is greater. In these cases the second Customs office will require presentation of the “copy for the holder” (Form 2) of an import permit or the “copy for the importer” (Form 2) of an import notification and may carry out any checks it deems necessary in order to establish compliance with the provisions of the Regulations[^7].
 
 [^1]: Article 12(1) *Regulation (EC) No 338/97*
-[^2]: [48f59731-eb47-4ea7-8285-9bf1439834b4_en (europa.eu)](https://circabc.europa.eu/ui/group/3f466d71-92a7-49eb-9c63-6cb0fadf29dc/library/2cca1f7c-431a-4a9c-a7a0-bacc82705b6c?p=1&n=10&sort=modified_DESC)
+[^2]: [48f59731-eb47-4ea7-8285-9bf1439834b4_en (europa.eu)](https://environment.ec.europa.eu/document/download/48f59731-eb47-4ea7-8285-9bf1439834b4_en?filename=Places%20of%20Intro%20and%20Export_updated_31%20Oct%202022%20rev%20%28002%29.pdf)
 [^3]: Article 12(2) *Regulation (EC) No 338/97*
 [^4]: Article 12(4) *Regulation (EC) No 338/97*
 [^5]: Article 4(1) *Regulation (EC) No 338/97*

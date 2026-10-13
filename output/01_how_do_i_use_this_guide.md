@@ -119,11 +119,11 @@ Subject to these warnings and the more detailed rules in the remaining sections,
 [^1]: For historical reasons, the term “European Communities” is still used in the text of *Council Regulation (EC) No 338/97*; it should be read to refer to the European Union.
 [^2]: EU legislation is published in the Official Journal of the European Union (OJ), and relevant pieces of legislation are referenced on a dedicated Commission website at https://ec.europa.eu/environment/cites/legislation_en.htm.
 [^3]: OJ No. L 61 of 3.3.97, p.1
-[^4]: Current consolidated version of 338/97 (20/05/2023) the latest amendment at the time of publication of this guide is Commission Regulation (EU) No 2019/2117 amending Council Regulation (EC) No 338/97 of 29/11/2019 and Regulation (EU) No 2019/1010 of the European Parliament and of the Council of 05/06/2019 on the alignment of reporting obligations in the field of legislation related to the environment.
+[^4]: [Current consolidated version of 338/97](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A01997R0338-20230520) (20/05/2023) the latest amendment at the time of publication of this guide is [Commission Regulation (EU) No 2019/2117](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02019R2117-20191211) amending Council Regulation (EC) No 338/97 of 29/11/2019 and [Regulation (EU) No 2019/1010](https://eur-lex.europa.eu/search.html?qid=1591267313415&text=2019/1010&scope=EURLEX&type=quick&lang=en) of the European Parliament and of the Council of 05/06/2019 on the alignment of reporting obligations in the field of legislation related to the environment.
 [^5]: The Basic Regulation may be amended in two ways: (i) amendments to the text of the Regulation (e.g. by Regulation (EC) 398/2009 of the European Parliament and Council of 23 April 2009); and (ii) updating of the Annexes through further Commission Regulations that are published in the Official Journal and referenced on the Commission’s CITES website.
 [^6]: OJ No. L 166 of 19.6.2006, p.1
-[^7]: Current consolidated version of 865/2006 (18.02.2025)
+[^7]: [Current consolidated version of 865/2006 (18.02.2025)](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02006R0865-20250218)
 [^8]: OJ No. L 242 of 7.9.2012, p.13.
-[^9]: Current consolidated version of 792/2012 (18.02.2025)
+[^9]: [Current consolidated version of 792/2012 (18.02.2025)](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02012R0792-20250218)
 [^10]: OJ L, 2025/6, 7.1.2025
 [^11]: EUR-Lex - 52022DC0581 - EN - EUR-Lex (europa.eu)

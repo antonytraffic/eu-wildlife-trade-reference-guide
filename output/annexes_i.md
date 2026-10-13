@@ -34,7 +34,7 @@ CITES provides for a **Secretariat** and a **Conference of the Parties (CoP)**, 
 
 The provisions of CITES establish procedures for amending the Convention and its Appendices address enforcement measures to be taken by the Parties, the Convention's effects on domestic legislation and on other international conventions, the resolution of disputes, ratification, accession and denunciation, and allow for the entry of reservations. The listing of species in Appendices I and II requires a two-thirds majority decision by the CoP. Parties can, however, list native species in Appendix III of their own initiative.
 
-**How do the Parties implement CITES?**
+### How do the Parties implement CITES?
 
 Each Party must designate one or more **Management Authorities** responsible for issuing CITES permits and certificates, subject to the advice from one or more Scientific Authorities designated for that purpose (see also **Section 9.1.2**). The contact details of the competent Management and Scientific Authorities for each Party can be found on the [website of the CITES Secretariat](https://cites.org/eng/parties/country-profiles/national-authorities).
 
@@ -64,7 +64,7 @@ The Convention provides for several conditioned exemptions and derogations from 
 
 ### How does CITES keep track of trade levels?
 
-The monitoring of trade is an essential tool for achieving the aims of the Convention. The CITES monitoring system is based on the trade records to be kept by all Parties and to be reported to the CITES Secretariat on an annual basis. The Annual Reports (see **Section 10.2.1**) of all Parties together should provide statistical information on the total volume of legal and reported world trade in CITES species, which is an invaluable element for the assessment of their conservation status. These Annual Reports further reflect the “performance” of Parties regarding CITES implementation when all reported exports and reexports are compared with all reported imports.
+The monitoring of trade is an essential tool for achieving the aims of the Convention. The CITES monitoring system is based on the trade records to be kept by all Parties and to be reported to the CITES Secretariat on an annual basis. The Annual Reports (see **Section 10.2.1**) of all Parties together should provide statistical information on the total volume of legal and reported world trade in CITES species, which is an invaluable element for the assessment of their conservation status. These Annual Reports further reflect the “performance” of Parties regarding CITES implementation when all reported exports and re-exports are compared with all reported imports.
 
 This system is also of immediate use to Scientific Authorities, which must take into consideration the trends and actual level of trade in Appendix II-listed species. They have to advise their Management Authorities of suitable measures to control the export of certain species whenever they determine that the export should be limited in order to maintain a species throughout its range at a level consistent with its role in the ecosystems and well above the level at which it might become eligible for inclusion in Appendix I.
 
@@ -96,7 +96,7 @@ Since then, the above-mentioned Commission Regulation, has been replaced twice i
 
 Although the EU Wildlife Trade Regulations are directly applicable in all EU Member States, necessary enforcement provisions must be transferred into national legislation and supplemented with national laws for matters that remain under the sovereignty of each Member State, such as penalties. In addition, the EU has a range of veterinary and phytosanitary provisions, while each EU Member State has national and/or regional legislation relevant to biodiversity and species conservation, animal and plant welfare, and Customs matters.
 
-[^1]: [http://cites.org/eng/eu_181st_party](http://www.speciesplus.net/)
+[^1]: [http://cites.org/eng/eu_181st_party](http://cites.org/eng/eu_181st_party)
 [^2]: *Council Decision (EU) 2015/451* *of 6 March 2015 concerning the accession of the European Union to the Convention on International Trade in Endangered Species of Wild Fauna and Flora (CITES),* OJ No. L 75 of 19.3.15, p.1.
 [^3]: OJ No. L 384 of 31.12.82, p.1.
 [^4]: OJ No. L 344 of 7.12.83, p.1 .

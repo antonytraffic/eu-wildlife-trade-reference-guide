@@ -52,7 +52,7 @@ parent: annexes
 <tr><td>A</td><td>Plants artificially propagated in accordance with Chapter XIII of Regulation (EC) No 865/2006, as well as parts and derivatives thereof</td></tr>
 <tr><td>C</td><td>Animals bred in captivity in accordance with Chapter XIII of Regulation (EC) No 865/2006, as well as parts and derivatives thereof</td></tr>
 <tr><td>F</td><td>Animals born in captivity, but for which the criteria of Chapter XIII of Regulation (EC) No 865/2006 are not met, as well as parts and derivatives thereof</td></tr>
-<tr><td>I</td><td><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02006R0865-20250218">Confiscated or seized specimens ( 4 )</a></td></tr>
+<tr><td>I</td><td>Confiscated or seized specimens</td></tr>
 <tr><td>O</td><td>Pre-Convention</td></tr>
 <tr><td>U</td><td>Source unknown (must be justified)</td></tr>
 <tr><td>X</td><td>Specimens taken in the marine environment not under the jurisdiction of any State</td></tr>

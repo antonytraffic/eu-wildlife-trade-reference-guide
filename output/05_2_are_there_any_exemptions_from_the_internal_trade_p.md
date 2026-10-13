@@ -172,13 +172,13 @@ The Management Authority of a Member State may accept an import permit as an int
 
 20.  **Special conditions**: Space for the issuing authority to impose stipulations, conditions and requirements in order to ensure compliance with EU and national legislation.
 
-[^1]: Article 62(1) *Regulation (EC) No 865/2006.  *Provided that specimens of annotated species are marked in accordance with Article 66(1) of *Regulation (EC) No 865/2006* (see **Section 7**). At present none of the species are annotated, so marking is not required.
+[^1]: Article 62(1) *Regulation (EC) No 865/2006.*  Provided that specimens of annotated species are marked in accordance with Article 66(1) of *Regulation (EC) No 865/2006* (see **Section 7**). At present none of the species are annotated, so marking is not required.
 [^2]: Article 62(2) *Regulation (EC) No 865/2006.*
 [^3]: Article 62(3) *Regulation (EC) No 865/2006.*
 [^4]: Art. 62(3) Regulation (EC) No. 865/2006
 [^5]: Article 62(4) *Regulation (EC) No 865/2006*
 [^6]: Article 62(5) *Regulation (EC) No 865/2006*
-[^7]: Article 8(3) of *Regulation (EC) No 338/97* provides that a Management Authority of a Member State where the specimens are located may grant exemptions from the prohibition contained in Article 8(1). These exemptions must be in accordance with the requirements of other EU legislation on the conservation of wild fauna and flora such as the Wild Birds Directive (*Council Directive 2**009/147/**EC*) and Habitats Directive (*Council Directive 92/43/EEC*), and other relevant national legislation.
+[^7]: Article 8(3) of *Regulation (EC) No 338/97* provides that a Management Authority of a Member State where the specimens are located may grant exemptions from the prohibition contained in Article 8(1). These exemptions must be in accordance with the requirements of other EU legislation on the conservation of wild fauna and flora such as the Wild Birds Directive (*Council Directive 2009/147/EC*) and Habitats Directive (*Council Directive 92/43/EEC*), and other relevant national legislation.
 [^8]: Article 59(1a) *Regulation (EC) No 865/2006*
 [^9]: Article 8(3)(b) *Regulation (EC) No 338/97*
 [^10]: Article 62(3) *Regulation (EC) No 338/97*
@@ -190,12 +190,12 @@ The Management Authority of a Member State may accept an import permit as an int
 [^16]: Article 59(2) *Regulation (EC) No 865/2006*
 [^17]: Article 8(3)(e) *Regulation (EC) No 338/97*
 [^18]: Article 59(3) *Regulation (EC) No 338/97*
-[^19]: Article 8(3)(f) *Regulation (EC) No 338/97.  *It should also be noted that breeding programmes of a primarily commercial nature cannot make use of this exemption – nor can hobbyists who are offloading surplus progeny. Many such cases have a too restrictive gene pool to be of real conservation value.
+[^19]: Article 8(3)(f) *Regulation (EC) No 338/97.*  It should also be noted that breeding programmes of a primarily commercial nature cannot make use of this exemption – nor can hobbyists who are offloading surplus progeny. Many such cases have a too restrictive gene pool to be of real conservation value.
 [^20]: Article 8(3)(g) *Regulation (EC) No 338/97*
 [^21]: Article 59(3) *Regulation (EC) No 865/2006*
-[^22]: Article 8(3)(h) *Regulation (EC) No 388/97 *and Article 59(4) *Regulation (EC) No 865/2006*
-[^23]: Article 11(3) *Regulation (EC) No 865/2006 *
-[^24]: *As above. *The Management Committee has clarified that the text “valid in [issuing Member State]” serves to clarify that the certificate: (i) was issued in accordance with Article 11(3) of *Regulation (EC) No 865/2006*; and (ii) is valid for more than one transaction in the issuing Member State, and for one transaction in a Member State other than the issuing Member State only.
+[^22]: Article 8(3)(h) *Regulation (EC) No 388/97* and Article 59(4) *Regulation (EC) No 865/2006*
+[^23]: Article 11(3) *Regulation (EC) No 865/2006* 
+[^24]: *As above.* The Management Committee has clarified that the text “valid in [issuing Member State]” serves to clarify that the certificate: (i) was issued in accordance with Article 11(3) of *Regulation (EC) No 865/2006*; and (ii) is valid for more than one transaction in the issuing Member State, and for one transaction in a Member State other than the issuing Member State only.
 [^25]: *As above.*
 [^26]: Article 11(2) *Regulation (EC) No 865/2006*
 [^27]: Article 48(2) *Regulation (EC) No 865/2006*
