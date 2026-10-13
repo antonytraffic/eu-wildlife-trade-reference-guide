@@ -921,7 +921,7 @@ CSS = """\
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { font-size: 16px; scroll-behavior: smooth; overflow-x: clip; }
+html { font-size: 16px; overflow-x: clip; }
 
 body {
   font-family: var(--font);
@@ -1552,7 +1552,7 @@ MAIN_JS = """\
     document.querySelectorAll('a[href="#top"]').forEach(function (a) {
       a.addEventListener('click', function (e) {
         e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo(0, 0);
         var el = document.getElementById('top');
         if (el) el.focus({ preventScroll: true });
       });
@@ -2300,6 +2300,7 @@ def base_html(
     sidebar_html: str = "",
     extra_js: str = "",
     page_header_html: str = "",
+    top_section_id: str = "",
 ) -> str:
     root       = "../" * depth
     page_title = f"{h(title)} -- EU Wildlife Trade Reference Guide"
@@ -2323,7 +2324,7 @@ def base_html(
     var cl = document.querySelector('html').classList;
     cl.remove('no-js');
     cl.add('has-js');
-  </script>
+  </script>{top_section_script(top_section_id)}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{page_title}</title>
@@ -2410,6 +2411,31 @@ def split_heading_ref(text: str) -> tuple[str, str]:
     if m:
         return m.group(1).rstrip("."), m.group(2)
     return "", text.strip()
+
+
+def top_section_id(headings: list[dict]) -> str:
+    """Id of the page's first H2 (the top entry in its in-page navigation)."""
+    return next((hd["id"] for hd in headings if hd["level"] == 2), "")
+
+
+def top_section_script(section_id: str) -> str:
+    """Head script: arriving from elsewhere via a link to the page's first
+    section (e.g. about.html#11-overview from the homepage) opens the page at
+    the very top, so the page title stays in view, instead of jumping past it.
+    The hash is removed before the browser acts on it and restored (without
+    scrolling) once the page has loaded. In-page clicks are unaffected."""
+    if not section_id:
+        return ""
+    return f"""
+  <script>
+    if (location.hash === {json.dumps('#' + section_id)}) {{
+      var topHash = location.hash, bare = location.pathname + location.search;
+      history.replaceState(history.state, '', bare);
+      addEventListener('load', function () {{
+        history.replaceState(history.state, '', bare + topHash);
+      }});
+    }}
+  </script>"""
 
 
 def heading_items(headings: list[dict]) -> list[tuple[str, str, str]]:
@@ -2550,6 +2576,7 @@ def build_simple_section(ch: dict, nav_sections: list[dict]) -> str:
         breadcrumbs=[],
         depth=1,
         sidebar_html=sidebar_html,
+        top_section_id=top_section_id(headings),
         page_header_html=page_header_html,
     )
 
@@ -2663,6 +2690,7 @@ def build_sub_page(ch: dict, parent: dict, siblings: list[dict]) -> str:
         breadcrumbs=[],
         depth=1,
         sidebar_html=sidebar_html,
+        top_section_id=top_section_id(headings),
         page_header_html=page_header_html,
     )
 
@@ -2692,6 +2720,7 @@ def build_about_page(ch: dict) -> str:
         breadcrumbs=[],
         depth=0,
         sidebar_html=sidebar_html,
+        top_section_id=top_section_id(headings),
         page_header_html=page_header_html,
     )
 
