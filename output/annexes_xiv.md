@@ -31,10 +31,10 @@ Member States are obliged to **reject** applications for **import and export per
 In the case of **caviar** of **sturgeon** and paddlefish species (Acipenseriformes spp.) that originated form **shared stocks** that are subject to **export quotas**: 
 
 
-**Import permits** cease to be valid on **the last day of the year** to which the quota applies (i.e. the year, starting on 1 March and ending on the last day of February, in which the caviar was harvested and processed) **– if this is earlier than the normal maximum 12-month period of validity applicable to import permits, and**
+- **Import permits** cease to be valid on **the last day of the year** to which the quota applies (i.e. the year, starting on 1 March and ending on the last day of February, in which the caviar was harvested and processed) **– if this is earlier than the normal maximum 12-month period of validity applicable to import permits, and**
 
 
-**Export permits** cease to be valid on **the last day of the year** to which the quota applies (i.e. the year in which the caviar was harvested and processed) – **if this is earlier than the normal** **maximum six-month period of validity applicable to export permits**.
+- **Export permits** cease to be valid on **the last day of the year** to which the quota applies (i.e. the year in which the caviar was harvested and processed) – **if this is earlier than the normal** **maximum six-month period of validity applicable to export permits**.
 
 
 **Labelling requirements** 

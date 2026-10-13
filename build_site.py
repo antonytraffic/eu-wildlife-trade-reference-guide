@@ -578,11 +578,36 @@ def _postprocess_context_boxes(html: str) -> str:
     return _CONTEXT_BOX_RE.sub(_sub, html)
 
 
+_HTML_TABLE_BLOCK_RE = re.compile(r"<table\b.*?</table>", re.DOTALL)
+_FOOTNOTE_MARK_RE = re.compile(r"\[\^([^\]\s]+)\]")
+
+
+class _Markdown(markdown2.Markdown):
+    """markdown2 passes raw HTML blocks through untouched, so a [^n] marker
+    inside a hand-built <table> (the Annex tables) would print literally and
+    its footnote would be dropped as unreferenced. Swap such markers for
+    markdown2's own footnote-ref placeholder before block hashing; its
+    footnote pass then numbers them in document order and emits their
+    definitions like any other reference."""
+
+    def preprocess(self, text: str) -> str:
+        text = super().preprocess(text)
+        defined = set(re.findall(r"^\[\^([^\]\s]+)\]:", text, re.MULTILINE))
+
+        def ref(m: re.Match) -> str:
+            label = m.group(1)
+            if label not in defined:
+                return m.group(0)
+            return (f'<sup class="footnote-ref" id="fnref-{label}">'
+                    f'<a href="#fn-{label}">{self._footnote_marker}-{label}</a></sup>')
+
+        return _HTML_TABLE_BLOCK_RE.sub(lambda t: _FOOTNOTE_MARK_RE.sub(ref, t.group(0)), text)
+
+
 def render_markdown(content: str) -> str:
-    html = markdown2.markdown(
-        content,
+    html = _Markdown(
         extras=["tables", "fenced-code-blocks", "header-ids", "smarty-pants", "footnotes"],
-    )
+    ).convert(content)
     html = _postprocess_lettered_lists(html)
     html = _postprocess_tables(html)
     html = _postprocess_table_labels(html)
@@ -1062,6 +1087,23 @@ table caption {
   caption-side: bottom; font-size: 0.8rem; color: #505a5f;
   text-align: left; padding-top: 0.4rem; font-style: normal;
 }
+/* Second-level numbered items are (i), (ii), ... in the source (Annex XII). */
+.article ol ol, .article-body ol ol { list-style-type: lower-roman; }
+/* Annex tables rebuilt from the Word source (fix_annex_tables.py) keep a
+   cell's separate paragraphs and in-cell bullet lists. */
+.article table td p, .article-body table td p { margin: 0 0 0.5em; }
+.article table td ul, .article-body table td ul { margin: 0 0 0.5em; padding-left: 1.2em; }
+.article table td li, .article-body table td li { margin-bottom: 0.25em; }
+.article table td > :last-child, .article-body table td > :last-child { margin-bottom: 0; }
+.article table td.cell-center, .article-body table td.cell-center { text-align: center; }
+/* Footnote markers in header cells: the default link blue is unreadable on
+   the dark header background. */
+.article table th a, .article-body table th a { color: inherit; }
+/* Many-column/long-reference tables: scroll inside .table-wrap on narrow
+   screens rather than crushing columns until words break mid-word. */
+.article table.table--wide, .article-body table.table--wide { min-width: 720px; }
+/* Annex VII: its Order column must fit "ARHYNCHOBDELLIDA" on one line. */
+.article table.table--xwide, .article-body table.table--xwide { min-width: 920px; }
 
 /* -- Section meta line -------------------------------- */
 .chapter-meta {
@@ -3838,6 +3880,21 @@ table { border-collapse: collapse; width: 100%; margin: 4mm 0 6mm; font-size: 9p
 th, td { border: 0.5pt solid #d4d4dc; padding: 2mm 3mm; text-align: left; vertical-align: top; }
 th { background: #ededf0; font-weight: 600; }
 tr:nth-child(even) td { background: #f6f6f8; }
+/* Annex VII's taxonomy table: under auto layout its long citations and
+   URLs set a minimum width wider than the page, pushing the reference
+   column off the right edge. Fix the column widths instead, at a slightly
+   smaller size so the longest Order/Family names still fit on one line. */
+table.table--xwide { table-layout: fixed; font-size: 8pt; }
+table.table--xwide th, table.table--xwide td { padding: 1.5mm 2mm; overflow-wrap: break-word; }
+table.table--xwide col:nth-child(1) { width: 21% !important; }
+table.table--xwide col:nth-child(2) { width: 17% !important; }
+table.table--xwide col:nth-child(3) { width: 21% !important; }
+table.table--xwide col:nth-child(4) { width: 41% !important; }
+td a { overflow-wrap: anywhere; }
+td p { margin: 0 0 1.5mm; }
+td ul { margin: 0 0 1.5mm; padding-left: 4mm; }
+td > :last-child { margin-bottom: 0; }
+td.cell-center { text-align: center; }
 /* A couple of table headers (Table 13's "Annex"/"Article" columns) use
    inline writing-mode:vertical-lr + rotate(180deg) to read sideways,
    bottom-to-top -- a combination browsers render correctly (confirmed on

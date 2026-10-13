@@ -34,9 +34,9 @@ More specifically, this means inter alia the following:
 - An import permit will have to be issued by the importing EU Member State when specimens of protected species are moved from the United Kingdom. 
 - A re-export certificate will have to be issued by the re-exporting EU Member State when specimens of protected species are moved to the United Kingdom.
 
-- The same principles apply to the movement of specimens of species listed in Annex C and D of Regulation (EC) No 338/97, with regard to the respective CITES documents required for such movements.
+The same principles apply to the movement of specimens of species listed in Annex C and D of Regulation (EC) No 338/97, with regard to the respective CITES documents required for such movements.
 
-- The UK will continue to accept phytosanitary certificates in lieu of CITES export permits as long as all the relevant conditions are met. The UK will continue to require a CITES import permit to accompany the phytosanitary certificate (serving as CITES export permit). The UK CITES MA will expedite applications for CITES import permits where a phytosanitary certificate is being used in lieu of a CITES export permit[^5].
+The UK will continue to accept phytosanitary certificates in lieu of CITES export permits as long as all the relevant conditions are met. The UK will continue to require a CITES import permit to accompany the phytosanitary certificate (serving as CITES export permit). The UK CITES MA will expedite applications for CITES import permits where a phytosanitary certificate is being used in lieu of a CITES export permit[^5].
 
 **2. DEROGATIONS - PERSONAL AND HOUSEHOLD EFFECTS** 
 
@@ -97,7 +97,7 @@ More specifically, this means *inter alia* the following:
 - Movements from Northern Ireland to Great Britain are subject to the requirements set out in Regulation (EC) No 338/97, including any decisions taken by bodies established by Regulation (EC) No 338/97 (e.g., an opinion by the Scientific Review Group), as well as recommendations contained in a Commission Guidance document, where these requirements flow from CITES provisions. 
 - If the EU has listed a species that is not listed in CITES in Annex A or B to the Regulation and there is an EU export ban established for that species, then the export of such specimens would be possible from Northern Ireland to Great Britain, because such an export ban would not be strictly required by an international obligation of the EU[^15].
 
-- The IE/NI Protocol excludes the possibility for the United Kingdom in respect of Northern Ireland to participate in the decision-making and decision-shaping of the Union[^16],[^17].
+The IE/NI Protocol excludes the possibility for the United Kingdom in respect of Northern Ireland to participate in the decision-making and decision-shaping of the Union[^16],[^17].
 
 **2. ISSUANCE OF PERMITS AND REPORTING OF LEGAL TRADE**
 

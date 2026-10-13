@@ -15,23 +15,28 @@ parent: annexes
 
 
 
-|  | **Party to CITES** | **EU territory** **(EU Treaty applies)** | **EU CITES legislation applies**[^1] | **Import and (re-)export documents required for trade with EU Member States** | **EU customs territory** | **Customs checks required for intra-EU trade** |
-| --- | --- | --- | --- | --- | --- | --- |
-| French Overseas Departments (La Réunion, Martinique, Guadeloupe, Guyane, Mayotte) (FR) | X | X | X |  | X |  |
-| Saint Martin (FR) | X | X | X |  | X |  |
-| Canary Islands (ES) | X | X | X |  | X |  |
-| Madeira (PT) | X | X | X |  | X |  |
-| Açores (PT) | X | X | X |  | X |  |
-| Island of Helgoland (DE) | X | X | X |  |  | X |
-| Territory of Büsingen (DE) | X | X | X |  |  | X |
-| Ceuta and Melilla (ES) | X | X | X |  |  | X |
-| Aland Islands (FI) | X | X | X |  | X |  |
-| Livigno (IT) | X | X | X |  |  | X |
-|  |  |  |  |  |  |  |
-| Monaco[^2] | X |  |  | X | X |  |
-| San Marino[^3] | X | (see note 3) | X |  | (see note 3) |  |
-
-
+<div class="table-wrap">
+<table class="govuk-table table--wide">
+<colgroup><col style="width:24%"><col style="width:10%"><col style="width:12%"><col style="width:13%"><col style="width:17%"><col style="width:11%"><col style="width:13%"></colgroup>
+<thead>
+<tr><th></th><th>Party to CITES</th><th>EU territory (EU Treaty applies)</th><th>EU CITES legislation applies[^1]</th><th>Import and (re-)export documents required for trade with EU Member States</th><th>EU customs territory</th><th>Customs checks required for intra-EU trade</th></tr>
+</thead>
+<tbody>
+<tr><td>French Overseas Departments (La Réunion, Martinique, Guadeloupe, Guyane, Mayotte) (FR)</td><td class="cell-center">X</td><td class="cell-center">X</td><td class="cell-center">X</td><td></td><td class="cell-center">X</td><td></td></tr>
+<tr><td>Saint Martin (FR)</td><td class="cell-center">X</td><td class="cell-center">X</td><td class="cell-center">X</td><td></td><td class="cell-center">X</td><td></td></tr>
+<tr><td>Canary Islands (ES)</td><td class="cell-center">X</td><td class="cell-center">X</td><td class="cell-center">X</td><td></td><td class="cell-center">X</td><td></td></tr>
+<tr><td>Madeira (PT)</td><td class="cell-center">X</td><td class="cell-center">X</td><td class="cell-center">X</td><td></td><td class="cell-center">X</td><td></td></tr>
+<tr><td>Açores (PT)</td><td class="cell-center">X</td><td class="cell-center">X</td><td class="cell-center">X</td><td></td><td class="cell-center">X</td><td></td></tr>
+<tr><td>Island of Helgoland (DE)</td><td class="cell-center">X</td><td class="cell-center">X</td><td class="cell-center">X</td><td></td><td></td><td class="cell-center">X</td></tr>
+<tr><td>Territory of Büsingen (DE)</td><td class="cell-center">X</td><td class="cell-center">X</td><td class="cell-center">X</td><td></td><td></td><td class="cell-center">X</td></tr>
+<tr><td>Ceuta and Melilla (ES)</td><td class="cell-center">X</td><td class="cell-center">X</td><td class="cell-center">X</td><td></td><td></td><td class="cell-center">X</td></tr>
+<tr><td>Aland Islands (FI)</td><td class="cell-center">X</td><td class="cell-center">X</td><td class="cell-center">X</td><td></td><td class="cell-center">X</td><td></td></tr>
+<tr><td>Livigno (IT)</td><td class="cell-center">X</td><td class="cell-center">X</td><td class="cell-center">X</td><td></td><td></td><td class="cell-center">X</td></tr>
+<tr><td>Monaco[^2]</td><td class="cell-center">X</td><td></td><td></td><td class="cell-center">X</td><td class="cell-center">X</td><td></td></tr>
+<tr><td>San Marino[^3]</td><td class="cell-center">X</td><td class="cell-center">(see note 3)</td><td class="cell-center">X</td><td></td><td colspan="2" class="cell-center">(see note 3)</td></tr>
+</tbody>
+</table>
+</div>
 
 \* Note that territories/countries forming a Customs union with the EU (e.g. Andorra, Turkey) are subject to the usual Customs formalities.
 
@@ -49,13 +54,16 @@ All other dependent territories of the EU Member States are not part of the EU T
 **Overseas countries and territories**
 
 
-|  | Curacao (NL) | Saba (NL) |
-| --- | --- | --- |
-| Aruba (NL) |  | Saint Barthélemy (FR) |
-|  | French Polynesia (FR) |  |
-| Bonaire (NL) | French Southern and Antarctic Territories (FR) | Sint Eustatius (NL) |
-|  | Greenland (DK) | Sint Maarten (NL) |
-|  |  |  |
-|  | New Caledonia and Dependencies (FR) | Saint Pierre and Miquelon (FR) |
-|  |  |  |
-|  |  | Wallis and Futuna Islands (FR) |
+- Aruba (NL)
+- Bonaire (NL)
+- Curacao (NL)
+- French Polynesia (FR)
+- French Southern and Antarctic Territories (FR)
+- Greenland (DK)
+- New Caledonia and Dependencies (FR)
+- Saba (NL)
+- Saint Barthélemy (FR)
+- Sint Eustatius (NL)
+- Sint Maarten (NL)
+- Saint Pierre and Miquelon (FR)
+- Wallis and Futuna Islands (FR)

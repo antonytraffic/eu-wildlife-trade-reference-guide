@@ -16,87 +16,136 @@ parent: annexes
 
 ## 1. Establishment and mandate
 
-| **REGULATION (EC) No 338/97** |  |
-| --- | --- |
-| **ESTABLISHMENT** |  |
-| **Article** | **Duty** |
-| Article 13.2 | Each Member State shall designate of one or more SA with appropriate qualifications whose duties are separate from those of any designated management authority. |
-| Article 17.1 | SRG established consisting of representatives of each Member State's scientific authority or authorities and chaired by the Commission. |
-| Article 17.2 (a) | SRG shall examine any scientific question relating to the application of the Regulation - in particular Arts 4.1(a), 4.2(a) and 4.6 - raised by the chairman either on his own initiative or at the request of the members of the SRG or the Committee. |
-| Article 17.2(b) | Commission to convey the opinions of the SRG to the Committee. |
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:18%"><col style="width:82%"></colgroup>
+<thead>
+<tr><th colspan="2">REGULATION (EC) No 338/97</th></tr>
+</thead>
+<tbody>
+<tr><td colspan="2" class="table-subheader">ESTABLISHMENT</td></tr>
+<tr><th class="table-subheader">Article</th><th class="table-subheader">Duty</th></tr>
+<tr><td>Article 13.2</td><td>Each Member State shall designate of one or more SA with appropriate qualifications whose duties are separate from those of any designated management authority.</td></tr>
+<tr><td>Article 17.1</td><td>SRG established consisting of representatives of each Member State's scientific authority or authorities and chaired by the Commission.</td></tr>
+<tr><td>Article 17.2 (a)</td><td>SRG shall examine any scientific question relating to the application of the Regulation - in particular Arts 4.1(a), 4.2(a) and 4.6 - raised by the chairman either on his own initiative or at the request of the members of the SRG or the Committee.</td></tr>
+<tr><td>Article 17.2(b)</td><td>Commission to convey the opinions of the SRG to the Committee.</td></tr>
+</tbody>
+</table>
+</div>
 
 ## 2. Import and export permit criteria
 
-| **IMPORT/EXPORT PERMITS** |  |  |
-| --- | --- | --- |
-| **Article** | **Duty** | **Relevant considerations** |
-| ANNEX A-IMPORTS |  |  |
-| Article 4.1(a)(i) | The competent SA, after considering any opinion by the SRG, has advised that the introduction into the Community would not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species. | Attachment A |
-| Article 4.1(a)(ii) | The competent SA, after considering any opinion of the SRG, has advised that the introduction into the EU is taking place for: - the advancement of science, where the species proves to be the only one suitable and where no captive-bred specimens are available. - breeding or propagation purposes from which conservation benefits will accrue to the species. - research or education aimed at the preservation or conservation of the species. - other purposes which are not detrimental to the conservation of the species. | Attachment B |
-| Article 4.1(c) | The competent SA is satisfied that the intended accommodation for a live specimen at the place of destination is adequately equipped to conserve and care for it properly. | Attachment C |
-| Article 4.1(e) | The management authority (MA) is satisfied, following consultation with the competent SA, that there are no other factors relating to the conservation of the species which militate against issuance of the import permit. | Attachment D |
-| Article 6 | When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it. | Attachment A |
-| ANNEX B-IMPORTS |  |  |
-| Article 4.2(a) | The competent SA, after examining available data and considering any opinions from the SRG, is of the opinion that the introduction into the EU would not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species, taking account of current or expected levels of trade. | Attachment A |
-| Article 4.2 (c) | The competent SA is satisfied that there are no other factors relating to the conservation of the species which militate against issuance of the import permit. | Attachment D |
-| Article 6 | When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it. | Attachment A |
-| ANNEX A-EXPORTS |  |  |
-| Article 5.2 (a) | The competent SA has advised, in writing, that the capture or collection of the specimens in the wild or their export will not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species. | Attachment A |
-| Article 5.2 (d) | The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export permit. | Attachment D |
-| Article 6 | When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it. | Attachment A |
-| ANNEX B-EXPORTS |  |  |
-| Article 5.4 | The competent SA has advised, in writing, that the capture or collection of the specimens in the wild or their export will not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species. | Attachment A |
-| Article 5.3 | The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export permit. | Attachment D |
-| Article 6 | When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it. | Attachment A |
-| ANNEX C-EXPORTS |  |  |
-| Article 5.4 | The MA is satisfied, following consultation with the competent SA, that the capture or collection of the specimens in the wild or their export will not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species. | Attachment A |
-| Article 5.3 | The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export permit. | Attachment D |
-| ANNEX A-RE-EXPORT |  |  |
-| Article 5.3 | The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export certificate. | Attachment D |
-| ANNEX B-RE-EXPORT |  |  |
-| Article 5.4 | The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export certificate. | Attachment D |
-| ANNEX C-RE-EXPORT |  |  |
-| Article 5.4 | The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export certificate. | Attachment D |
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:18%"><col style="width:62%"><col style="width:20%"></colgroup>
+<thead>
+<tr><th colspan="3">IMPORT/EXPORT PERMITS</th></tr>
+<tr><th class="table-subheader">Article</th><th class="table-subheader">Duty</th><th class="table-subheader">Relevant considerations</th></tr>
+</thead>
+<tbody>
+<tr><td colspan="3" class="table-subheader">ANNEX A-IMPORTS</td></tr>
+<tr><td>Article 4.1(a)(i)</td><td>The competent SA, after considering any opinion by the SRG, has advised that the introduction into the Community would not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.</td><td>Attachment A</td></tr>
+<tr><td>Article 4.1(a)(ii)</td><td><p>The competent SA, after considering any opinion of the SRG, has advised that the introduction into the EU is taking place for:</p><ul><li>the advancement of science, where the species proves to be the only one suitable and where no captive-bred specimens are available.</li><li>breeding or propagation purposes from which conservation benefits will accrue to the species.</li><li>research or education aimed at the preservation or conservation of the species.</li><li>other purposes which are not detrimental to the conservation of the species.</li></ul></td><td>Attachment B</td></tr>
+<tr><td>Article 4.1(c)</td><td>The competent SA is satisfied that the intended accommodation for a live specimen at the place of destination is adequately equipped to conserve and care for it properly.</td><td>Attachment C</td></tr>
+<tr><td>Article 4.1(e)</td><td>The management authority (MA) is satisfied, following consultation with the competent SA, that there are no other factors relating to the conservation of the species which militate against issuance of the import permit.</td><td>Attachment D</td></tr>
+<tr><td>Article 6</td><td>When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it.</td><td>Attachment A</td></tr>
+<tr><td colspan="3" class="table-subheader">ANNEX B-IMPORTS</td></tr>
+<tr><td>Article 4.2(a)</td><td>The competent SA, after examining available data and considering any opinions from the SRG, is of the opinion that the introduction into the EU would not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species, taking account of current or expected levels of trade.</td><td>Attachment A</td></tr>
+<tr><td>Article 4.2 (c)</td><td>The competent SA is satisfied that there are no other factors relating to the conservation of the species which militate against issuance of the import permit.</td><td>Attachment D</td></tr>
+<tr><td>Article 6</td><td>When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it.</td><td>Attachment A</td></tr>
+<tr><td colspan="3" class="table-subheader">ANNEX A-EXPORTS</td></tr>
+<tr><td>Article 5.2 (a)</td><td>The competent SA has advised, in writing, that the capture or collection of the specimens in the wild or their export will not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.</td><td>Attachment A</td></tr>
+<tr><td>Article 5.2 (d)</td><td>The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export permit.</td><td>Attachment D</td></tr>
+<tr><td>Article 6</td><td>When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it.</td><td>Attachment A</td></tr>
+<tr><td colspan="3" class="table-subheader">ANNEX B-EXPORTS</td></tr>
+<tr><td>Article 5.4</td><td>The competent SA has advised, in writing, that the capture or collection of the specimens in the wild or their export will not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.</td><td>Attachment A</td></tr>
+<tr><td>Article 5.3</td><td>The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export permit.</td><td>Attachment D</td></tr>
+<tr><td>Article 6</td><td>When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it.</td><td>Attachment A</td></tr>
+<tr><td colspan="3" class="table-subheader">ANNEX C-EXPORTS</td></tr>
+<tr><td>Article 5.4</td><td>The MA is satisfied, following consultation with the competent SA, that the capture or collection of the specimens in the wild or their export will not have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.</td><td>Attachment A</td></tr>
+<tr><td>Article 5.3</td><td>The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export permit.</td><td>Attachment D</td></tr>
+<tr><td colspan="3" class="table-subheader">ANNEX A-RE-EXPORT</td></tr>
+<tr><td>Article 5.3</td><td>The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export certificate.</td><td>Attachment D</td></tr>
+<tr><td colspan="3" class="table-subheader">ANNEX B-RE-EXPORT</td></tr>
+<tr><td>Article 5.4</td><td>The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export certificate.</td><td>Attachment D</td></tr>
+<tr><td colspan="3" class="table-subheader">ANNEX C-RE-EXPORT</td></tr>
+<tr><td>Article 5.4</td><td>The MA is satisfied, following consultation with the competent SA that there are no other factors relating to the conservation of the species which militate against issuance of the export certificate.</td><td>Attachment D</td></tr>
+</tbody>
+</table>
+</div>
 
-| INTRA-EU MOVEMENT OF ANNEX A LIVE SPECIMENS |  |  |
-| --- | --- | --- |
-| Article 9.2 (b) | The competent SA at the place of destination shall be satisfied that the intended accommodation for a live specimen (of animal or plant) of: - a species listed in Annex A - source other than A, C, or D - moved within the Community from the location indicated in the import permit or in any certificate issued in compliance with this Regulation. is adequately equipped to conserve and care for it properly. An opinion is given to the Management Authority of the Member State in which the specimen is located before the movement (i.e. the authority that received the application for issuing a certificate for movement of live specimen). | Derogation of article 7.1 (a) of Regulation 338/97; Criteria in Article 54 and 56 of Regulation 865/2006; Attachment C |
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:18%"><col style="width:62%"><col style="width:20%"></colgroup>
+<thead>
+<tr><th colspan="3">INTRA-EU MOVEMENT OF ANNEX A LIVE SPECIMENS</th></tr>
+<tr><th class="table-subheader">Article</th><th class="table-subheader">Duty</th><th class="table-subheader">Relevant considerations</th></tr>
+</thead>
+<tbody>
+<tr><td>Article 9.2 (b)</td><td><p>The competent SA at the place of destination shall be satisfied that the intended accommodation for a live specimen (of animal or plant) of:</p><ul><li>a species listed in Annex A</li><li>source other than A, C, or D</li><li>moved within the Community from the location indicated in the import permit or in any certificate issued in compliance with this Regulation.</li></ul><p>is adequately equipped to conserve and care for it properly.</p><p>An opinion is given to the Management Authority of the Member State in which the specimen is located before the movement (i.e. the authority that received the application for issuing a certificate for movement of live specimen).</p></td><td><p>Derogation of article 7.1 (a) of Regulation 338/97;</p><p>Criteria in Article 54 and 56 of Regulation 865/2006;</p><p>Attachment C</p></td></tr>
+</tbody>
+</table>
+</div>
 
 ## 3. Confiscations
 
-| **CONFISCATIONS** |  |  |
-| --- | --- | --- |
-| **Article** | **Duty** | **Relevant considerations** |
-| Article 16.3 (a) | The competent authority of the Member state of confiscation, following consultation with a SA shall place or otherwise dispose of the specimen under conditions which it deems to be appropriate and consistent with the purposes and provisions of the Convention and this Regulation | Attachment J |
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:18%"><col style="width:62%"><col style="width:20%"></colgroup>
+<thead>
+<tr><th colspan="3">CONFISCATIONS</th></tr>
+<tr><th class="table-subheader">Article</th><th class="table-subheader">Duty</th><th class="table-subheader">Relevant considerations</th></tr>
+</thead>
+<tbody>
+<tr><td>Article 16.3 (a)</td><td>The competent authority of the Member state of confiscation, following consultation with a SA shall place or otherwise dispose of the specimen under conditions which it deems to be appropriate and consistent with the purposes and provisions of the Convention and this Regulation</td><td>Attachment J</td></tr>
+</tbody>
+</table>
+</div>
 
 ## 4. Commission import restrictions (Article 4.6)
 
-| **SRG VIEW ON PROPOSED COMMISSION IMPORT RESTRICTIONS** |  |  |
-| --- | --- | --- |
-| ANNEX A-IMPORTS |  |  |
-| Article 4.6 (a) | In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, because the introduction into the EU would have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species. | Attachment A |
-| Article 4.6 (a) | In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, because there are other factors relating to the conservation of the species which militate against issuance of the import permit. | Attachment D |
-| ANNEX B-IMPORTS |  |  |
-| Article 4.6 (b) | In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, because the introduction into the EU would have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species, taking account of current or expected levels of trade. | Attachment A |
-| Article 4.6 (b) | In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, because there are other factors relating to the conservation of the species which militate against issuance of the import permit. | Attachment D |
-| Article 4.6 (c) | In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, on live specimens because the species concerned has a high mortality rate during shipment or for which it has been established that they are unlikely to survive in captivity for a considerable proportion of their potential life span. | Attachment E |
-| ANY SPECIES-IMPORTS |  |  |
-| Article 4.6 (d) | In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, on live specimens because it has been established that their introduction into the EU presents an ecological threat to wild species of fauna and flora. | Attachment F |
-| Article 6 | When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it. | Attachment A |
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:18%"><col style="width:62%"><col style="width:20%"></colgroup>
+<thead>
+<tr><th colspan="3">SRG VIEW ON PROPOSED COMMISSION IMPORT RESTRICTIONS</th></tr>
+<tr><th class="table-subheader">Article</th><th class="table-subheader">Duty</th><th class="table-subheader">Relevant considerations</th></tr>
+</thead>
+<tbody>
+<tr><td colspan="3" class="table-subheader">ANNEX A-IMPORTS</td></tr>
+<tr><td>Article 4.6 (a)</td><td>In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, because the introduction into the EU would have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.</td><td>Attachment A</td></tr>
+<tr><td>Article 4.6 (a)</td><td>In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, because there are other factors relating to the conservation of the species which militate against issuance of the import permit.</td><td>Attachment D</td></tr>
+<tr><td colspan="3" class="table-subheader">ANNEX B-IMPORTS</td></tr>
+<tr><td>Article 4.6 (b)</td><td>In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, because the introduction into the EU would have a harmful effect on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species, taking account of current or expected levels of trade.</td><td>Attachment A</td></tr>
+<tr><td>Article 4.6 (b)</td><td>In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, because there are other factors relating to the conservation of the species which militate against issuance of the import permit.</td><td>Attachment D</td></tr>
+<tr><td>Article 4.6 (c)</td><td>In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, on live specimens because the species concerned has a high mortality rate during shipment or for which it has been established that they are unlikely to survive in captivity for a considerable proportion of their potential life span.</td><td>Attachment E</td></tr>
+<tr><td colspan="3" class="table-subheader">ANY SPECIES-IMPORTS</td></tr>
+<tr><td>Article 4.6 (d)</td><td>In consultation with the countries of origin concerned, and taking account of any opinion from the SRG, the Commission may establish general restrictions, or restrictions relating to certain countries of origin, on live specimens because it has been established that their introduction into the EU presents an ecological threat to wild species of fauna and flora.</td><td>Attachment F</td></tr>
+<tr><td>Article 6</td><td>When a Member State rejects an application for a permit or certificate referred to in Articles 4, 5 and 10, in a case of significance in respect of the objectives of Regulation (EC) No 338/97, it shall immediately inform the Commission of the rejection and of the reasons for it.</td><td>Attachment A</td></tr>
+</tbody>
+</table>
+</div>
 
 ## 5. Other provisions under Regulation (EC) No 865/2006
 
-| **Provisions under Commission Regulation (EC) No 865/2006** |  |  |
-| --- | --- | --- |
-| **Article** | **Duty** | **Relevant considerations** |
-| Article 11.3 | The MA of the Member State in which a specimen is located may, in consultation with the relevant SA, decide to issue transaction-specific certificates where it is considered that there are other factors relating to the conservation of the species that militate against the issuance of a specimen-specific certificate., specifically in relation to: - Certificates provided for in Article 8.3 of Regulation 338/97 | Attachment I |
-| Article 54 | The SA should advise the MA that a specimen of an animal species is born and bred in captivity, specifically in relation to: - import of Annex A and B specimens (Article 4.1(a)(i) and (e), Art. 4.2(a) and (c), Art. 7.1 of Regulation 338/97). - export of Annex A and B specimens (Article 5.2(d) and Art. 5.4) - certificates (Art. 8.3 (d) of Regulation 338/97, Art. 48.1 (c)(d) and 59.2 of Regulation 865/2006). | Criteria in Article 54 of Regulation 865/2006. Attachment G |
-| Article 56 | The SA should advise the MA that a given specimen is artificially propagated, specifically in relation to: - import of Annex A species (Art. 7.1 of Regulation 338/97). | Criteria in Article 56 of Regulation 865/2006 |
-| Article 59.2 | The exemption for specimens referred to in Article 8(3)(d) of Regulation (EC) No 338/97 shall be granted only if the applicant has satisfied the competent MA, the latter having consulted a competent SA, specifically in relation to: - exemption certificates issued to captive-bred and artificially propagated specimens (Article 54, 55 and 56 of EC Regulation 865/2006) | Criteria in Articles 54, 55 and 56 of Regulation 865/2006 |
-| Article 59.3 | The exemption for specimens referred to in Article 8(3)(e), (f) and (g) of Regulation (EC) No 338/97 shall be granted only if the applicant has satisfied the competent MA, the latter having consulted with a competent SA, specifically in relation to: - imports of Annex A specimens (Article 4.1(a)(ii) - certificates issued to Annex A specimens under Article 10 of Council Regulation 338/97 to allow commercial use imports of Annex B specimens subject to an Article 4(6) import restriction (Article 71.4(b) EC Regulation 865/2006 | Attachment B |
-| Article 60 | A derogation from the prohibition laid down in Article 8(1) thereof may be granted to scientific institutions, approved by a MA in consultation with a SA, by the issue of a certificate covering all specimens in their collection of species listed in Annex A to that Regulation, that are intended for captive breeding or artificial propagation from which conservation benefits will accrue to the species, or for research or education aimed at the preservation or conservation of the species. | Attachment H |
-| Article 70 | Any draft amendments to Annexes B or D to Regulation (EC) No 338/97 pursuant to Article 3(2)(c) or (d), or Article 3(4)(a) of that Regulation shall be submitted by the Commission to the SRG, referred to in Article 17 of that Regulation, for advice before they are submitted to the Committee. | Criteria in Article 3 of Regulation 338/97 |
-
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:18%"><col style="width:62%"><col style="width:20%"></colgroup>
+<thead>
+<tr><th colspan="3">Provisions under Commission Regulation (EC) No 865/2006</th></tr>
+<tr><th class="table-subheader">Article</th><th class="table-subheader">Duty</th><th class="table-subheader">Relevant considerations</th></tr>
+</thead>
+<tbody>
+<tr><td>Article 11.3</td><td><p>The MA of the Member State in which a specimen is located may, in consultation with the relevant SA, decide to issue transaction-specific certificates where it is considered that there are other factors relating to the conservation of the species that militate against the issuance of a specimen-specific certificate., specifically in relation to:</p><ul><li>Certificates provided for in Article 8.3 of Regulation 338/97</li></ul></td><td>Attachment I</td></tr>
+<tr><td>Article 54</td><td><p>The SA should advise the MA that a specimen of an animal species is born and bred in captivity, specifically in relation to:</p><ul><li>import of Annex A and B specimens (Article 4.1(a)(i) and (e), Art. 4.2(a) and (c), Art. 7.1 of Regulation 338/97).</li><li>export of Annex A and B specimens (Article 5.2(d) and Art. 5.4)</li><li>certificates (Art. 8.3 (d) of Regulation 338/97, Art. 48.1 (c)(d) and 59.2 of Regulation 865/2006).</li></ul></td><td><p>Criteria in Article 54 of Regulation 865/2006.</p><p>Attachment G</p></td></tr>
+<tr><td>Article 56</td><td><p>The SA should advise the MA that a given specimen is artificially propagated, specifically in relation to:</p><ul><li>import of Annex A species (Art. 7.1 of Regulation 338/97).</li></ul></td><td>Criteria in Article 56 of Regulation 865/2006</td></tr>
+<tr><td>Article 59.2</td><td><p>The exemption for specimens referred to in Article 8(3)(d) of Regulation (EC) No 338/97 shall be granted only if the applicant has satisfied the competent MA, the latter having consulted a competent SA, specifically in relation to:</p><ul><li>exemption certificates issued to captive-bred and artificially propagated specimens (Article 54, 55 and 56 of EC Regulation 865/2006)</li></ul></td><td>Criteria in Articles 54, 55 and 56 of Regulation 865/2006</td></tr>
+<tr><td>Article 59.3</td><td><p>The exemption for specimens referred to in Article 8(3)(e), (f) and (g) of Regulation (EC) No 338/97 shall be granted only if the applicant has satisfied the competent MA, the latter having consulted with a competent SA, specifically in relation to:</p><ul><li>imports of Annex A specimens (Article 4.1(a)(ii)</li><li>certificates issued to Annex A specimens under Article 10 of Council Regulation 338/97 to allow commercial use</li></ul><p>imports of Annex B specimens subject to an Article 4(6) import restriction (Article 71.4(b) EC Regulation 865/2006</p></td><td>Attachment B</td></tr>
+<tr><td>Article 60</td><td>A derogation from the prohibition laid down in Article 8(1) thereof may be granted to scientific institutions, approved by a MA in consultation with a SA, by the issue of a certificate covering all specimens in their collection of species listed in Annex A to that Regulation, that are intended for captive breeding or artificial propagation from which conservation benefits will accrue to the species, or for research or education aimed at the preservation or conservation of the species.</td><td>Attachment H</td></tr>
+<tr><td>Article 70</td><td>Any draft amendments to Annexes B or D to Regulation (EC) No 338/97 pursuant to Article 3(2)(c) or (d), or Article 3(4)(a) of that Regulation shall be submitted by the Commission to the SRG, referred to in Article 17 of that Regulation, for advice before they are submitted to the Committee.</td><td>Criteria in Article 3 of Regulation 338/97</td></tr>
+</tbody>
+</table>
+</div>
 
 ## 6. Attachment A — Non-detriment findings / SRG opinions
 
@@ -140,25 +189,25 @@ The non-detriment finding should be based on proportionate resource assessment m
 
 - conservation status (in harvest area, nationally and internationally)
 
-quality of data
+- quality of data
 
-genetic status/diversity
+- genetic status/diversity
 
 ***Harvest characteristics*** 
 
-types
+- types
 
-volumes
+- volumes
 
-segment of population (e.g. age, sex)
+- segment of population (e.g. age, sex)
 
-trends (historical and current levels and patterns)
+- trends (historical and current levels and patterns)
 
-data quality
+- data quality
 
-conversion characteristics
+- conversion characteristics
 
-(irreversible) effects of the harvest on the habitat 
+- (irreversible) effects of the harvest on the habitat
 
 ***Management regime*** 
 
@@ -188,7 +237,7 @@ conversion characteristics
 
 ***Threats*** 
 
-intrinsic and extrinsic factors 
+- intrinsic and extrinsic factors
 
 ***Monitoring programmes*** 
 
@@ -228,23 +277,21 @@ g. national and international trade information such as that available via the C
 
 Further reference material is available, but is not limited to: 
 
-- Scientific Authorities are recommended to consider the information included in the Annex to document AC26/PC20 Doc. 8.4 and any subsequent updates available on the [CITES website](http://www.cites.org/eng/prog/ndf/index.php)as reference material when making NDF's.
+- Scientific Authorities are recommended to consider the information included in the Annex to document AC26/PC20 Doc. 8.4 and any subsequent updates available on the [CITES website](http://www.cites.org/eng/prog/ndf/index.php) as reference material when making NDF's.
 
-- [International Expert Workshop on CITES Non](http://www.conabio.gob.mx/institucion/cooperacion_internacional/TallerNDF/taller_ndf.html)[-](http://www.conabio.gob.mx/institucion/cooperacion_internacional/TallerNDF/taller_ndf.html)[Detriment Findings, Cancun, Mexico,](http://www.conabio.gob.mx/institucion/cooperacion_internacional/TallerNDF/taller_ndf.html)[November 2008](http://www.conabio.gob.mx/institucion/cooperacion_internacional/TallerNDF/taller_ndf.html)
+- [International Expert Workshop on CITES Non-Detriment Findings, Cancun, Mexico, November 2008](http://www.conabio.gob.mx/institucion/cooperacion_internacional/TallerNDF/taller_ndf.html)
 
-- [Workshop on Non](https://cites.org/eng/node/138336)[-](https://cites.org/eng/node/138336)[Detriment Findings (NDFs)](https://cites.org/eng/node/138336)[,](https://cites.org/eng/node/138336) 04-08 December 2023, Nairobi, Kenia
+- [Workshop on Non-Detriment Findings (NDFs)](https://cites.org/eng/node/138336), 04-08 December 2023, Nairobi, Kenia
 
-- [Reference](https://circabc.europa.eu/ui/group/3f466d71-92a7-49eb-9c63-6cb0fadf29dc/library/007dddf2-dca9-4c1b-be1c-95e43d67ba8a/details?download=true)[guide](https://circabc.europa.eu/ui/group/3f466d71-92a7-49eb-9c63-6cb0fadf29dc/library/007dddf2-dca9-4c1b-be1c-95e43d67ba8a/details?download=true)produced by the European Commission and TRAFFIC to the *Wildlife Trade Regulations.*
+- [Reference guide](https://circabc.europa.eu/ui/group/3f466d71-92a7-49eb-9c63-6cb0fadf29dc/library/007dddf2-dca9-4c1b-be1c-95e43d67ba8a/details?download=true) produced by the European Commission and TRAFFIC to the *Wildlife Trade Regulations.*
 
 - Resolution Conf 16.7 encourages Parties to share their non-detriment findings and the methodology that they use. Member States already share documentation to support their opinions and may wish to consider whether they have further material that could be provided to non-EU Parties in support of capacity development.
 
-- Wolf, Daniel; Oldfield, Thomasina E.E.; McGough, Noel (2024): A nine-step process to support CITES Scientific Authorities making science-based non-detriment findings (NDFs) for timber/tree species listed in CITES Appendix II: Version 4.0. BfN-Schriften 706. [https://doi.org/10.19217/skr706](https://doi.org/10.19217/skr706)[.](https://doi.org/10.19217/skr706)
+- Wolf, Daniel; Oldfield, Thomasina E.E.; McGough, Noel (2024): A nine-step process to support CITES Scientific Authorities making science-based non-detriment findings (NDFs) for timber/tree species listed in CITES Appendix II: Version 4.0. BfN-Schriften 706. [https://doi.org/10.19217/skr706](https://doi.org/10.19217/skr706).
 
-- Wolf, Daniel; Oldfield, Thomasina E.E.; Schippmann, Uwe; McGough, Noel; Leamann, Danna J. (2025): A nine-step process to support CITES Scientific Authorities making science-based non-detriment findings (NDFs) for species listed
+- Wolf, Daniel; Oldfield, Thomasina E.E.; Schippmann, Uwe; McGough, Noel; Leamann, Danna J. (2025): A nine-step process to support CITES Scientific Authorities making science-based non-detriment findings (NDFs) for species listed in CITES Appendix II: Version 4.0. BfN-Schriften 716. [https://doi.org/10.19217/skr716](https://doi.org/10.19217/skr716).
 
-in  CITES  Appendix  II:  Version  4.0.  BfN-Schriften  716. [https://doi.org/10.19217/skr716](https://doi.org/10.19217/skr716)[.](https://doi.org/10.19217/skr716)   
-
-CITES electronic Non-Detriment finding portals for sharks and rays ([e](https://user.cites-endf.org/)[-](https://user.cites-endf.org/)[NDF](https://user.cites-endf.org/)[)](https://user.cites-endf.org/) and for sea cucumbers ([e](https://spc.int/endf)[-](https://spc.int/endf)[NDF](https://spc.int/endf)[)](https://spc.int/endf). 
+- CITES electronic Non-Detriment finding portals for sharks and rays ([e-NDF](https://user.cites-endf.org/)) and for sea cucumbers ([e-NDF](https://spc.int/endf)).
 
 ### SRG opinions and consultation process
 
@@ -270,7 +317,7 @@ For **Annex B** species, *the import permit may be issued only when the competen
 
 During regular monitoring of species/country combinations or when advising on a particular application, it is the task of the respective SA to decide whether these aspects have significantly changed or not. 
 
-There are **three** **formalised types of SRG opinions**: 
+There are **three formalised types of SRG opinions**: 
 
 **Positive:** Based on the available information and given current or anticipated levels of trade, introduction into the EU **would not have a harmful effect** on the conservation status of the species or on the extent of the territory occupied by the relevant population of the species.
 
@@ -314,7 +361,7 @@ d. production levels overall are biologically feasible,
 
 e. the founder stock for the facilities concerned were acquired without detriment to the wild population.
 
-The SRG can also issue opinions based on the **review of** **its own** **opinions** (for instance, long standing import suspensions or cases in consultation) or based on CITES recommendations, such as results from *Review of Significant Trade in Specimens of Appendix-II species,* Resolution Conf. 12.8 (Rev. CoP18). Opinions formed, confirmed, or removed by the SRG are indicated in the **short summary of conclusions (SoC) of the SRG**.  
+The SRG can also issue opinions based on the **review of its own opinions** (for instance, long standing import suspensions or cases in consultation) or based on CITES recommendations, such as results from *Review of Significant Trade in Specimens of Appendix-II species,* Resolution Conf. 12.8 (Rev. CoP18). Opinions formed, confirmed, or removed by the SRG are indicated in the **short summary of conclusions (SoC) of the SRG**.  
 
 ### Tracking
 
@@ -340,7 +387,7 @@ Such cases are referred to as “**Further taxon / country combinations discusse
 
 General opinions formed through written procedures are initially communicated by the Commission to the MAs and SAs of all Member States. They are also included in the list of opinions formed at the following SRG meetings and circulated in summary of conclusions after each meeting.  
 
-These documents are also available on [CIRCABC](https://circabc.europa.eu/faces/jsp/extension/wai/navigation/container.jsp)and in the database maintained by UNEPWCMC: [www.speciesplus.net](http://www.speciesplus.net/)[.](http://www.speciesplus.net/)  
+These documents are also available on [CIRCABC](https://circabc.europa.eu/faces/jsp/extension/wai/navigation/container.jsp) and in the database maintained by UNEP-WCMC: [www.speciesplus.net](http://www.speciesplus.net/).  
 
 ### Applicability of opinions
 
@@ -452,7 +499,7 @@ Trophy hunting is subject to sustainable management that, as appropriate:
 
 **b) Re-introductions (purpose code N)**
 
-The translocation of ‘surplus’ specimens from one wild population to re-stock a population in another country or to restore a species, by re-introduction, to a part of its range from which it has been extirpated. Such programmes should be assessed against the IUCN re-introduction guidelines [(http://www.iucnsscrsg.org/images/English.pdf).](http://www.iucnsscrsg.org/images/English.pdf))
+The translocation of ‘surplus’ specimens from one wild population to re-stock a population in another country or to restore a species, by re-introduction, to a part of its range from which it has been extirpated. Such programmes should be assessed against the IUCN re-introduction guidelines ([http://www.iucnsscrsg.org/images/English.pdf](http://www.iucnsscrsg.org/images/English.pdf)).
 
 **c) Educational (purpose code E)**
 
@@ -470,20 +517,28 @@ In exceptional circumstances, e. g. where household effects are being imported u
 
 *Table 17: Treatment of purposes of Annex A import applications (except of captive-bred and artificially propagated specimens)*
 
-| **Purpose** | **Treatment** | **Justification** |
-| --- | --- | --- |
-| **B** | Breeding in captivity or artificial propagation | Yes, under 1st indent – 8.3.f (conservation benefit required) |
-| **E** | Educational | Yes, under 1st indent – 8.3.g (conservation benefit required) OR under 2nd indent in exceptional circumstances |
-| **G** | Botanical gardens | Yes, under 1st indent –  8.3.f  or  8.3.g   (conservation  benefit required) |
-| **H** | Hunting trophies | Yes, under 2nd indent - if conservation benefit |
-| **L** | Law enforcement/judicial/forensic | Yes, under 2nd indent - if conservation benefit OR in exceptional circumstances |
-| **M** | Medical (including bio-medical research) | Yes, under 1st indent – 8.3.e (exceptional circumstances etc) |
-| **N** | Reintroduction or introduction into the wild | Yes, under 2nd indent - if conservation benefit |
-| **P** | Personal | No, unless under 2nd indent OR in exceptional circumstances where household effects imported under change of residence |
-| **Q** | Circuses and travelling exhibitions | No (Art. 4.1.(d)) |
-| **S** | Scientific | Yes, under 1st indent - 8.3.e (exceptional circumstances etc.), or 8.3.g (conservation benefit required) |
-| **T** | Commercial | No (Art. 4.1.(d)) |
-| **Z** | Zoos | Yes, under 1st indent  –  8.3.f  or  8.3.g (conservation  benefit required) |
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:8%"><col style="width:42%"><col style="width:50%"></colgroup>
+<thead>
+<tr><th colspan="2">Purpose</th><th>Treatment</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>B</strong></td><td>Breeding in captivity or artificial propagation</td><td>Yes, under 1<sup>st</sup> indent – 8.3.f (conservation benefit required)</td></tr>
+<tr><td><strong>E</strong></td><td>Educational</td><td>Yes, under 1<sup>st</sup> indent – 8.3.g (conservation benefit required) OR under 2<sup>nd</sup> indent in exceptional circumstances</td></tr>
+<tr><td><strong>G</strong></td><td>Botanical gardens</td><td>Yes, under 1<sup>st</sup> indent – 8.3.f or 8.3.g (conservation benefit required)</td></tr>
+<tr><td><strong>H</strong></td><td>Hunting trophies</td><td>Yes, under 2<sup>nd</sup> indent - if conservation benefit</td></tr>
+<tr><td><strong>L</strong></td><td>Law enforcement/judicial/forensic</td><td>Yes, under 2<sup>nd</sup> indent - if conservation benefit OR in exceptional circumstances</td></tr>
+<tr><td><strong>M</strong></td><td>Medical (including bio-medical research)</td><td>Yes, under 1<sup>st</sup> indent – 8.3.e (exceptional circumstances etc)</td></tr>
+<tr><td><strong>N</strong></td><td>Reintroduction or introduction into the wild</td><td>Yes, under 2<sup>nd</sup> indent - if conservation benefit</td></tr>
+<tr><td><strong>P</strong></td><td>Personal</td><td>No, unless under 2<sup>nd</sup> indent OR in exceptional circumstances where household effects imported under change of residence</td></tr>
+<tr><td><strong>Q</strong></td><td>Circuses and travelling exhibitions</td><td>No (Art. 4.1.(d))</td></tr>
+<tr><td><strong>S</strong></td><td>Scientific</td><td>Yes, under 1<sup>st</sup> indent - 8.3.e (exceptional circumstances etc.), or 8.3.g (conservation benefit required)</td></tr>
+<tr><td><strong>T</strong></td><td>Commercial</td><td>No (Art. 4.1.(d))</td></tr>
+<tr><td><strong>Z</strong></td><td>Zoos</td><td>Yes, under 1<sup>st</sup> indent – 8.3.f or 8.3.g (conservation benefit required)</td></tr>
+</tbody>
+</table>
+</div>
 
 ## 8. Attachment C — Accommodation for a live specimen
 
@@ -577,14 +632,11 @@ A specimen[^4] of an animal species shall only be born and bred in captivity whe
 2. The breeding stock[^6] was established in accordance with the legal provisions applicable to it at the time of acquisition and in a manner not detrimental to the survival of the species concerned in the wild.
 
 3. The breeding stock is maintained without the introduction of specimens from the wild, except for the occasional addition of animals, eggs, or gametes in accordance with the legal provisions applicable and in a manner not detrimental to the survival of the species concerned in the wild, for the following purpose[^7] only:
+    1. to prevent or alleviate deleterious inbreeding, the magnitude of such addition being determined by the need for new genetic material.
+    2. to dispose of confiscated animals in accordance with Article 16(3) of Regulation (EC) No. 338/97; or
+    3. exceptionally, for use as breeding stock.
 
-to prevent or alleviate deleterious inbreeding, the magnitude of such addition being determined by the need for new genetic material.
-
-to dispose of confiscated animals in accordance with Article 16(3) of Regulation (EC) No. 338/97; or
-
-exceptionally, for use as breeding stock.
-
-The breeding stock has itself produced second (F2) or subsequent generation offspring in a controlled environment or is managed in a manner[^4] that has been demonstrated to be capable of reliably producing second generation offspring in a controlled environment.
+4. The breeding stock has itself produced second (F2) or subsequent generation offspring in a controlled environment or is managed in a manner[^4] that has been demonstrated to be capable of reliably producing second generation offspring in a controlled environment.
 
 Captive breeding can have considerable negative impact on the conservation of natural populations in cases where founder breeding stocks have been acquired in an unsustainable, uncontrolled way, or where wild specimens are laundered as captive-bred (and breeding claims are not genuine). Where there are concerns relating to captive breeding, the SRG scrutinizes such claims, and takes appropriate action. Consultations with the Management/Scientific Authority of the country of export relating to captive breeding claims are conducted on two levels: 
 
@@ -612,7 +664,7 @@ Below is a **checklist of questions** that may be directed to the CITES Authorit
 
 9. Details of mortality rates.
 
-Details of any recent inspections by CITES Authorities (including the date and outcomes)
+10. Details of any recent inspections by CITES Authorities (including the date and outcomes)
 
   
 ## 13. Attachment H — Scientific institutions
@@ -652,13 +704,13 @@ The SRG considers the purpose of a transaction-specific certificate (TSC) to ass
 
 The following factors should be taken into consideration in determining which species are likely to benefit from the stricter regulation that a TSC provides:
 
-abundance of a species in captivity. [One interpretation of the above is that a species might not require a TSC if it is so readily available in captivity, due to captive breeding, that the likelihood of specimens being taken illegally from the wild are very small.] 
+- abundance of a species in captivity. [One interpretation of the above is that a species might not require a TSC if it is so readily available in captivity, due to captive breeding, that the likelihood of specimens being taken illegally from the wild are very small.] 
 
-*Market demand/value:* the level of demand for specimens for a particular species by falconers, breeders, zoological institutions or private keepers and others – some rare species command high prices which may drive illegal trade. 
+- *Market demand/value:* the level of demand for specimens for a particular species by falconers, breeders, zoological institutions or private keepers and others – some rare species command high prices which may drive illegal trade. 
 
-*Take from the wild/Trade status (illegal):* levels of actual or potential illegal take and/or trade and whether it is having a detrimental impact on the conservation status of the species. [If there is no evidence to suggest that a species has been, or is likely to be, affected by illegal take and/or trade, or there is no evidence to demonstrate that the EU or Member State has been involved (directly or indirectly) in illegal take/trade then there is no obvious benefit from restricting to a TSC. Equally, some level of illegal take may occur which may be inconsequential when set against the size of the population.] 
+- *Take from the wild/Trade status (illegal):* levels of actual or potential illegal take and/or trade and whether it is having a detrimental impact on the conservation status of the species. [If there is no evidence to suggest that a species has been, or is likely to be, affected by illegal take and/or trade, or there is no evidence to demonstrate that the EU or Member State has been involved (directly or indirectly) in illegal take/trade then there is no obvious benefit from restricting to a TSC. Equally, some level of illegal take may occur which may be inconsequential when set against the size of the population.] 
 
-Other domestic controls: e.g., whether the species is a registerable species. 
+- Other domestic controls: e.g., whether the species is a registerable species. 
 
   
 ## 15. Attachment J — Placement or disposal of specimens
@@ -671,7 +723,7 @@ Confiscated specimens shall be placed or otherwise disposed of under conditions 
 
 Section 7 of the Commission Guidance document on live animals bred in captivity under the EU Wildlife Trade Regulations (2022/C 306/02) provides guidance on handling confiscated specimens and on whether such specimens can be used in a captive-breeding facility[^2]. 
 
-The MA is to consult with the competent SA and the decision must achieve the following (based on Resolution Res. Conf. 17.8 (Rev. CoP19)) [Disposal of illegally traded and confiscated](https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-17-08-R19.pdf)[specimens of CITES](https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-17-08-R19.pdf)[-](https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-17-08-R19.pdf)[listed species](https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-17-08-R19.pdf)[^9] to: 
+The MA is to consult with the competent SA and the decision must achieve the following (based on Resolution Res. Conf. 17.8 (Rev. CoP19)) [*Disposal of illegally traded and confiscated specimens of CITES-listed species*](https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-17-08-R19.pdf)[^9] to: 
 
 1. maximize conservation value of the specimens without in any way endangering the health, behavioural repertoire, or conservation status of wild or captive populations of the species.
 
@@ -707,10 +759,18 @@ For live specimens of animals and plants, the SA may recommend one of the follow
 
 - Sale (Annex B, C and D only): parties involved in commercial activities can help offset the costs of confiscation. However, sale should only be considered in certain circumstances, such as where such trade in the species in question does not threaten wild populations of the species and not subject to a legal prohibition on trade and there is no risk of stimulating further illegal trade. Sale to commercial captive breeders may contribute to reducing the demand for wild-caught individuals.
 
-| **Maintenance of the individuals in captivity**[^11] |  |
-| --- | --- |
-| ***Benefits*** | **Disadvantages** |
-| educational value potential for captive breeding for eventual reintroduction and/ or for establishment of reserve population possibility for the confiscating authority to recover, from sale, the costs of confiscation. genetic variability contribution to knowledge on species biology/ ecology | Potential to stimulate further illegal and unsustainable trade12. Cost of placement transmission of diseases to native fauna or within captive population |
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead>
+<tr><th colspan="2">Maintenance of the individuals in captivity[^11]</th></tr>
+<tr><th class="table-subheader">Benefits</th><th class="table-subheader">Disadvantages</th></tr>
+</thead>
+<tbody>
+<tr><td><ul><li>educational value</li><li>potential for captive breeding for eventual reintroduction and/ or for establishment of reserve population</li><li>possibility for the confiscating authority to recover, from sale, the costs of confiscation.</li><li>genetic variability</li><li>contribution to knowledge on species biology/ ecology</li></ul></td><td><ul><li>Potential to stimulate further illegal and unsustainable trade.</li><li>Cost of placement</li><li>transmission of diseases to native fauna or within captive population</li></ul></td></tr>
+</tbody>
+</table>
+</div>
 
 ### B. Returning the individuals in question to some form of life in the wild
 
@@ -720,10 +780,18 @@ For live specimens of animals and plants, the SA may recommend one of the follow
 
 Reinforcement can be a powerful conservation tool when natural populations are diminished by a process which, at least in theory, can be reversed and cannot / will unlikely recover on their own. Such activities are common in many western countries, and specific programmes exist. Reinforcement carries with it the very grave risk that individuals held in captivity, even temporarily, are potential vectors for disease back into a wild population. Reintroduction of specimens for reinforcement purposes also have varying degrees of success and survival of released specimens depending on the locality, species concerned and quality of the programme, which should be taken into consideration before making a decision. Reinforcement should therefore only be employed in instances where there is a direct and measurable conservation benefit (demographically or genetically), as when reinforcement is critical for the viability of the wild population into which an individual is being placed and there is a reasonable likelihood that the released specimens will survive in the wild. 
 
-| **Returning the individuals in question to some form of life in the wild**[^11] |  |
-| --- | --- |
-| **Benefits** | **Concerns** |
-| Reinforcement of an existing population or reintroduction in parts of the range where the species became extinct may promote conservation of the species. strong political/educational statement - promote local conservation values. tracking rereleased wildlife monitoring human wildlife interactions | survivability conservation value and cost source of individuals needs to be carefully assessed (risk of genetic pollution) risk of disease transfer risk of recapture animal welfare risk of human-wildlife conflicts |
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead>
+<tr><th colspan="2">Returning the individuals in question to some form of life in the wild[^11]</th></tr>
+<tr><th class="table-subheader">Benefits</th><th class="table-subheader">Concerns</th></tr>
+</thead>
+<tbody>
+<tr><td><ul><li>Reinforcement of an existing population or reintroduction in parts of the range where the species became extinct may promote conservation of the species.</li><li>strong political/educational statement - promote local conservation values.</li><li>tracking rereleased wildlife</li><li>monitoring human wildlife interactions</li></ul></td><td><ul><li>survivability</li><li>conservation value and cost</li><li>source of individuals needs to be carefully assessed (risk of genetic pollution)</li><li>risk of disease transfer</li><li>risk of recapture</li><li>animal welfare</li><li>risk of human-wildlife conflicts</li></ul></td></tr>
+</tbody>
+</table>
+</div>
 
 Any reintroduction or reinforcement activities should be undertaken in line with the relevant IUCN guidelines.
 
@@ -739,20 +807,28 @@ In certain cases, authorities confiscating live animals will encounter the follo
 
 - During transport, or while held in captivity, the animals have contracted a chronic disease that is incurable and, therefore, a risk to any captive or wild population.
 
-| **Euthanasia**[^11] |  |
-| --- | --- |
-| **Benefits** | **Concerns** |
-| - Carries fewer risk to wild and captive populations in terms of disease transfer | Potential loss of genetic variability Specimens lost for conservation and/ or research activities |
+<div class="table-wrap">
+<table class="govuk-table">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead>
+<tr><th colspan="2">Euthanasia[^11]</th></tr>
+<tr><th class="table-subheader">Benefits</th><th class="table-subheader">Concerns</th></tr>
+</thead>
+<tbody>
+<tr><td><ul><li>Carries fewer risk to wild and captive populations in terms of disease transfer</li></ul></td><td><ul><li>Potential loss of genetic variability</li><li>Specimens lost for conservation and/ or research activities</li></ul></td></tr>
+</tbody>
+</table>
+</div>
 
 Further information is available through: 
 
 - [IUCN-Species Survival Commission Specialist Groups](https://iucn.org/our-union/commissions/iucn-species-survival-commission-2021-2025)
 
-- [http://ec.europa.eu/environment/cites/pdf/studies/enforcement_trade.pdf](http://ec.europa.eu/environment/cites/pdf/studies/enforcement_trade.pdf%20)[(](http://ec.europa.eu/environment/cites/pdf/studies/enforcement_trade.pdf)Managing confiscated specimens)
+- [http://ec.europa.eu/environment/cites/pdf/studies/enforcement_trade.pdf](http://ec.europa.eu/environment/cites/pdf/studies/enforcement_trade.pdf) (Managing confiscated specimens)
 
 [^1]: Agreed on 22 May 2025
 [^2]: Commission Notice - Guidance document on live animals bred in captivity under the EU Wildlife Trade Regulations 2022/C 306/02: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:52022XC0811(01)
-[^3]: [https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-12-10-R15.pdf](http://www.speciesplus.net/)
+[^3]: [https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-12-10-R15.pdf](https://cites.org/sites/default/files/documents/COP/19/resolution/E-Res-12-10-R15.pdf)
 [^4]: It is not necessary for a breeder to actually produce second-generation offspring himself but must demonstrate that they are using a breeding method that is known to lead to the production of second-generation offspring. Each application needs to be assessed on its own merits on a case-by-case basis, taking into account the number of individuals in the breeding stock, access to unrelated F1 specimens, genetic management, previous breeding success, sex ratio, age at sexual maturity, species rarity in captivity, etc.
 [^5]: “A controlled environment” is an environment that is manipulated for the purpose of producing animals of a particular species, that has boundaries designed to prevent animals, eggs or gametes of the species from entering or leaving the controlled environment, and the general characteristics of which may include but are not limited to: artificial housing; waste removal; health care; protection from predators; and artificially supplied food (Res. 10.16)
 [^6]: “breeding stock” means all the animals in a breeding operation that are used for reproduction.

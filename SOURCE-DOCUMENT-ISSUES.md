@@ -32,3 +32,23 @@ only content (p.162). Confirmed directly against the source PDF text (not an ext
 Reproduced faithfully on the site as-is; flagging in case the document owner wants to de-duplicate
 by trimming Annex IX down to just its "2. Codes ... source of specimens" section, with a
 cross-reference to Annex VIII for the purpose codes instead.
+
+## Annex tables -- defects found while rebuilding them from the DOCX (fix_annex_tables.py)
+
+All confirmed in the source DOCX/PDF itself; corrected on the site as noted.
+
+- **Annex VII, broken URLs**: the Reptile Database checklist link appears as
+  `..._CoP18lr_CITES. pdf` / `..._CoP18lr_CITE S.pdf` (stray space), and the ZooBank
+  reference as `http://zoobank.orgurn:lsid:...` (missing `/`). Site uses the evident
+  correct URLs.
+- **Annex VII, last class heading**: "ANTHOZOA & HYDROZOA" sits in the Order column under an
+  empty full-width bar instead of being the bar's heading. Site shows it as a class
+  sub-header like CEPHALOPODA etc.
+- **Annex IX, "Pre-Convention¹"**: superscript 1 with no matching note anywhere on the page.
+  Site omits the marker (as before).
+- **Annex XII, Attachment J table**: "unsustainable trade12." -- a stray footnote number
+  typed into the cell text. Site drops the "12".
+- **Annex XII, typos in the permits table**: "Article5.2 (d)" and "the competent Sa".
+  Site corrects both.
+- **Annex XII, footnotes**: the Res. Conf. 12.10 footnote displays one URL but links to
+  speciesplus.net. Site links the displayed URL.
