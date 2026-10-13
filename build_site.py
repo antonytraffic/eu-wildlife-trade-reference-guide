@@ -1437,6 +1437,12 @@ ol.lettered-list li { margin-bottom: 6px; }
     flex-direction: column;
     column-count: 1;
   }
+  /* ECL sizes the desktop dropdown chevron at 10px, which read as
+     near-invisible against the dark menu bar. */
+  #ecl-mega-menu-item-main-2-link .ecl-icon--corner-arrow {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 /* -- Responsive --------------------------------------- */
@@ -1842,6 +1848,24 @@ def ecl_globan() -> str:
     )
 
 
+# Path data copied from ECL 5's sprite (see brand/ecl/reference-menu-search.html),
+# inlined because icons/icons.svg is not vendored (spec section 7.2).
+_ECL_ICON_PATHS = {
+    "corner-arrow": '<path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z"/>',
+    "arrow-left": '<path fill-rule="evenodd" d="M24.15 11.1 22.02 9 6 25.02 22.05 41.1l2.13-2.1-12.423-12.45H42v-3H11.7z"/>',
+    "search": '<path fill-rule="evenodd" clip-rule="evenodd" d="M3 21c0-9.93 8.07-18 18-18s18 8.07 18 18c0 4.416-1.596 8.465-4.242 11.599l11.309 11.31-2.121 2.12L32.64 34.723A17.92 17.92 0 0 1 21 39c-9.93 0-18-8.07-18-18m33 0c0-8.28-6.72-15-15-15S6 12.72 6 21s6.72 15 15 15 15-6.72 15-15"/>',
+    "hamburger": '<path fill-rule="evenodd" d="M42 12H6v3h36zM42 33H6v3h36zM6 22.5h36v3H6z"/>',
+    "close": '<path fill-rule="evenodd" d="M42 8.01 39.99 6 24 21.99 8.01 6 6 8.01 21.99 24 6 39.99 8.01 42 24 26.01 39.99 42 42 39.99 26.01 24z"/>',
+}
+
+
+def _ecl_icon(name: str, classes: str) -> str:
+    return (
+        f'<svg class="ecl-icon {classes} ecl-icon--{name}" viewBox="0 0 48 48" fill="currentColor" '
+        f'focusable="false" aria-hidden="true">{_ECL_ICON_PATHS[name]}</svg>'
+    )
+
+
 def ecl_site_header(root: str) -> str:
     """<header class="ecl-site-header ..."> with an embedded ECL mega menu + search form.
 
@@ -1851,9 +1875,9 @@ def ecl_site_header(root: str) -> str:
     Library's SiteHeader/mega-menu Storybook demo -- that demo reported
     v5.2.2 at fetch time, not this migration's v5.1.0 target; see that file
     for the full version-mismatch note (spec section 10 -- header-only risk).
-    Icons reference icons/icons.svg#name per brand/ecl/quick_example.html;
-    that sprite is not vendored yet (spec section 7.2) so these render blank
-    until webtools/oe_theme supplies it in production.
+    Icons are inlined via _ecl_icon() rather than referencing
+    icons/icons.svg#name as brand/ecl/quick_example.html does, because that
+    sprite is not vendored (spec section 7.2) and the buttons rendered blank.
     """
     if not ECL_CHROME:
         return ""
@@ -1864,7 +1888,6 @@ def ecl_site_header(root: str) -> str:
         for item_title, slug in _GUIDE_NAV_ITEMS
     )
     annexes_href = f'{root}chapters/{h(_ANNEXES_SLUG)}.html' if _ANNEXES_SLUG else f'{root}index.html'
-    icons = f"{root}icons/icons.svg"
     logo = f"{root}assets/ecl/images/logo/positive/logo-ec--en.svg"
     return f"""<header class="ecl-site-header ecl-site-header-with-logo-l ecl-site-header--has-mega-menu" data-ecl-auto-init="SiteHeader">
   <div class="ecl-site-header__inner">
@@ -1896,7 +1919,7 @@ def ecl_site_header(root: str) -> str:
                 <button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-site-header__search-toggle ecl-button--icon-only" type="button" data-ecl-search-toggle aria-controls="header-search-form" aria-expanded="false">
                   <span class="ecl-button__container">
                     <span class="ecl-button__label" data-ecl-label="true">Search</span>
-                    <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-site-header__icon ecl-icon--search" focusable="false" aria-hidden="true"><use xlink:href="{icons}#search"></use></svg>
+                    {_ecl_icon("search", "ecl-icon--m ecl-button__icon ecl-site-header__icon")}
                   </span>
                 </button>
                 <form class="ecl-search-form ecl-site-header__search" action="{root}search.html" method="get" data-ecl-search-form id="header-search-form">
@@ -1908,7 +1931,7 @@ def ecl_site_header(root: str) -> str:
                   </div>
                   <button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-search-form__button ecl-button--icon-only" type="submit">
                     <span class="ecl-button__container">
-                      <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--search" focusable="false" aria-hidden="true"><use xlink:href="{icons}#search"></use></svg>
+                      {_ecl_icon("search", "ecl-icon--m ecl-button__icon")}
                       <span class="ecl-button__label" data-ecl-label="true">Search</span>
                     </span>
                   </button>
@@ -1930,8 +1953,8 @@ def ecl_site_header(root: str) -> str:
     <div class="ecl-container ecl-mega-menu__container">
       <button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-mega-menu__open ecl-button--icon-only" type="button" data-ecl-mega-menu-open aria-expanded="false">
         <span class="ecl-button__container">
-          <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--hamburger" focusable="false" aria-hidden="true"><use xlink:href="{icons}#hamburger"></use></svg>
-          <svg class="ecl-icon ecl-icon--m ecl-button__icon ecl-icon--close" focusable="false" aria-hidden="true"><use xlink:href="{icons}#close"></use></svg>
+          {_ecl_icon("hamburger", "ecl-icon--m ecl-button__icon")}
+          {_ecl_icon("close", "ecl-icon--m ecl-button__icon")}
           <span class="ecl-button__label" data-ecl-label="true">Menu</span>
         </span>
       </button>
@@ -1939,7 +1962,7 @@ def ecl_site_header(root: str) -> str:
         <header class="ecl-mega-menu__inner-header">
           <button class="ecl-button ecl-button--tertiary ecl-mega-menu__back" type="submit" data-ecl-mega-menu-back>
             <span class="ecl-button__container">
-              <svg class="ecl-icon ecl-icon--xs ecl-icon--rotate-270 ecl-button__icon ecl-icon--corner-arrow" focusable="false" aria-hidden="true"><use xlink:href="{icons}#corner-arrow"></use></svg>
+              {_ecl_icon("corner-arrow", "ecl-icon--xs ecl-icon--rotate-270 ecl-button__icon")}
               <span class="ecl-button__label" data-ecl-label="true">Back</span>
             </span>
           </button>
@@ -1955,8 +1978,8 @@ def ecl_site_header(root: str) -> str:
             <button class="ecl-button ecl-button--primary ecl-mega-menu__link" type="button" data-ecl-mega-menu-link id="ecl-mega-menu-item-main-2-link" aria-expanded="false">
               <span class="ecl-button__container">
                 <span class="ecl-button__label" data-ecl-label="true">Reference Guide</span>
-                <svg class="ecl-icon ecl-icon--2xs ecl-icon--rotate-90 ecl-button__icon ecl-icon--corner-arrow" focusable="false" aria-hidden="true"><use xlink:href="{icons}#corner-arrow"></use></svg>
-                <svg class="ecl-icon ecl-icon--s ecl-icon--flip-horizontal ecl-button__icon ecl-icon--arrow-left" focusable="false" aria-hidden="true"><use xlink:href="{icons}#arrow-left"></use></svg>
+                {_ecl_icon("corner-arrow", "ecl-icon--2xs ecl-icon--rotate-90 ecl-button__icon")}
+                {_ecl_icon("arrow-left", "ecl-icon--s ecl-icon--flip-horizontal ecl-button__icon")}
               </span>
             </button>
             <div class="ecl-mega-menu__wrapper">
@@ -2015,14 +2038,14 @@ def ecl_breadcrumb(segments: list[tuple[str, str | None]]) -> str:
             items += (
                 f'<li class="ecl-breadcrumb__segment" data-ecl-breadcrumb-item="{item_type}">\n'
                 f'  <a href="{h(url)}" class="ecl-link ecl-link--standalone ecl-link--no-visited ecl-breadcrumb__link">{h(label)}</a>\n'
-                f'  <span class="wt-icon--corner-arrow ecl-icon ecl-icon--fluid ecl-breadcrumb__icon ecl-icon--corner-arrow" aria-hidden="true" role="presentation"></span>\n'
+                f'  {_ecl_icon("corner-arrow", "ecl-icon--fluid ecl-breadcrumb__icon")}\n'
                 f'</li>\n'
             )
             if i == 0 and n > 2:
                 items += (
                     '<li class="ecl-breadcrumb__segment ecl-breadcrumb__segment--ellipsis" data-ecl-breadcrumb-ellipsis aria-hidden="true">\n'
                     '  <button class="ecl-button ecl-button--ghost ecl-breadcrumb__ellipsis" type="button" data-ecl-breadcrumb-ellipsis-button aria-label="Show more breadcrumb items">&hellip;</button>\n'
-                    '  <span class="wt-icon--corner-arrow ecl-icon ecl-icon--fluid ecl-breadcrumb__icon ecl-icon--corner-arrow" aria-hidden="true" role="presentation"></span>\n'
+                    f'  {_ecl_icon("corner-arrow", "ecl-icon--fluid ecl-breadcrumb__icon")}\n'
                     '</li>\n'
                 )
 
@@ -2085,7 +2108,7 @@ def ecl_site_footer(root: str) -> str:
       <div class="ecl-site-footer__row ecl-site-footer__row--specific">
         <div class="ecl-site-footer__section ecl-site-footer__section--site-info">
           <div class="ecl-site-footer__title">
-            <a href="https://environment.ec.europa.eu/index_en" class="ecl-link ecl-link--inverted ecl-link--icon ecl-site-footer__title-link"><span class="ecl-link__label">Environment</span><span class="wt-icon--arrow-left wt-icon--inverted ecl-icon ecl-icon--xs ecl-icon--flip-horizontal ecl-link__icon ecl-icon--arrow-left" aria-hidden="true"></span></a>
+            <a href="https://environment.ec.europa.eu/index_en" class="ecl-link ecl-link--inverted ecl-link--icon ecl-site-footer__title-link"><span class="ecl-link__label">Environment</span>{_ecl_icon("arrow-left", "ecl-icon--xs ecl-icon--flip-horizontal ecl-link__icon")}</a>
           </div>
           <div class="ecl-site-footer__description">
             This site is managed by:<br />Directorate-General for Environment<br />
@@ -2463,7 +2486,6 @@ def make_sidebar(headings: list[dict], depth: int = 1) -> str:
     if not items:
         return ""
     root  = "../" * depth
-    icons = f"{root}icons/icons.svg"
     nav_title = "Page contents"
 
     list_items = ""
@@ -2481,9 +2503,7 @@ def make_sidebar(headings: list[dict], depth: int = 1) -> str:
     <div class="ecl-inpage-navigation__trigger-wrapper">
       <button type="button" class="ecl-inpage-navigation__trigger" id="inpage-navigation-trigger" data-ecl-inpage-navigation-trigger="true" aria-controls="inpage-navigation-list" aria-expanded="false" aria-label="Page contents trigger">
         <span class="ecl-inpage-navigation__trigger-current" data-ecl-inpage-navigation-trigger-current="true">{nav_title}</span>
-        <svg class="ecl-icon ecl-icon--xs ecl-icon--rotate-180 ecl-inpage-navigation__trigger-icon" focusable="false" aria-hidden="true">
-          <use xlink:href="{icons}#corner-arrow"></use>
-        </svg>
+        {_ecl_icon("corner-arrow", "ecl-icon--xs ecl-icon--rotate-180 ecl-inpage-navigation__trigger-icon")}
       </button>
     </div>
     <ul class="ecl-inpage-navigation__list" data-ecl-inpage-navigation-list="true" id="inpage-navigation-list">
