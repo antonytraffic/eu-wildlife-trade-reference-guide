@@ -955,8 +955,7 @@ body {
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
-/* A .container nested inside another .container (e.g. the hero band, which
-   sits inside #main-content's container) shouldn't double the width cap/padding. */
+/* A .container nested inside another .container shouldn't double the width cap/padding. */
 .container .container { max-width: none; padding: 0; }
 
 /* -- Links -------------------------------------------- */
@@ -987,7 +986,10 @@ a:focus-visible {
 }
 
 /* -- Main wrapper ------------------------------------- */
-.main-content { padding: 30px 0 70px; }
+/* overflow-wrap: long unbroken URLs in the text (Annex XII's references, the
+   About page's footnotes) otherwise run past the right edge on phones, where
+   html/body's overflow-x: clip silently cuts them off. */
+.main-content { padding: 30px 0 70px; overflow-wrap: break-word; }
 
 /* -- Article area ------------------------------------- */
 .article { flex: 1 1 auto; min-width: 0; }
@@ -1093,10 +1095,13 @@ table caption {
 }
 
 /* -- Homepage hero ------------------------------------ */
+/* The hero is rendered outside the width-capped .container (base_html's
+   hero_html) so it can span the page. It used to bleed out of the container
+   with width: 100vw, but 100vw includes the vertical scrollbar on Windows,
+   which shifted the hero text half a scrollbar left of the header, the
+   section headings and the footer. */
 .main-content:has(.hero) { padding-top: 0; }
 .hero {
-  width: 100vw;
-  margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
   background-color: var(--black);
   background-image: url("images/hero-elephants-line.jpg");
   background-position: right center;
@@ -1459,28 +1464,43 @@ ol.lettered-list li { margin-bottom: 6px; }
     display: flex;
     align-items: stretch;
     gap: var(--s-2xl);
+    /* Below ~1440px ECL narrows this to 24px and pulls the info pane out by
+       -24px, leaving the panel heading 8px left of the logo and menu labels. */
+    padding-inline: 2rem;
   }
   #ecl-mega-menu-item-main-2 .ecl-mega-menu__info {
     position: static;
     flex: 0 0 260px;
     width: 260px;
+    margin-inline: 0;
+    padding-inline-start: 0;
+    box-shadow: none; /* ECL's below-1440px card shadow outlined this pane */
     border-right: 1px solid var(--cm-border-low, #d4d4dc);
   }
+  /* ECL's MegaMenu script writes inline heights on the wrapper and both
+     panes, measured for its own absolute layout -- one row short for our
+     single-column list. Sizing them all to content instead lets the flex
+     row match the two panes' heights, and keeps the wrapper tall enough
+     that ECL's 1px divider (.ecl-mega-menu__wrapper::before, pinned 16px
+     above the wrapper's bottom edge) sits in the bottom padding below the
+     list. With the panes overflowing a fixed-height wrapper, their white
+     backgrounds covered the middle of that divider, leaving two stray
+     line stubs at either side of the panel. */
+  #ecl-mega-menu-item-main-2 > .ecl-mega-menu__wrapper,
   #ecl-mega-menu-item-main-2 .ecl-mega-menu__mega,
-  #ecl-mega-menu-item-main-2 .ecl-mega-menu__info {
-    /* ECL's own MegaMenu script measures both panels on open and keeps
-       re-measuring (confirmed live: it reacts to the layout change our
-       own fix below causes and stomps its own -- too small, one row
-       short -- value straight back over ours a moment later, an ongoing
-       fight a plain inline-style write can't win). Reading through a
-       custom property here sidesteps the fight entirely: ECL only ever
-       touches the plain `height` inline style, never this variable, so
-       this stylesheet !important rule permanently wins the cascade over
-       whatever ECL keeps re-writing inline, and main.js only has to keep
-       the variable itself up to date (see
-       initReferenceGuideMegaMenuHeight in main.js). */
-    height: var(--rg-mega-height, auto) !important;
+  #ecl-mega-menu-item-main-2 .ecl-mega-menu__info,
+  #ecl-mega-menu-item-main-2 .ecl-mega-menu__sublist {
+    height: auto !important;
   }
+  #ecl-mega-menu-item-main-2 .ecl-mega-menu__info {
+    overflow: visible;
+    padding-bottom: 0;
+    margin-bottom: 0; /* ECL adds 16px below ~1440px, cutting the border-right short of the list */
+  }
+  /* ECL draws a shadow strip on the info pane's right edge, positioned for
+     its absolute layout; with the pane static it landed as a stray vertical
+     bar at the far right of the container. The border-right above replaces it. */
+  #ecl-mega-menu-item-main-2 .ecl-mega-menu__info::after { content: none; }
   #ecl-mega-menu-item-main-2 .ecl-mega-menu__mega {
     position: static;
     flex: 1 1 auto;
@@ -1500,9 +1520,13 @@ ol.lettered-list li { margin-bottom: 6px; }
 }
 
 /* -- Responsive --------------------------------------- */
-@media screen and (max-width: 768px) {
-  :root { --gutter: 20px; }
+/* Match .ecl-container's side padding at each breakpoint (16px / 24px / 32px
+   at <768 / 768-1139 / 1140+) so page content lines up with the ECL header,
+   breadcrumb and footer instead of sitting 4-8px to their right. */
+@media screen and (max-width: 1139px) { :root { --gutter: 24px; } }
+@media screen and (max-width: 767px)  { :root { --gutter: 16px; } }
 
+@media screen and (max-width: 768px) {
   h1 { font-size: 3.25rem; }
   h2 { font-size: 2.375rem; }
   h3 { font-size: 1.5rem; }
@@ -1666,56 +1690,6 @@ MAIN_JS = """\
     });
   }
 
-  function initReferenceGuideMegaMenuHeight() {
-    /* ECL's own MegaMenu script measures the "info" and "mega" panels on
-       open and keeps an inline height synced on both so they render as
-       one attached panel (see the CSS overrides scoped to
-       #ecl-mega-menu-item-main-2 near .ecl-mega-menu__wrapper in
-       style.css for why this item needs a single-column list instead of
-       ECL's default 3-column split). With the list forced into a single
-       column, that measurement comes out roughly one row short of the
-       list's real height, clipping the last link or two -- and ECL keeps
-       re-measuring and re-applying its own short value even after this
-       script corrects it (confirmed live: a plain element.style.height
-       write here was silently overwritten again moments later), so this
-       writes to the --rg-mega-height custom property instead of the
-       height style directly. The CSS above reads height from that
-       variable with !important, which permanently outranks whatever
-       plain (non-important) inline height ECL's script keeps re-writing,
-       so main.js only needs to keep the variable's value correct.
-       sublist.scrollHeight reliably reports the list's true full height
-       regardless of ECL's own miscalculation (confirmed live).
-       Listens on document (capture phase) rather than the link itself,
-       and re-queries the panel elements on every click rather than
-       capturing them once: ECL's own toggle handler calls
-       stopPropagation() on this same click (needed for its "click
-       outside closes the menu" behaviour), so a bubble-phase document
-       listener never even receives the event -- confirmed live, a bubble
-       listener saw zero clicks while a capture listener saw exactly one
-       per click. Capture fires on the way down, before that
-       stopPropagation() takes effect during bubbling. */
-    document.addEventListener('click', function (e) {
-      if (!(e.target.closest && e.target.closest('#ecl-mega-menu-item-main-2-link'))) return;
-      /* setTimeout, not requestAnimationFrame: rAF callbacks are
-         suspended while the tab/pane isn't actively being painted (e.g.
-         a backgrounded preview pane), and never ran there in testing --
-         a macrotask timeout runs regardless and still comes safely after
-         ECL's own synchronous click handling above. */
-      setTimeout(function () {
-        if (window.innerWidth < 1140) return; // matches the CSS override's own breakpoint
-        var link = document.getElementById('ecl-mega-menu-item-main-2-link');
-        var mega = document.querySelector('#ecl-mega-menu-item-main-2 .ecl-mega-menu__mega');
-        var info = document.querySelector('#ecl-mega-menu-item-main-2 .ecl-mega-menu__info');
-        var sublist = mega && mega.querySelector('.ecl-mega-menu__sublist');
-        if (!link || !mega || !info || !sublist) return;
-        if (link.getAttribute('aria-expanded') !== 'true') return;
-        var h = sublist.scrollHeight + 'px';
-        mega.style.setProperty('--rg-mega-height', h);
-        info.style.setProperty('--rg-mega-height', h);
-      }, 50);
-    }, true);
-  }
-
   /* Arriving from a search result (?hl=word word ...): highlight those words
      in the article, with a floating bar to step through the matches or clear
      them. search.js supplies every form of each search word that occurs in
@@ -1822,7 +1796,6 @@ MAIN_JS = """\
     initBackToTop();
     initFootnotesExpand();
     initTopNavDropdown();
-    initReferenceGuideMegaMenuHeight();
   });
 }());
 """
@@ -2858,14 +2831,18 @@ def base_html(
     extra_js: str = "",
     page_header_html: str = "",
     top_section_id: str = "",
+    hero_html: str = "",
 ) -> str:
     root       = "../" * depth
     page_title = f"{h(title)} -- EU Wildlife Trade Reference Guide"
 
     if sidebar_html:
-        grid_open     = '<div class="ecl-container"><div class="ecl-row" data-ecl-inpage-navigation-container>'
+        # No .ecl-container here: this already sits inside .container, and a
+        # second container doubled the side padding, indenting the sidebar and
+        # article text 32px past the page title and header.
+        grid_open     = '<div class="ecl-row" data-ecl-inpage-navigation-container>'
         sidebar_col   = f'<div class="ecl-col-l-3">{sidebar_html}</div>'
-        grid_close    = '</div></div>'
+        grid_close    = '</div>'
         article_open  = '<div class="ecl-col-l-9 article">'
         article_close = '</div>'
     else:
@@ -2904,8 +2881,9 @@ def base_html(
 
 {page_header_html if page_header_html else ecl_breadcrumb(breadcrumbs)}
 
-<div class="main-content">
-  <div class="container" id="main-content">
+<div class="main-content" id="main-content">
+  {hero_html}
+  <div class="container">
     {grid_open}
       {sidebar_col}
       {article_open}
@@ -3515,7 +3493,7 @@ def build_index_page(nav_sections: list[dict], summaries: dict,
             f'{_make_cards_grid(cards, "chapter-grid")}'
         )
 
-    content = f"""
+    hero = """
 <div class="hero">
   <div class="container">
     <h1>EU Wildlife Trade Regulations<br>Reference Guide</h1>
@@ -3534,7 +3512,8 @@ def build_index_page(nav_sections: list[dict], summaries: dict,
     </form>
   </div>
 </div>
-
+"""
+    content = f"""
 <div class="home-sections" style="padding-top:30px">
   {section_block(ABOUT_TITLE, about_cards) if about_cards else ""}
   {"<hr>" if about_cards else ""}
@@ -3548,6 +3527,7 @@ def build_index_page(nav_sections: list[dict], summaries: dict,
         content=content,
         breadcrumbs=[],
         depth=0,
+        hero_html=hero,
     )
 
 
