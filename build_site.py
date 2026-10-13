@@ -1800,10 +1800,26 @@ SEARCH_JS = """\
 # cookie-consent JSON.
 # ==============================================================================
 
+# First src of each Inter @font-face in ecl-ec.css. Preloading these exact URLs
+# starts the font fetch while the HTML is still parsing (rather than after the
+# CSS is parsed and text is laid out), so the font is ready inside the
+# font-display:fallback block period and pages first paint in Inter. Must stay
+# in sync with ecl-ec.css's @font-face src order, or the preload is wasted.
+INTER_FONT_URLS = [
+    "https://webtools.europa.eu/fonts/inter/InterVariable.woff2",
+    "https://webtools.europa.eu/fonts/inter/InterVariable-Italic.woff2",
+]
+
+
 def ecl_head_links(root: str) -> str:
     """Stylesheet, font and favicon links for <head>."""
     e = f"{root}assets/ecl"
+    preloads = "".join(
+        f'  <link rel="preload" href="{u}" as="font" type="font/woff2" crossorigin>\n'
+        for u in INTER_FONT_URLS
+    )
     return (
+        preloads +
         f'  <link rel="stylesheet" href="{e}/styles/optional/ecl-ec-default.css" media="screen">\n'
         f'  <link rel="stylesheet" href="{e}/styles/ecl-ec.css" media="screen">\n'
         f'  <link rel="stylesheet" href="{e}/styles/optional/ecl-ec-utilities.css" media="screen">\n'
@@ -3738,7 +3754,21 @@ def copy_ecl_assets(dst: Path) -> int:
             continue
         target = dst / rel
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(src, target)
+        if rel == "styles/ecl-ec.css":
+            # ECL ships Inter with font-display:swap (zero block period), so
+            # every page navigation first paints in Arial and then swaps to
+            # Inter once the (cached) font file is decoded -- a visible font
+            # flash on each link click. "fallback" gives a ~100ms block
+            # period, long enough for a cached/preloaded font to be ready
+            # before first paint, while still swapping in Inter (within 3s)
+            # on a cold first visit. See also INTER_FONT_URLS preloads.
+            css = src.read_text(encoding="utf-8")
+            patched = css.replace("font-display:swap", "font-display:fallback")
+            if patched == css:
+                console.print("  [yellow]![/yellow] ecl-ec.css: font-display:swap not found to patch")
+            target.write_text(patched, encoding="utf-8")
+        else:
+            shutil.copy2(src, target)
         copied += 1
     return copied
 
