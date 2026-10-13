@@ -1244,15 +1244,69 @@ table caption {
 /* -- Search results ----------------------------------- */
 .search-header { margin-bottom: 24px; }
 .search-header h1 { margin-bottom: 6px; }
+.search-tips { font-size: .875rem; color: var(--secondary); margin: 0 0 8px; }
 .search-count { font-size: .9375rem; color: var(--secondary); }
-.search-result { border-bottom: 1px solid var(--border); padding: 20px 0; }
+.search-results-list { list-style: none; margin: 0; padding: 0; }
+.search-result { border-bottom: 1px solid var(--border); padding: 20px 0; margin: 0; }
 .search-result:first-child { border-top: 1px solid var(--border); }
-.search-result__title { font-size: 1.1875rem; font-weight: 700; margin-bottom: 4px; }
+.search-result__title {
+  font-size: 1.1875rem; line-height: 1.4; font-weight: 700;
+  margin: 0 0 4px; padding-top: 0; border-top: none;   /* override the global h2 rule */
+}
 .search-result__title a { color: var(--green); }
-.search-result__meta { font-size: .875rem; color: var(--secondary); margin-bottom: 8px; }
-.search-result__snippet { font-size: .9375rem; }
-.search-result__snippet mark { background: var(--focus); color: var(--black); padding: 0 2px; }
+.search-result__meta { font-size: .875rem; color: var(--secondary); margin-bottom: 4px; }
+.search-result__snippet { font-size: .9375rem; margin: 4px 0 0; }
+#search-results mark { background: var(--focus); color: var(--black); padding: 0 2px; }
+.search-result__sections {
+  list-style: none; margin: 12px 0 0; padding: 0 0 0 16px;
+  border-left: 3px solid var(--border);
+}
+.search-result__section { margin: 0 0 12px; }
+.search-result__section:last-child { margin-bottom: 0; }
+.search-result__section > a { font-size: 1rem; font-weight: 600; color: var(--green); }
+.search-result__context { font-size: .875rem; color: var(--secondary); }
+.search-notice {
+  background: var(--light-grey); border-left: 4px solid var(--focus);
+  padding: 12px 16px; margin-bottom: 16px; font-size: .9375rem;
+}
+.search-notice p { margin: 0; }
+.search-notice p + p { margin-top: 4px; }
+.search-examples { margin-top: 8px; }
+.search-examples p { font-size: .9375rem; color: var(--secondary); margin: 0 0 8px; }
+.search-examples ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.search-examples a {
+  display: inline-block; padding: 4px 14px; font-size: .9375rem;
+  border: 1px solid var(--border); border-radius: 16px; color: var(--green); text-decoration: none;
+}
+.search-examples a:hover { border-color: var(--green); text-decoration: underline; }
 .no-results { padding: 40px 0; text-align: center; color: var(--secondary); }
+
+/* -- Search-term highlights on chapter pages (main.js initSearchHighlight) -- */
+mark.search-hl { background: #fff0a8; color: inherit; padding: 0 1px; border-radius: 2px; }
+mark.search-hl--current { background: var(--focus); outline: 2px solid var(--black); outline-offset: 1px; }
+.search-hl-bar {
+  position: fixed; left: 24px; bottom: 24px; z-index: 9990;
+  display: flex; align-items: center; gap: 4px;
+  padding: 6px 6px 6px 16px; border-radius: 24px;
+  background: var(--black); color: var(--white);
+  box-shadow: 0 4px 14px rgba(0,0,0,.28);
+  font-size: .875rem;
+}
+.search-hl-bar__count { margin-right: 6px; white-space: nowrap; }
+.search-hl-bar button {
+  font: inherit; color: var(--white); background: transparent; cursor: pointer;
+  border: 1px solid rgba(255,255,255,.4); border-radius: 18px;
+  min-width: 36px; height: 36px; padding: 0 12px; white-space: nowrap;
+}
+.search-hl-bar__step { font-size: 1.25rem; line-height: 1; padding: 0 !important; }
+.search-hl-bar button:hover { background: rgba(255,255,255,.12); }
+.search-hl-bar button:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; }
+@media (max-width: 600px) {
+  /* Clear of the chatbot button, which sits bottom-right. */
+  .search-hl-bar { left: 16px; right: 16px; bottom: 84px; justify-content: flex-end; }
+  .search-hl-bar__count { margin-right: auto; }
+}
+@media print { .search-hl-bar { display: none; } mark.search-hl { background: none; } }
 
 /* -- Footnotes ---------------------------------------- */
 sup.footnote-ref {
@@ -1662,7 +1716,108 @@ MAIN_JS = """\
     }, true);
   }
 
+  /* Arriving from a search result (?hl=word word ...): highlight those words
+     in the article, with a floating bar to step through the matches or clear
+     them. search.js supplies every form of each search word that occurs in
+     the guide ("permit permits permitted"), so no matching rules live here --
+     just whole-word, case-insensitive matches. */
+  function initSearchHighlight() {
+    var params = new URLSearchParams(location.search);
+    var article = document.querySelector('.article-body');
+    if (!params.get('hl') || !article) return;
+    var words = params.get('hl').split(/\\s+/).filter(Boolean).slice(0, 40)
+      .sort(function (a, b) { return b.length - a.length; })
+      .map(function (w) { return w.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&'); });
+    if (!words.length) return;
+    var re = new RegExp('(^|[^\\\\p{L}\\\\p{N}])(' + words.join('|') + ')(?=[^\\\\p{L}\\\\p{N}]|$)', 'giu');
+
+    var walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        return n.parentNode.closest('script, style, svg, mark') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+
+    var marks = [];
+    nodes.forEach(function (node) {
+      var text = node.nodeValue, last = 0, frag = null, m;
+      re.lastIndex = 0;
+      while ((m = re.exec(text))) {
+        var start = m.index + m[1].length, end = start + m[2].length;
+        frag = frag || document.createDocumentFragment();
+        frag.appendChild(document.createTextNode(text.slice(last, start)));
+        var mark = document.createElement('mark');
+        mark.className = 'search-hl';
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+        marks.push(mark);
+        last = end;
+      }
+      if (frag) {
+        frag.appendChild(document.createTextNode(text.slice(last)));
+        node.parentNode.replaceChild(frag, node);
+      }
+    });
+    if (!marks.length) return;
+
+    var bar = document.createElement('div');
+    bar.className = 'search-hl-bar';
+    bar.setAttribute('role', 'region');
+    bar.setAttribute('aria-label', 'Search highlights');
+    bar.innerHTML =
+      '<span class="search-hl-bar__count" aria-live="polite"></span>' +
+      '<button type="button" class="search-hl-bar__step" data-step="-1" aria-label="Previous match">&lsaquo;</button>' +
+      '<button type="button" class="search-hl-bar__step" data-step="1" aria-label="Next match">&rsaquo;</button>' +
+      '<button type="button" class="search-hl-bar__clear">Clear highlights</button>';
+    var count = bar.querySelector('.search-hl-bar__count');
+    count.textContent = marks.length + (marks.length === 1 ? ' match' : ' matches');
+    var current = null;
+
+    function step(dir) {
+      // Matches inside collapsed content (e.g. hidden footnotes) are skipped.
+      var shown = marks.filter(function (m) { return m.getClientRects().length; });
+      if (!shown.length) return;
+      var i = shown.indexOf(current);
+      if (i === -1) {
+        // First press: the first match at or below the top of the screen.
+        i = 0;
+        while (i < shown.length && shown[i].getBoundingClientRect().top < 0) i++;
+        if (dir < 0) i--;
+        i = (i + shown.length) % shown.length;
+      } else {
+        i = (i + dir + shown.length) % shown.length;
+      }
+      if (current) current.classList.remove('search-hl--current');
+      current = shown[i];
+      current.classList.add('search-hl--current');
+      current.scrollIntoView({ block: 'center' });
+      count.textContent = 'Match ' + (i + 1) + ' of ' + shown.length;
+    }
+
+    function clear() {
+      marks.forEach(function (m) {
+        var parent = m.parentNode;
+        parent.replaceChild(document.createTextNode(m.textContent), m);
+        parent.normalize();
+      });
+      bar.parentNode.removeChild(bar);
+      params.delete('hl');
+      var qs = params.toString();
+      history.replaceState(history.state, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+    }
+
+    bar.addEventListener('click', function (e) {
+      var btn = e.target.closest('button');
+      if (!btn) return;
+      if (btn.classList.contains('search-hl-bar__clear')) clear();
+      else step(Number(btn.getAttribute('data-step')));
+    });
+    document.body.appendChild(bar);
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
+    initSearchHighlight();
     initSidebarHighlight();
     initBackToTop();
     initFootnotesExpand();
@@ -1673,16 +1828,35 @@ MAIN_JS = """\
 """
 
 SEARCH_JS = """\
-/* search.js -- client-side full-text search */
+/* search.js -- client-side full-text search over search_index.json.
+   The index holds one entry per page, split into heading-level sections
+   (see build_search_index), so a result can link straight to the heading
+   it matched. Matching is word-based: every search word must appear in a
+   section (in any order, anywhere in it or its page title); words are cut
+   to a rough stem so "permits"/"permit" and "trophies"/"trophy" match;
+   hyphenated words match with or without the hyphen; "quoted phrases" must
+   appear exactly. Misspelt words get a "did you mean" suggestion, and a
+   search no section fully matches falls back to partial matches. */
 (function () {
   'use strict';
 
   var INDEX_URL = 'search_index.json';
-  var index = null;
+  var SECTIONS_PER_RESULT = 3;
+  var SNIPPET_WORDS = 34;
+  var EXAMPLES = ['hunting trophies', 'captive-bred', 'personal effects', 'caviar', 'import permit', '"Annex A"'];
+  var STOPWORDS = {};
+  ('a an and are as at be been but by can could do does for from has have how i if in into is it its ' +
+   'may me my no not of on or our should so than that the their them then there these they this those ' +
+   'to was we what when where which who why will with would you your').split(' ')
+    .forEach(function (w) { STOPWORDS[w] = true; });
 
-  function qs(name) {
-    return new URLSearchParams(window.location.search).get(name) || '';
-  }
+  var TOKEN_RE = /[\\p{L}\\p{N}]+(?:['’][\\p{L}]+)*(?:[-./][\\p{L}\\p{N}]+)*/gu;
+
+  var pages = null;    // index entries, prepared by prepare()
+  var sections = [];   // every page's sections, flattened
+  var vocab = {};      // key -> { df: sections containing it, forms: { surface word: count } }
+
+  /* -- Text processing ----------------------------------------------------- */
 
   function esc(str) {
     return String(str)
@@ -1690,85 +1864,436 @@ SEARCH_JS = """\
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  function score(item, q) {
-    if (!q) return 0;
-    var ql = q.toLowerCase();
-    var tl = (item.title || '').toLowerCase();
-    var sl = (item.summary || '').toLowerCase();
-    var bl = (item.body || '').toLowerCase();
-    var s = 0;
-    if (tl === ql)             s += 100;
-    else if (tl.startsWith(ql)) s += 75;
-    else if (tl.includes(ql))   s += 50;
-    if (sl.includes(ql)) s += 20;
-    var hits = (bl.match(new RegExp(ql.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&'), 'g')) || []).length;
-    s += Math.min(hits * 2, 30);
-    return s;
+  function fold(s) {
+    return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/['’]/g, '');
   }
 
-  function excerpt(body, q, max) {
-    max = max || 220;
-    if (!body) return '';
-    var ql = q.toLowerCase();
-    var idx = body.toLowerCase().indexOf(ql);
-    if (idx === -1) return esc(body.slice(0, max)) + (body.length > max ? '&hellip;' : '');
-    var s = Math.max(0, idx - 80);
-    var e = Math.min(body.length, idx + q.length + 120);
-    var out = (s > 0 ? '&hellip;' : '') + esc(body.slice(s, e)) + (e < body.length ? '&hellip;' : '');
-    var safe = esc(q).replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');
-    return out.replace(new RegExp('(' + safe + ')', 'gi'), '<mark>$1</mark>');
+  /* Rough English stemmer: enough to make singular/plural and common verb
+     endings meet at the same key. Applied identically to the guide's text
+     and to the query, so it only has to be consistent, not linguistically
+     right ("trade", "traded", "trading" all become "trad"). */
+  function stem(w) {
+    if (w.length < 4 || /[0-9]/.test(w)) return w;
+    if (/ies$/.test(w) && w.length > 4) w = w.slice(0, -3) + 'y';
+    else if (/(xes|ches|shes|sses|zes)$/.test(w)) w = w.slice(0, -2);
+    else if (/[^sui]s$/.test(w)) w = w.slice(0, -1);
+    var m;
+    if (/ied$/.test(w)) w = w.slice(0, -3) + 'y';
+    else if (/eed$/.test(w)) { if (w.length > 4) w = w.slice(0, -1); }
+    else if ((m = /^(.+?)(ed|ing)$/.exec(w)) && m[1].length >= 2 && /[aeiouy]/.test(m[1])) w = m[1];
+    if (w.length >= 4 && /([b-df-hj-np-tv-z])\\1$/.test(w)) w = w.slice(0, -1);
+    if (w.length >= 3 && /e$/.test(w)) w = w.slice(0, -1);
+    return w;
   }
 
-  function urlForItem(item) {
-    if (item.parent) return 'chapters/' + esc(item.slug) + '.html';
-    return 'chapters/' + esc(item.slug) + '.html';
+  /* A matched word -> its search keys. "re-export" gives "re", "export" and
+     "reexport"; "338/97" and "3.3.1" are kept whole as well as split. */
+  function keysFor(token) {
+    var f = fold(token);
+    var parts = f.split(/[-./]/).filter(Boolean);
+    if (parts.length === 1) return [stem(f)];
+    var keys = parts.map(stem);
+    var joined = f.replace(/-/g, '');
+    keys.push(/[./]/.test(joined) ? joined : stem(joined));
+    return keys;
   }
 
-  function render(results, q) {
-    var container = document.getElementById('search-results');
-    var countEl   = document.getElementById('search-count');
-    if (!container) return;
-    if (!q) { container.innerHTML = ''; if (countEl) countEl.textContent = ''; return; }
-    if (!results.length) {
-      if (countEl) countEl.textContent = '0 results';
-      container.innerHTML = '<div class="no-results"><p>No results found for <strong>' +
-        esc(q) + '</strong>.</p><p>Try different terms or <a href="index.html">browse sections</a>.</p></div>';
-      return;
+  function tokenize(text) {
+    var out = [], m;
+    TOKEN_RE.lastIndex = 0;
+    while ((m = TOKEN_RE.exec(text))) out.push({ text: m[0], start: m.index, end: m.index + m[0].length });
+    return out;
+  }
+
+  function keySet(text) {
+    var set = {};
+    tokenize(text).forEach(function (t) { keysFor(t.text).forEach(function (k) { set[k] = true; }); });
+    return set;
+  }
+
+  /* Lower-case, unaccented, punctuation-free text with single spaces --
+     used for exact-phrase checks, so "re-export" reads as "re export". */
+  function flat(text) {
+    return ' ' + fold(text).replace(/[^\\p{L}\\p{N}]+/gu, ' ').trim() + ' ';
+  }
+
+  /* -- Index preparation (once, on load) -------------------------------- */
+
+  function prepare(data) {
+    var totalLen = 0;
+    data.forEach(function (page, pi) {
+      page.titleKeys = keySet(page.title);
+      page.summaryKeys = keySet(page.summary || '');
+      var lastByLevel = {};
+      page.sections.forEach(function (sec) {
+        sec.page = page;
+        sec.pageIndex = pi;
+        sec.counts = {};
+        sec.len = 0;
+        tokenize(sec.x).forEach(function (t) {
+          var form = t.text.toLowerCase();
+          keysFor(t.text).forEach(function (k) {
+            sec.counts[k] = (sec.counts[k] || 0) + 1;
+            var v = vocab[k] || (vocab[k] = { df: 0, forms: {}, _last: -1 });
+            v.forms[form] = (v.forms[form] || 0) + 1;
+          });
+          sec.len++;
+        });
+        sec.headKeys = keySet(sec.h);
+        sec.flatText = flat(sec.h + ' ' + sec.x);
+        sec.flatHead = flat(sec.h);
+        sec.flatHeadBare = flat(sec.h.replace(/^[\\d.\\s]+/, ''));
+        // Nearest enclosing heading, shown as context for h3/h4 sections.
+        lastByLevel[sec.l] = sec;
+        for (var l = sec.l - 1; l >= 2; l--) {
+          if (lastByLevel[l]) { sec.parentHeading = lastByLevel[l].h; break; }
+        }
+        Object.keys(sec.counts).concat(Object.keys(sec.headKeys)).forEach(function (k) {
+          var v = vocab[k] || (vocab[k] = { df: 0, forms: {}, _last: -1 });
+          if (v._last !== sections.length) { v.df++; v._last = sections.length; }
+        });
+        totalLen += sec.len;
+        sections.push(sec);
+      });
+    });
+    prepare.avgLen = totalLen / Math.max(1, sections.length);
+    return data;
+  }
+
+  /* -- Query parsing ------------------------------------------------------ */
+
+  function parseQuery(raw) {
+    var phrases = [];
+    var text = raw.replace(/"([^"]+)"/g, function (_, p) {
+      if (p.trim()) phrases.push(flat(p));
+      return ' ' + p + ' ';
+    }).replace(/"/g, ' ');
+    var tokens = tokenize(text);
+    var meaningful = tokens.filter(function (t) { return !STOPWORDS[fold(t.text)]; });
+    if (!meaningful.length) meaningful = tokens;
+    // Still typing the last word? Let it match longer words it begins.
+    var lastIsOpen = /[\\p{L}\\p{N}]$/u.test(raw);
+    var terms = meaningful.map(function (t, i) {
+      var keys = {};
+      var main = keysFor(t.text);
+      var compound = main[main.length - 1];
+      keys[compound] = 1;
+      var known = !!vocab[compound];
+      var isLast = i === meaningful.length - 1 && t === tokens[tokens.length - 1];
+      if (!known && isLast && lastIsOpen && compound.length >= 3 && !/[0-9]/.test(compound)) {
+        var prefix = fold(t.text).replace(/-/g, '');
+        Object.keys(vocab).forEach(function (k) {
+          if (k.lastIndexOf(prefix, 0) === 0 && k !== compound) { keys[k] = 0.5; known = true; }
+        });
+      }
+      return { raw: t.text, keys: keys, known: known };
+    });
+    var words = tokens.map(function (t) { return fold(t.text).replace(/[^\\p{L}\\p{N}]+/gu, ' '); });
+    var pairs = [];
+    for (var i = 0; i + 1 < words.length; i++) pairs.push(' ' + words[i] + ' ' + words[i + 1] + ' ');
+    return {
+      raw: raw, terms: terms, phrases: phrases, pairs: pairs,
+      whole: words.length > 1 ? ' ' + words.join(' ') + ' ' : '',
+      exact: flat(words.join(' '))
+    };
+  }
+
+  /* -- Scoring ------------------------------------------------------------ */
+
+  function idf(term) {
+    var df = 0;
+    Object.keys(term.keys).forEach(function (k) { if (vocab[k]) df = Math.max(df, vocab[k].df); });
+    var n = sections.length;
+    return Math.log(1 + (n - df + 0.5) / (df + 0.5));
+  }
+
+  /* BM25-style score for one section: word frequency (damped, adjusted
+     for section length) plus bonuses for the word being in the section's
+     heading or the page title, and for the words appearing together. */
+  function scoreSection(sec, q, idfs) {
+    var score = 0, matched = 0, inContent = false;
+    var norm = 1 - 0.75 + 0.75 * (sec.len / prepare.avgLen);
+    q.terms.forEach(function (term, ti) {
+      var tf = 0, head = false, title = false, summary = false;
+      Object.keys(term.keys).forEach(function (k) {
+        var w = term.keys[k];
+        tf += (sec.counts[k] || 0) * w;
+        if (sec.headKeys[k]) head = true;
+        if (sec.page.titleKeys[k]) title = true;
+        if (sec.page.summaryKeys[k]) summary = true;
+      });
+      if (tf > 0 || head) inContent = true;
+      if (tf > 0 || head || title) matched++;
+      var tfPart = tf > 0 ? (tf * 2.2) / (tf + 1.2 * norm) : 0;
+      score += idfs[ti] * (tfPart + (head ? 2.5 : 0) + (title ? 1.5 : 0) + (summary ? 0.3 : 0));
+    });
+    for (var i = 0; i < q.phrases.length; i++) {
+      if (sec.flatText.indexOf(q.phrases[i]) === -1) return null;   // quoted phrase is required
+      if (sec.flatHead.indexOf(q.phrases[i]) !== -1) score += 4;
     }
-    if (countEl) countEl.textContent = results.length + ' result' + (results.length !== 1 ? 's' : '');
-    container.innerHTML = results.map(function (item) {
-      var meta = item.section_number ? 'Section ' + esc(item.section_number) : '';
-      if (item.parent) meta = 'Sub-section';
-      return '<div class="search-result">' +
-        '<div class="search-result__title"><a href="' + urlForItem(item) + '">' + esc(item.title) + '</a></div>' +
-        (meta ? '<div class="search-result__meta">' + meta + '</div>' : '') +
-        (item.summary ? '<p class="search-result__snippet">' + esc(item.summary) + '</p>' : '') +
-        '<p class="search-result__snippet">' + excerpt(item.body, q) + '</p>' +
-        '</div>';
-    }).join('');
+    if (q.whole && sec.flatText.indexOf(q.whole) !== -1) score += 3;
+    if (q.whole && sec.flatHead.indexOf(q.whole) !== -1) score += 4;
+    if (sec.flatHeadBare === q.exact) score += 6;   // heading is exactly the search
+    q.pairs.forEach(function (p) { if (sec.flatText.indexOf(p) !== -1) score += 0.75; });
+    return { sec: sec, score: score, matched: matched, inContent: inContent };
   }
 
-  function search(q) {
-    if (!index) return [];
-    return index.map(function (item) {
-      return Object.assign({}, item, { _score: score(item, q) });
-    }).filter(function (i) { return i._score > 0; })
-      .sort(function (a, b) { return b._score - a._score; });
+  /* All matching pages, best first, each with its best sections. With
+     requireAll=false a section only needs one of the search words. */
+  function run(q, requireAll) {
+    if (!q.terms.length) return [];
+    var idfs = q.terms.map(idf);
+    var need = requireAll ? q.terms.length : 1;
+    var byPage = {};
+    sections.forEach(function (sec) {
+      var r = scoreSection(sec, q, idfs);
+      if (!r || r.matched < need) return;
+      if (!requireAll) r.score *= r.matched / q.terms.length;
+      (byPage[sec.pageIndex] || (byPage[sec.pageIndex] = [])).push(r);
+    });
+    return Object.keys(byPage).map(function (pi) {
+      var hits = byPage[pi].sort(function (a, b) { return b.score - a.score; });
+      var score = hits[0].score + 0.3 * (hits[1] ? hits[1].score : 0) + 0.15 * (hits[2] ? hits[2].score : 0);
+      return {
+        page: pages[pi], score: score,
+        shown: hits.filter(function (h) { return h.inContent; }).slice(0, SECTIONS_PER_RESULT)
+      };
+    }).sort(function (a, b) { return b.score - a.score; });
   }
+
+  /* -- Spelling suggestions ------------------------------------------------ */
+
+  function editDistance(a, b, max) {
+    if (Math.abs(a.length - b.length) > max) return max + 1;
+    var prev2 = null, prev = [], cur, i, j;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      cur = [i];
+      var rowMin = i;
+      for (j = 1; j <= b.length; j++) {
+        var cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost);
+        if (prev2 && i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+          cur[j] = Math.min(cur[j], prev2[j - 2] + 1);   // transposed letters
+        }
+        if (cur[j] < rowMin) rowMin = cur[j];
+      }
+      if (rowMin > max) return max + 1;
+      prev2 = prev; prev = cur;
+    }
+    return prev[b.length];
+  }
+
+  var allForms = null;
+  function suggest(word) {
+    var w = fold(word);
+    if (w.length < 3 || /[0-9]/.test(w)) return null;
+    if (!allForms) {
+      var totals = {};
+      Object.keys(vocab).forEach(function (k) {
+        var forms = vocab[k].forms;
+        Object.keys(forms).forEach(function (f) {
+          if (/^[\\p{L}]{3,}$/u.test(f)) totals[f] = Math.max(totals[f] || 0, forms[f]);
+        });
+      });
+      allForms = Object.keys(totals).map(function (f) { return { form: f, n: totals[f] }; });
+    }
+    var max = w.length <= 4 ? 1 : 2;
+    var best = null;
+    allForms.forEach(function (c) {
+      var d = editDistance(w, fold(c.form), max);
+      if (d > max) return;
+      if (!best || d < best.d || (d === best.d && c.n > best.n)) best = { form: c.form, d: d, n: c.n };
+    });
+    return best && best.form;
+  }
+
+  function correctedQuery(q) {
+    var out = q.raw, changed = false;
+    for (var i = 0; i < q.terms.length; i++) {
+      var t = q.terms[i];
+      if (t.known) continue;
+      var s = suggest(t.raw);
+      if (!s) return null;
+      out = out.replace(t.raw, s);
+      changed = true;
+    }
+    return changed ? out : null;
+  }
+
+  /* -- Rendering ------------------------------------------------------------ */
+
+  function isHit(token, q) {
+    var keys = keysFor(token);
+    for (var i = 0; i < q.terms.length; i++) {
+      for (var j = 0; j < keys.length; j++) if (q.terms[i].keys[keys[j]] !== undefined) return i;
+    }
+    return -1;
+  }
+
+  /* Text with every search-word occurrence wrapped in <mark>. */
+  function markAll(text, q) {
+    var out = '', pos = 0;
+    tokenize(text).forEach(function (t) {
+      if (isHit(t.text, q) === -1) return;
+      out += esc(text.slice(pos, t.start)) + '<mark>' + esc(t.text) + '</mark>';
+      pos = t.end;
+    });
+    return out + esc(text.slice(pos));
+  }
+
+  /* The stretch of a section's text with the most different search words
+     in it (then the most occurrences), trimmed to whole words. */
+  function snippet(text, q) {
+    var toks = tokenize(text);
+    if (!toks.length) return '';
+    var hits = toks.map(function (t) { return isHit(t.text, q); });
+    var best = -1, bestStart = 0, counts = {}, distinct = 0, total = 0;
+    for (var i = 0; i < toks.length; i++) {
+      if (hits[i] !== -1) { if (!counts[hits[i]]) distinct++; counts[hits[i]] = (counts[hits[i]] || 0) + 1; total++; }
+      var out = i - SNIPPET_WORDS;
+      if (out >= 0 && hits[out] !== -1) { counts[hits[out]]--; if (!counts[hits[out]]) distinct--; total--; }
+      var value = distinct * 100 + total;
+      if (total && value > best) { best = value; bestStart = Math.max(0, i - SNIPPET_WORDS + 1); }
+    }
+    if (best === -1) bestStart = 0;
+    // Pull the window back a little so the first match isn't the first word.
+    var firstHit = bestStart;
+    while (firstHit < toks.length && hits[firstHit] === -1) firstHit++;
+    var from = Math.max(0, Math.min(bestStart, firstHit - 6));
+    var to = Math.min(toks.length - 1, from + SNIPPET_WORDS - 1);
+    var s = toks[from].start, e = toks[to].end;
+    return (s > 0 ? '&hellip;' : '') + markAll(text.slice(s, e), q) + (e < text.length ? '&hellip;' : '');
+  }
+
+  /* Words to highlight on the destination page: every form of each matched
+     search word that occurs in the guide ("permit", "permits", "permitted"). */
+  function highlightParam(q) {
+    var words = {};
+    q.terms.forEach(function (term) {
+      Object.keys(term.keys).forEach(function (k) {
+        var v = vocab[k];
+        if (!v) return;
+        Object.keys(v.forms).sort(function (a, b) { return v.forms[b] - v.forms[a]; })
+          .slice(0, 6).forEach(function (f) { words[f] = true; });
+      });
+    });
+    var list = Object.keys(words).slice(0, 40);
+    return list.length ? 'hl=' + encodeURIComponent(list.join(' ')) : '';
+  }
+
+  function pageMeta(page) {
+    var bits = [];
+    if (page.label) bits.push(esc(page.label));
+    if (page.parent) bits.push(esc(page.parent));
+    return bits.join(' &middot; ');
+  }
+
+  function renderResult(r, q, hl) {
+    var page = r.page;
+    var url = page.url + (hl ? '?' + hl : '');
+    var meta = pageMeta(page);
+    var html = '<li class="search-result">' +
+      (meta ? '<div class="search-result__meta">' + meta + '</div>' : '') +
+      '<h2 class="search-result__title"><a href="' + esc(url) + '">' + markAll(page.title, q) + '</a></h2>';
+    var intro = r.shown.filter(function (h) { return !h.sec.id; })[0];
+    var subs = r.shown.filter(function (h) { return h.sec.id; });
+    if (intro) {
+      html += '<p class="search-result__snippet">' + snippet(intro.sec.x, q) + '</p>';
+    } else if (!subs.length && page.summary) {
+      html += '<p class="search-result__snippet">' + markAll(page.summary, q) + '</p>';
+    }
+    if (subs.length) {
+      html += '<ul class="search-result__sections">' + subs.map(function (h) {
+        var sec = h.sec;
+        return '<li class="search-result__section">' +
+          (sec.parentHeading ? '<span class="search-result__context">' + esc(sec.parentHeading) + ' &rsaquo;</span> ' : '') +
+          '<a href="' + esc(url + '#' + sec.id) + '">' + markAll(sec.h, q) + '</a>' +
+          (sec.x ? '<p class="search-result__snippet">' + snippet(sec.x, q) + '</p>' : '') +
+          '</li>';
+      }).join('') + '</ul>';
+    }
+    return html + '</li>';
+  }
+
+  function searchLink(text) {
+    return '<a href="search.html?q=' + encodeURIComponent(text) + '" data-query="' + esc(text) + '">' + esc(text) + '</a>';
+  }
+
+  function examples() {
+    return '<div class="search-examples"><p>Try searching for:</p><ul>' +
+      EXAMPLES.map(function (e) { return '<li>' + searchLink(e) + '</li>'; }).join('') + '</ul></div>';
+  }
+
+  function render(raw) {
+    var container = document.getElementById('search-results');
+    var countEl = document.getElementById('search-count');
+    if (!container) return;
+    raw = raw.trim();
+    if (!raw) { container.innerHTML = examples(); countEl.textContent = ''; return; }
+
+    var q = parseQuery(raw);
+    var results = run(q, true);
+    var notice = '', shownQuery = q;
+
+    if (!results.length) {
+      var fix = correctedQuery(q);
+      var fixedQ = fix && parseQuery(fix);
+      var fixedResults = fixedQ ? run(fixedQ, true) : [];
+      if (fixedResults.length) {
+        results = fixedResults; shownQuery = fixedQ;
+        notice = '<p>No results for <strong>' + esc(raw) + '</strong>. Showing results for ' +
+          '<strong>' + esc(fix) + '</strong> instead.</p>';
+        countEl.textContent = results.length + ' result' + (results.length !== 1 ? 's' : '') + ' for ' + fix;
+      } else {
+        results = q.terms.length > 1 ? run(q, false) : [];
+        var didYouMean = fix ? '<p>Did you mean ' + searchLink(fix) + '?</p>' : '';
+        if (results.length) {
+          notice = '<p>No pages contain all of the words in <strong>' + esc(raw) + '</strong>. ' +
+            'Showing pages that contain some of them.</p>' + didYouMean;
+          countEl.textContent = 'No exact matches. ' + results.length + ' partial match' +
+            (results.length !== 1 ? 'es' : '');
+        } else {
+          countEl.textContent = '0 results';
+          container.innerHTML = '<div class="no-results"><p>No results found for <strong>' + esc(raw) +
+            '</strong>.</p>' + didYouMean +
+            '<p>Try fewer or different words, or <a href="index.html">browse sections</a>.</p></div>' + examples();
+          return;
+        }
+      }
+    } else {
+      countEl.textContent = results.length + ' result' + (results.length !== 1 ? 's' : '') + ' for ' + raw;
+    }
+
+    var hl = highlightParam(shownQuery);
+    container.innerHTML = (notice ? '<div class="search-notice">' + notice + '</div>' : '') +
+      '<ol class="search-results-list">' + results.map(function (r) { return renderResult(r, shownQuery, hl); }).join('') + '</ol>';
+  }
+
+  /* -- Wiring ----------------------------------------------------------------- */
 
   function init() {
-    var input     = document.getElementById('search-input');
+    var input = document.getElementById('search-input');
     var container = document.getElementById('search-results');
     if (!input || !container) return;
+    var form = input.form;
 
-    var initial = qs('q');
+    var initial = new URLSearchParams(window.location.search).get('q') || '';
     if (initial) input.value = initial;
+
+    function update() {
+      var q = input.value.trim();
+      var url = new URL(window.location);
+      if (q) url.searchParams.set('q', q); else url.searchParams.delete('q');
+      window.history.replaceState({}, '', url);
+      if (pages) render(q);
+    }
 
     fetch(INDEX_URL)
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        index = data;
-        if (initial) render(search(initial), initial);
+        pages = prepare(data);
+        render(input.value);
       })
       .catch(function () {
         container.innerHTML = '<p>Search is temporarily unavailable.</p>';
@@ -1777,17 +2302,26 @@ SEARCH_JS = """\
     var timer;
     input.addEventListener('input', function () {
       clearTimeout(timer);
-      timer = setTimeout(function () {
-        var q = input.value.trim();
-        var url = new URL(window.location);
-        if (q) url.searchParams.set('q', q); else url.searchParams.delete('q');
-        window.history.replaceState({}, '', url);
-        render(search(q), q);
-      }, 200);
+      timer = setTimeout(update, 200);
+    });
+    if (form) form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      clearTimeout(timer);
+      update();
+    });
+    // Example and "did you mean" links search in place instead of reloading.
+    container.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[data-query]');
+      if (!a) return;
+      e.preventDefault();
+      input.value = a.getAttribute('data-query');
+      update();
+      input.focus();
     });
   }
 
   document.addEventListener('DOMContentLoaded', init);
+
 }());
 """
 
@@ -2609,20 +3143,23 @@ def annex_first_heading(sub: dict) -> str:
     return strip_markdown(m.group(1)) if m else ""
 
 
-def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[dict], summaries: dict) -> str:
-    """Landing page for parent sections (3, 4, Annexes): intro + sub-page card grid."""
-    # Strip sub-section block from body. Handles three cases:
-    #   - "## Sub-sections" at start of body (Section 3: no intro text)
-    #   - "\n## Sub-sections" mid-body (Section 4)
-    #   - Markdown link list with no ## heading (Annexes parent)
-    body = ch["body"]
+def _landing_intro_body(body: str) -> str:
+    """A parent section's (3, 4, Annexes) own intro text, without the list of
+    sub-pages that follows it. Handles "## Sub-sections" at the start of the
+    body (Section 3: no intro text), mid-body (Section 4), and a plain
+    markdown link list with no heading (Annexes parent)."""
     m = re.search(r'(?:^|\n)## ', body)
     if m:
-        body = body[:m.start()].strip()
-    else:
-        m2 = re.search(r'\n- \[', body)
-        if m2:
-            body = body[:m2.start()].strip()
+        return body[:m.start()].strip()
+    m2 = re.search(r'\n- \[', body)
+    if m2:
+        return body[:m2.start()].strip()
+    return body
+
+
+def build_parent_landing(ch: dict, sub_chapters: list[dict], nav_sections: list[dict], summaries: dict) -> str:
+    """Landing page for parent sections (3, 4, Annexes): intro + sub-page card grid."""
+    body = _landing_intro_body(ch["body"])
     intro_html = render_markdown(body) if body else ""
 
     is_annexes = ch["slug"] == "annexes"
@@ -3022,15 +3559,18 @@ def build_search_page() -> str:
         role="search" style="margin-bottom:16px">
     <label for="search-input" class="skip-link">Search</label>
     <input type="search" id="search-input" name="q"
-           placeholder="Search the guide&hellip;" aria-label="Search the guide" autofocus>
+           placeholder="Search the guide&hellip;" aria-label="Search the guide"
+           aria-describedby="search-tips" autocomplete="off" autofocus>
     <button type="submit">
       <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M13.6 12.2h-.7l-.3-.3c1-1.1 1.6-2.6 1.6-4.2C14.2 4.1 11.6 1.5 8.1 1.5S2 4.1 2 7.6s2.6 6.1 6.1 6.1c1.6 0 3.1-.6 4.2-1.6l.3.3v.7l4.4 4.4 1.3-1.3-4.4-4.4zm-5.5 0c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5z" fill="currentColor"/></svg>
       <span class="sr-only">Search</span>
     </button>
   </form>
+  <p class="search-tips" id="search-tips">Finds pages containing all of your words, in any order.
+    Put words in quotes for an exact phrase, e.g. "personal effects".</p>
   <p class="search-count" id="search-count" aria-live="polite"></p>
 </div>
-<div id="search-results" aria-live="polite"></div>
+<div id="search-results"></div>
 <noscript><p>JavaScript is required for search.</p></noscript>
 """
     return base_html(
@@ -3063,18 +3603,80 @@ def build_404_page() -> str:
 # SECTION 8 -- Search index builder
 # ==============================================================================
 
-def build_search_index(all_pages: list[dict], summaries: dict) -> list[dict]:
-    return [
-        {
-            "slug":           ch["slug"],
-            "title":          ch["title"],
-            "section_number": ch["section_number"],
-            "parent":         ch["parent"],
-            "summary":        summaries.get(ch["slug"], ""),
-            "body":           strip_markdown(ch["body"]),
-        }
-        for ch in all_pages
-    ]
+# Headings the page sidebar also links to (see extract_headings) -- each one
+# starts a new search section, so a result can deep-link to its anchor.
+_SEARCH_HEADING_RE = re.compile(
+    r'<(h[234])\b[^>]*\bid="([^"]*)"[^>]*>(.*?)</\1>',
+    re.DOTALL | re.IGNORECASE,
+)
+# Markup whose text is not reading content: footnote reference numbers, the
+# footnote "jump back" arrows, and any inline script/style.
+_SEARCH_DROP_RE = re.compile(
+    r'<sup class="footnote-ref".*?</sup>'
+    r'|<a [^>]*class="footnoteBackLink"[^>]*>.*?</a>'
+    r'|<(script|style)\b.*?</\1>',
+    re.DOTALL | re.IGNORECASE,
+)
+
+
+def _html_to_search_text(fragment: str) -> str:
+    """Rendered HTML -> plain reading text (tags become spaces so table cells
+    and list items don't run together)."""
+    s = _SEARCH_DROP_RE.sub(" ", fragment)
+    s = re.sub(r"<[^>]+>", " ", s)
+    s = html_mod.unescape(s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def _search_sections(html: str) -> list[dict]:
+    """Split a rendered page at its h2-h4 headings: one entry per heading
+    (id = its anchor, h = heading text, l = level, x = text up to the next
+    heading), plus the untitled intro before the first heading (id "")."""
+    sections = []
+    cur = {"id": "", "h": "", "l": 1}
+    pos = 0
+    for m in _SEARCH_HEADING_RE.finditer(html):
+        cur["x"] = _html_to_search_text(html[pos:m.start()])
+        sections.append(cur)
+        cur = {"id": m.group(2), "h": _html_to_search_text(m.group(3)), "l": int(m.group(1)[1])}
+        pos = m.end()
+    cur["x"] = _html_to_search_text(html[pos:])
+    sections.append(cur)
+    return [s for s in sections if s["h"] or s["x"]]
+
+
+def build_search_index(all_pages: list[dict], summaries: dict,
+                       by_slug: dict[str, dict], about_ch: dict | None) -> list[dict]:
+    """One entry per page, each split into heading-level sections. Text comes
+    from the same render pipeline as the pages themselves, so anchors match
+    the live heading ids and no markup leaks into results."""
+    def page_html(ch: dict, depth: int) -> str:
+        if ch["sub_pages"]:   # parent landing page: only its intro is page content
+            body = _landing_intro_body(ch["body"])
+            return render_markdown(body) if body else ""
+        return _link_figure_table_refs(
+            _replace_figures(autolink_xrefs(render_markdown(ch["body"]), depth=depth), depth=depth),
+            depth=depth,
+        )
+
+    entries = []
+    if about_ch:
+        entries.append({
+            "url": "about.html", "title": ABOUT_TITLE, "label": "Section 1", "parent": "",
+            "summary": summaries.get(about_ch["slug"], ""),
+            "sections": _search_sections(page_html(about_ch, 0)),
+        })
+    for ch in all_pages:
+        parent = by_slug.get(ch["parent"]) if ch["parent"] else None
+        entries.append({
+            "url": f"chapters/{ch['slug']}.html",
+            "title": ch["title"],
+            "label": _section_label_text(ch),
+            "parent": parent["title"] if parent else "",
+            "summary": summaries.get(ch["slug"], ""),
+            "sections": _search_sections(page_html(ch, 1)),
+        })
+    return entries
 
 
 # ==============================================================================
@@ -3467,14 +4069,7 @@ def _prepare_pdf_chunk(ch: dict, *, top_level: bool = True) -> str:
 def _prepare_pdf_parent_chunk(ch: dict) -> str:
     """Intro-only page for a parent section (3, 4, Annexes) -- its sub-pages
     follow immediately after as their own chunks, so no card grid is needed."""
-    body = ch["body"]
-    m = re.search(r'(?:^|\n)## ', body)
-    if m:
-        body = body[:m.start()].strip()
-    else:
-        m2 = re.search(r'\n- \[', body)
-        if m2:
-            body = body[:m2.start()].strip()
+    body = _landing_intro_body(ch["body"])
     intro_html = (
         _pdf_namespace_refs(
             _pdf_mark_table_bounds(
@@ -3955,7 +4550,7 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
     console.print("  [green]+[/green] .nojekyll, _config.yml")
 
     # -- Search index (all non-excluded pages) ------------------------------------
-    index = build_search_index(nav_sections + all_sub, summaries)
+    index = build_search_index(nav_sections + all_sub, summaries, by_slug, about_ch)
     (SITE_DIR / "search_index.json").write_text(
         json.dumps(index, ensure_ascii=False, separators=(",", ":")),
         encoding="utf-8",
