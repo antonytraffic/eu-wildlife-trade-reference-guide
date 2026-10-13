@@ -3940,6 +3940,17 @@ a { color: #0046ff; text-decoration: none; }
 .pdf-chapter { break-before: page; counter-reset: footnote; }
 .pdf-chapter > h1 { page: normal; }
 .pdf-subchapter { break-before: auto; }
+/* Each Annex is a standalone document in its own right, so it starts on a
+   fresh page like a top-level chapter. Its h1 keeps the X.X size (it's still
+   listed under "Annexes" in the contents) but drops the top margin, which a
+   forced break would otherwise preserve as a gap at the top of the page. */
+.pdf-subchapter[id^="pdf-annexes_"] { break-before: page; }
+.pdf-subchapter[id^="pdf-annexes_"] > h1 { margin-top: 0; }
+/* A heading (or a bold one-line pseudo-heading like Annex VII's "FLORA") that
+   introduces a table -- marked by _pdf_mark_heading_tables(). break-after
+   alone isn't enough to keep it with the table (see that function), but it's
+   the right default for the cases that don't need _pdf_heading_tables_css(). */
+[data-pdf-lead], [data-pdf-lead-mid] { break-after: avoid; }
 
 .pdf-footnote { float: footnote; font-size: 7.5pt; line-height: 1.35; }
 ::footnote-marker { content: counter(footnote) ". "; font-weight: 600; }
@@ -4305,6 +4316,21 @@ def _pdf_tall_figures_css() -> str:
 _PDF_TABLE_LABEL_ID_RE = re.compile(r'<p class="table-label" id="([^"]+)">')
 
 
+def _pdf_anchor_pages(doc_html: str, css: str, base_url: str) -> dict[str, int]:
+    """Lay the document out (no PDF written) and return the 0-based page
+    index each element id first appears on."""
+    import weasyprint
+
+    document = weasyprint.HTML(string=doc_html, base_url=base_url).render(
+        stylesheets=[weasyprint.CSS(string=css, base_url=base_url)]
+    )
+    pages: dict[str, int] = {}
+    for i, page in enumerate(document.pages):
+        for anchor_id in page.anchors:
+            pages.setdefault(anchor_id, i)
+    return pages
+
+
 def _pdf_tall_tables_css(doc_html: str, base_css: str, base_url: str) -> str:
     """CSS assigning `page: table-page` (a reduced-margin page, see the CSS
     definition above) to exactly the tables whose label, body, or trailing
@@ -4328,17 +4354,8 @@ def _pdf_tall_tables_css(doc_html: str, base_css: str, base_url: str) -> str:
     anyway would strand the label alone at the top of an otherwise-blank
     page (see the comment below), so those get a different, targeted fix
     instead: dropping page-break-inside:avoid for just that one table."""
-    import weasyprint
-
     def _anchor_pages(css: str) -> dict[str, int]:
-        document = weasyprint.HTML(string=doc_html, base_url=base_url).render(
-            stylesheets=[weasyprint.CSS(string=css, base_url=base_url)]
-        )
-        pages: dict[str, int] = {}
-        for i, page in enumerate(document.pages):
-            for anchor_id in page.anchors:
-                pages.setdefault(anchor_id, i)
-        return pages
+        return _pdf_anchor_pages(doc_html, css, base_url)
 
     def _is_split(pages: dict[str, int], label_id: str, row1_id: str, src_id: str, has_src: bool) -> bool:
         # Compares the label against the first *row*, not the wrapper div --
@@ -4410,6 +4427,126 @@ def _pdf_tall_tables_css(doc_html: str, base_css: str, base_url: str) -> str:
     return "\n".join(kept_rules)
 
 
+_PDF_LEAD_RE = re.compile(
+    # The heading: a real h2-h6, or a bold one-line paragraph acting as one
+    # (Annex VII's "FLORA"/"FAUNA").
+    r'(?P<lead><h(?P<lvl>[2-6])\b[^>]*>(?:(?!</h(?P=lvl)>).)*</h(?P=lvl)>'
+    r'|<p><strong>[^<]{1,80}</strong></p>)'
+    # Optionally one short intro paragraph between them (Annex XIII), and/or
+    # the table's own "Table N" label.
+    r'(?P<mid>\s*(?:<p>(?:(?!</p>).){0,400}</p>\s*)?'
+    r'(?:<p class="table-label"[^>]*>(?:(?!</p>).)*</p>\s*)?)'
+    r'(?P<wrap><div class="table-wrap"[^>]*>\s*<table)',
+    re.DOTALL,
+)
+_PDF_OPEN_TAG_RE = re.compile(r'<(h[2-6]|p)\b([^>]*)>')
+_PDF_TR_RE = re.compile(r'<tr\b([^>]*)>')
+
+
+def _pdf_mark_heading_tables(doc_html: str) -> tuple[str, list[dict]]:
+    """Tag every heading that directly introduces a table, so
+    _pdf_heading_tables_css() can check where each one lands.
+
+    `break-after: avoid` on the heading is not enough on its own: with
+    `page-break-inside: avoid` on the table, WeasyPrint moves a table that
+    doesn't fit the rest of the page to the next page *without* taking the
+    heading along, leaving it stranded at the bottom of the page before
+    (e.g. Annex XII's "2. Import and export permit criteria").
+
+    Returns the tagged HTML plus one record per heading: the heading's
+    anchor id, the table's first-row anchor id, and whether the heading is
+    the first thing in its section (where a page break before it would only
+    strand the section's own title instead)."""
+    leads: list[dict] = []
+    out: list[str] = []
+    pos = 0
+    for m in _PDF_LEAD_RE.finditer(doc_html):
+        n = len(leads)
+        lead, mid, wrap = m.group("lead"), m.group("mid"), m.group("wrap")
+
+        tag = _PDF_OPEN_TAG_RE.match(lead)
+        attrs = tag.group(2)
+        id_m = re.search(r'\bid="([^"]+)"', attrs)
+        lead_id = id_m.group(1) if id_m else f"pdf-lead-{n}"
+        new_attrs = attrs + f' data-pdf-lead="{n}"' + ("" if id_m else f' id="{lead_id}"')
+        lead = f"<{tag.group(1)}{new_attrs}>" + lead[tag.end():]
+        mid = mid.replace("<p>", f'<p data-pdf-lead-mid="{n}">', 1)
+        wrap = wrap[:-len("<table")] + f'<table data-pdf-lead-table="{n}"'
+
+        # The first row comes after the match; reuse its id if
+        # _pdf_mark_table_bounds() already gave it one.
+        tr = _PDF_TR_RE.search(doc_html, m.end())
+        tr_id_m = re.search(r'\bid="([^"]+)"', tr.group(1))
+        row_id = tr_id_m.group(1) if tr_id_m else f"pdf-lead-{n}--row1"
+
+        out.append(doc_html[pos:m.start()])
+        out.append(lead + mid + wrap)
+        out.append(doc_html[m.end():tr.start()])
+        out.append(tr.group(0) if tr_id_m else f'<tr id="{row_id}"{tr.group(1)}>')
+        pos = tr.end()
+
+        leads.append({
+            "n": n,
+            "lead_id": lead_id,
+            "row_id": row_id,
+            "first_in_section": doc_html[:m.start()].rstrip().endswith("</h1>"),
+            "text": re.sub(r"<[^>]+>", "", m.group("lead"))[:60],
+        })
+    out.append(doc_html[pos:])
+    return "".join(out), leads
+
+
+# Each fix shifts everything after it, which can split a heading further on
+# that was fine before -- so re-check, but cap the number of layout passes
+# (each is a full render of the guide).
+_PDF_LEAD_MAX_PASSES = 4
+
+
+def _pdf_heading_tables_css(doc_html: str, leads: list[dict], base_css: str, base_url: str) -> str:
+    """CSS keeping each table-introducing heading on the same page as its
+    table's first row, applied only to the headings that a real layout pass
+    shows are split from their table.
+
+    The fix is a page break before the heading, so heading and table move
+    to the next page together. If the table is too tall to fit on a page
+    even then (or the heading opens its section, where a break would only
+    strand the section title), the table's `page-break-inside: avoid` is
+    dropped instead, so it starts directly under its heading and continues
+    onto the following page(s) like any long table."""
+    def _break(n: int) -> str:
+        return f'[data-pdf-lead="{n}"] {{ break-before: page; }}'
+
+    def _flow(n: int) -> str:
+        return f'[data-pdf-lead-table="{n}"] {{ page-break-inside: auto; break-inside: auto; }}'
+
+    rules: dict[int, str] = {}
+    stuck: list[dict] = []
+    for _ in range(_PDF_LEAD_MAX_PASSES):
+        pages = _pdf_anchor_pages(doc_html, base_css + "\n" + "\n".join(rules.values()), base_url)
+        stuck = []
+        changed = False
+        for lead in leads:
+            n = lead["n"]
+            if pages.get(lead["lead_id"]) == pages.get(lead["row_id"]):
+                continue
+            current = rules.get(n)
+            if current is None and not lead["first_in_section"]:
+                rules[n] = _break(n)
+            elif current != _flow(n):
+                rules[n] = _flow(n)
+            else:
+                stuck.append(lead)
+                continue
+            changed = True
+        if not changed:
+            break
+    for lead in stuck:
+        console.print(f"  [yellow]![/yellow] PDF: heading still split from its table: {lead['text']!r}")
+    if rules:
+        console.print(f"  [green]+[/green] PDF: kept {len(rules)} heading(s) with their tables")
+    return "\n".join(rules.values())
+
+
 def generate_pdf(nav_sections: list[dict], all_sub: list[dict], about_ch: dict | None) -> None:
     """Render the whole guide, in the same order as the homepage, to one PDF."""
     try:
@@ -4475,12 +4612,15 @@ def generate_pdf(nav_sections: list[dict], all_sub: list[dict], about_ch: dict |
 
     out_path = SITE_DIR / PDF_FILENAME
     base_url = SITE_DIR.resolve().as_uri() + "/"
+    doc_html, leads = _pdf_mark_heading_tables(doc_html)
     pdf_css = PDF_CSS + "\n" + _pdf_tall_figures_css()
     # A table can only be measured against a real layout pass (unlike a
     # figure's fixed image height), so lay the document out once first to
     # find which tables need extra room, then render the real PDF with that
     # CSS added.
     pdf_css += "\n" + _pdf_tall_tables_css(doc_html, pdf_css, base_url)
+    # Last, since both of the passes above move content between pages.
+    pdf_css += "\n" + _pdf_heading_tables_css(doc_html, leads, pdf_css, base_url)
     weasyprint.HTML(string=doc_html, base_url=base_url).write_pdf(
         out_path, stylesheets=[weasyprint.CSS(string=pdf_css, base_url=base_url)]
     )
