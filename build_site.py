@@ -1372,6 +1372,35 @@ table caption {
 .search-examples a:hover { border-color: var(--green); text-decoration: underline; }
 .no-results { padding: 40px 0; text-align: center; color: var(--secondary); }
 
+/* -- Search suggestions under the header / homepage boxes (search.js initSuggest) -- */
+/* The ECL header form is already positioned (relative on desktop, absolute in
+   its mobile pop-up) -- overriding that breaks the pop-up. */
+.has-search-suggest:not(.ecl-search-form) { position: relative; }
+/* .search-form clips its children to its rounded border; the list must escape it. */
+.search-form.has-search-suggest { overflow: visible; }
+.search-suggest {
+  position: absolute; top: 100%; right: 0; z-index: 1000;
+  width: max(100%, 400px); max-width: calc(100vw - 32px); max-height: 70vh; overflow-y: auto;
+  margin: 4px 0 0; padding: 4px 0; list-style: none; text-align: left;
+  background: var(--white); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow-2);
+}
+.search-suggest[hidden] { display: none; }
+.hero .search-suggest { left: 0; right: auto; width: 100%; }
+.search-suggest__option { margin: 0; padding: 8px 16px; cursor: pointer; font-size: .9375rem; line-height: 1.4; }
+.search-suggest__option[aria-selected="true"], .search-suggest__option:hover { background: var(--mid-grey); }
+.search-suggest__title {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+  font-weight: 600; color: var(--green);
+}
+.search-suggest__context {
+  display: block; font-size: .8125rem; color: var(--secondary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.search-suggest mark { background: none; color: inherit; font-weight: 800; padding: 0; }
+.search-suggest__all { border-top: 1px solid var(--border); margin-top: 4px; padding-top: 10px; color: var(--green); }
+
 /* -- Search-term highlights on chapter pages (main.js initSearchHighlight) -- */
 mark.search-hl { background: #fff0a8; color: inherit; padding: 0 1px; border-radius: 2px; }
 mark.search-hl--current { background: var(--focus); outline: 2px solid var(--black); outline-offset: 1px; }
@@ -1905,11 +1934,17 @@ SEARCH_JS = """\
    to a rough stem so "permits"/"permit" and "trophies"/"trophy" match;
    hyphenated words match with or without the hyphen; "quoted phrases" must
    appear exactly. Misspelt words get a "did you mean" suggestion, and a
-   search no section fully matches falls back to partial matches. */
+   search no section fully matches falls back to partial matches.
+   Loaded on every page: besides the search page itself, it adds
+   as-you-type suggestions to the header and homepage search boxes. */
 (function () {
   'use strict';
 
-  var INDEX_URL = 'search_index.json';
+  // Site root, from this script's own URL (assets/search.js), so the index
+  // and result links resolve the same from any page depth.
+  var ROOT = new URL('../', (document.currentScript && document.currentScript.src) || location.href);
+  var INDEX_URL = new URL('search_index.json', ROOT).href;
+  var SUGGESTIONS = 6;
   var SECTIONS_PER_RESULT = 3;
   var SNIPPET_WORDS = 34;
   var EXAMPLES = ['hunting trophies', 'captive-bred', 'personal effects', 'caviar', 'import permit', '"Annex A"'];
@@ -2031,7 +2066,9 @@ SEARCH_JS = """\
 
   /* -- Query parsing ------------------------------------------------------ */
 
-  function parseQuery(raw) {
+  /* typing: the box is live (suggestions), so the last word is always
+     treated as possibly unfinished, even when it is a word on its own. */
+  function parseQuery(raw, typing) {
     var phrases = [];
     var text = raw.replace(/"([^"]+)"/g, function (_, p) {
       if (p.trim()) phrases.push(flat(p));
@@ -2049,7 +2086,7 @@ SEARCH_JS = """\
       keys[compound] = 1;
       var known = !!vocab[compound];
       var isLast = i === meaningful.length - 1 && t === tokens[tokens.length - 1];
-      if (!known && isLast && lastIsOpen && compound.length >= 3 && !/[0-9]/.test(compound)) {
+      if ((!known || typing) && isLast && lastIsOpen && compound.length >= 3 && !/[0-9]/.test(compound)) {
         var prefix = fold(t.text).replace(/-/g, '');
         Object.keys(vocab).forEach(function (k) {
           if (k.lastIndexOf(prefix, 0) === 0 && k !== compound) { keys[k] = 0.5; known = true; }
@@ -2236,13 +2273,19 @@ SEARCH_JS = """\
   }
 
   /* Words to highlight on the destination page: every form of each matched
-     search word that occurs in the guide ("permit", "permits", "permitted"). */
-  function highlightParam(q) {
+     search word that occurs in the guide ("permit", "permits", "permitted"),
+     limited to words that occur on that page -- an unfinished word like
+     "tro" would otherwise bring in every word that starts with it. */
+  function onPage(page, k) {
+    return page.sections.some(function (sec) { return sec.counts[k] || sec.headKeys[k]; });
+  }
+
+  function highlightParam(q, page) {
     var words = {};
     q.terms.forEach(function (term) {
       Object.keys(term.keys).forEach(function (k) {
         var v = vocab[k];
-        if (!v) return;
+        if (!v || !onPage(page, k)) return;
         Object.keys(v.forms).sort(function (a, b) { return v.forms[b] - v.forms[a]; })
           .slice(0, 6).forEach(function (f) { words[f] = true; });
       });
@@ -2258,8 +2301,9 @@ SEARCH_JS = """\
     return bits.join(' &middot; ');
   }
 
-  function renderResult(r, q, hl) {
+  function renderResult(r, q) {
     var page = r.page;
+    var hl = highlightParam(q, page);
     var url = page.url + (hl ? '?' + hl : '');
     var meta = pageMeta(page);
     var html = '<li class="search-result">' +
@@ -2334,14 +2378,23 @@ SEARCH_JS = """\
       countEl.textContent = results.length + ' result' + (results.length !== 1 ? 's' : '') + ' for ' + raw;
     }
 
-    var hl = highlightParam(shownQuery);
     container.innerHTML = (notice ? '<div class="search-notice">' + notice + '</div>' : '') +
-      '<ol class="search-results-list">' + results.map(function (r) { return renderResult(r, shownQuery, hl); }).join('') + '</ol>';
+      '<ol class="search-results-list">' + results.map(function (r) { return renderResult(r, shownQuery); }).join('') + '</ol>';
   }
 
   /* -- Wiring ----------------------------------------------------------------- */
 
-  function init() {
+  var loading = null;
+  function loadIndex() {
+    if (!loading) {
+      loading = fetch(INDEX_URL)
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (data) { pages = prepare(data); return pages; });
+    }
+    return loading;
+  }
+
+  function initSearchPage() {
     var input = document.getElementById('search-input');
     var container = document.getElementById('search-results');
     if (!input || !container) return;
@@ -2358,12 +2411,8 @@ SEARCH_JS = """\
       if (pages) render(q);
     }
 
-    fetch(INDEX_URL)
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        pages = prepare(data);
-        render(input.value);
-      })
+    loadIndex()
+      .then(function () { render(input.value); })
       .catch(function () {
         container.innerHTML = '<p>Search is temporarily unavailable.</p>';
       });
@@ -2386,6 +2435,132 @@ SEARCH_JS = """\
       input.value = a.getAttribute('data-query');
       update();
       input.focus();
+    });
+  }
+
+  /* Top matches for the suggestion list: each page's best section. */
+  function suggestions(raw) {
+    var q = parseQuery(raw, true);
+    var items = run(q, true).slice(0, SUGGESTIONS).map(function (r) {
+      var hl = highlightParam(q, r.page);
+      var sec = r.shown[0] && r.shown[0].sec.id ? r.shown[0].sec : null;
+      return {
+        url: new URL(r.page.url, ROOT).href + (hl ? '?' + hl : '') + (sec ? '#' + sec.id : ''),
+        title: sec ? sec.h : r.page.title,
+        context: sec ? r.page.title : (r.page.label || r.page.parent || '')
+      };
+    });
+    return { q: q, items: items };
+  }
+
+  /* Header / homepage search box -> ARIA combobox with a suggestion list.
+     Enter with nothing chosen still submits to the search page as before,
+     and if the index can't load the box simply behaves as a plain form. */
+  var suggestCount = 0;
+  function initSuggest(input) {
+    var form = input.form;
+    var id = 'search-suggest-' + (++suggestCount);
+    var list = document.createElement('ul');
+    list.id = id;
+    list.className = 'search-suggest';
+    list.setAttribute('role', 'listbox');
+    list.setAttribute('aria-label', 'Search suggestions');
+    list.hidden = true;
+    var status = document.createElement('div');
+    status.className = 'sr-only';
+    status.setAttribute('role', 'status');
+    form.classList.add('has-search-suggest');
+    form.appendChild(list);
+    form.appendChild(status);
+    input.setAttribute('role', 'combobox');
+    input.setAttribute('aria-autocomplete', 'list');
+    input.setAttribute('aria-expanded', 'false');
+    input.setAttribute('aria-controls', id);
+    input.setAttribute('autocomplete', 'off');
+
+    var items = [], active = -1, timer;
+
+    function close() {
+      list.hidden = true;
+      items = [];
+      active = -1;
+      input.setAttribute('aria-expanded', 'false');
+      input.removeAttribute('aria-activedescendant');
+    }
+
+    function setActive(i) {
+      var opts = list.children;
+      if (opts[active]) opts[active].setAttribute('aria-selected', 'false');
+      active = i;
+      opts[i].setAttribute('aria-selected', 'true');
+      input.setAttribute('aria-activedescendant', opts[i].id);
+      opts[i].scrollIntoView({ block: 'nearest' });
+    }
+
+    // Keep the list inside 16px screen gutters (it is right-aligned to the form).
+    function fit() {
+      list.style.transform = '';
+      var r = list.getBoundingClientRect(), shift = 0;
+      if (r.right > window.innerWidth - 16) shift = window.innerWidth - 16 - r.right;
+      if (r.left + shift < 16) shift = 16 - r.left;
+      if (shift) list.style.transform = 'translateX(' + Math.round(shift) + 'px)';
+    }
+
+    function update() {
+      var raw = input.value.trim();
+      if (raw.length < 2) { close(); status.textContent = ''; return; }
+      loadIndex().then(function () {
+        if (input.value.trim() !== raw || document.activeElement !== input) return;
+        var s = suggestions(raw);
+        items = s.items.concat([{ url: form.action + '?q=' + encodeURIComponent(raw), all: true }]);
+        list.innerHTML = items.map(function (it, i) {
+          var body = it.all
+            ? 'See all results for <strong>' + esc(raw) + '</strong>'
+            : '<span class="search-suggest__title">' + markAll(it.title, s.q) + '</span>' +
+              (it.context ? '<span class="search-suggest__context">' + esc(it.context) + '</span>' : '');
+          return '<li role="option" id="' + id + '-' + i + '" aria-selected="false" class="search-suggest__option' +
+            (it.all ? ' search-suggest__all' : '') + '">' + body + '</li>';
+        }).join('');
+        active = -1;
+        input.removeAttribute('aria-activedescendant');
+        list.hidden = false;
+        fit();
+        input.setAttribute('aria-expanded', 'true');
+        status.textContent = s.items.length
+          ? s.items.length + (s.items.length === 1 ? ' suggestion' : ' suggestions') + '. Use the up and down arrows to choose.'
+          : 'No suggestions. Press Enter to search.';
+      }, close);
+    }
+
+    input.addEventListener('focus', function () { loadIndex().catch(function () {}); });
+    input.addEventListener('input', function () {
+      clearTimeout(timer);
+      timer = setTimeout(update, 120);
+    });
+    input.addEventListener('keydown', function (e) {
+      if (list.hidden) {
+        if (e.key === 'ArrowDown') { e.preventDefault(); update(); }
+        return;
+      }
+      if (e.key === 'ArrowDown') { e.preventDefault(); setActive(active + 1 < items.length ? active + 1 : 0); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(active > 0 ? active - 1 : items.length - 1); }
+      else if (e.key === 'Escape') { e.preventDefault(); close(); }
+      else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); location.href = items[active].url; }
+    });
+    input.addEventListener('blur', close);
+    // mousedown would blur the input (closing the list) before the click lands.
+    list.addEventListener('mousedown', function (e) { e.preventDefault(); });
+    list.addEventListener('click', function (e) {
+      var li = e.target.closest('[role="option"]');
+      if (li) location.href = items[Array.prototype.indexOf.call(list.children, li)].url;
+    });
+  }
+
+  function init() {
+    initSearchPage();
+    var inputs = document.querySelectorAll('form[action$="search.html"] input[name="q"]');
+    Array.prototype.forEach.call(inputs, function (input) {
+      if (input.id !== 'search-input') initSuggest(input);
     });
   }
 
@@ -3002,6 +3177,7 @@ def base_html(
 {ecl_site_footer(root)}
 
 <script src="{root}assets/main.js"></script>
+<script src="{root}assets/search.js"></script>
 {extra_js}
 {ecl_scripts(root)}
 {ecl_chrome_scripts()}
@@ -3664,7 +3840,6 @@ def build_search_page() -> str:
         content=content,
         breadcrumbs=[("Home", "index.html"), ("Search", None)],
         depth=0,
-        extra_js='<script src="assets/search.js"></script>',
     )
 
 
