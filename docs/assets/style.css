@@ -424,6 +424,35 @@ table caption {
 .search-examples a:hover { border-color: var(--green); text-decoration: underline; }
 .no-results { padding: 40px 0; text-align: center; color: var(--secondary); }
 
+/* -- Search suggestions under the header / homepage boxes (search.js initSuggest) -- */
+/* The ECL header form is already positioned (relative on desktop, absolute in
+   its mobile pop-up) -- overriding that breaks the pop-up. */
+.has-search-suggest:not(.ecl-search-form) { position: relative; }
+/* .search-form clips its children to its rounded border; the list must escape it. */
+.search-form.has-search-suggest { overflow: visible; }
+.search-suggest {
+  position: absolute; top: 100%; right: 0; z-index: 1000;
+  width: max(100%, 400px); max-width: calc(100vw - 32px); max-height: 70vh; overflow-y: auto;
+  margin: 4px 0 0; padding: 4px 0; list-style: none; text-align: left;
+  background: var(--white); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow-2);
+}
+.search-suggest[hidden] { display: none; }
+.hero .search-suggest { left: 0; right: auto; width: 100%; }
+.search-suggest__option { margin: 0; padding: 8px 16px; cursor: pointer; font-size: .9375rem; line-height: 1.4; }
+.search-suggest__option[aria-selected="true"], .search-suggest__option:hover { background: var(--mid-grey); }
+.search-suggest__title {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+  font-weight: 600; color: var(--green);
+}
+.search-suggest__context {
+  display: block; font-size: .8125rem; color: var(--secondary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.search-suggest mark { background: none; color: inherit; font-weight: 800; padding: 0; }
+.search-suggest__all { border-top: 1px solid var(--border); margin-top: 4px; padding-top: 10px; color: var(--green); }
+
 /* -- Search-term highlights on chapter pages (main.js initSearchHighlight) -- */
 mark.search-hl { background: #fff0a8; color: inherit; padding: 0 1px; border-radius: 2px; }
 mark.search-hl--current { background: var(--focus); outline: 2px solid var(--black); outline-offset: 1px; }
