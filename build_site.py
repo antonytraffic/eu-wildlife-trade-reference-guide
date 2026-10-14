@@ -1240,6 +1240,15 @@ table caption {
 }
 .hero .search-form button::before { display: none; }
 .hero .search-form button:hover { background: #fc8713; color: var(--black); }
+.hero__download { margin: 16px 0 0; font-size: 1rem; color: var(--white); }
+.hero__download a { color: var(--white); text-decoration: underline; }
+.hero__download a:hover { color: #fea439; }
+.hero__download a:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* -- Whole-guide PDF links ----------------------------- */
+.home-download { margin-top: 1rem; }
+.home-download__icon { width: 2.5rem; height: 2.5rem; }
+.mega-menu-pdf-link { margin-top: var(--s-m); }
 
 /* Legacy card design -- the active design (ECL_CARDS=False, reverted per user
    feedback: the ECL card's fonts/sizing/spacing didn't work as well as this
@@ -2634,6 +2643,10 @@ _ECL_ICON_PATHS = {
     "search": '<path fill-rule="evenodd" clip-rule="evenodd" d="M3 21c0-9.93 8.07-18 18-18s18 8.07 18 18c0 4.416-1.596 8.465-4.242 11.599l11.309 11.31-2.121 2.12L32.64 34.723A17.92 17.92 0 0 1 21 39c-9.93 0-18-8.07-18-18m33 0c0-8.28-6.72-15-15-15S6 12.72 6 21s6.72 15 15 15 15-6.72 15-15"/>',
     "hamburger": '<path fill-rule="evenodd" d="M42 12H6v3h36zM42 33H6v3h36zM6 22.5h36v3H6z"/>',
     "close": '<path fill-rule="evenodd" d="M42 8.01 39.99 6 24 21.99 8.01 6 6 8.01 21.99 24 6 39.99 8.01 42 24 26.01 39.99 42 42 39.99 26.01 24z"/>',
+    # Not in brand/ecl/reference-menu-search.html, so drawn to match the
+    # sprite's 48x48 grid and 3px stroke rather than copied from it.
+    "download": '<path fill-rule="evenodd" d="M25.5 6h-3v23.38l-8.44-8.44-2.12 2.12L24 35.12l12.06-12.06-2.12-2.12-8.44 8.44zM9 39h30v3H9z"/>',
+    "file": '<path fill-rule="evenodd" d="M28.62 3H9v42h30V13.38zM28.5 7.24 34.76 13.5H28.5zM12 42V6h13.5v10.5H36V42z"/>',
 }
 
 
@@ -2701,7 +2714,12 @@ def ecl_site_header(root: str) -> str:
         for item_title, slug in _GUIDE_NAV_ITEMS
     )
     annexes_href = f'{root}chapters/{h(_ANNEXES_SLUG)}.html' if _ANNEXES_SLUG else f'{root}index.html'
-    logo = f"{root}assets/ecl/images/logo/positive/logo-ec--en.svg"
+    # The whole-guide PDF link sits in the info pane under the summary, not in
+    # the sublist, where it would read as an 11th section. It deliberately
+    # avoids ECL's own .ecl-mega-menu__info-link class: ECL's arrow-key
+    # handler walks a fixed DOM path from that link into a see-all <li>
+    # inside the sublist, and throws from anywhere else.
+    logo =f"{root}assets/ecl/images/logo/positive/logo-ec--en.svg"
     return f"""<header class="ecl-site-header ecl-site-header-with-logo-l ecl-site-header--has-mega-menu" data-ecl-auto-init="SiteHeader">
   <div class="ecl-site-header__inner">
     <div class="ecl-site-header__background">
@@ -2802,6 +2820,7 @@ def ecl_site_header(root: str) -> str:
                   <div class="ecl-mega-menu__info-scrollable">
                     <div class="ecl-mega-menu__info-content">Browse the sections of the EU Wildlife Trade Regulations Reference Guide.</div>
                   </div>
+                  <a href="{root}{PDF_FILENAME}" class="ecl-link ecl-link--standalone ecl-link--icon mega-menu-pdf-link">{_ecl_icon("download", "ecl-icon--s ecl-link__icon")}<span class="ecl-link__label">Download the full guide (PDF)</span></a>
                 </div>
                 <div class="ecl-mega-menu__mega" data-ecl-mega-menu-mega>
                   <ul class="ecl-mega-menu__sublist" aria-label="Pages in this section">
@@ -3775,7 +3794,33 @@ def build_index_page(nav_sections: list[dict], summaries: dict,
             f'{_make_cards_grid(cards, "chapter-grid")}'
         )
 
-    hero = """
+    # Only called after generate_pdf(), so the size is known on a full build.
+    size = _pdf_size_label()
+    pdf_meta = f"PDF, {size}" if size else "PDF"
+    # ECL File component (no translations, so no File JS needed).
+    download_block = f"""
+<h2 style="margin-top:0;border-top:none;padding-top:0">Download the full guide</h2>
+<div class="ecl-file home-download">
+  <div class="ecl-file__container">
+    <div class="ecl-file__info">
+      <div class="ecl-file__icon-box">{_ecl_icon("file", "ecl-file__icon home-download__icon")}</div>
+      <div class="ecl-file__content">
+        <div class="ecl-file__title">EU Wildlife Trade Regulations Reference Guide</div>
+        <div class="ecl-file__description">The complete guide, including all annexes, as a single PDF for offline reading and printing.</div>
+      </div>
+    </div>
+    <div class="ecl-file__footer">
+      <div class="ecl-file__language">English</div>
+      <div class="ecl-file__action">
+        <div class="ecl-file__meta">({pdf_meta})</div>
+        <a href="{PDF_FILENAME}" class="ecl-link ecl-link--standalone ecl-link--icon ecl-file__download"><span class="ecl-link__label">Download</span>{_ecl_icon("download", "ecl-icon--s ecl-link__icon")}</a>
+      </div>
+    </div>
+  </div>
+</div>
+"""
+
+    hero = f"""
 <div class="hero">
   <div class="container">
     <h1>EU Wildlife Trade Regulations<br>Reference Guide</h1>
@@ -3792,6 +3837,7 @@ def build_index_page(nav_sections: list[dict], summaries: dict,
         <span class="sr-only">Search</span>
       </button>
     </form>
+    <p class="hero__download">or <a href="{PDF_FILENAME}">download the full guide as a PDF</a>{f" ({size})" if size else ""}</p>
   </div>
 </div>
 """
@@ -3802,6 +3848,8 @@ def build_index_page(nav_sections: list[dict], summaries: dict,
   {section_block("Reference Guide", guide_cards)}
   <hr>
   {section_block("Annexes", annex_cards) if annex_cards else ""}
+  <hr>
+  {download_block}
 </div>
 """
     return base_html(
@@ -4416,6 +4464,15 @@ def build_pdf_toc(
 PDF_FILENAME = "EU-Wildlife-Trade-Reference-Guide.pdf"
 
 
+def _pdf_size_label() -> str | None:
+    """"6.7 MB" for the built PDF, or None when it hasn't been generated
+    (WeasyPrint unavailable) -- EC practice is to state a download's size."""
+    path = SITE_DIR / PDF_FILENAME
+    if not path.exists():
+        return None
+    return f"{path.stat().st_size / (1024 * 1024):.1f} MB"
+
+
 _LOGO_SVG_DIM_RE = re.compile(r'width="(\d+(?:\.\d+)?)"\s*\n?\s*height="(\d+(?:\.\d+)?)"')
 
 
@@ -4987,12 +5044,10 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
     console.print("  [green]+[/green] search_index.json")
 
     # -- Root pages ---------------------------------------------------------------
-    (SITE_DIR / "index.html").write_text(
-        build_index_page(nav_sections, summaries, about_ch=about_ch), encoding="utf-8"
-    )
+    # index.html is written after the PDF, so it can show the PDF's size.
     (SITE_DIR / "search.html").write_text(build_search_page(),  encoding="utf-8")
     (SITE_DIR / "404.html"  ).write_text(build_404_page(),     encoding="utf-8")
-    console.print("  [green]+[/green] index.html, search.html, 404.html")
+    console.print("  [green]+[/green] search.html, 404.html")
 
     # -- About page ---------------------------------------------------------------
     if about_ch:
@@ -5040,6 +5095,11 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
     # -- Whole-guide PDF -----------------------------------------------------
     console.print("\n  Generating PDF...")
     generate_pdf(nav_sections, all_sub, about_ch)
+
+    (SITE_DIR / "index.html").write_text(
+        build_index_page(nav_sections, summaries, about_ch=about_ch), encoding="utf-8"
+    )
+    console.print("  [green]+[/green] index.html")
 
     return nav_sections, all_sub, summaries
 

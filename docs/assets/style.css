@@ -283,6 +283,15 @@ table caption {
 }
 .hero .search-form button::before { display: none; }
 .hero .search-form button:hover { background: #fc8713; color: var(--black); }
+.hero__download { margin: 16px 0 0; font-size: 1rem; color: var(--white); }
+.hero__download a { color: var(--white); text-decoration: underline; }
+.hero__download a:hover { color: #fea439; }
+.hero__download a:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* -- Whole-guide PDF links ----------------------------- */
+.home-download { margin-top: 1rem; }
+.home-download__icon { width: 2.5rem; height: 2.5rem; }
+.mega-menu-pdf-link { margin-top: var(--s-m); }
 
 /* Legacy card design -- the active design (ECL_CARDS=False, reverted per user
    feedback: the ECL card's fonts/sizing/spacing didn't work as well as this
