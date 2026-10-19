@@ -500,8 +500,11 @@ def _replace_figures(html: str, depth: int) -> str:
 
     def _sub_bare(m: re.Match) -> str:
         num = m.group(1)
+        # A caption converted by _postprocess_table_labels() already carries
+        # id="figure-N"; a second copy here would leave the id duplicated.
+        id_attr = "" if f'id="figure-{num}"' in html else f' id="figure-{num}"'
         return (
-            f'<figure class="figure-block" id="figure-{num}">'
+            f'<figure class="figure-block"{id_attr}>'
             f'<img src="{root}assets/images/Figure-{num}.png" alt="Figure {num}">'
             f'</figure>'
         )
@@ -511,9 +514,17 @@ def _replace_figures(html: str, depth: int) -> str:
     return html
 
 
-# Matches bold Figure/Table references for in-text linking
-_FIG_BOLD_REF_RE = re.compile(r'<strong>(Figure\s+(\d+))</strong>', re.IGNORECASE)
-_TAB_BOLD_REF_RE = re.compile(r'<strong>(Table\s+(\d+))</strong>', re.IGNORECASE)
+# Matches bold Figure/Table references for in-text linking -- a single one
+# ("Figure 2") or a compound run ("Figures 10 and 11", "Figure 2 and Table 7").
+_FIGTAB_BOLD_REF_RE = re.compile(
+    r'<strong>([^<]*?\b(?:Figure|Table)s?\s+\d[^<]*)</strong>',
+    re.IGNORECASE,
+)
+# Within one bold run: "Figure(s)/Table(s) N" followed by any ", M" / "and M" / "or M".
+_FIGTAB_GROUP_RE = re.compile(
+    r'\b(Figure|Table)(s?\s+)(\d+)((?:\s*(?:,|and|or)\s*\d+\b)*)', re.IGNORECASE
+)
+_FIGTAB_MORE_NUM_RE = re.compile(r'(\s*(?:,|and|or)\s*)(\d+)', re.IGNORECASE)
 
 # Page-level lookups: figure/table number → docs/-relative URL with anchor
 _FIGURE_PAGE_LOOKUP: dict[str, str] = {}
@@ -548,38 +559,47 @@ def build_figure_table_lookup(nav_sections: list[dict], all_sub: list[dict]) -> 
 
 
 def _link_figure_table_refs(html: str, depth: int) -> str:
-    """Link bold Figure N / Table N references; use cross-page URLs when needed."""
-    def _scan(pat: re.Pattern, anchor_prefix: str, page_lookup: dict) -> None:
-        nonlocal html
-        result: list[str] = []
-        pos = 0
-        for m in pat.finditer(html):
-            before = html[max(0, m.start() - 400) : m.start()]
-            result.append(html[pos : m.start()])
-            pos = m.end()
-            # Already inside a link
-            if before.count("<a ") > before.count("</a>"):
-                result.append(m.group(0))
-                continue
-            text, num = m.group(1), m.group(2)
-            # Skip if the target element appears immediately after (reference is directly above it)
-            after = html[m.end() : m.end() + 1200]
-            if f'id="{anchor_prefix}-{num}"' in after:
-                result.append(m.group(0))
-                continue
-            # Build URL — cross-page if on a different page, same-page anchor otherwise
-            page_url = page_lookup.get(num)
-            if page_url:
-                href = _xref_url(page_url, depth)
-            else:
-                href = f"#{anchor_prefix}-{num}"
-            result.append(f'<strong><a href="{href}">{text}</a></strong>')
-        result.append(html[pos:])
-        html = "".join(result)
+    """Link bold Figure N / Table N references, including compound ones such as
+    "Figures 10 and 11"; use cross-page URLs when needed."""
+    lookups = {"figure": _FIGURE_PAGE_LOOKUP, "table": _TABLE_PAGE_LOOKUP}
 
-    _scan(_FIG_BOLD_REF_RE, "figure", _FIGURE_PAGE_LOOKUP)
-    _scan(_TAB_BOLD_REF_RE, "table", _TABLE_PAGE_LOOKUP)
-    return html
+    def _href(kind: str, num: str) -> str:
+        # Cross-page if on a different page, same-page anchor otherwise
+        page_url = lookups[kind].get(num)
+        return _xref_url(page_url, depth) if page_url else f"#{kind}-{num}"
+
+    result: list[str] = []
+    pos = 0
+    for m in _FIGTAB_BOLD_REF_RE.finditer(html):
+        before = html[max(0, m.start() - 400) : m.start()]
+        result.append(html[pos : m.start()])
+        pos = m.end()
+        # Already inside a link
+        if before.count("<a ") > before.count("</a>"):
+            result.append(m.group(0))
+            continue
+        after = html[m.end() : m.end() + 1200]
+
+        def _target_follows(kind: str, num: str) -> bool:
+            # The reference sits directly above its target, so no link is needed
+            return f'id="{kind}-{num}"' in after
+
+        def _sub_group(g: re.Match) -> str:
+            word, gap, num, more = g.groups()
+            kind = word.lower()
+            first = f"{word}{gap}{num}"
+            if not _target_follows(kind, num):
+                first = f'<a href="{_href(kind, num)}">{first}</a>'
+            more = _FIGTAB_MORE_NUM_RE.sub(
+                lambda n: n.group(0) if _target_follows(kind, n.group(2))
+                else f'{n.group(1)}<a href="{_href(kind, n.group(2))}">{n.group(2)}</a>',
+                more,
+            )
+            return first + more
+
+        result.append(f"<strong>{_FIGTAB_GROUP_RE.sub(_sub_group, m.group(1))}</strong>")
+    result.append(html[pos:])
+    return "".join(result)
 
 
 def _postprocess_summary_sections(html: str) -> str:
@@ -4259,8 +4279,10 @@ ol.lettered-list { padding-left: 6mm; }
 # would also force an unwanted page break before every *small* figure too,
 # since switching the named page is itself an implicit break point.
 
-_PDF_HREF_CHAPTER_RE = re.compile(r'href="chapters/([a-zA-Z0-9_\-]+)\.html(#[^"]*)?"')
-_PDF_HREF_FRAG_RE    = re.compile(r'href="#([^"]*)"')
+# One pattern for both kinds of internal link -- a cross-page site link
+# ("chapters/<slug>.html#frag", group 1/2) and a same-page "#frag" (group 3) --
+# so each href is rewritten exactly once.
+_PDF_HREF_RE = re.compile(r'href="(?:chapters/([a-zA-Z0-9_\-]+)\.html(?:#([^"]*))?|#([^"]*))"')
 _PDF_ID_RE           = re.compile(r'\bid="([^"]*)"')
 
 # A repeat citation's id carries a "-<n>" suffix (see _postprocess_footnote_refs).
@@ -4384,13 +4406,14 @@ def _pdf_namespace_refs(html: str, slug: str) -> str:
     """Namespace ids/hrefs so this page's anchors stay unique once merged into
     one PDF document, and turn cross-page site links into in-document jumps."""
 
-    def _chapter_href(m: re.Match) -> str:
-        target_slug, frag = m.group(1), m.group(2)
-        anchor = f"--{frag[1:]}" if frag else ""
+    def _href(m: re.Match) -> str:
+        target_slug, target_frag, local_frag = m.groups()
+        if target_slug is None:
+            return f'href="#pdf-{slug}--{local_frag}"'
+        anchor = f"--{target_frag}" if target_frag else ""
         return f'href="#pdf-{target_slug}{anchor}"'
 
-    html = _PDF_HREF_CHAPTER_RE.sub(_chapter_href, html)
-    html = _PDF_HREF_FRAG_RE.sub(lambda m: f'href="#pdf-{slug}--{m.group(1)}"', html)
+    html = _PDF_HREF_RE.sub(_href, html)
     html = _PDF_ID_RE.sub(lambda m: f'id="pdf-{slug}--{m.group(1)}"', html)
     return html
 
