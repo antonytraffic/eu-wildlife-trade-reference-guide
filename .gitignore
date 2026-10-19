@@ -13,3 +13,6 @@ data/*.docx
 
 # Baseline screenshots for the ECL migration (local only)
 brand/baseline/
+
+# EC hand-over plan and release tooling (local only; the GitHub repo is public)
+handover/
