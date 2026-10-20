@@ -1,9 +1,25 @@
-python-docx>=1.1.0
-anthropic>=0.40.0
-pyyaml>=6.0.2
-rich>=13.9.0
-markdown2>=2.4.0
-python-slugify>=8.0.0
-pypdf>=4.0.0
-rapidfuzz>=3.0.0
-weasyprint>=62.0
+# Building the site and PDF (build_site.py) and checking links (check_links.py).
+# Needs Python 3.10 or newer. Versions are pinned to the ones the site was built
+# and tested with, so a fresh install produces the same PDF.
+markdown2==2.5.5
+PyYAML==6.0.3
+rich==15.0.0
+pypdf==6.16.1
+weasyprint==69.0
+pillow==12.3.0
+
+# Installed with the packages above; pinned so the PDF output doesn't drift.
+brotli==1.2.0
+cffi==2.1.1
+cssselect2==0.9.0
+fonttools==4.63.0
+markdown-it-py==4.2.0
+mdurl==0.1.2
+pycparser==3.0
+pydyf==0.12.1
+Pygments==2.21.0
+pyphen==0.18.1
+tinycss2==1.5.1
+tinyhtml5==2.1.0
+webencodings==0.6.1
+zopfli==0.4.3

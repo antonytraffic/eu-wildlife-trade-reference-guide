@@ -8,6 +8,7 @@ Run:
     python build_site.py
 """
 
+import hashlib
 import html as html_mod
 import json
 import os
@@ -32,18 +33,40 @@ SUMMARIES_FILE = INPUT_DIR / "_summaries.json"
 # and PDF need to refer to this page by name, so both stay in sync.
 ABOUT_TITLE = "About"
 
-# -- Reversibility flags -- see brand/ECL-Migration-Spec.md section 5.1 --------
+# -- Switches -------------------------------------------------------------------
 ECL_CHROME  = True    # False: Drupal / oe_theme supplies globan, header, footer
-                      # markup and the webtools loader/cookie-consent JSON --
-                      # NOT the underlying ECL JS/CSS asset stack or content-
-                      # dependent fixes (chatbot, ECL.autoInit(), the digit-
+                      # markup and the webtools loader/cookie-consent/analytics
+                      # JSON -- NOT the underlying ECL JS/CSS asset stack or
+                      # content-dependent fixes (ECL.autoInit(), the digit-
                       # leading-heading-id shim), which are always emitted --
-                      # see ecl_scripts() vs ecl_chrome_scripts().
+                      # see ecl_scripts() vs ecl_webtools_head().
 ECL_CARDS   = False   # False: revert to the bespoke chapter/subpage card design
 ECL_CONTENT = False   # True:  article body adopts ECL type/table classes
 
+# Europa Analytics visitor statistics (needs ECL_CHROME). Off for previews and
+# test builds, so they aren't counted in the live site's statistics.
+ANALYTICS = False
+
+# Optional AI assistant, delivered separately as an add-on and off by default.
+# Turning it on needs static/chatbot.js and a deployed back end at
+# CHATBOT_API_URL -- see the add-on's own instructions.
+CHATBOT         = True
+CHATBOT_API_URL = "https://chatbot-api-khaki.vercel.app/api/chat"
+
+# EC Webtools settings, as given by the Commission.
+COOKIE_NOTICE_URL     = "https://ec.europa.eu/info/cookies_en"
+ANALYTICS_SITE_ID     = "6f836dc5-4685-4d03-8c47-01d2f7ed55d3"
+ACCESSIBILITY_URL     = "https://environment.ec.europa.eu/accessibility-statement_en"
+
+# Address of the site's top folder on the live server, e.g. "/eu-wildlife-trade-guide/"
+# (with both slashes). Only 404.html uses it: the server shows that page at
+# whatever address was missed, so it needs to know where the site starts.
+# Leave "" to work it out in the browser (correct on GitHub Pages, or when the
+# site sits at the top of its domain).
+SITE_BASE_PATH = ""
+
 # Header banner text. ECL convention is the PARENT site name, so if this lands
-# under environment.ec.europa.eu this becomes "Environment" -- spec section 6.3.
+# under environment.ec.europa.eu this could become "Environment".
 SITE_NAME_BANNER = "EU Wildlife Trade Regulations"
 
 # Article-body element classes. With ECL_CONTENT False every value is "", so the
@@ -1272,8 +1295,7 @@ table caption {
 
 /* Legacy card design -- the active design (ECL_CARDS=False, reverted per user
    feedback: the ECL card's fonts/sizing/spacing didn't work as well as this
-   design). Kept switchable via ECL_CARDS -- see brand/ECL-Migration-Spec.md
-   section 5.1.1. The border-bottom below is the one detail kept from the
+   design). Kept switchable via ECL_CARDS. The border-bottom below is the one detail kept from the
    ECL card design at the user's request. Do not delete this block even if
    ECL_CARDS is flipped back to True later. */
 /* -- Section card grid -------------------------------- */
@@ -1451,8 +1473,7 @@ mark.search-hl--current { background: var(--focus); outline: 2px solid var(--bla
 .search-hl-bar button:hover { background: rgba(255,255,255,.12); }
 .search-hl-bar button:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; }
 @media (max-width: 600px) {
-  /* Clear of the chatbot button, which sits bottom-right. */
-  .search-hl-bar { left: 16px; right: 16px; bottom: 84px; justify-content: flex-end; }
+  .search-hl-bar { left: 16px; right: 16px; justify-content: flex-end; }
   .search-hl-bar__count { margin-right: auto; }
 }
 @media print { .search-hl-bar { display: none; } mark.search-hl { background: none; } }
@@ -1734,6 +1755,12 @@ ol.lettered-list li { margin-bottom: 6px; }
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
 }
+"""
+
+# Appended to CSS only when CHATBOT is on: on phones, lift the search-highlight
+# bar clear of the chatbot button, which sits bottom-right.
+CHATBOT_CSS = """
+@media (max-width: 600px) { .search-hl-bar { bottom: 84px; } }
 """
 
 
@@ -2604,14 +2631,30 @@ SEARCH_JS = """\
 # ==============================================================================
 
 # ==============================================================================
-# Site chrome -- see brand/ECL-Migration-Spec.md section 4.
+# Site chrome (Europa Component Library header, footer, Webtools).
 # Most functions below return "" when ECL_CHROME is False, so a move into
 # Drupal / oe_theme (which supplies its own chrome) is one flag rather than a
 # rewrite. The exception is ecl_scripts(): it always emits (see its own
-# docstring for why) -- only ecl_chrome_scripts() at the end of this section
-# is gated, carrying just the genuinely chrome-specific webtools loader and
-# cookie-consent JSON.
+# docstring for why) -- only ecl_webtools_head() is gated, carrying just the
+# genuinely chrome-specific webtools loader and its cookie-consent and
+# analytics JSON.
 # ==============================================================================
+
+# Short content hashes of this site's own CSS/JS, filled in by build_site()
+# before any page is written. Added to their URLs (?v=...) so a browser fetches
+# the new file after an update instead of reusing a cached old copy.
+ASSET_VERSIONS: dict[str, str] = {}
+
+
+def _short_hash(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()[:10]
+
+
+def asset_url(root: str, name: str) -> str:
+    """URL of assets/<name>, with its version string when one is known."""
+    v = ASSET_VERSIONS.get(name)
+    return f"{root}assets/{name}" + (f"?v={v}" if v else "")
+
 
 # First src of each Inter @font-face in ecl-ec.css. Preloading these exact URLs
 # starts the font fetch while the HTML is still parsing (rather than after the
@@ -2636,7 +2679,7 @@ def ecl_head_links(root: str) -> str:
         f'  <link rel="stylesheet" href="{e}/styles/optional/ecl-ec-default.css" media="screen">\n'
         f'  <link rel="stylesheet" href="{e}/styles/ecl-ec.css" media="screen">\n'
         f'  <link rel="stylesheet" href="{e}/styles/optional/ecl-ec-utilities.css" media="screen">\n'
-        f'  <link rel="stylesheet" href="{root}assets/style.css">\n'
+        f'  <link rel="stylesheet" href="{asset_url(root, "style.css")}">\n'
         f'  <link rel="icon" type="image/svg+xml" href="{root}favicon.svg">\n'
         f'  <link rel="icon" type="image/x-icon" href="{root}favicon.ico">\n'
         f'  <link rel="apple-touch-icon" href="{root}apple-touch-icon.png">'
@@ -2644,7 +2687,7 @@ def ecl_head_links(root: str) -> str:
 
 
 def ecl_globan() -> str:
-    """Official-status strip. Task 5 replaces this with the webtools globan."""
+    """Webtools globan (the EU "official website" strip) and the cookie banner's slot."""
     if not ECL_CHROME:
         return ""
     return (
@@ -2911,8 +2954,8 @@ def ecl_breadcrumb(segments: list[tuple[str, str | None]]) -> str:
 
 
 def ecl_site_footer(root: str) -> str:
-    """DG ENV's real ECL footer, copied from brand/ecl/quick_example.html (see
-    ECL-Migration-Spec.md section 6.6). `__row--specific` keeps DG ENV's own
+    """DG ENV's real ECL footer, copied from the ECL quick example template.
+    `__row--specific` keeps DG ENV's own
     structure and links verbatim (site-info, contact, about, related links,
     social accounts) per the approved decision; TRAFFIC co-branding is added
     to the site-info description alongside DG ENV's own text, and the old
@@ -2999,7 +3042,7 @@ def ecl_site_footer(root: str) -> str:
               <div class="ecl-site-footer__title">About us</div>
               <ul class="ecl-site-footer__list">
                 <li class="ecl-site-footer__list-item">
-                  <a href="https://commission.europa.eu/accessibility-statement_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="About&#x20;us" data-footer-link-label="Accessibility">Accessibility</a>
+                  <a href="{ACCESSIBILITY_URL}" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="About&#x20;us" data-footer-link-label="Accessibility">Accessibility</a>
                 </li>
                 <li class="ecl-site-footer__list-item">
                   <a href="{pdf_href}" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link">Download PDF</a>
@@ -3055,7 +3098,7 @@ def ecl_site_footer(root: str) -> str:
               <a href="https://commission.europa.eu/languages-our-websites_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="legal_navigation" data-footer-link-label="Languages&#x20;on&#x20;our&#x20;websites">Languages on our websites</a>
             </li>
             <li class="ecl-site-footer__list-item">
-              <a href="https://commission.europa.eu/cookies-policy_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="legal_navigation" data-footer-link-label="Cookies">Cookies</a>
+              <a href="{COOKIE_NOTICE_URL}" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="legal_navigation" data-footer-link-label="Cookies">Cookies</a>
             </li>
             <li class="ecl-site-footer__list-item">
               <a href="https://commission.europa.eu/privacy-policy-websites-managed-european-commission_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="legal_navigation" data-footer-link-label="Privacy&#x20;policy">Privacy policy</a>
@@ -3071,25 +3114,38 @@ def ecl_site_footer(root: str) -> str:
 </footer>"""
 
 
+def chatbot_scripts(root: str) -> str:
+    """The optional AI assistant's script tags -- "" unless CHATBOT is on."""
+    if not CHATBOT:
+        return ""
+    return f"""<script src="{root}assets/chatbot.js"></script>
+<script>
+  ChatbotWidget.init({{
+    apiUrl: {json.dumps(CHATBOT_API_URL)},
+    title: 'Wildlife Trade Regulations Assistant',
+    placeholder: 'Ask about permits, forms, species listings…'
+  }});
+</script>
+"""
+
+
 def ecl_scripts(root: str) -> str:
     """Scripts after {extra_js}, before </body> -- always emitted, regardless of
-    ECL_CHROME. Task 4 adds ecl-ec.js + ECL.autoInit(). Deliberately excludes
+    ECL_CHROME: ecl-ec.js + ECL.autoInit(). Deliberately excludes
     assets/main.js and {extra_js} itself -- both stay as separate lines in
-    base_html()'s own template, in their original position, so search.html
-    keeps loading assets/search.js. See Step 2's note on extra_js.
+    base_html()'s own template, so search.html keeps loading assets/search.js.
 
-    None of this is "chrome" in the ECL_CHROME sense (spec: "False -> Drupal /
-    oe_theme supplies the chrome"): the chatbot is a site feature, not chrome;
-    the ecl-ec.js bundle + ECL.autoInit() are needed because the page still
-    emits ECL-classed markup (mega menu, in-page nav, cards, etc.) even when
-    ECL_CHROME is False -- a Drupal/oe_theme host would still need ECL's JS to
-    initialize that markup; and the inline shim below exists purely because of
-    THIS SITE'S OWN CONTENT, so a Drupal host would still need it too (Drupal
-    would not know about this site's specific heading-id scheme). Only the
-    genuinely EC/chrome-specific webtools loader and cookie-consent JSON are
-    gated -- see ecl_chrome_scripts() below.
+    None of this is "chrome" in the ECL_CHROME sense ("False -> Drupal /
+    oe_theme supplies the chrome"): the ecl-ec.js bundle + ECL.autoInit() are
+    needed because the page still emits ECL-classed markup (mega menu, in-page
+    nav, cards, etc.) even when ECL_CHROME is False -- a Drupal/oe_theme host
+    would still need ECL's JS to initialize that markup; and the inline shim
+    below exists purely because of THIS SITE'S OWN CONTENT, so a Drupal host
+    would still need it too (Drupal would not know about this site's specific
+    heading-id scheme). Only the genuinely EC/chrome-specific webtools loader
+    and its JSON are gated -- see ecl_webtools_head().
 
-    Task 8 adds the inline shim below, immediately before ECL.autoInit(). ECL's
+    The inline shim below runs immediately before ECL.autoInit(). ECL's
     InpageNavigation component (vendored v5.1.0) calls document.querySelector()
     on each nav link's raw href fragment during init(); this site's section-
     numbered heading ids (e.g. "321-standard-operating-procedures", from
@@ -3101,15 +3157,7 @@ def ecl_scripts(root: str) -> str:
     anchor immediately before each such heading and repoints the nav link at
     it, leaving the heading's real id untouched for cross-references,
     footnotes and the PDF."""
-    return f"""<script src="{root}assets/chatbot.js"></script>
-<script>
-  ChatbotWidget.init({{
-    apiUrl: 'https://chatbot-api-khaki.vercel.app/api/chat',
-    title: 'Wildlife Trade Regulations Assistant',
-    placeholder: 'Ask about permits, forms, species listings…'
-  }});
-</script>
-<script src="{root}assets/ecl/scripts/ecl-ec.js"></script>
+    return f"""{chatbot_scripts(root)}<script src="{root}assets/ecl/scripts/ecl-ec.js"></script>
 <script>
   // Work around ECL InpageNavigation's document.querySelector(href) crashing
   // on digit-leading heading ids (see ecl_scripts() docstring in build_site.py).
@@ -3129,16 +3177,23 @@ def ecl_scripts(root: str) -> str:
 <script>ECL.autoInit();</script>"""
 
 
-def ecl_chrome_scripts() -> str:
-    """Scripts after ecl_scripts(), before </body> -- gated on ECL_CHROME. Task 5
-    adds the webtools loader. Both the loader and the cookie-consent JSON are
-    genuinely EC/chrome-specific (spec: "False -> Drupal / oe_theme supplies
-    the chrome") -- a Drupal/oe_theme host supplies its own equivalent, so
-    these (and only these) return "" when ECL_CHROME is False."""
+def ecl_webtools_head() -> str:
+    """EC Webtools loader plus its cookie-consent and analytics settings, at the
+    end of <head>, exactly as the Commission asked for them -- gated on
+    ECL_CHROME, since a Drupal/oe_theme host supplies its own. The globan
+    settings stay at the top of <body> (ecl_globan()); Webtools reads every
+    application/json block on the page."""
     if not ECL_CHROME:
         return ""
-    return """<script defer src="https://webtools.europa.eu/load.js"></script>
-<script type="application/json">{"utility":"cck"}</script>"""
+    cck = json.dumps({"utility": "cck", "url": COOKIE_NOTICE_URL})
+    out = (
+        '  <script src="https://webtools.europa.eu/load.js" type="text/javascript"></script>\n'
+        f'  <script type="application/json">{cck}</script>'
+    )
+    if ANALYTICS:
+        analytics = json.dumps({"utility": "analytics", "siteID": ANALYTICS_SITE_ID})
+        out += f'\n  <script type="application/json">{analytics}</script>'
+    return out
 
 
 def base_html(
@@ -3191,6 +3246,7 @@ def base_html(
   <meta name="twitter:title" content="{page_title}">
   <meta name="twitter:description" content="{description}">
 {ecl_head_links(root)}
+{ecl_webtools_head()}
 </head>
 <body id="top">
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -3215,17 +3271,16 @@ def base_html(
 
 {ecl_site_footer(root)}
 
-<script src="{root}assets/main.js"></script>
-<script src="{root}assets/search.js"></script>
+<script src="{asset_url(root, "main.js")}"></script>
+<script src="{asset_url(root, "search.js")}"></script>
 {extra_js}
 {ecl_scripts(root)}
-{ecl_chrome_scripts()}
 </body>
 </html>"""
 
 
 # ==============================================================================
-# SECTION 5 -- Summary generation (Claude Haiku + cache + fallback)
+# SECTION 5 -- Card summaries (read from output/_summaries.json, with fallback)
 # ==============================================================================
 
 def load_summaries_cache() -> dict:
@@ -3926,15 +3981,23 @@ def build_404_page() -> str:
         breadcrumbs=[("Home", "index.html"), ("Page not found", None)],
         depth=0,
     )
-    # GitHub Pages serves 404.html at whatever URL missed (e.g. /<repo>/chapters/
+    # The server shows 404.html at whatever URL missed (e.g. /<site>/chapters/
     # old.html), so the page's root-relative-to-itself links and assets would
     # resolve one folder too deep. Pin a <base> at the site root before anything
     # loads, and keep in-page "#…" links pointing at this page, not the root.
+    # SITE_BASE_PATH gives the root outright; without it, guess: the first path
+    # folder on GitHub Pages, else the top of the domain.
+    if SITE_BASE_PATH:
+        root_js = json.dumps(SITE_BASE_PATH)
+    else:
+        root_js = (r"/\.github\.io$/.test(location.hostname) && seg.length > 2 "
+                   "? '/' + seg[1] + '/' : '/'")
     base_script = """<script>
     (function () {
       var seg = location.pathname.split('/');
-      var root = /\\.github\\.io$/.test(location.hostname) && seg.length > 2 ? '/' + seg[1] + '/' : '/';
-      document.write('<base href="' + root + '">');
+      var root = __ROOT__;
+      document.write('<base href="' + root + '">');""".replace("__ROOT__", root_js)
+    base_script += """
       document.addEventListener('DOMContentLoaded', function () {
         var here = location.href.split('#')[0];
         document.querySelectorAll('a[href^="#"]').forEach(function (a) {
@@ -4886,7 +4949,7 @@ def generate_pdf(nav_sections: list[dict], all_sub: list[dict], about_ch: dict |
 # SECTION 9 -- Build orchestration
 # ==============================================================================
 
-# ECL v5.1.0 asset subset -- see brand/ECL-Migration-Spec.md section 3.
+# ECL v5.1.0 asset subset.
 # Deliberately excludes ecl-reset.css (spec section 5), the print stylesheets,
 # colour modes, easy-to-read, the ESM bundle, and 42 non-English logos.
 ECL_SRC = Path("brand") / "ecl"
@@ -5006,13 +5069,32 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
     (SITE_DIR / "assets").mkdir(parents=True, exist_ok=True)
     (SITE_DIR / "chapters").mkdir(parents=True, exist_ok=True)
 
+    # -- Search index (all non-excluded pages) ------------------------------------
+    # Built before the assets so search.js can carry the index's version string.
+    index = build_search_index(nav_sections + all_sub, summaries, by_slug, about_ch)
+    index_json = json.dumps(index, ensure_ascii=False, separators=(",", ":"))
+    (SITE_DIR / "search_index.json").write_text(index_json, encoding="utf-8")
+    console.print("  [green]+[/green] search_index.json")
+
     # -- Static assets ------------------------------------------------------------
-    (SITE_DIR / "assets" / "style.css").write_text(CSS,       encoding="utf-8")
+    # Versioned by content (see ASSET_VERSIONS) before any page is written.
+    css = CSS + (CHATBOT_CSS if CHATBOT else "")
+    index_ref = "new URL('search_index.json', ROOT)"
+    assert SEARCH_JS.count(index_ref) == 1, "search.js no longer loads the index as expected"
+    search_js = SEARCH_JS.replace(
+        index_ref, f"new URL('search_index.json?v={_short_hash(index_json)}', ROOT)"
+    )
+    ASSET_VERSIONS.update({
+        "style.css": _short_hash(css),
+        "main.js":   _short_hash(MAIN_JS),
+        "search.js": _short_hash(search_js),
+    })
+    (SITE_DIR / "assets" / "style.css").write_text(css,       encoding="utf-8")
     (SITE_DIR / "assets" / "main.js" ).write_text(MAIN_JS,   encoding="utf-8")
-    (SITE_DIR / "assets" / "search.js").write_text(SEARCH_JS, encoding="utf-8")
+    (SITE_DIR / "assets" / "search.js").write_text(search_js, encoding="utf-8")
     console.print("  [green]+[/green] assets/style.css, main.js, search.js")
     _chatbot_src = Path("static") / "chatbot.js"
-    if _chatbot_src.exists():
+    if CHATBOT and _chatbot_src.exists():
         shutil.copy(_chatbot_src, SITE_DIR / "assets" / "chatbot.js")
         console.print("  [green]+[/green] assets/chatbot.js")
 
@@ -5057,14 +5139,6 @@ def build_site() -> tuple[list[dict], list[dict], dict]:
         encoding="utf-8",
     )
     console.print("  [green]+[/green] .nojekyll, _config.yml")
-
-    # -- Search index (all non-excluded pages) ------------------------------------
-    index = build_search_index(nav_sections + all_sub, summaries, by_slug, about_ch)
-    (SITE_DIR / "search_index.json").write_text(
-        json.dumps(index, ensure_ascii=False, separators=(",", ":")),
-        encoding="utf-8",
-    )
-    console.print("  [green]+[/green] search_index.json")
 
     # -- Root pages ---------------------------------------------------------------
     # index.html is written after the PDF, so it can show the PDF's size.

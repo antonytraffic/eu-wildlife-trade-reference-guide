@@ -16,3 +16,6 @@ brand/baseline/
 
 # EC hand-over plan and release tooling (local only; the GitHub repo is public)
 handover/
+
+# Hand-over packages built by handover/make_release.py
+release/

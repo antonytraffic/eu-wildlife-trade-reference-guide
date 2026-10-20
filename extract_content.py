@@ -14,17 +14,15 @@ Page numbers are approximated by counting explicit page-break elements
 (w:br type="page") and paragraph-level section breaks in the XML.  The document
 contains no lastRenderedPageBreak markers, so numbers are best-effort.
 
-Requires ANTHROPIC_API_KEY in environment for summary generation.
+The frontmatter's `summary` field is left empty. The site's card summaries
+come from output/_summaries.json instead.
 """
 
-import os
 import re
 import sys
-import time
 import unicodedata
 from pathlib import Path
 
-import anthropic
 import yaml
 from docx import Document
 from docx.oxml.ns import qn
@@ -40,7 +38,6 @@ DOCX_PATH  = Path("data/CITES Reference Guide_Nov 2025 FIN_clean.docx")
 OUTPUT_DIR = Path("output")
 
 LOW_WORD_COUNT_THRESHOLD = 50
-SUMMARY_MODEL            = "claude-haiku-4-5-20251001"
 
 # Word namespace URI
 W = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
@@ -57,7 +54,7 @@ HEADING_STYLES: dict[str, str | None] = {
     "Heading 6": "######",
 }
 
-# Table-of-contents and index styles → skip entirely (noise for RAG)
+# Table-of-contents and index styles → skip entirely (not reading content)
 SKIP_STYLES = frozenset({
     "toc 1", "toc 2", "toc 3", "toc 4", "toc 5",
     "toc 6", "toc 7", "toc 8", "toc 9",
@@ -198,28 +195,6 @@ def table_to_markdown(table: DocxTable) -> str:
     for row in rows_data[1:]:
         lines.append("| " + " | ".join(row) + " |")
     return "\n".join(lines)
-
-
-def generate_summary(text: str, title: str, client: anthropic.Anthropic) -> str:
-    """Call Claude Haiku for a one-sentence chapter summary."""
-    try:
-        response = client.messages.create(
-            model=SUMMARY_MODEL,
-            max_tokens=120,
-            messages=[{
-                "role": "user",
-                "content": (
-                    f"Chapter title: {title}\n\n"
-                    f"Content excerpt:\n{text[:3000]}\n\n"
-                    "Write exactly one sentence (under 30 words) summarising what this "
-                    "chapter covers. Return only the sentence, no preamble."
-                ),
-            }],
-        )
-        return response.content[0].text.strip()
-    except Exception as exc:
-        console.print(f"[yellow]Warning: summary API call failed — {exc}[/yellow]")
-        return "Summary unavailable."
 
 
 def write_chapter_file(
@@ -413,14 +388,6 @@ def main() -> None:
         console.print(f"[bold red]Error:[/bold red] File not found: [cyan]{DOCX_PATH}[/cyan]")
         sys.exit(1)
 
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        console.print(
-            "[bold yellow]Warning:[/bold yellow] ANTHROPIC_API_KEY not set -- "
-            "summaries will be skipped."
-        )
-    claude = anthropic.Anthropic(api_key=api_key) if api_key else None
-
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     # ── 1. Extract ────────────────────────────────────────────────────────────
@@ -435,14 +402,7 @@ def main() -> None:
         title     = ch["title"]
         body_text = "\n".join(ch["lines"])
 
-        if claude:
-            console.print(
-                f"  Summarising {i}/{len(chapters)}: [italic]{title[:65]}[/italic]"
-            )
-            summary = generate_summary(body_text, title, claude)
-            time.sleep(0.3)
-        else:
-            summary = "Summary unavailable (no API key)."
+        summary   = ""
 
         path = write_chapter_file(
             chapter_num=i,
