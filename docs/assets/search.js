@@ -15,7 +15,7 @@
   // Site root, from this script's own URL (assets/search.js), so the index
   // and result links resolve the same from any page depth.
   var ROOT = new URL('../', (document.currentScript && document.currentScript.src) || location.href);
-  var INDEX_URL = new URL('search_index.json', ROOT).href;
+  var INDEX_URL = new URL('search_index.json?v=f481142256', ROOT).href;
   var SUGGESTIONS = 6;
   var SECTIONS_PER_RESULT = 3;
   var SNIPPET_WORDS = 34;

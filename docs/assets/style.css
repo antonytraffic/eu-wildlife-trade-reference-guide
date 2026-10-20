@@ -295,8 +295,7 @@ table caption {
 
 /* Legacy card design -- the active design (ECL_CARDS=False, reverted per user
    feedback: the ECL card's fonts/sizing/spacing didn't work as well as this
-   design). Kept switchable via ECL_CARDS -- see brand/ECL-Migration-Spec.md
-   section 5.1.1. The border-bottom below is the one detail kept from the
+   design). Kept switchable via ECL_CARDS. The border-bottom below is the one detail kept from the
    ECL card design at the user's request. Do not delete this block even if
    ECL_CARDS is flipped back to True later. */
 /* -- Section card grid -------------------------------- */
@@ -474,8 +473,7 @@ mark.search-hl--current { background: var(--focus); outline: 2px solid var(--bla
 .search-hl-bar button:hover { background: rgba(255,255,255,.12); }
 .search-hl-bar button:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; }
 @media (max-width: 600px) {
-  /* Clear of the chatbot button, which sits bottom-right. */
-  .search-hl-bar { left: 16px; right: 16px; bottom: 84px; justify-content: flex-end; }
+  .search-hl-bar { left: 16px; right: 16px; justify-content: flex-end; }
   .search-hl-bar__count { margin-right: auto; }
 }
 @media print { .search-hl-bar { display: none; } mark.search-hl { background: none; } }
@@ -757,3 +755,5 @@ ol.lettered-list li { margin-bottom: 6px; }
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
 }
+
+@media (max-width: 600px) { .search-hl-bar { bottom: 84px; } }
