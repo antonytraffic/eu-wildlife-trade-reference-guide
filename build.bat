@@ -34,7 +34,7 @@ if errorlevel 1 exit /b 1
 
 if not exist "docs\EU-Wildlife-Trade-Reference-Guide.pdf" (
     echo.
-    echo WARNING: the PDF was not built, so the site's "Download PDF" links are broken.
+    echo WARNING: the PDF was not built, so the site's PDF download links are broken.
     echo Fix the WeasyPrint/MSYS2 setup and build again before publishing.
     exit /b 2
 )
