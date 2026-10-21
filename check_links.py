@@ -15,12 +15,24 @@ prints how many internal links the PDF has. A big drop after an edit means
 cross-references have stopped resolving. --min-pdf-links N turns that into a
 failure.
 
-Exit status: 0 if everything resolves, 1 if anything is broken.
+External links (optional, for routine maintenance):
+    python check_links.py --external
+also visits every link to another website (EUR-Lex, CITES, Species+ ...) and
+lists the ones that fail, in two groups: "possibly broken" (not found, moved,
+no answer) and "refused" (sites such as cites.org that block automated checks,
+which are usually fine). Some web applications (e.g. CIRCABC) only answer
+properly in a browser, so confirm a "possibly broken" link by opening it before
+changing anything. These results don't change the exit status.
+
+Exit status: 0 if every internal link resolves, 1 if anything is broken.
 """
 
 import argparse
 import sys
-from collections import Counter
+import urllib.error
+import urllib.request
+from collections import Counter, defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -94,6 +106,45 @@ def check_site(site: Path) -> tuple[int, list[str], list[str]]:
     return checked, errors, warnings
 
 
+def _fetch_status(url: str) -> str:
+    """'' if the address answers normally, else a short reason."""
+    headers = {"User-Agent": "Mozilla/5.0 (link check; EU Wildlife Trade Reference Guide)"}
+    for method in ("HEAD", "GET"):          # some servers reject HEAD
+        try:
+            req = urllib.request.Request(url, method=method, headers=headers)
+            with urllib.request.urlopen(req, timeout=20):
+                return ""
+        except urllib.error.HTTPError as e:
+            if method == "HEAD" and e.code in (403, 405, 501):
+                continue
+            return f"HTTP {e.code}"
+        except Exception as e:                # timeouts, DNS, TLS ...
+            if method == "HEAD":
+                continue
+            return type(e).__name__
+    return "no answer"
+
+
+def check_external(site: Path) -> tuple[int, list[str]]:
+    """Visit every external http(s) link once. Returns (addresses, problems)."""
+    where: dict[str, list[str]] = defaultdict(list)
+    for page in sorted(site.rglob("*.html")):
+        p = _PageParser()
+        p.feed(page.read_text(encoding="utf-8"))
+        for tag, url in p.links:
+            if tag == "a" and urlsplit(url).scheme in ("http", "https"):
+                where[url.split("#")[0]].append(page.relative_to(site).as_posix())
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        results = dict(zip(where, pool.map(_fetch_status, where)))
+    problems = []
+    for url, reason in sorted(results.items()):
+        if reason:
+            pages = sorted(set(where[url]))
+            shown = ", ".join(pages[:3]) + (f" and {len(pages) - 3} more" if len(pages) > 3 else "")
+            problems.append(f"{reason}: {url}  (on {shown})")
+    return len(where), problems
+
+
 def check_pdf(pdf: Path) -> tuple[int, list[str]]:
     """Returns (internal links found, errors)."""
     from pypdf import PdfReader
@@ -134,6 +185,8 @@ def main() -> int:
     ap.add_argument("site", nargs="?", default="docs", help="built site folder (default: docs)")
     ap.add_argument("--min-pdf-links", type=int, default=0,
                     help="fail if the PDF has fewer internal links than this")
+    ap.add_argument("--external", action="store_true",
+                    help="also check links to other websites (slower; needs internet)")
     args = ap.parse_args()
 
     site = Path(args.site)
@@ -160,6 +213,19 @@ def main() -> int:
     for e in errors:
         print(f"  BROKEN: {e}")
     print("OK -- all links resolve." if not errors else f"{len(errors)} problem(s) found.")
+
+    if args.external:
+        print("\nChecking links to other websites...")
+        n, problems = check_external(site)
+        refused = [p for p in problems if p.split(":", 1)[0] in ("HTTP 401", "HTTP 403", "HTTP 429")]
+        likely = [p for p in problems if p not in refused]
+        print(f"External: {n:,} addresses checked.")
+        print(f"\n{len(likely)} possibly broken -- open each in a browser to confirm, then fix or remove:")
+        for pr in likely:
+            print(f"  CHECK: {pr}")
+        print(f"\n{len(refused)} on sites that refuse automated checks -- usually fine; spot-check a few by hand:")
+        for pr in refused:
+            print(f"  REFUSED: {pr}")
     return 1 if errors else 0
 
 
