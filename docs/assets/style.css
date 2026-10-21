@@ -755,5 +755,3 @@ ol.lettered-list li { margin-bottom: 6px; }
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
 }
-
-@media (max-width: 600px) { .search-hl-bar { bottom: 84px; } }
