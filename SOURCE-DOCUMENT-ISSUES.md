@@ -40,7 +40,8 @@ All confirmed in the source DOCX/PDF itself; corrected on the site as noted.
 - **Annex VII, broken URLs**: the Reptile Database checklist link appears as
   `..._CoP18lr_CITES. pdf` / `..._CoP18lr_CITE S.pdf` (stray space), and the ZooBank
   reference as `http://zoobank.orgurn:lsid:...` (missing `/`). Site uses the evident
-  correct URLs.
+  correct Reptile Database URL; the corrected ZooBank URL is dead too, so the site links
+  the article's DOI (10.1093/zoolinnean/zlz046) instead.
 - **Annex VII, last class heading**: "ANTHOZOA & HYDROZOA" sits in the Order column under an
   empty full-width bar instead of being the bar's heading. Site shows it as a class
   sub-header like CEPHALOPODA etc.
@@ -52,3 +53,22 @@ All confirmed in the source DOCX/PDF itself; corrected on the site as noted.
   Site corrects both.
 - **Annex XII, footnotes**: the Res. Conf. 12.10 footnote displays one URL but links to
   speciesplus.net. Site links the displayed URL.
+
+## Dead links replaced on the site (October 2026)
+
+Found with `python check_links.py --external` and checked in a browser. The source
+document still has the old addresses.
+
+- **Section 9.1.2**: Res. Conf. 10.3 link `http://www.cites.org/eng/res/10/10-03C15.php` ->
+  official CITES page `https://cites.org/eng/node/134745`.
+- **Annex VII, Chamaeleonidae**: Glaw (2015) Senckenberg PDF (404) -> DOI
+  `https://doi.org/10.3897/vz.65.e31518`.
+- **Annex VII, Brachypelma**: ZooBank LSID (404) -> DOI `https://doi.org/10.1093/zoolinnean/zlz046`.
+- **Annex VII, Theraphosidae**: `spider_checklist.pdf` (also had a stray `]` in the link;
+  removed from cites.org) -> Internet Archive copy of the original file (2011 capture).
+- **Annex XII, purpose code N**: IUCN re-introduction guidelines `iucnsscrsg.org/images/English.pdf`
+  (1998 guidelines; site dead) -> IUCN library page for the 2013 *Guidelines for
+  Reintroductions and Other Conservation Translocations*, which replaced them.
+
+Checked and fine (the automated check misreports them): the three CIRCABC links and the
+footer's Bluesky link, which only answer properly in a browser.

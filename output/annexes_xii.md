@@ -499,7 +499,7 @@ Trophy hunting is subject to sustainable management that, as appropriate:
 
 **b) Re-introductions (purpose code N)**
 
-The translocation of ‘surplus’ specimens from one wild population to re-stock a population in another country or to restore a species, by re-introduction, to a part of its range from which it has been extirpated. Such programmes should be assessed against the IUCN re-introduction guidelines ([http://www.iucnsscrsg.org/images/English.pdf](http://www.iucnsscrsg.org/images/English.pdf)).
+The translocation of ‘surplus’ specimens from one wild population to re-stock a population in another country or to restore a species, by re-introduction, to a part of its range from which it has been extirpated. Such programmes should be assessed against the IUCN re-introduction guidelines ([https://portals.iucn.org/library/node/10386](https://portals.iucn.org/library/node/10386)).
 
 **c) Educational (purpose code E)**
 
