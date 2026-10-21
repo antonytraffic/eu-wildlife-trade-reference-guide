@@ -19,10 +19,11 @@ External links (optional, for routine maintenance):
     python check_links.py --external
 also visits every link to another website (EUR-Lex, CITES, Species+ ...) and
 lists the ones that fail, in two groups: "possibly broken" (not found, moved,
-no answer) and "refused" (sites such as cites.org that block automated checks,
-which are usually fine). Some web applications (e.g. CIRCABC) only answer
-properly in a browser, so confirm a "possibly broken" link by opening it before
-changing anything. These results don't change the exit status.
+no answer) and "can't be checked automatically" (sites such as cites.org that
+block checkers, and web applications such as CIRCABC and Bluesky that only
+answer properly in a browser; these are usually fine). Confirm a "possibly
+broken" link by opening it before changing anything. These results don't change
+the exit status.
 
 Exit status: 0 if every internal link resolves, 1 if anything is broken.
 """
@@ -38,6 +39,10 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 PDF_FILENAME = "EU-Wildlife-Trade-Reference-Guide.pdf"
+
+# Web applications that answer "not found" to anything but a real browser, so an
+# automated check can't tell whether their links work (checked by hand Oct 2026).
+BROWSER_ONLY_HOSTS = {"bsky.app", "circabc.europa.eu"}
 
 # Attributes that point at another file or anchor.
 LINK_ATTRS = {("a", "href"), ("link", "href"), ("script", "src"), ("img", "src"),
@@ -217,13 +222,15 @@ def main() -> int:
     if args.external:
         print("\nChecking links to other websites...")
         n, problems = check_external(site)
-        refused = [p for p in problems if p.split(":", 1)[0] in ("HTTP 401", "HTTP 403", "HTTP 429")]
+        refused = [p for p in problems if p.split(":", 1)[0] in ("HTTP 401", "HTTP 403", "HTTP 429")
+                   or urlsplit(p.split(": ", 1)[1].split()[0]).hostname in BROWSER_ONLY_HOSTS]
         likely = [p for p in problems if p not in refused]
         print(f"External: {n:,} addresses checked.")
         print(f"\n{len(likely)} possibly broken -- open each in a browser to confirm, then fix or remove:")
         for pr in likely:
             print(f"  CHECK: {pr}")
-        print(f"\n{len(refused)} on sites that refuse automated checks -- usually fine; spot-check a few by hand:")
+        print(f"\n{len(refused)} on sites that can't be checked automatically (they block checkers, or "
+              "only work in a browser) -- usually fine; spot-check a few by hand:")
         for pr in refused:
             print(f"  REFUSED: {pr}")
     return 1 if errors else 0
