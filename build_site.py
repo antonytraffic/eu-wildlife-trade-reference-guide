@@ -50,13 +50,17 @@ ANALYTICS = False
 # Optional AI assistant, delivered separately as an add-on and off by default.
 # Turning it on needs static/chatbot.js and a deployed back end at
 # CHATBOT_API_URL -- see the add-on's own instructions.
-CHATBOT         = True
+CHATBOT         = False
 CHATBOT_API_URL = "https://chatbot-api-khaki.vercel.app/api/chat"
 
 # EC Webtools settings, as given by the Commission.
 COOKIE_NOTICE_URL     = "https://ec.europa.eu/info/cookies_en"
 ANALYTICS_SITE_ID     = "6f836dc5-4685-4d03-8c47-01d2f7ed55d3"
 ACCESSIBILITY_URL     = "https://environment.ec.europa.eu/accessibility-statement_en"
+# The header's "Home" link: DG ENV's wildlife trade policy page, which the
+# Commission asked the guide to point back to. The guide's own home page is
+# reached from the "Home" breadcrumb on every other page.
+POLICY_HOME_URL       = "https://environment.ec.europa.eu/topics/nature-and-biodiversity/wildlife-trade_en"
 
 # Address of the site's top folder on the live server, e.g. "/eu-wildlife-trade-guide/"
 # (with both slashes). Only 404.html uses it: the server shows that page at
@@ -2789,7 +2793,7 @@ def ecl_site_header(root: str) -> str:
       <div class="ecl-site-header__header">
         <div class="ecl-site-header__container ecl-container">
           <div class="ecl-site-header__top">
-            <a href="{root}index.html" class="ecl-link ecl-link--standalone ecl-site-header__logo-link">
+            <a href="https://commission.europa.eu/index_en" class="ecl-link ecl-link--standalone ecl-site-header__logo-link" aria-label="Home - European Commission">
               <picture class="ecl-picture ecl-site-header__picture">
                 <source srcset="{logo}" media="(min-width: 996px)">
                 <img class="ecl-site-header__logo-image ecl-site-header__logo-image--l" src="{logo}" alt="European Commission">
@@ -2863,7 +2867,7 @@ def ecl_site_header(root: str) -> str:
         </header>
         <ul class="ecl-mega-menu__list">
           <li class="ecl-mega-menu__item" data-ecl-mega-menu-item id="ecl-mega-menu-item-main-0">
-            <a href="{root}index.html" class="ecl-link ecl-link--standalone ecl-mega-menu__link" data-ecl-mega-menu-link id="ecl-mega-menu-item-main-0-link">Home</a>
+            <a href="{POLICY_HOME_URL}" class="ecl-link ecl-link--standalone ecl-mega-menu__link" data-ecl-mega-menu-link id="ecl-mega-menu-item-main-0-link">Home</a>
           </li>
           <li class="ecl-mega-menu__item" data-ecl-mega-menu-item id="ecl-mega-menu-item-main-1">
             <a href="{root}about.html" class="ecl-link ecl-link--standalone ecl-mega-menu__link" data-ecl-mega-menu-link id="ecl-mega-menu-item-main-1-link">{h(ABOUT_TITLE)}</a>
@@ -2956,24 +2960,17 @@ def ecl_breadcrumb(segments: list[tuple[str, str | None]]) -> str:
 def ecl_site_footer(root: str) -> str:
     """DG ENV's real ECL footer, copied from the ECL quick example template.
     `__row--specific` keeps DG ENV's own
-    structure and links verbatim (site-info, contact, about, related links,
-    social accounts) per the approved decision; TRAFFIC co-branding is added
-    to the site-info description alongside DG ENV's own text, and the old
-    `.site-footer__cta` feedback mailto folds into the contact list as an
-    extra item rather than staying a standalone CTA bar.
+    structure and links (site-info, contact, about, social accounts), with
+    TRAFFIC co-branding added to the site-info description alongside DG
+    ENV's own text. The Commission asked (Oct 2026) for the template's
+    "Related links" section and our extra "Send feedback" and "Download PDF"
+    items to be removed; the PDF stays reachable from the home page and the
+    header's Reference Guide menu.
 
     `__row--common` is mandatory EC furniture the site never had: the
     mute-negative EC logo, the "Follow the European Commission" social row,
     and the legal navigation -- copied in full, minus the template's empty
     trailing `<a href="">` (spec section 1.1).
-
-    "Download PDF" has no DG-ENV counterpart to copy, but it's the only way
-    a visitor gets the offline whole-guide PDF and doesn't duplicate any
-    link already in the header mega menu (unlike Home/About/Search, which
-    do and are dropped). It's added as a second item in `__section--about`,
-    next to Accessibility -- both are, unlike Related links' outbound EU
-    topic portals, links *about this site's own material* rather than
-    external destinations.
 
     Below DG ENV's description sits a single smallprint line in ECL's light
     blue: the EC/TRAFFIC attribution plus "Updated <Month YYYY>", taken from
@@ -3006,7 +3003,6 @@ def ecl_site_footer(root: str) -> str:
         ("https://www.youtube.com/user/eutube", "youtube", "Youtube"),
         ("https://european-union.europa.eu/contact-eu/social-media-channels_en", "chain", "Other"),
     ], "social_media_common_links")
-    pdf_href = f"{root}{PDF_FILENAME}"
     return f"""<footer class="ecl-site-footer" data-logo-area-label-en="Home&#x20;-&#x20;European&#x20;Commission">
   <div class="ecl-site-footer__main">
     <div class="ecl-container ecl-site-footer__container">
@@ -3033,9 +3029,6 @@ def ecl_site_footer(root: str) -> str:
                 <li class="ecl-site-footer__list-item">
                   <a href="https://ec.europa.eu/info/departments/environment_en#contact" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="Contact&#x20;us" data-footer-link-label="Contact&#x20;DG&#x20;Environment">Contact DG Environment</a>
                 </li>
-                <li class="ecl-site-footer__list-item">
-                  <a href="mailto:antony.bagott@traffic.org" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link">Send feedback</a>
-                </li>
               </ul>
             </div>
             <div class="ecl-site-footer__section ecl-site-footer__section--about">
@@ -3043,31 +3036,6 @@ def ecl_site_footer(root: str) -> str:
               <ul class="ecl-site-footer__list">
                 <li class="ecl-site-footer__list-item">
                   <a href="{ACCESSIBILITY_URL}" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="About&#x20;us" data-footer-link-label="Accessibility">Accessibility</a>
-                </li>
-                <li class="ecl-site-footer__list-item">
-                  <a href="{pdf_href}" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link">Download PDF</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="ecl-site-footer__row">
-            <div class="ecl-site-footer__section ecl-site-footer__section--related">
-              <div class="ecl-site-footer__title">Related links</div>
-              <ul class="ecl-site-footer__list">
-                <li class="ecl-site-footer__list-item">
-                  <a href="https://commission.europa.eu/food-farming-fisheries_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="Related&#x20;links" data-footer-link-label="Agriculture">Agriculture</a>
-                </li>
-                <li class="ecl-site-footer__list-item">
-                  <a href="https://oceans-and-fisheries.ec.europa.eu/index_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="Related&#x20;links" data-footer-link-label="Fisheries">Fisheries</a>
-                </li>
-                <li class="ecl-site-footer__list-item">
-                  <a href="https://climate.ec.europa.eu/index_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="Related&#x20;links" data-footer-link-label="Climate&#x20;action">Climate action</a>
-                </li>
-                <li class="ecl-site-footer__list-item">
-                  <a href="https://energy.ec.europa.eu/index_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="Related&#x20;links" data-footer-link-label="Energy">Energy</a>
-                </li>
-                <li class="ecl-site-footer__list-item">
-                  <a href="https://climate-pact.europa.eu/index_en" class="ecl-link ecl-link--standalone ecl-link--inverted ecl-site-footer__link" data-section-label-untranslated="Related&#x20;links" data-footer-link-label="European&#x20;Climate&#x20;Pact">European Climate Pact</a>
                 </li>
               </ul>
             </div>
