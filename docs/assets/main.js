@@ -100,6 +100,88 @@
     });
   }
 
+  /* Header language selector (see _ecl_language_selector in build_site.py).
+     ECL opens and closes the list; choosing a language asks Webtools eTrans
+     to machine-translate the page, as DG ENV's own pages do. Webtools only
+     loads on Commission domains (and localhost), so elsewhere the choice
+     just closes the list.
+     Webtools puts the language in the address (?etrans=de) but doesn't act
+     on it, and translates only the page in front of it. So the language is
+     kept in the address: a page opened with ?etrans=de translates itself,
+     links within the guide carry it on, and choosing English (or Webtools'
+     own "back to the original language" link) drops it. */
+  function initLanguageSelector() {
+    var selector = document.querySelector('[data-ecl-language-selector]');
+    var overlay = document.getElementById('language-list-overlay');
+    if (!selector || !overlay) return;
+    var translatedTo = 'en';
+
+    function closeList() {
+      var close = overlay.querySelector('[data-ecl-language-list-close]');
+      if (close && !overlay.hidden) close.click();
+    }
+    function linkFor(code) {
+      return overlay.querySelector('[data-etrans-lang="' + String(code).replace(/[^a-z-]/gi, '') + '"]');
+    }
+    function etrans() {
+      var wt = window.$wt;
+      return wt && wt.etrans && typeof wt.etrans.translate === 'function' ? wt.etrans : null;
+    }
+    function translate(code) {
+      var link = linkFor(code);
+      if (!link || !etrans()) return;
+      etrans().translate('body', code);
+      translatedTo = code;
+      overlay.querySelectorAll('.ecl-site-header__language-link--active').forEach(function (a) {
+        a.classList.remove('ecl-site-header__language-link--active');
+      });
+      link.classList.add('ecl-site-header__language-link--active');
+      var label = link.querySelector('.ecl-site-header__language-link-label').textContent;
+      selector.lastChild.textContent = code.toUpperCase();
+      selector.setAttribute('aria-label', 'Change language, current language is ' + label + ' - ' + code);
+    }
+
+    // Opened with ?etrans=xx: translate once Webtools has loaded eTrans.
+    var params = new URLSearchParams(location.search);
+    var fromUrl = params.get('etrans');
+    if (fromUrl && fromUrl !== 'en' && linkFor(fromUrl)) {
+      var tries = 0;
+      (function waitForEtrans() {
+        if (etrans()) translate(fromUrl);
+        else if (++tries < 40) setTimeout(waitForEtrans, 250);
+      }());
+    }
+
+    overlay.addEventListener('click', function (e) {
+      var link = e.target.closest('[data-etrans-lang]');
+      if (!link) return;
+      e.preventDefault();
+      var code = link.getAttribute('data-etrans-lang');
+      closeList();
+      if (code === translatedTo) return;
+      if (code === 'en') {
+        params.delete('etrans');
+        var query = params.toString();
+        location.assign(location.pathname + (query ? '?' + query : '') + location.hash);
+        return;
+      }
+      translate(code);
+    });
+
+    // Carry the language on to the next page of the guide.
+    document.addEventListener('click', function (e) {
+      if (translatedTo === 'en') return;
+      var a = e.target.closest('a[href]');
+      if (!a || a.closest('#webtools-etrans, #language-list-overlay')) return;
+      var url = new URL(a.href, location.href);
+      var path = url.pathname;
+      if (url.origin !== location.origin || !(path.slice(-5) === '.html' || path.slice(-1) === '/')) return;
+      if (path === location.pathname && url.search === location.search && url.hash) return;
+      url.searchParams.set('etrans', translatedTo);
+      a.href = url.href;
+    }, true);
+  }
+
   /* Arriving from a search result (?hl=word word ...): highlight those words
      in the article, with a floating bar to step through the matches or clear
      them. search.js supplies every form of each search word that occurs in
@@ -206,5 +288,6 @@
     initBackToTop();
     initFootnotesExpand();
     initTopNavDropdown();
+    initLanguageSelector();
   });
 }());
