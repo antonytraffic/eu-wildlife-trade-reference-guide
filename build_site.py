@@ -1875,6 +1875,88 @@ MAIN_JS = """\
     });
   }
 
+  /* Header language selector (see _ecl_language_selector in build_site.py).
+     ECL opens and closes the list; choosing a language asks Webtools eTrans
+     to machine-translate the page, as DG ENV's own pages do. Webtools only
+     loads on Commission domains (and localhost), so elsewhere the choice
+     just closes the list.
+     Webtools puts the language in the address (?etrans=de) but doesn't act
+     on it, and translates only the page in front of it. So the language is
+     kept in the address: a page opened with ?etrans=de translates itself,
+     links within the guide carry it on, and choosing English (or Webtools'
+     own "back to the original language" link) drops it. */
+  function initLanguageSelector() {
+    var selector = document.querySelector('[data-ecl-language-selector]');
+    var overlay = document.getElementById('language-list-overlay');
+    if (!selector || !overlay) return;
+    var translatedTo = 'en';
+
+    function closeList() {
+      var close = overlay.querySelector('[data-ecl-language-list-close]');
+      if (close && !overlay.hidden) close.click();
+    }
+    function linkFor(code) {
+      return overlay.querySelector('[data-etrans-lang="' + String(code).replace(/[^a-z-]/gi, '') + '"]');
+    }
+    function etrans() {
+      var wt = window.$wt;
+      return wt && wt.etrans && typeof wt.etrans.translate === 'function' ? wt.etrans : null;
+    }
+    function translate(code) {
+      var link = linkFor(code);
+      if (!link || !etrans()) return;
+      etrans().translate('body', code);
+      translatedTo = code;
+      overlay.querySelectorAll('.ecl-site-header__language-link--active').forEach(function (a) {
+        a.classList.remove('ecl-site-header__language-link--active');
+      });
+      link.classList.add('ecl-site-header__language-link--active');
+      var label = link.querySelector('.ecl-site-header__language-link-label').textContent;
+      selector.lastChild.textContent = code.toUpperCase();
+      selector.setAttribute('aria-label', 'Change language, current language is ' + label + ' - ' + code);
+    }
+
+    // Opened with ?etrans=xx: translate once Webtools has loaded eTrans.
+    var params = new URLSearchParams(location.search);
+    var fromUrl = params.get('etrans');
+    if (fromUrl && fromUrl !== 'en' && linkFor(fromUrl)) {
+      var tries = 0;
+      (function waitForEtrans() {
+        if (etrans()) translate(fromUrl);
+        else if (++tries < 40) setTimeout(waitForEtrans, 250);
+      }());
+    }
+
+    overlay.addEventListener('click', function (e) {
+      var link = e.target.closest('[data-etrans-lang]');
+      if (!link) return;
+      e.preventDefault();
+      var code = link.getAttribute('data-etrans-lang');
+      closeList();
+      if (code === translatedTo) return;
+      if (code === 'en') {
+        params.delete('etrans');
+        var query = params.toString();
+        location.assign(location.pathname + (query ? '?' + query : '') + location.hash);
+        return;
+      }
+      translate(code);
+    });
+
+    // Carry the language on to the next page of the guide.
+    document.addEventListener('click', function (e) {
+      if (translatedTo === 'en') return;
+      var a = e.target.closest('a[href]');
+      if (!a || a.closest('#webtools-etrans, #language-list-overlay')) return;
+      var url = new URL(a.href, location.href);
+      var path = url.pathname;
+      if (url.origin !== location.origin || !(path.slice(-5) === '.html' || path.slice(-1) === '/')) return;
+      if (path === location.pathname && url.search === location.search && url.hash) return;
+      url.searchParams.set('etrans', translatedTo);
+      a.href = url.href;
+    }, true);
+  }
+
   /* Arriving from a search result (?hl=word word ...): highlight those words
      in the article, with a floating bar to step through the matches or clear
      them. search.js supplies every form of each search word that occurs in
@@ -1981,6 +2063,7 @@ MAIN_JS = """\
     initBackToTop();
     initFootnotesExpand();
     initTopNavDropdown();
+    initLanguageSelector();
   });
 }());
 """
@@ -2710,6 +2793,7 @@ _ECL_ICON_PATHS = {
     "search": '<path fill-rule="evenodd" clip-rule="evenodd" d="M3 21c0-9.93 8.07-18 18-18s18 8.07 18 18c0 4.416-1.596 8.465-4.242 11.599l11.309 11.31-2.121 2.12L32.64 34.723A17.92 17.92 0 0 1 21 39c-9.93 0-18-8.07-18-18m33 0c0-8.28-6.72-15-15-15S6 12.72 6 21s6.72 15 15 15 15-6.72 15-15"/>',
     "hamburger": '<path fill-rule="evenodd" d="M42 12H6v3h36zM42 33H6v3h36zM6 22.5h36v3H6z"/>',
     "close": '<path fill-rule="evenodd" d="M42 8.01 39.99 6 24 21.99 8.01 6 6 8.01 21.99 24 6 39.99 8.01 42 24 26.01 39.99 42 42 39.99 26.01 24z"/>',
+    "global": '<path d="M24 3C12.39 3 3 12.39 3 24s9.39 21 21 21 21-9.39 21-21S35.61 3 24 3m18.24 19.65h-9.39c-.21-8.34-2.28-13.41-4.26-16.35 7.47 1.92 13.08 8.43 13.65 16.35M24.6 5.73c1.89 1.71 5.28 6.27 5.55 16.92h-12.3C18.12 12 21.51 7.44 23.4 5.73c.21 0 .39-.03.6-.03h.6zm-5.19.57c-1.98 2.94-4.05 7.98-4.26 16.35H5.76c.57-7.89 6.18-14.4 13.62-16.35zM5.76 25.35h9.36c.21 8.34 2.31 13.41 4.32 16.35-7.47-1.92-13.11-8.43-13.71-16.35zm17.7 16.92c-1.92-1.71-5.37-6.3-5.64-16.92h12.3C29.85 36 26.4 40.56 24.48 42.27h-1.02m5.04-.57c2.01-2.94 4.11-8.01 4.32-16.35h9.39c-.57 7.92-6.24 14.46-13.71 16.35"/>',
     # Not in brand/ecl/reference-menu-search.html, so drawn to match the
     # sprite's 48x48 grid and 3px stroke rather than copied from it.
     "download": '<path fill-rule="evenodd" d="M25.5 6h-3v23.38l-8.44-8.44-2.12 2.12L24 35.12l12.06-12.06-2.12-2.12-8.44 8.44zM9 39h30v3H9z"/>',
@@ -2759,6 +2843,78 @@ def _social_links(links: list[tuple[str, str, str]], section: str) -> str:
     return "\n".join(items)
 
 
+# The header's language selector, as on DG ENV's live pages: the EU official
+# languages, then "Other languages", in the order and spelling used there.
+# The guide is English-only, so choosing another language machine-translates
+# the page in place with Webtools eTrans (initLanguageSelector in main.js)
+# rather than linking to a translated copy. eTrans only runs on Commission
+# domains: elsewhere (GitHub Pages, a local build) the list opens and closes
+# but choosing a language does nothing.
+_EU_LANGUAGES = [
+    ("bg", "български"), ("es", "español"), ("cs", "čeština"), ("da", "dansk"),
+    ("de", "Deutsch"), ("et", "eesti"), ("el", "ελληνικά"), ("en", "English"),
+    ("fr", "français"), ("ga", "Gaeilge"), ("hr", "hrvatski"), ("it", "italiano"),
+    ("lv", "latviešu"), ("lt", "lietuvių"), ("hu", "magyar"), ("mt", "Malti"),
+    ("nl", "Nederlands"), ("pl", "polski"), ("pt", "português"), ("ro", "română"),
+    ("sk", "slovenčina"), ("sl", "slovenščina"), ("fi", "suomi"), ("sv", "svenska"),
+]
+_OTHER_LANGUAGES = [("ru", "русский"), ("uk", "українська")]
+
+# Webtools eTrans settings, matching the Commission's own pages (and the
+# OpenEuropa oe_webtools "unified eTrans" block): no eTrans button of its own,
+# since the language selector starts the translation, and its translation bar
+# goes in #webtools-etrans under the header. The selector itself is left
+# untranslated.
+ETRANS_CONFIG = {
+    "service": "etrans",
+    "renderAs": {"icon": False, "link": False, "button": False},
+    "languages": {"source": "en"},
+    "exclude": ".ecl-site-header__language-item,.ecl-site-header__language-selector",
+    "config": {"live": False, "mode": "lc2023", "targets": {"receiver": "#webtools-etrans"}},
+    "delay": 0,
+}
+
+
+def _ecl_language_selector() -> str:
+    """ECL's site-header language selector (brand/ecl/reference-menu-search.html)."""
+    def items(langs):
+        out = ""
+        for code, label in langs:
+            active = " ecl-site-header__language-link--active" if code == "en" else ""
+            out += (
+                f'<li class="ecl-site-header__language-item">'
+                f'<a href="#" class="ecl-link ecl-link--standalone ecl-site-header__language-link{active}" hreflang="{code}" data-etrans-lang="{code}">'
+                f'<span class="ecl-site-header__language-link-code">{code}</span>'
+                f'<span class="ecl-site-header__language-link-label" lang="{code}">{label}</span>'
+                f'</a></li>'
+            )
+        return out
+    return f"""<div class="ecl-site-header__language">
+                <button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-site-header__language-selector" type="button" data-ecl-language-selector aria-label="Change language, current language is English - en" aria-controls="language-list-overlay" aria-haspopup="dialog"><span class="ecl-site-header__language-icon">{_ecl_icon("global", "ecl-icon--m ecl-site-header__icon")}</span>EN</button>
+                <div class="ecl-site-header__language-container" id="language-list-overlay" hidden data-ecl-language-list-overlay aria-labelledby="ecl-site-header__language-title" role="dialog">
+                  <div class="ecl-site-header__language-header">
+                    <div class="ecl-site-header__language-title" id="ecl-site-header__language-title">Select your language</div>
+                    <button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-site-header__language-close ecl-button--icon-only" type="submit" data-ecl-language-list-close>
+                      <span class="ecl-button__container">
+                        <span class="ecl-button__label" data-ecl-label="true">Close</span>
+                        {_ecl_icon("close", "ecl-icon--m ecl-button__icon")}
+                      </span>
+                    </button>
+                  </div>
+                  <div class="ecl-site-header__language-content" data-ecl-language-list-content>
+                    <div class="ecl-site-header__language-category" data-ecl-language-list-eu>
+                      <div class="ecl-site-header__language-category-title">EU official languages</div>
+                      <ul class="ecl-site-header__language-list" translate="no">{items(_EU_LANGUAGES)}</ul>
+                    </div>
+                    <div class="ecl-site-header__language-category" data-ecl-language-list-non-eu>
+                      <div class="ecl-site-header__language-category-title">Other languages</div>
+                      <ul class="ecl-site-header__language-list" translate="no">{items(_OTHER_LANGUAGES)}</ul>
+                    </div>
+                  </div>
+                </div>
+              </div>"""
+
+
 def ecl_site_header(root: str) -> str:
     """<header class="ecl-site-header ..."> with an embedded ECL mega menu + search form.
 
@@ -2800,19 +2956,8 @@ def ecl_site_header(root: str) -> str:
               </picture>
             </a>
             <div class="ecl-site-header__action">
-              <script type="application/json">{{
-                "service": "etrans",
-                "delay": 1000,
-                "lang": "en",
-                "languages": {{
-                  "exclude": ["en"]
-                }},
-                "renderAs": {{
-                  "icon": true,
-                  "button": false,
-                  "link": false
-                }}
-              }}</script>
+              <script type="application/json">{json.dumps(ETRANS_CONFIG)}</script>
+              {_ecl_language_selector()}
               <div class="ecl-site-header__search-container" role="search">
                 <button class="ecl-button ecl-button--tertiary ecl-button--neutral ecl-site-header__search-toggle ecl-button--icon-only" type="button" data-ecl-search-toggle aria-controls="header-search-form" aria-expanded="false">
                   <span class="ecl-button__container">
@@ -2838,6 +2983,7 @@ def ecl_site_header(root: str) -> str:
             </div>
           </div>
         </div>
+        <div class="ecl-container"><div id="webtools-etrans"></div></div>
         <div class="ecl-site-header__banner">
           <div class="ecl-container">
             <div class="ecl-site-header__site-name">{h(SITE_NAME_BANNER)}</div>
