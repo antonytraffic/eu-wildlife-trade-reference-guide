@@ -3118,8 +3118,9 @@ def ecl_site_footer(root: str) -> str:
     and the legal navigation -- copied in full, minus the template's empty
     trailing `<a href="">` (spec section 1.1).
 
-    Below DG ENV's description sits a single smallprint line in ECL's light
-    blue: the EC/TRAFFIC attribution plus "Updated <Month YYYY>", taken from
+    Below DG ENV's description sits a smallprint paragraph in ECL's light
+    blue: the EC/TRAFFIC attribution, then "Updated <Month YYYY>" on its own
+    line, taken from
     the build date so it moves on whenever the guide is rebuilt. The longer
     _footer_content.md paragraphs (revision history, opinion disclaimer,
     citation notice) used to follow it but took up too much of the footer and
@@ -3160,7 +3161,7 @@ def ecl_site_footer(root: str) -> str:
           <div class="ecl-site-footer__description">
             This site is managed by:<br />Directorate-General for Environment
           </div>
-          <p class="footer-smallprint">A reference guide developed by the European Commission and TRAFFIC. Updated {updated}.</p>
+          <p class="footer-smallprint">A reference guide developed by the European Commission and TRAFFIC.<br />Updated {updated}.</p>
           <div class="ecl-social-media-follow ecl-social-media-follow--horizontal ecl-social-media-follow--left ecl-site-footer__social-media">
             <ul class="ecl-social-media-follow__list">
               {dg_env_social}
